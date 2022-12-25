@@ -32,13 +32,17 @@
 
     @include('inc.public.navbar')
 
-
-
     <main>
         @yield('content')
     </main>
 
-
+    @if (session('alerts'))
+        <div class="">
+            <div class="absolute right-0 z-50 top-9">
+                <x-alert />
+            </div>
+        </div>
+    @endif
 
     @livewireScripts
 

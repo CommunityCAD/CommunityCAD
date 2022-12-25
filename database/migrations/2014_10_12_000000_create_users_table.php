@@ -14,12 +14,37 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+
+            $table->id('id');
+            $table->string('discord_name');
+            $table->string('discriminator');
+            $table->text('avatar');
+
+            $table->string('steam_hex');
+            $table->bigInteger('steam_id');
+            $table->string('steam_name');
+
+            $table->unsignedBigInteger('account_status')->default(1);
+
+            $table->boolean('reapply')->nullable();
+            $table->date('reapply_date')->nullable();
+            $table->string('denied_reason')->nullable();
+
+            $table->string('email')->nullable();
+            $table->string('real_name')->nullable();
+            $table->date('birthday')->nullable();
+
+            $table->string('display_name')->nullable();
+            $table->string('ts_name')->nullable();
+            $table->string('officer_name')->nullable();
+            $table->dateTime('last_login')->nullable();
+            $table->boolean('is_protected_user')->default(0);
+            $table->boolean('is_super_user')->default(0);
+            $table->json('history')->nullable();
+            $table->unsignedBigInteger('civilian_level')->default(1);
+
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
