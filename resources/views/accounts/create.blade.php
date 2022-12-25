@@ -7,14 +7,66 @@
         <div x-data="{
             currentStep: 1
         }"
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:max-w-2xl sm:rounded-lg ">
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
             <div class="flex text-gray-900 dark:text-white">
-                <button type="button" @click="currentStep = 1" class="p-2 border-indigo-500"
-                    :class="currentStep == 1 ? 'border border-b-0' : 'border-b'">Step 1 (Link Steam)</button>
-                <button type="button" @click="currentStep = 2" class="p-2 border-indigo-500"
-                    :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)</button>
-                <button type="button" @click="currentStep = 3" class="p-2 border-indigo-500"
-                    :class="currentStep == 3 ? 'border border-b-0' : 'border-b'">Step 3 (IRL Information)</button>
+
+                @if (session('steam_id'))
+                    <button type="button" @click="currentStep = 1"
+                        class="flex items-center p-2 text-green-400 border-indigo-500"
+                        :class="currentStep == 1 ? 'border border-b-0' : 'border-b'">Step 1 (Link Steam)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4 ml-3">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+
+                    </button>
+                @else
+                    <button type="button" @click="currentStep = 1" class="p-2 border-indigo-500"
+                        :class="currentStep == 1 ? 'border border-b-0' : 'border-b'">Step 1 (Link Steam)</button>
+                @endif
+
+                @if ($errors->has(['display_name', 'officer_name', 'ts_name']))
+                    <button type="button" @click="currentStep = 2"
+                        class="flex items-center p-2 text-red-400 border-indigo-500"
+                        :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4 ml-3">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                        </svg>
+                    </button>
+                @elseif($errors->all())
+                    <button type="button" @click="currentStep = 2"
+                        class="flex items-center p-2 text-green-400 border-indigo-500"
+                        :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4 ml-3">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                @else
+                    <button type="button" @click="currentStep = 2" class="p-2 border-indigo-500"
+                        :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)</button>
+                @endif
+
+                @if ($errors->has(['real_name', 'birthday', 'email']))
+                    <button type="button" @click="currentStep = 3"
+                        class="flex items-center p-2 text-red-400 border-indigo-500"
+                        :class="currentStep == 3 ? 'border border-b-0' : 'border-b'">Step 3 (IRL Information)
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4 ml-3">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                        </svg>
+
+                    </button>
+                @else
+                    <button type="button" @click="currentStep = 3" class="p-2 border-indigo-500"
+                        :class="currentStep == 3 ? 'border border-b-0' : 'border-b'">Step 3 (IRL Information)</button>
+                @endif
+
                 <div class="flex-grow border-b border-indigo-500"></div>
             </div>
             <form class="mt-2 text-gray-900 dark:text-white" method="POST" action="{{ route('account.store') }}">
@@ -29,7 +81,7 @@
                             <p>Steam ID: {{ session('steam_id') }}</p>
                             <p>Steam Hex: {{ session('steam_hex') }}</p>
                         @else
-                            <p class="text-lg text-red-600">You must complete this step before moving forward. Data entered
+                            <p class="text-lg text-red-400">You must complete this step before moving forward. Data entered
                                 into Step 2 and 3 will be
                                 deleted.</p>
 
@@ -93,12 +145,12 @@
 
                 <div class="form-group">
                     <button type="button" x-show="currentStep < 3" @click="currentStep++"
-                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25">
+                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70">
                         Next
                     </button>
                     <button type="submit" x-show="currentStep == 3"
-                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25">
-                        Submit Account
+                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70">
+                        Create Account
                     </button>
                 </div>
             </form>

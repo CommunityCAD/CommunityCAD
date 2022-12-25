@@ -28,7 +28,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-slate-200 dark:bg-slate-800">
+<body class="bg-slate-200 dark:bg-[#01161e]">
 
     @include('inc.public.navbar')
 

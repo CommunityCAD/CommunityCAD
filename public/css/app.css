@@ -650,6 +650,14 @@ video {
   margin-bottom: 0.75rem;
 }
 
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
+.mr-6 {
+  margin-right: 1.5rem;
+}
+
 .block {
   display: block;
 }
@@ -930,6 +938,11 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.border-\[\#eff6e0\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 246 224 / var(--tw-border-opacity));
+}
+
 .bg-pink-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(244 114 182 / var(--tw-bg-opacity));
@@ -997,6 +1010,11 @@ video {
 .bg-green-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#01161e\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 22 30 / var(--tw-bg-opacity));
 }
 
 .fill-current {
@@ -1250,6 +1268,36 @@ video {
   color: rgb(13 148 136 / var(--tw-text-opacity));
 }
 
+.text-red-800 {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
+}
+
+.text-red-300 {
+  --tw-text-opacity: 1;
+  color: rgb(252 165 165 / var(--tw-text-opacity));
+}
+
+.text-green-400 {
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity));
+}
+
+.text-\[\#eff6e0\] {
+  --tw-text-opacity: 1;
+  color: rgb(239 246 224 / var(--tw-text-opacity));
+}
+
+.text-teal-800 {
+  --tw-text-opacity: 1;
+  color: rgb(17 94 89 / var(--tw-text-opacity));
+}
+
+.text-teal-300 {
+  --tw-text-opacity: 1;
+  color: rgb(94 234 212 / var(--tw-text-opacity));
+}
+
 .opacity-0 {
   opacity: 0;
 }
@@ -1355,6 +1403,11 @@ video {
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-green-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+
 .hover\:text-gray-300:hover {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
@@ -1387,6 +1440,14 @@ video {
 
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+
+.hover\:opacity-75:hover {
+  opacity: 0.75;
+}
+
+.hover\:opacity-70:hover {
+  opacity: 0.7;
 }
 
 .hover\:shadow:hover {
@@ -1473,6 +1534,21 @@ video {
 .dark .dark\:bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-\[\#01161e\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 22 30 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-\[\#598392\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(89 131 146 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-\[\#124559\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 69 89 / var(--tw-bg-opacity));
 }
 
 .dark .dark\:text-gray-400 {
