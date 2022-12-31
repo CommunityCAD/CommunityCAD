@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Department;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,9 @@ class ApplicationController extends Controller
 
     public function create(): View
     {
-        return view('applications.create');
+
+        $departments = Department::where('is_open_external', 1)->get(['name', 'id']);
+        return view('applications.create', compact('departments'));
     }
 
     public function store(Request $request): RedirectResponse

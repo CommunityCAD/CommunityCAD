@@ -4,156 +4,132 @@
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
         <h2 class="text-2xl font-bold dark:text-gray-200">Community Application</h2>
 
-        <div x-data="{
-            currentStep: 1
-        }"
+        <div
             class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
-            <div class="flex text-gray-900 dark:text-white">
+            <div class="text-gray-900 dark:text-white">
 
-                @if (session('steam_id'))
-                    <button type="button" @click="currentStep = 1"
-                        class="flex items-center p-2 text-green-400 border-indigo-500"
-                        :class="currentStep == 1 ? 'border border-b-0' : 'border-b'">Step 1 (Link Steam)
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-4 h-4 ml-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                <div class="w-full">
+                    <label for="department_id" class="block mt-3 text-black-500">What department are you applying for?</label>
+                    <select name="department_id" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none"
+                        id="">
+                        <option value="">-- Choose One --</option>
 
-                    </button>
-                @else
-                    <button type="button" @click="currentStep = 1" class="p-2 border-indigo-500"
-                        :class="currentStep == 1 ? 'border border-b-0' : 'border-b'">Step 1 (Link Steam)</button>
-                @endif
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->id }}"
+                                {{ old('department_id') === $department->id ? 'selected="selected"' : '' }}>
+                                {{ $department->name }}</option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
+                </div>
 
-                @if ($errors->has(['display_name', 'officer_name', 'ts_name']))
-                    <button type="button" @click="currentStep = 2"
-                        class="flex items-center p-2 text-red-400 border-indigo-500"
-                        :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-4 h-4 ml-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                        </svg>
-                    </button>
-                @elseif($errors->all())
-                    <button type="button" @click="currentStep = 2"
-                        class="flex items-center p-2 text-green-400 border-indigo-500"
-                        :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-4 h-4 ml-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </button>
-                @else
-                    <button type="button" @click="currentStep = 2" class="p-2 border-indigo-500"
-                        :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)</button>
-                @endif
+                <div class="w-full">
+                    <label for="why_join_department" class="block mt-3 text-black-500">Why do you wish to join this
+                        department?</label>
+                    <textarea type="text" name="why_join_department"
+                        class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('why_join_department') }}</textarea>
+                    <x-input-error :messages="$errors->get('why_join_department')" class="mt-2" />
+                </div>
 
-                @if ($errors->has(['real_name', 'birthday', 'email']))
-                    <button type="button" @click="currentStep = 3"
-                        class="flex items-center p-2 text-red-400 border-indigo-500"
-                        :class="currentStep == 3 ? 'border border-b-0' : 'border-b'">Step 3 (IRL Information)
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-4 h-4 ml-3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                        </svg>
+                <div class="w-full">
+                    <label for="experience_department" class="block mt-3 text-black-500">Do you have any experiences in this
+                        field?</label>
+                    <textarea type="text" name="experience_department"
+                        class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('experience_department') }}</textarea>
+                    <x-input-error :messages="$errors->get('experience_department')" class="mt-2" />
+                </div>
 
-                    </button>
-                @else
-                    <button type="button" @click="currentStep = 3" class="p-2 border-indigo-500"
-                        :class="currentStep == 3 ? 'border border-b-0' : 'border-b'">Step 3 (IRL Information)</button>
-                @endif
+                <div class="w-full">
+                    <label for="department_duties" class="block mt-3 text-black-500">In your own words, what are the general
+                        duties of the department?</label>
+                    <textarea type="text" name="department_duties"
+                        class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('department_duties') }}</textarea>
+                    <x-input-error :messages="$errors->get('department_duties')" class="mt-2" />
+                </div>
 
-                <div class="flex-grow border-b border-indigo-500"></div>
+                <div class="w-full">
+                    <label for="scenario" class="block mt-3 text-black-500">Please create a detailed scenario (For
+                        Example: 911 call, traffic stop, crime scene, etc.)</label>
+                    <textarea type="text" name="scenario" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('scenario') }}</textarea>
+                    <x-input-error :messages="$errors->get('scenario')" class="mt-2" />
+                </div>
+
+                <hr class="my-4">
+
+                <div class="w-full">
+                    <label for="about_you" class="block mt-3 text-black-500">Tell us about yourself</label>
+                    <textarea type="text" name="about_you" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('about_you') }}</textarea>
+                    <x-input-error :messages="$errors->get('about_you')" class="mt-2" />
+                </div>
+
+                <div class="w-full">
+                    <label for="skills" class="block mt-3 text-black-500">Do you have any skills that can be useful in
+                        your department and/or the community?</label>
+                    <textarea type="text" name="skills" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('skills') }}</textarea>
+                    <x-input-error :messages="$errors->get('skills')" class="mt-2" />
+                </div>
+
+                <div class="w-full">
+                    <label for="legal_copy" class="block mt-3 text-black-500">Do you have a working and legal copy of GTA
+                        V on PC?</label>
+                    <select name="legal_copy" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none"
+                        id="">
+                        <option value="">-- Choose One --</option>
+                        <option {{ old('previous_member') === 1 ? 'selected="selected"' : '' }} value="1">Yes</option>
+                        <option {{ old('previous_member') === 0 ? 'selected="selected"' : '' }} value="0">No</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('legal_copy')" class="mt-2" />
+                </div>
+
+                <div class="w-full">
+                    <label for="previous_member" class="block mt-3 text-black-500">Are you a previous member of
+                        {{ config('cad.community_name') }}?</label>
+                    <select name="previous_member" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none"
+                        id="">
+                        <option value="">-- Choose One --</option>
+                        <option {{ old('previous_member') === 1 ? 'selected="selected"' : '' }} value="1">Yes</option>
+                        <option {{ old('previous_member') === 0 ? 'selected="selected"' : '' }} value="0">No</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('previous_member')" class="mt-2" />
+                </div>
+
+                <div class="w-full">
+                    <label for="why_join_community" class="block mt-3 text-black-500">Why do you want to be apart of
+                        {{ config('cad.community_name') }}?</label>
+                    <textarea type="text" name="why_join_community"
+                        class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('why_join_community') }}</textarea>
+                    <x-input-error :messages="$errors->get('why_join_community')" class="mt-2" />
+                </div>
+
+                <button type="submit"
+                    class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70">
+                    Submit Application
+                </button>
+
+                <h3 class="text-lg text-center my-4">Application Terms</h3>
+                <div class="space-y-4">
+                    <p class="">You understand that you may only submit one application per recruitment cycle and that
+                        if you are denied
+                        you are required to wait until the next recruitment cycle to reapply.</p>
+
+                    <p class="">You have read over the Applacation Rules & Regulations and agree to them?</p>
+
+                    <p class="">Have you read over your application and ensured that all of the information on this
+                        application is fully
+                        accurate and correct, and that you are ready to submit this application for review?</p>
+
+                    <p class="">You are at least {{ config('cad.minimum_age') }} years of age at the time of
+                        submitting this application
+                    </p>
+
+                    <p class="">You understand that applicants will be contacted via our Fan Discord and you must be a
+                        member of it if
+                        you
+                        wish to further within your application</p>
+                </div>
+
+
             </div>
-            <form class="mt-2 text-gray-900 dark:text-white" method="POST" action="{{ route('account.store') }}">
-                @csrf
-
-                <div x-show="currentStep == 1">
-                    <div>
-                        @if (session('steam_id'))
-                            <p class="text-lg text-green-600">Thank You! Please continue to step 2.</p>
-
-                            <p>Steam Name: {{ session('steam_username') }}</p>
-                            <p>Steam ID: {{ session('steam_id') }}</p>
-                            <p>Steam Hex: {{ session('steam_hex') }}</p>
-                        @else
-                            <p class="text-lg text-red-400">You must complete this step before moving forward. Data entered
-                                into Step 2 and 3 will be
-                                deleted.</p>
-
-                            <a href="{{ route('auth.steam') }}"
-                                class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-green-900 border border-transparent rounded-md hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:shadow-outline-green disabled:opacity-25">
-                                Link Steam Account</a>
-                        @endif
-
-                    </div>
-                </div>
-                <div x-show="currentStep == 2">
-                    <p class="text-lg">Names that you would like to see in the CAD/Website.</p>
-
-                    <div>
-                        <label for="display_name" class="block mt-3 text-black-500">Display Name</label>
-                        <input type="text" name="display_name" value="{{ old('display_name') }}"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
-                        <x-input-error :messages="$errors->get('display_name')" class="mt-2" />
-                    </div>
-                    <div>
-                        <label for="officer_name" class="block mt-3 text-black-500">Officer Name</label>
-                        <input type="text" name="officer_name" value="{{ old('officer_name') }}"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
-                        <x-input-error :messages="$errors->get('officer_name')" class="mt-2" />
-                    </div>
-                    <div>
-                        <label for="ts_name" class="block mt-3 text-black-500">Teamspeak Name</label>
-                        <input type="text" name="ts_name" value="{{ old('ts_name') }}"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
-                        <x-input-error :messages="$errors->get('ts_name')" class="mt-2" />
-                    </div>
-
-                </div>
-
-                <div x-show="currentStep == 3">
-                    <p class="text-lg">We do not share this information with anyone outside of Admins and Recruiters. Review
-                        the Privacy Policy below.</p>
-                    <div>
-                        <label for="real_name" class="block mt-3 text-black-500">Real Name <span
-                                class="text-red-600">*</span></label>
-                        <input type="text" name="real_name" value="{{ old('real_name') }}"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
-                        <x-input-error :messages="$errors->get('real_name')" class="mt-2" />
-                    </div>
-                    <div>
-                        <label for="email" class="block mt-3 text-black-500">Email <span
-                                class="text-red-600">*</span></label>
-                        <input type="email" name="email" value="{{ old('email') }}"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                    </div>
-                    <div>
-                        <label for="birthday" class="block mt-3 text-black-500">When is your birthday? <span
-                                class="text-red-600">*</span></label>
-                        <input type="date" name="birthday" value="{{ old('birthday') }}"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
-                        <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    <button type="button" x-show="currentStep < 3" @click="currentStep++"
-                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70">
-                        Next
-                    </button>
-                    <button type="submit" x-show="currentStep == 3"
-                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70">
-                        Create Account
-                    </button>
-                </div>
-            </form>
         </div>
 
     </div>
