@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -27,6 +28,11 @@ class User extends Authenticatable
         'member_join_date' => 'datetime',
         'birthday' => 'date'
     ];
+
+    public function applications()
+    {
+        return $this->hasMany('App\Models\Application');
+    }
 
     public static function dec2hex($number)
     {

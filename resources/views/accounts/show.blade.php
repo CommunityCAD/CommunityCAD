@@ -113,11 +113,18 @@
                                 Application</a>
                         </div>
                         <ul class="space-y-2 list-inside">
-                            <li>
-                                <a href="#" class="text-teal-300 hover:underline hover:text-teal-400">Application
-                                    #98743</a>
-                                <div class="text-xs">Status: Pending Review</div>
-                            </li>
+
+                            @foreach ($user->applications as $application)
+                                <li>
+                                    <a href="{{ route('application.show', $application->id) }}"
+                                        class="text-teal-300 hover:underline hover:text-teal-400">Application
+                                        #{{ $application->id }}</a>
+                                    <div class="text-xs">Status: Pending Review</div>
+                                    <div class="text-xs">Created At: {{ $application->created_at->format('m/d/Y') }}</div>
+                                </li>
+                            @endforeach
+
+
 
                         </ul>
                     </div>

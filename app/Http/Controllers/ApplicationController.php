@@ -35,6 +35,10 @@ class ApplicationController extends Controller
         $data['comments'] = json_encode($comments);
 
         Application::create($data);
+
+        auth()->user()->update(['account_status' => 2]);
+
+
         return redirect()->route('account.show', auth()->user()->id)->with('alerts', [['message' => 'Application Created.', 'level' => 'success']]);
     }
 
