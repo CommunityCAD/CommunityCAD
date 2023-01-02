@@ -12,6 +12,8 @@ Route::get('login/discord', function () {
     return Socialite::driver('discord')->redirect();
 })->name('auth.discord')->middleware('guest');
 
+Route::get('login/offline', [AuthController::class, 'offlineLogin']);
+
 Route::get('login/discord/handle', [AuthController::class, 'login'])->middleware('guest');
 
 Route::get('link/steam', function () {
