@@ -17,12 +17,6 @@ class AccountController extends Controller
         $this->middleware('guest')->only(['create', 'store']);
     }
 
-    public function index(): View
-    {
-        $users = User::all();
-        return view('accounts.index', compact('users'));
-    }
-
     public function create(): View
     {
         return view('accounts.create');
@@ -62,22 +56,5 @@ class AccountController extends Controller
     {
 
         return view('accounts.show', compact('user'));
-    }
-
-    public function edit(User $user): View
-    {
-        return view('accounts.edit', compact('user'));
-    }
-
-    public function update(Request $request, User $user): RedirectResponse
-    {
-        $user->update($request->validated());
-        return redirect()->route('accounts.index')->with('success', 'Message');
-    }
-
-    public function destroy(User $user): RedirectResponse
-    {
-        $user->delete();
-        return redirect()->route('accounts.index')->with('success', 'Message');
     }
 }

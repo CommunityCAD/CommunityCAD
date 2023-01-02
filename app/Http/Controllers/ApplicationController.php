@@ -8,6 +8,7 @@ use App\Models\Department;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -36,7 +37,7 @@ class ApplicationController extends Controller
 
         Application::create($data);
 
-        auth()->user()->update(['account_status' => 2]);
+        Auth::user()->update(['account_status' => 2]);
 
 
         return redirect()->route('account.show', auth()->user()->id)->with('alerts', [['message' => 'Application Created.', 'level' => 'success']]);
@@ -44,12 +45,21 @@ class ApplicationController extends Controller
 
     public function show(Application $application): View
     {
-        return view('applications.show', compact('applications'));
+        return view('applications.show', compact('application'));
     }
 
     public function update(Request $request, Application $application): RedirectResponse
     {
-        $application->update($request->validated());
-        return redirect()->route('applications.index')->with('success', 'Message');
+
+        $validated = $request->validate([
+            'status' => 'required|numeric',
+        ]);
+
+
+        $application->update($validated);
+
+        Auth::user()->update(['account_status' => 1]);
+
+        return redirect()->route('account.show', auth()->user()->id)->with('alerts', [['message' => 'Application Withdrawn.', 'level' => 'success']]);
     }
 }

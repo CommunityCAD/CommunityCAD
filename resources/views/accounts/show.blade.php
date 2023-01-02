@@ -108,9 +108,13 @@
                                 </span>
                                 <span class="tracking-wide">Applications</span>
                             </div>
-                            <a href="{{ route('application.create') }}"
-                                class="px-2 py-1 text-sm text-white bg-green-500 rounded hover:bg-green-600">New
-                                Application</a>
+
+                            @if (auth()->user()->account_status === 1)
+                                <a href="{{ route('application.create') }}"
+                                    class="px-2 py-1 text-sm text-white bg-green-500 rounded hover:bg-green-600">New
+                                    Application</a>
+                            @endif
+
                         </div>
                         <ul class="space-y-2 list-inside">
 
