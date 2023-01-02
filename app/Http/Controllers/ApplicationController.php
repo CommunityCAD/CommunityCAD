@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApplicationRequest;
 use App\Models\Application;
 use App\Models\Department;
 use Illuminate\Contracts\View\View;
@@ -11,12 +12,6 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller
 {
 
-    public function index(): View
-    {
-        $applications = Application::all();
-        return view('applications.index', compact('applications'));
-    }
-
     public function create(): View
     {
 
@@ -24,10 +19,23 @@ class ApplicationController extends Controller
         return view('applications.create', compact('departments'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(ApplicationRequest $request): RedirectResponse
     {
-        Application::create($request->validated());
-        return redirect()->route('applications.index')->with('success', 'Message');
+
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+
+        $comments = array();
+        $comments[] = [
+            'time' => time(),
+            'user' => "System",
+            'comments' => "Application Generated",
+        ];
+
+        $data['comments'] = json_encode($comments);
+
+        Application::create($data);
+        return redirect()->route('account.show', auth()->user()->id)->with('alerts', [['message' => 'Application Created.', 'level' => 'success']]);
     }
 
     public function show(Application $application): View
@@ -35,20 +43,9 @@ class ApplicationController extends Controller
         return view('applications.show', compact('applications'));
     }
 
-    public function edit(Application $application): View
-    {
-        return view('applications.edit', compact('applications'));
-    }
-
     public function update(Request $request, Application $application): RedirectResponse
     {
         $application->update($request->validated());
-        return redirect()->route('applications.index')->with('success', 'Message');
-    }
-
-    public function destroy(Application $application): RedirectResponse
-    {
-        $application->delete();
         return redirect()->route('applications.index')->with('success', 'Message');
     }
 }
