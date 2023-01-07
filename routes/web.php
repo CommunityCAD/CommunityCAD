@@ -21,4 +21,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('application', ApplicationController::class);
 });
 
+Route::middleware(['auth'])->name('portal.')->prefix('portal')->group(function () {
+    Route::view('dashboard', 'portal.dashboard')->name('dashboard');
+});
+
 require __DIR__ . '/auth.php';

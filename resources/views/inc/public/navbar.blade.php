@@ -25,7 +25,7 @@
 
             @auth
                 <div x-data="{ open: false }" class="relative z-50">
-                    <a class="flex items-center px-4 py-2 mt-2 font-semibold text-white rounded-lg md:mt-0 hover:text-gray-300"
+                    <a class="flex items-center px-4 py-2 mt-2 font-semibold text-white rounded-lg cursor-pointer md:mt-0 hover:text-gray-300"
                         @click="open = !open" @keydown.escape="open = false">
                         <img class="object-cover mr-2 rounded-full w-9 h-9" src="{{ auth()->user()->avatar }}"
                             alt="{{ auth()->user()->discord_name }}#{{ auth()->user()->discriminator }}" />
@@ -61,6 +61,21 @@
                                     <span>View Account</span>
                                 </a>
                             </li>
+                            @if (auth()->user()->account_status === 3)
+                                <li class="flex">
+                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        href="{{ route('portal.dashboard') }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+
+
+                                        <span>CAD Portal</span>
+                                    </a>
+                                </li>
+                            @endif
                             <li>
                                 <hr>
                             </li>
@@ -91,11 +106,11 @@
 
             @guest
                 @if (!session('id'))
-                    <a class="px-4 py-2 mt-2 font-semibold text-white rounded-lg md:mt-0 hover:text-gray-300"
+                    <a class="px-4 py-2 mt-2 font-semibold text-white rounded-lg cursor-pointer md:mt-0 hover:text-gray-300"
                         href="{{ route('auth.discord') }}">Login/Apply</a>
                 @else
                     <div x-data="{ open: false }" class="relative z-50">
-                        <a class="flex items-center px-4 py-2 mt-2 font-semibold text-white rounded-lg md:mt-0 hover:text-gray-300"
+                        <a class="flex items-center px-4 py-2 mt-2 font-semibold text-white rounded-lg cursor-pointer md:mt-0 hover:text-gray-300"
                             @click="open = !open" @keydown.escape="open = false">
                             <img class="object-cover mr-2 rounded-full w-9 h-9" src="{{ session('avatar') }}"
                                 alt="{{ session('discord_name') }}#{{ session('discriminator') }}" />
@@ -114,8 +129,8 @@
                         </a>
 
                         <div x-show="open" @click.away="open = false" @keydown.escape="open = false">
-                            <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
+                            <ul x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                 class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                                 aria-label="submenu">
                                 <li class="flex">
