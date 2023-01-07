@@ -52,7 +52,7 @@ class ApplicationController extends Controller
     {
 
         $validated = $request->validate([
-            'status' => 'required|numeric',
+            'status' => 'required|numeric|between:1,6',
         ]);
 
 
