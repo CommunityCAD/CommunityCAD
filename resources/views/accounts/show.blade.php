@@ -15,7 +15,7 @@
                         <li class="flex items-center py-3">
                             <span>Status</span>
                             <span class="ml-auto"><span
-                                    class="px-2 py-1 text-sm text-white bg-green-500 rounded">User</span></span>
+                                    class="px-2 py-1 text-sm text-white bg-green-500 rounded">{{ $user->account_status_name }}</span></span>
                         </li>
                         <li class="flex items-center py-3">
                             <span>Member since</span>
