@@ -1,7 +1,7 @@
 <!-- Desktop sidebar -->
 <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white dark:bg-[#598392] md:block scrollbar-hide">
 
-    @include('inc.portal.sidebar-links')
+    @livewire('portal.sidebar')
 
 </aside>
 <!-- Mobile sidebar -->
@@ -18,6 +18,6 @@
     x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="sideMenu = false">
 
-    @include('inc.portal.sidebar-links')
+    @livewire('portal.sidebar')
 
 </aside>
