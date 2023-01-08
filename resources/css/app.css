@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.discord-link {
+    @apply flex
+    items-center
+    text-base
+    font-medium
+    text-gray-50 hover:text-gray-300
+    transition duration-150 ease-in-out;
+}
+
+.sidebar-link {
+    @apply flex
+    items-center
+    text-sm
+    font-medium
+    text-slate-200 hover:text-[#aec3b0]
+    transition duration-150 ease-in-out;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.sidebar-link-active {
+    @apply !text-white !font-bold !tracking-wider !text-base;
+}

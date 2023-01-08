@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\Portal\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->name('portal.')->prefix('portal')->group(function () {
-    Route::view('dashboard', 'portal.dashboard')->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__ . '/auth.php';
