@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Portal\DashboardController;
+use App\Http\Controllers\Portal\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->name('portal.')->prefix('portal')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
 });
 
 require __DIR__ . '/auth.php';

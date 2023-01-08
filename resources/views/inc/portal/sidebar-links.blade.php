@@ -132,38 +132,62 @@
             </a>
         </li>
 
-        <li class="relative px-6 py-3">
-            @if (request()->is(''))
+        <li class="relative px-6 py-3" x-data="{ open: false }">
+            @if (false)
                 <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
                     aria-hidden="true"></span>
                 <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
                     aria-hidden="true"></span>
             @endif
-            <a class="sidebar-link @if (request()->is('')) sidebar-link-active @endif" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    class="h-4 w-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-shield">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <a class="sidebar-link !justify-between @if (false) !text-white @endif"
+                href="#" @click="open = !open">
+                <span class="inline-flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        class="h-4 w-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-shield">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <span class="ml-4">Staff & Admin</span>
+                </span>
+                <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
                 </svg>
-                <span class="ml-4">Staff & Admin</span>
             </a>
+            <ul x-transition:enter="transition-all ease-in-out duration-200" x-show="open"
+                x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
+                x-transition:leave="transition-all ease-in-out duration-200"
+                x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
+                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-[#01161e]"
+                aria-label="submenu" @click.away="open = false">
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                    <a class="w-full" href="#">Announcements</a>
+                </li>
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                    <a class="w-full" href="#">Applications</a>
+                </li>
+                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                    <a class="w-full" href="#">Manage Members</a>
+                </li>
+            </ul>
         </li>
 
         @foreach ($departments as $department)
             <li class="relative px-6 py-3">
-                @if (request()->is(''))
+                @if (request()->is('portal/department/' . $department->id . '*'))
                     <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
                         aria-hidden="true"></span>
                     <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
                         aria-hidden="true"></span>
                 @endif
-                <a class="sidebar-link @if (request()->is('')) sidebar-link-active @endif" href="#">
+                <a class="sidebar-link @if (request()->is('portal/department/' . $department->id . '*')) sidebar-link-active @endif"
+                    href="{{ route('portal.department.show', $department->slug) }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z" />
                     </svg>
-
                     <span class="ml-4">{{ $department->name }}</span>
                 </a>
             </li>
