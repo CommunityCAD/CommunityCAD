@@ -1,4 +1,4 @@
-<header class="z-10 py-4 bg-white shadow-md dark:bg-[#598392]">
+<header class="z-10 py-4 bg-white shadow-md dark:bg-[#598392] md:hidden">
     <div
         class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 md:justify-end dark:text-purple-300">
         <!-- Mobile hamburger -->

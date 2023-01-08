@@ -6,17 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Department extends Model
+class DepartmentResource extends Model
 {
     use HasFactory, softDeletes;
 
-    public function getRouteKeyName()
+    public function department()
     {
-        return "slug";
-    }
-
-    public function departmentResource()
-    {
-        return $this->hasMany('App\Models\departmentResource');
+        return $this->belongsTo('App\Models\Department');
     }
 }
