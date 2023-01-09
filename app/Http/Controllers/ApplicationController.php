@@ -15,7 +15,6 @@ class ApplicationController extends Controller
 
     public function create(): View
     {
-
         $departments = Department::where('is_open_external', 1)->get(['name', 'id']);
         return view('applications.create', compact('departments'));
     }

@@ -14,6 +14,8 @@ class Application extends Model
 
     protected $guarded = [];
 
+    protected $with = ['user', 'department'];
+
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -24,10 +26,9 @@ class Application extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function getDepartmentNameAttribute()
+    public function department()
     {
-        $department_name = Department::where('id', '=', $this->department_id)->first();
-        return $department_name->name;
+        return $this->belongsTo('App\Models\Department');
     }
 
     public function getStatusNameAttribute()

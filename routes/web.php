@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
@@ -28,5 +29,12 @@ Route::middleware(['auth'])->name('portal.')->prefix('portal')->group(function (
 
     Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
 });
+
+Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
+    Route::get('application/{status?}', [AdminApplicationController::class, 'index'])->name('application.index');
+    // Route::resource('application', AdminApplicationController::class);
+});
+
+
 
 require __DIR__ . '/auth.php';

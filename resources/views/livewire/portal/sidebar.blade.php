@@ -134,13 +134,13 @@
             </li>
 
             <li class="relative px-6 py-3" x-data="{ open: false }">
-                @if (false)
+                @if (request()->is('admin/application*'))
                     <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
                         aria-hidden="true"></span>
                     <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
                         aria-hidden="true"></span>
                 @endif
-                <a class="sidebar-link !justify-between @if (false) !text-white @endif"
+                <a class="sidebar-link !justify-between @if (request()->is('admin/application*')) !text-white @endif"
                     href="#" @click="open = !open">
                     <span class="inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -166,7 +166,7 @@
                         <a class="w-full" href="#">Announcements</a>
                     </li>
                     <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="#">Applications</a>
+                        <a class="w-full" href="{{ route('admin.application.index', 1) }}">Applications</a>
                     </li>
                     <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full" href="#">Manage Members</a>
