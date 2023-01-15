@@ -50,7 +50,7 @@ class ApplicationController extends Controller
 
     public function show(Application $application): View
     {
-        return view('applications.show', compact('applications'));
+        return view('admin.applications.show', compact('application'));
     }
 
     public function edit(Application $application): View

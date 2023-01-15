@@ -31,7 +31,8 @@ Route::middleware(['auth'])->name('portal.')->prefix('portal')->group(function (
 });
 
 Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
-    Route::get('application/{status?}', [AdminApplicationController::class, 'index'])->name('application.index');
+    Route::get('application/status/{status?}', [AdminApplicationController::class, 'index'])->name('application.index');
+    Route::get('application/{application}', [AdminApplicationController::class, 'show'])->name('application.show');
     // Route::resource('application', AdminApplicationController::class);
 });
 
