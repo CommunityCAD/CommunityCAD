@@ -37,7 +37,7 @@ return [
         'redirect' => env('STEAM_REDIRECT_URI'),
         'allowed_hosts' => [
             'fivemcad.test',
-            'communitycad.app'
+            'demo.communitycad.app'
         ]
     ],
 
