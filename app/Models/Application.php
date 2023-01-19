@@ -33,7 +33,26 @@ class Application extends Model
 
     public function getStatusNameAttribute()
     {
-        $status_name = DB::table('application_statuses')->where('id', '=', $this->status)->first();
-        return $status_name->name;
+
+        switch ($this->status) {
+            case 1:
+                return "Pending Review";
+                break;
+            case 2:
+                return "Pending Admin Review";
+                break;
+            case 3:
+                return "Pending Interview";
+                break;
+            case 4:
+                return "Approved";
+                break;
+            case 5:
+                return "Denied";
+                break;
+            case 6:
+                return "Withdrawn";
+                break;
+        }
     }
 }

@@ -122,7 +122,7 @@
                                 <li>
                                     <a href="{{ route('application.show', $application->id) }}"
                                         class="text-teal-300 hover:underline hover:text-teal-400">Application
-                                        #{{ $application->id }} for {{ $application->department_name }}</a>
+                                        #{{ $application->id }} for {{ $application->department->name }}</a>
                                     <div class="text-xs">Status: {{ $application->status_name }}</div>
                                     <div class="text-xs">Created At: {{ $application->created_at->format('m/d/Y') }}</div>
                                 </li>

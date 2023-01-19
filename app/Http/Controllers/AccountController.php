@@ -52,16 +52,14 @@ class AccountController extends Controller
         return redirect()->route('home')->with('alerts', [['message' => 'Account Created.', 'level' => 'success']]);
     }
 
-    public function show(User $user): View|RedirectResponse
+    public function show(): View|RedirectResponse
     {
 
         if (auth()->user()->account_status === 3) {
             return redirect()->route('portal.dashboard');
         }
 
-        if ($user->id != auth()->user()->id) {
-            return abort(403, 'Can not see this page.');
-        }
+        $user = auth()->user();
 
         return view('accounts.show', compact('user'));
     }
