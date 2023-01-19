@@ -77,7 +77,7 @@ class Application extends Model
         }
     }
 
-    public function generateComment($message)
+    public function generateComment($message, $user = null)
     {
         $current_comments = $this->comments;
 
@@ -87,9 +87,13 @@ class Application extends Model
             $comment = json_decode($current_comments);
         }
 
+        if (is_null($user)) {
+            $user = auth()->user()->id;
+        }
+
         $comment[] = [
             'time' => time(),
-            'user' => auth()->user()->id,
+            'user' => $user,
             'comments' => $message,
         ];
 

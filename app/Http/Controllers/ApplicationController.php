@@ -34,7 +34,12 @@ class ApplicationController extends Controller
 
         $data['comments'] = json_encode($comments);
 
-        Application::create($data);
+        $application = Application::create($data);
+
+        if (auth()->user()->age < config('cad.minimum_age')) {
+            $new_comments = $application->generateComment("Application Auto Flagged Due To Age Requirement", "System");
+            $application->update(['status' => 2, 'comments' => $new_comments]);
+        }
 
         Auth::user()->update(['account_status' => 2]);
 
