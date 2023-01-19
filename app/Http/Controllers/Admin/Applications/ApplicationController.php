@@ -18,10 +18,10 @@ class ApplicationController extends Controller
         }
 
         if ($status == 0) {
-            $applications = Application::orderBy('status', 'desc')->get();
+            $applications = Application::orderBy('status', 'asc')->get();
             $page_title = "All Applications";
         } else {
-            $applications = Application::where('status', $status)->orderBy('created_at', 'asc')->get();
+            $applications = Application::where('status', $status)->orderBy('created_at', 'desc')->get();
 
             switch ($status) {
                 case 1:
