@@ -70,15 +70,6 @@
                     </div>
 
                 </div>
-
-                <div class="w-full text-sm">
-                    <div class="px-4 py-2 font-bold">Application Comments</div>
-                    <div class="px-4 py-2">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde doloremque molestiae eaque
-                        voluptate deleniti qui temporibus? Officiis eveniet odio alias quisquam autem ea, libero quia
-                        optio quod inventore! Itaque, deserunt?
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -174,54 +165,77 @@
                     <p class="w-full p-3 mt-2 border rounded-md">
                         {{ $application->why_join_community }}</p>
                 </div>
+            </div>
+        </div>
 
-                <hr class="my-4">
+        <h2 class="text-2xl font-bold dark:text-gray-200">Application Options</h2>
 
-                <h3 class="my-4 text-lg text-center">Application Actions</h3>
+        <div
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
+            <div class="">
                 <div class="space-y-4">
                     @switch($application->status)
                         @case(1)
                             <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
-                                href="#">
+                                href="{{ route('admin.application.approve_application', $application->id) }}">
                                 Approve Application
                             </a>
                             <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
-                                href="#">
+                                href="{{ route('admin.application.deny_application.edit', $application->id) }}">
                                 Deny Application
                             </a>
                             <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-yellow-600 text-white bg-yellow-500"
-                                href="#">
+                                href="{{ route('admin.application.flag_application.edit', $application->id) }}">
                                 Flag Application
                             </a>
                         @break
 
                         @case(3)
-                            <a class="btn btn-green" href="#">Approve
+                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                href="{{ route('admin.application.approve_interview', $application->id) }}">Approve
                                 Interview</a>
-                            <a class="btn btn-red" href="#">Deny
+                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                href="{{ route('admin.application.deny_interview.edit', $application->id) }}">Deny
                                 Interview</a>
                         @break
 
                         @case(2)
-                            @can('applications_admin')
-                                <a class="btn btn-green" href="#">Approve
-                                    Application</a>
-                                <a class="btn btn-red" href="#">Deny
-                                    Application</a>
-                            @endcan
-                            @cannot('applications_admin')
-                                <p class="pl-3 text-lg text-white">This application is in Admin Review.<br>You can not approve or deny
-                                    this
-                                    application.</p>
-                            @endcannot
+                            <p>Please review below to see why this application was flagged.</p>
+                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                href="{{ route('admin.application.approve_application', $application->id) }}">
+                                Approve Application
+                            </a>
+                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                href="{{ route('admin.application.deny_application.edit', $application->id) }}">
+                                Deny Application
+                            </a>
                         @break
 
                         @default
                             <p class="pl-3 text-lg text-white">You have no options here.</p>
                     @endswitch
                 </div>
+            </div>
+        </div>
+        <h2 class="text-2xl font-bold dark:text-gray-200">Application Comments</h2>
 
-
+        <div
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
+            <div class="">
+                @if (is_string($application->usableComments))
+                    <p class="text-white">{{ $application->usableComments }}</p>
+                @else
+                    @foreach ($application->usableComments as $comment)
+                        <div class="p-3 my-2 border-2 border-gray-900">
+                            <p class="text-white">Actioned by: {{ $comment->commenter }} at
+                                {{ date('Y-m-d H:i:s', $comment->time) }}
+                            </p>
+                            <div>
+                                <p class="text-gray-400">{{ $comment->comments }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
 

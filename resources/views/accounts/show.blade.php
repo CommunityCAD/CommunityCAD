@@ -110,14 +110,31 @@
                             </div>
 
                             @if (auth()->user()->account_status === 1)
-                                <a href="{{ route('application.create') }}"
-                                    class="px-2 py-1 text-sm text-white bg-green-500 rounded hover:bg-green-600">New
-                                    Application</a>
+                                @if (is_null(auth()->user()->reapply))
+                                    <a href="{{ route('application.create') }}"
+                                        class="px-2 py-1 text-sm text-white bg-green-500 rounded hover:bg-green-600">New
+                                        Application</a>
+                                @else
+                                    @if (auth()->user()->reapply)
+                                        @if (auth()->user()->reapply_date > now())
+                                            <p class="">You can not reapply until
+                                                {{ auth()->user()->reapply_date->format('m/d/Y') }}.</p>
+                                        @else
+                                            <a href="{{ route('application.create') }}"
+                                                class="px-2 py-1 text-sm text-white bg-green-500 rounded hover:bg-green-600">New
+                                                Application</a>
+                                        @endif
+                                    @else
+                                        <p class="">You can not reapply.</p>
+                                    @endif
+                                @endif
                             @endif
 
                         </div>
                         <ul class="space-y-2 list-inside">
-
+                            @if (auth()->user()->denied_reason)
+                                <li>Your last application was denied because: {{ auth()->user()->denied_reason }}</li>
+                            @endif
                             @foreach ($user->applications as $application)
                                 <li>
                                     <a href="{{ route('application.show', $application->id) }}"

@@ -27,7 +27,8 @@ class User extends Authenticatable
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'member_join_date' => 'datetime',
-        'birthday' => 'date'
+        'birthday' => 'date',
+        'reapply_date' => 'date',
     ];
 
     public function applications()
@@ -61,5 +62,24 @@ class User extends Authenticatable
     {
         $status_name = DB::table('account_statuses')->where('id', '=', $this->account_status)->first();
         return $status_name->name;
+    }
+
+    public function generateHistory($message)
+    {
+        $current_history = $this->history;
+
+        if (empty($current_history)) {
+            $history = array();
+        } else {
+            $history = json_decode($current_history);
+        }
+
+        $history[] = [
+            'time' => time(),
+            'user' => auth()->user()->id,
+            'comments' => $message,
+        ];
+
+        return $new_history = json_encode($history);
     }
 }
