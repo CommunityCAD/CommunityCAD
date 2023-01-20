@@ -82,4 +82,9 @@ class User extends Authenticatable
 
         return $new_history = json_encode($history);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

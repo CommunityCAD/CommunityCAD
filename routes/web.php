@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\Applications\ApproveInterviewController;
 use App\Http\Controllers\Admin\Applications\DenyApplicationController;
 use App\Http\Controllers\Admin\Applications\DenyInterviewController;
 use App\Http\Controllers\Admin\Applications\FlagApplicationController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
@@ -51,6 +53,10 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
     Route::put('/application/deny_interview/{application}', [DenyInterviewController::class, 'store'])->name('application.deny_interview.store');
 
     Route::get('application/{application}', [AdminApplicationController::class, 'show'])->name('application.show');
+
+
+    Route::resource('/roles', RoleController::class);
+    Route::resource('/permissions', PermissionController::class);
 });
 
 
