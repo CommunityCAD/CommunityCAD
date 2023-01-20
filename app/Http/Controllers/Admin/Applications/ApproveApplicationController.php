@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ApproveApplicationController extends Controller
 {
     public function __invoke(Application $application)
     {
+
+        abort_unless(Gate::allows('application_action'), 403);
 
         $current_comments = $application->comments;
 

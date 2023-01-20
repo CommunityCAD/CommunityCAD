@@ -15,8 +15,10 @@
             href="{{ route('admin.application.index') }}">All</a>
         <a class="px-3 py-2 bg-yellow-600 text-white inline-block rounded-md"
             href="{{ route('admin.application.index', 1) }}">Pending Review</a>
-        <a class="px-3 py-2 bg-yellow-300 text-black inline-block rounded-md"
-            href="{{ route('admin.application.index', 2) }}">Pending Admin Review</a>
+        @can('application_admin_review')
+            <a class="px-3 py-2 bg-yellow-300 text-black inline-block rounded-md"
+                href="{{ route('admin.application.index', 2) }}">Pending Admin Review</a>
+        @endcan
         <a class="px-3 py-2 bg-blue-600 text-white inline-block rounded-md"
             href="{{ route('admin.application.index', 3) }}">Pending Interview</a>
         <a class="px-3 py-2 bg-green-600 text-white inline-block rounded-md"

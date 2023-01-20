@@ -41,26 +41,27 @@
 
                 <input type="submit" value="Save Role" class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600 mt-4">
             </form>
-
-            <form method="POST" id="delete_role" action="{{ route('admin.roles.destroy', $role->id) }}"
-                class="block w-full">
-                @csrf
-                @method('delete')
-                <script type="text/javascript">
-                    function confirm_delete() {
-                        if (confirm('Are you sure you want to delete this role? \nThis can not be undone!')) {
-                            return document.getElementById('delete_role').submit();
-                        } else {
-                            return false;
+            @can('role_delete')
+                <form method="POST" id="delete_role" action="{{ route('admin.roles.destroy', $role->id) }}"
+                    class="block w-full">
+                    @csrf
+                    @method('delete')
+                    <script type="text/javascript">
+                        function confirm_delete() {
+                            if (confirm('Are you sure you want to delete this role? \nThis can not be undone!')) {
+                                return document.getElementById('delete_role').submit();
+                            } else {
+                                return false;
+                            }
                         }
-                    }
-                </script>
-                <a class="bg-red-500 px-2 py-1 rounded hover:bg-red-600 mt-4 inline-block" href="#"
-                    onclick="event.preventDefault(); return confirm_delete()">
+                    </script>
+                    <a class="bg-red-500 px-2 py-1 rounded hover:bg-red-600 mt-4 inline-block" href="#"
+                        onclick="event.preventDefault(); return confirm_delete()">
 
-                    <span>Delete Role</span>
-                </a>
-            </form>
+                        <span>Delete Role</span>
+                    </a>
+                </form>
+            @endcan
         </div>
 
     </div>

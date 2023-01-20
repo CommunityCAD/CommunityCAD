@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class ApproveInterviewController extends Controller
 {
     public function __invoke(Application $application)
     {
+
+        abort_unless(Gate::allows('application_action'), 403);
 
         $new_comment = $application->generateComment("Interview Approved");
         $application->update(['status' => 4, 'comments' => $new_comment]);

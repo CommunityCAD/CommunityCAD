@@ -8,21 +8,12 @@
         <div
             class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
 
-            <div class="mb-3 flex justify-between">
-                <a class="bg-green-500 px-2 py-1 rounded hover:bg-green-600" href="{{ route('admin.roles.create') }}">
-                    Add Role
-                </a>
-                <div class="">
-                    <a class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600 mr-3"
-                        href="{{ route('admin.permissions.index') }}">
-                        View Permissions
+            <div class="mb-3">
+                @can('role_create')
+                    <a class="bg-green-500 px-2 py-1 rounded hover:bg-green-600" href="{{ route('admin.roles.create') }}">
+                        Add Role
                     </a>
-
-                    <a class="bg-green-500 px-2 py-1 rounded hover:bg-green-600"
-                        href="{{ route('admin.permissions.create') }}">
-                        Add Permission
-                    </a>
-                </div>
+                @endcan
             </div>
 
             <table class="table-auto w-full border-collapse border-spacing-2 border border-slate-500">
@@ -43,8 +34,11 @@
                                 @endforeach
                             </td>
                             <td class="border border-slate-500">
-                                <a href="{{ route('admin.roles.edit', $role->id) }}"
-                                    class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600">Edit</a>
+                                @can('role_edit')
+                                    <a href="{{ route('admin.roles.edit', $role->id) }}"
+                                        class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600">Edit</a>
+                                @endcan
+
                             </td>
                         </tr>
                     @endforeach

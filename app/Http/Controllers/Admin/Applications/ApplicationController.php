@@ -7,12 +7,20 @@ use App\Models\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ApplicationController extends Controller
 {
 
     public function index($status = 0): View
     {
+
+        abort_unless(Gate::allows('application_access'), 403);
+
+        if ($status == 2) {
+            abort_unless(Gate::allows('application_admin_review'), 403);
+        }
+
         if ($status > 7) {
             return abort(404);
         }
@@ -50,17 +58,27 @@ class ApplicationController extends Controller
 
     public function show(Application $application): View
     {
+        abort_unless(Gate::allows('application_access'), 403);
+
+        if ($application->status == 2) {
+            abort_unless(Gate::allows('application_admin_review'), 403);
+        }
+
         return view('admin.applications.show', compact('application'));
     }
 
-    public function edit(Application $application): View
-    {
-        return view('applications.edit', compact('applications'));
-    }
+    // public function edit(Application $application): View
+    // {
+    //     abort_unless(Gate::allows('application_access'), 403);
 
-    public function update(Request $request, Application $application): RedirectResponse
-    {
-        $application->update($request->validated());
-        return redirect()->route('applications.index')->with('success', 'Message');
-    }
+    //     return view('applications.edit', compact('applications'));
+    // }
+
+    // public function update(Request $request, Application $application): RedirectResponse
+    // {
+    //     abort_unless(Gate::allows('application_access'), 403);
+
+    //     $application->update($request->validated());
+    //     return redirect()->route('applications.index')->with('success', 'Message');
+    // }
 }

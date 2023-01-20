@@ -174,46 +174,52 @@
             class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
             <div class="">
                 <div class="space-y-4">
-                    @switch($application->status)
-                        @case(1)
-                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
-                                href="{{ route('admin.application.approve_application', $application->id) }}">
-                                Approve Application
-                            </a>
-                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
-                                href="{{ route('admin.application.deny_application.edit', $application->id) }}">
-                                Deny Application
-                            </a>
-                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-yellow-600 text-white bg-yellow-500"
-                                href="{{ route('admin.application.flag_application.edit', $application->id) }}">
-                                Flag Application
-                            </a>
-                        @break
+                    @can('application_action')
+                        @switch($application->status)
+                            @case(1)
+                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                    href="{{ route('admin.application.approve_application', $application->id) }}">
+                                    Approve Application
+                                </a>
+                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                    href="{{ route('admin.application.deny_application.edit', $application->id) }}">
+                                    Deny Application
+                                </a>
+                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-yellow-600 text-white bg-yellow-500"
+                                    href="{{ route('admin.application.flag_application.edit', $application->id) }}">
+                                    Flag Application
+                                </a>
+                            @break
 
-                        @case(3)
-                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
-                                href="{{ route('admin.application.approve_interview', $application->id) }}">Approve
-                                Interview</a>
-                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
-                                href="{{ route('admin.application.deny_interview.edit', $application->id) }}">Deny
-                                Interview</a>
-                        @break
+                            @case(3)
+                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                    href="{{ route('admin.application.approve_interview', $application->id) }}">Approve
+                                    Interview</a>
+                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                    href="{{ route('admin.application.deny_interview.edit', $application->id) }}">Deny
+                                    Interview</a>
+                            @break
 
-                        @case(2)
-                            <p>Please review below to see why this application was flagged.</p>
-                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
-                                href="{{ route('admin.application.approve_application', $application->id) }}">
-                                Approve Application
-                            </a>
-                            <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
-                                href="{{ route('admin.application.deny_application.edit', $application->id) }}">
-                                Deny Application
-                            </a>
-                        @break
+                            @case(2)
+                                <p>Please review below to see why this application was flagged.</p>
+                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                    href="{{ route('admin.application.approve_application', $application->id) }}">
+                                    Approve Application
+                                </a>
+                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                    href="{{ route('admin.application.deny_application.edit', $application->id) }}">
+                                    Deny Application
+                                </a>
+                            @break
 
-                        @default
-                            <p class="pl-3 text-lg text-white">You have no options here.</p>
-                    @endswitch
+                            @default
+                                <p class="pl-3 text-lg text-white">You have no options here.</p>
+                        @endswitch
+                    @endcan
+
+                    @cannot('application_action')
+                        <p class="pl-3 text-lg text-white">You do not have permission to action applications.</p>
+                    @endcannot
                 </div>
             </div>
         </div>
