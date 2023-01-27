@@ -1,31 +1,31 @@
 @extends('layouts.portal')
 
 @section('content')
-    <nav class="flex justify-between border-b mb-4" aria-label="Breadcrumb">
+    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
         <div class="">
-            <p class="text-white text-lg">{{ $page_title }}</p>
+            <p class="text-lg text-white">{{ $page_title }}</p>
         </div>
 
-        @livewire('breadcrumbs', ['paths' => [['href' => route('portal.dashboard'), 'text' => 'View Properties']]])
+        @livewire('breadcrumbs', ['paths' => []])
 
     </nav>
 
-    <div class="space-x-2 space-y-2 my-4">
-        <a class="px-3 py-2 bg-slate-500 text-white inline-block rounded-md"
+    <div class="my-4 space-x-2 space-y-2">
+        <a class="inline-block px-3 py-2 text-white rounded-md bg-slate-500"
             href="{{ route('admin.application.index') }}">All</a>
-        <a class="px-3 py-2 bg-yellow-600 text-white inline-block rounded-md"
+        <a class="inline-block px-3 py-2 text-white bg-yellow-600 rounded-md"
             href="{{ route('admin.application.index', 1) }}">Pending Review</a>
         @can('application_admin_review')
-            <a class="px-3 py-2 bg-yellow-300 text-black inline-block rounded-md"
+            <a class="inline-block px-3 py-2 text-black bg-yellow-300 rounded-md"
                 href="{{ route('admin.application.index', 2) }}">Pending Admin Review</a>
         @endcan
-        <a class="px-3 py-2 bg-blue-600 text-white inline-block rounded-md"
+        <a class="inline-block px-3 py-2 text-white bg-blue-600 rounded-md"
             href="{{ route('admin.application.index', 3) }}">Pending Interview</a>
-        <a class="px-3 py-2 bg-green-600 text-white inline-block rounded-md"
+        <a class="inline-block px-3 py-2 text-white bg-green-600 rounded-md"
             href="{{ route('admin.application.index', 4) }}">Approved</a>
-        <a class="px-3 py-2 bg-red-600 text-white inline-block rounded-md"
+        <a class="inline-block px-3 py-2 text-white bg-red-600 rounded-md"
             href="{{ route('admin.application.index', 5) }}">Denied</a>
-        <a class="px-3 py-2 bg-red-600 text-white inline-block rounded-md"
+        <a class="inline-block px-3 py-2 text-white bg-red-600 rounded-md"
             href="{{ route('admin.application.index', 6) }}">Withdrawn</a>
     </div>
 

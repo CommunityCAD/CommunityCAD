@@ -1,19 +1,19 @@
 @extends('layouts.portal')
 @section('content')
-    <nav class="flex justify-between border-b mb-4" aria-label="Breadcrumb">
+    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
         <div class="">
-            <p class="text-white text-lg">{{ $department->name }} Home Page</p>
+            <p class="text-lg text-white">{{ $department->name }} Home Page</p>
         </div>
 
-        @livewire('breadcrumbs', ['paths' => [['href' => route('portal.dashboard'), 'text' => 'View Properties']]])
+        @livewire('breadcrumbs', ['paths' => []])
 
     </nav>
 
     <div class="w-full">
-        <img src="{{ $department->logo }}" alt="" class="max-w-72 mx-auto max-h-96">
+        <img src="{{ $department->logo }}" alt="" class="mx-auto max-w-72 max-h-96">
     </div>
 
-    <div class="md:flex md:justify-between space-y-4 md:space-y-0 md:space-x-4 my-4">
+    <div class="my-4 space-y-4 md:flex md:justify-between md:space-y-0 md:space-x-4">
         <div
             class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-red-500">
             <div class="">
@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="">
-            <div class="announcement p-3 my-2 border-b-2 border-purple-900">
+            <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
                 <div class="flex justify-between">
                     <div class="flex">
                         <div>
@@ -112,7 +112,7 @@
                 <p class="text-right text-gray-400">Posted by: Ron S at 1/7/2023 15:00</p>
             </div>
 
-            <div class="announcement p-3 my-2 border-b-2 border-purple-900">
+            <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
                 <div class="flex justify-between">
                     <div class="flex">
                         <div>

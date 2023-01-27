@@ -1,6 +1,16 @@
 @extends('layouts.portal')
 
 @section('content')
+    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
+        <div class="">
+            <p class="text-lg text-white">Show Application {{ $application->id }} |
+                {{ $application->user->discord_name }}#{{ $application->user->discriminator }}</p>
+        </div>
+
+        @livewire('breadcrumbs', ['paths' => [['href' => route('admin.application.index', 1), 'text' => 'View Applications']]])
+
+    </nav>
+
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
         <h2 class="text-2xl font-bold dark:text-gray-200">User Information Application</h2>
 
@@ -10,7 +20,8 @@
                 <div class="grid text-sm md:grid-cols-2">
                     <div class="grid grid-cols-2">
                         <div class="px-4 py-2 font-bold">Discord Name</div>
-                        <div class="px-4 py-2">{{ $application->user->discord_name }}#{{ $application->user->discriminator }}
+                        <div class="px-4 py-2">
+                            {{ $application->user->discord_name }}#{{ $application->user->discriminator }}
                         </div>
                     </div>
                     <div class="grid grid-cols-2">
@@ -65,8 +76,14 @@
                         <div class="px-4 py-2">{{ $application->status_name }}</div>
                     </div>
                     <div class="grid grid-cols-2">
+                        @php
+                            $flag = '';
+                            if ($application->user->age < config('cad.minimum_age')) {
+                                $flag .= "<span class='text-red-600'>{Under Age}</span>";
+                            }
+                        @endphp
                         <div class="px-4 py-2 font-bold">Flags</div>
-                        <div class="px-4 py-2">{under age}</div>
+                        <div class="px-4 py-2">{!! $flag !!}</div>
                     </div>
 
                 </div>
@@ -177,36 +194,36 @@
                     @can('application_action')
                         @switch($application->status)
                             @case(1)
-                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                <a class="block px-4 py-2 m-3 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-600"
                                     href="{{ route('admin.application.approve_application', $application->id) }}">
                                     Approve Application
                                 </a>
-                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                <a class="block px-4 py-2 m-3 font-bold text-white bg-red-500 rounded cursor-pointer hover:bg-red-600"
                                     href="{{ route('admin.application.deny_application.edit', $application->id) }}">
                                     Deny Application
                                 </a>
-                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-yellow-600 text-white bg-yellow-500"
+                                <a class="block px-4 py-2 m-3 font-bold text-white bg-yellow-500 rounded cursor-pointer hover:bg-yellow-600"
                                     href="{{ route('admin.application.flag_application.edit', $application->id) }}">
                                     Flag Application
                                 </a>
                             @break
 
                             @case(3)
-                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                <a class="block px-4 py-2 m-3 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-600"
                                     href="{{ route('admin.application.approve_interview', $application->id) }}">Approve
                                     Interview</a>
-                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                <a class="block px-4 py-2 m-3 font-bold text-white bg-red-500 rounded cursor-pointer hover:bg-red-600"
                                     href="{{ route('admin.application.deny_interview.edit', $application->id) }}">Deny
                                     Interview</a>
                             @break
 
                             @case(2)
                                 <p>Please review below to see why this application was flagged.</p>
-                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-green-600 text-white bg-green-500"
+                                <a class="block px-4 py-2 m-3 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-600"
                                     href="{{ route('admin.application.approve_application', $application->id) }}">
                                     Approve Application
                                 </a>
-                                <a class="block px-4 py-2 m-3 font-bold rounded cursor-pointer hover:bg-red-600 text-white bg-red-500"
+                                <a class="block px-4 py-2 m-3 font-bold text-white bg-red-500 rounded cursor-pointer hover:bg-red-600"
                                     href="{{ route('admin.application.deny_application.edit', $application->id) }}">
                                     Deny Application
                                 </a>

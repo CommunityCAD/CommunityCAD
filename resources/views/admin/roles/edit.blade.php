@@ -1,10 +1,15 @@
 @extends('layouts.portal')
 
 @section('content')
+    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
+        <div class="">
+            <p class="text-lg text-white">Edit Role: {{ $role->title }}</p>
+        </div>
+
+        @livewire('breadcrumbs', ['paths' => [['href' => route('admin.roles.index'), 'text' => 'All Roles']]])
+
+    </nav>
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
-
-        <h2 class="text-2xl font-bold dark:text-gray-200">Edit Role</h2>
-
         <div
             class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
 
@@ -21,7 +26,7 @@
 
                 <label for="title" class="block mt-3 text-black-500">Permissions <span
                         class="text-red-600">*</span></label>
-                <div class="space-y-2 mt-3">
+                <div class="mt-3 space-y-2">
                     @foreach ($permissions as $permission)
                         @if (in_array($permission->id, $role->permissions->pluck('id')->toArray()))
                             <div class="block">
@@ -39,7 +44,7 @@
                     @endforeach
                 </div>
 
-                <input type="submit" value="Save Role" class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600 mt-4">
+                <input type="submit" value="Save Role" class="px-2 py-1 mt-4 bg-blue-500 rounded hover:bg-blue-600">
             </form>
             @can('role_delete')
                 <form method="POST" id="delete_role" action="{{ route('admin.roles.destroy', $role->id) }}"
@@ -55,7 +60,7 @@
                             }
                         }
                     </script>
-                    <a class="bg-red-500 px-2 py-1 rounded hover:bg-red-600 mt-4 inline-block" href="#"
+                    <a class="inline-block px-2 py-1 mt-4 bg-red-500 rounded hover:bg-red-600" href="#"
                         onclick="event.preventDefault(); return confirm_delete()">
 
                         <span>Delete Role</span>

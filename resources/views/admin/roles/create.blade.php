@@ -1,10 +1,15 @@
 @extends('layouts.portal')
 
 @section('content')
+    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
+        <div class="">
+            <p class="text-lg text-white">Create Role</p>
+        </div>
+
+        @livewire('breadcrumbs', ['paths' => [['href' => route('admin.roles.index'), 'text' => 'All Roles']]])
+
+    </nav>
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
-
-        <h2 class="text-2xl font-bold dark:text-gray-200">Create Role</h2>
-
         <div
             class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
 
@@ -21,7 +26,7 @@
 
                 <label for="title" class="block mt-3 text-black-500">Permissions <span
                         class="text-red-600">*</span></label>
-                <div class="space-y-2 mt-3">
+                <div class="mt-3 space-y-2">
                     @foreach ($permissions as $permission)
                         <div class="block">
                             <input type="checkbox" name="permissions[]" id="{{ $permission->id }}"
@@ -32,7 +37,7 @@
                 </div>
 
                 <input type="submit" value="Create Role"
-                    class="bg-green-500 px-2 py-1 rounded hover:bg-green-600 mt-3 cursor-pointer">
+                    class="px-2 py-1 mt-3 bg-green-500 rounded cursor-pointer hover:bg-green-600">
 
 
             </form>
