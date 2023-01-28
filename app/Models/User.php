@@ -58,10 +58,33 @@ class User extends Authenticatable
         return $age;
     }
 
-    public function getAccountStatusNameAttribute()
+    public function getDiscordAttribute()
     {
-        $status_name = DB::table('account_statuses')->where('id', '=', $this->account_status)->first();
-        return $status_name->name;
+        return $this->discord_name . '#' . $this->discriminator;
+    }
+
+    public function getStatusNameAttribute()
+    {
+        switch ($this->account_status) {
+            case 1:
+                return "User";
+                break;
+            case 2:
+                return "Applicant";
+                break;
+            case 3:
+                return "Member";
+                break;
+            case 4:
+                return "Suspended/LOA";
+                break;
+            case 5:
+                return "Temporary Ban";
+                break;
+            case 6:
+                return "Permanent Ban";
+                break;
+        }
     }
 
     public function generateHistory($message)

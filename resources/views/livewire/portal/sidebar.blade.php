@@ -146,7 +146,7 @@
                         href="#" @click="open = !open">
                         <span class="inline-flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" class="h-4 w-4" stroke-width="2" stroke-linecap="round"
+                                stroke="currentColor" class="w-4 h-4" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-shield">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             </svg>
@@ -175,9 +175,9 @@
                                 <a class="w-full" href="{{ route('admin.application.index', 1) }}">Applications</a>
                             </li>
                         @endcan
-                        @can('manage_members_access')
+                        @can('user_access')
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="#">Manage Members</a>
+                                <a class="w-full" href="{{ route('admin.users.index') }}">Manage Members</a>
                             </li>
                         @endcan
                         @can('role_access')

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Applications\DenyInterviewController;
 use App\Http\Controllers\Admin\Applications\FlagApplicationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
@@ -57,6 +58,9 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
 
     Route::resource('/roles', RoleController::class);
     Route::resource('/permissions', PermissionController::class);
+
+    Route::get('/users/advanced', [UserController::class, 'all_users'])->name('users.advanced.index');
+    Route::resource('/users', UserController::class);
 });
 
 
