@@ -1,21 +1,21 @@
 @extends('layouts.portal')
 
 @section('content')
-    <nav class="flex justify-between border-b mb-4" aria-label="Breadcrumb">
+    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
         <div class="">
-            <p class="text-white text-lg">Dashboard</p>
+            <p class="text-lg text-white">Dashboard</p>
         </div>
 
-        @livewire('breadcrumbs', ['paths' => [['href' => route('portal.dashboard'), 'text' => 'View Properties']]])
+        @livewire('breadcrumbs', ['paths' => []])
 
     </nav>
 
-    <div class="md:flex md:justify-between space-y-4 md:space-y-0 md:space-x-4 my-4">
+    <div class="my-4 space-y-4 md:flex md:justify-between md:space-y-0 md:space-x-4">
         <div
             class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-red-500">
             <div class="">
                 <p class="text-sm text-red-500">Total Members</p>
-                <p class="text-2xl">150</p>
+                <p class="text-2xl">{{ $total_members }}</p>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
@@ -47,7 +47,7 @@
             class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-teal-400">
             <div class="">
                 <p class="text-sm text-teal-400">Online Members or Active</p>
-                <p class="text-2xl">12/35</p>
+                <p class="text-2xl">{{ $total_active_members }}/{{ $total_members }}</p>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="">
-            <div class="announcement p-3 my-2 border-b-2 border-purple-900">
+            <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
                 <div class="flex justify-between">
                     <div class="flex">
                         <div>
@@ -109,7 +109,7 @@
                 <p class="text-right text-gray-400">Posted by: Ron S at 1/7/2023 15:00</p>
             </div>
 
-            <div class="announcement p-3 my-2 border-b-2 border-purple-900">
+            <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
                 <div class="flex justify-between">
                     <div class="flex">
                         <div>
