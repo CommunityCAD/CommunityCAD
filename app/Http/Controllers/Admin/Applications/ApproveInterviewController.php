@@ -31,6 +31,8 @@ class ApproveInterviewController extends Controller
         $user_history = $application->user->generateHistory("User populated into system.");
         $application->user->update([
             'history' => $user_history,
+            'member_join_date' => now(),
+            'main_department_id' => $application->department->id,
         ]);
 
 

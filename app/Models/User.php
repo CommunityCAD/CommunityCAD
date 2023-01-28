@@ -106,6 +106,27 @@ class User extends Authenticatable
         return $new_history = json_encode($history);
     }
 
+    public function getUsableHistoryAttribute()
+    {
+        if (!is_null($this->history)) {
+            $history = json_decode($this->history);
+
+            foreach ($history as $hsitory) {
+                if ($hsitory->user === "System") {
+                    $hsitory->commenter = "System";
+                } else {
+                    $hsitoryer = DB::table('users')
+                        ->where('id', $hsitory->user)
+                        ->first(['discord_name', 'discriminator']);
+                    $hsitory->commenter = $hsitoryer->discord_name . "#" . $hsitoryer->discriminator;
+                }
+            }
+            return $history;
+        } else {
+            return "No History";
+        }
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);

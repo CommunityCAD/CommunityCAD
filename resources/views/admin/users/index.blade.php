@@ -26,20 +26,20 @@
                 <thead>
                     <tr>
                         <th class="border border-spacing-2 border-slate-500">Discord</th>
-                        <th class="border border-spacing-2 border-slate-500">Display Name</th>
+                        <th class="border border-spacing-2 border-slate-500">Department</th>
                         <th class="border border-spacing-2 border-slate-500"></th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
                     @foreach ($users as $user)
                         <tr>
-                            <td class="border border-slate-500">{{ $user->discord_name }}</td>
-                            <td class="flex flex-wrap p-3 text-xs border border-slate-500">
-                                {{ $user->display_name }}
-                            </td>
+                            <td class="border border-slate-500">{{ $user->discord }}</td>
                             <td class="border border-slate-500">
+                                User Main Department
+                            </td>
+                            <td class="py-3 border border-slate-500">
                                 @can('user_view')
-                                    <a href="{{ route('admin.users.edit', $user->id) }}"
+                                    <a href="{{ route('admin.users.show', $user->id) }}"
                                         class="px-2 py-1 bg-blue-500 rounded hover:bg-blue-600">View</a>
                                 @endcan
 
@@ -49,7 +49,5 @@
                 </tbody>
             </table>
         </div>
-
-
     </div>
 @endsection
