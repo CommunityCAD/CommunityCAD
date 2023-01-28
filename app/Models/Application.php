@@ -55,48 +55,4 @@ class Application extends Model
                 break;
         }
     }
-
-    public function getUsableCommentsAttribute()
-    {
-        if (!is_null($this->comments)) {
-            $comments = json_decode($this->comments);
-
-            foreach ($comments as $comment) {
-                if ($comment->user === "System") {
-                    $comment->commenter = "System";
-                } else {
-                    $commenter = DB::table('users')
-                        ->where('id', $comment->user)
-                        ->first(['discord_name', 'discriminator']);
-                    $comment->commenter = $commenter->discord_name . "#" . $commenter->discriminator;
-                }
-            }
-            return $comments;
-        } else {
-            return "No Comments";
-        }
-    }
-
-    public function generateComment($message, $user = null)
-    {
-        $current_comments = $this->comments;
-
-        if (empty($current_comments)) {
-            $comment = array();
-        } else {
-            $comment = json_decode($current_comments);
-        }
-
-        if (is_null($user)) {
-            $user = auth()->user()->id;
-        }
-
-        $comment[] = [
-            'time' => time(),
-            'user' => $user,
-            'comments' => $message,
-        ];
-
-        return $new_comments = json_encode($comment);
-    }
 }

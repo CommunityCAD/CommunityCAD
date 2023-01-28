@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Applications;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
@@ -31,16 +32,27 @@ class DenyApplicationController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $new_comment = $application->generateComment("Denied Application Reason:" . $request->denied_reason);
-        $application->update(['status' => 5, 'comments' => $new_comment]);
+        $application->update(['status' => 5]);
+        History::create([
+            'subject_type' => 'application',
+            'subject_id' => $application->id,
+            'user_id' => auth()->user()->id,
+            'description' => 'Application Denied. Reason: ' . $request->denied_reason,
+        ]);
 
-        $user_history = $application->user->generateHistory("Application {{$application->id}} Denied Reason:" . $request->denied_reason);
+
         $application->user->update([
             'account_status' => 1,
             'reapply' => $request->reapply,
             'reapply_date' => $request->reapply_date,
             'denied_reason' => $request->denied_reason,
-            'history' => $user_history,
+        ]);
+
+        History::create([
+            'subject_type' => 'user',
+            'subject_id' => $application->user->id,
+            'user_id' => auth()->user()->id,
+            'description' => "Application {{$application->id}} Denied Reason: " . $request->denied_reason,
         ]);
 
         return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application (' . $application->id . ') Denied.', 'level' => 'success']]);

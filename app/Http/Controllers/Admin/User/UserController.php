@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -42,7 +43,8 @@ class UserController extends Controller
 
     public function show(User $user): View
     {
-        return view('admin.users.show', compact('user'));
+        $histories = History::where('subject_type', 'user')->where('subject_id', $user->id)->orderBy('created_at', 'desc')->get();
+        return view('admin.users.show', compact('user', 'histories'));
     }
 
     public function edit(User $user): View

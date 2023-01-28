@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Applications;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
@@ -29,8 +30,14 @@ class FlagApplicationController extends Controller
             return back()->withInput()->withErrors($validator);
         }
 
-        $new_comment = $application->generateComment("Flagged Application Reason:" . $request->reason);
-        $application->update(['status' => 2, 'comments' => $new_comment]);
+        History::create([
+            'subject_type' => 'application',
+            'subject_id' => $application->id,
+            'user_id' => auth()->user()->id,
+            'description' => 'Application Flagged. Reason: ' . $request->reason,
+        ]);
+
+        $application->update(['status' => 2]);
 
         return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application (' . $application->id . ') Flagged.', 'level' => 'success']]);
     }

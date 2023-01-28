@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ApplicationRequest;
 use App\Models\Application;
 use App\Models\Department;
+use App\Models\History;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,27 +22,31 @@ class ApplicationController extends Controller
 
     public function store(ApplicationRequest $request): RedirectResponse
     {
+        abort_unless(auth()->user()->account_status == 1, 403);
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-
-        $comments = array();
-        $comments[] = [
-            'time' => time(),
-            'user' => "System",
-            'comments' => "Application Generated",
-        ];
-
-        $data['comments'] = json_encode($comments);
-
         $application = Application::create($data);
 
+        History::create([
+            'subject_type' => 'application',
+            'subject_id' => $application->id,
+            'user_id' => auth()->user()->id,
+            'description' => 'Application Created.'
+        ]);
+
         if (auth()->user()->age < config('cad.minimum_age')) {
-            $new_comments = $application->generateComment("Application Auto Flagged Due To Age Requirement", "System");
-            $application->update(['status' => 2, 'comments' => $new_comments]);
+            History::create([
+                'subject_type' => 'application',
+                'subject_id' => $application->id,
+                'user_id' => 0,
+                'description' => 'Application Auto Flagged Due To Age Requirement.'
+            ]);
+
+            $application->update(['status' => 2]);
         }
 
-        Auth::user()->update(['account_status' => 2]);
+        auth()->user()->update(['account_status' => 2]);
 
 
         return redirect()->route('account.show', auth()->user()->id)->with('alerts', [['message' => 'Application Created.', 'level' => 'success']]);
@@ -56,13 +61,26 @@ class ApplicationController extends Controller
     {
 
         $validated = $request->validate([
-            'status' => 'required|numeric|between:1,6',
+            'status' => 'required|numeric|in:6',
         ]);
 
+        History::create([
+            'subject_type' => 'application',
+            'subject_id' => $application->id,
+            'user_id' => auth()->user()->id,
+            'description' => 'Application (' . $application->id . ') Withdrawn.'
+        ]);
 
         $application->update($validated);
 
-        Auth::user()->update(['account_status' => 1]);
+        auth()->user()->update(['account_status' => 1]);
+
+        History::create([
+            'subject_type' => 'user',
+            'subject_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id,
+            'description' => 'Application (' . $application->id . ') Withdrawn.'
+        ]);
 
         return redirect()->route('account.show', auth()->user()->id)->with('alerts', [['message' => 'Application Withdrawn.', 'level' => 'success']]);
     }

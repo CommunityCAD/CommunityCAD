@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Applications;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -15,23 +16,14 @@ class ApproveApplicationController extends Controller
 
         abort_unless(Gate::allows('application_action'), 403);
 
-        $current_comments = $application->comments;
+        History::create([
+            'subject_type' => 'application',
+            'subject_id' => $application->id,
+            'user_id' => auth()->user()->id,
+            'description' => 'Application Approved.'
+        ]);
 
-        if (empty($current_comments)) {
-            $comments = array();
-        } else {
-            $comments = json_decode($current_comments);
-        }
-
-        $comments[] = [
-            'time' => time(),
-            'user' => Auth::user()->id,
-            'comments' => "Approved Application",
-        ];
-
-        $new_comments = json_encode($comments);
-
-        $application->update(['status' => 3, 'comments' => $new_comments]);
+        $application->update(['status' => 3]);
 
         return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application Approved.', 'level' => 'success']]);
     }

@@ -275,20 +275,16 @@
                         <div class="" x-show="open" @click.away="open = false">
                             <div class="px-6 py-8">
                                 <div class="">
-                                    @if (is_string($user->usableHistory))
-                                        <p class="text-white">{{ $user->usableHistory }}</p>
-                                    @else
-                                        @foreach ($user->usableHistory as $comment)
-                                            <div class="p-3 my-2 border-2 border-gray-900">
-                                                <p class="text-white">Actioned by: {{ $comment->commenter }} at
-                                                    {{ date('Y-m-d H:i:s', $comment->time) }}
-                                                </p>
-                                                <div>
-                                                    <p class="text-gray-400">{{ $comment->comments }}</p>
-                                                </div>
+                                    @foreach ($histories as $history)
+                                        <div class="p-3 my-2 border-2 border-gray-900">
+                                            <p class="text-white">Actioned by: {{ $history->user->discord }} at
+                                                {{ $history->created_at->format('m/d/Y H:i:s') }}
+                                            </p>
+                                            <div>
+                                                <p class="text-gray-400">{{ $history->description }}</p>
                                             </div>
-                                        @endforeach
-                                    @endif
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,6 @@ return new class extends Migration
             $table->dateTime('last_login')->nullable();
             $table->boolean('is_protected_user')->default(0);
             $table->boolean('is_super_user')->default(0);
-            $table->json('history')->nullable();
             $table->unsignedBigInteger('civilian_level')->default(1);
 
             $table->rememberToken();

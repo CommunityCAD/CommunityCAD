@@ -245,20 +245,16 @@
         <div
             class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
             <div class="">
-                @if (is_string($application->usableComments))
-                    <p class="text-white">{{ $application->usableComments }}</p>
-                @else
-                    @foreach ($application->usableComments as $comment)
-                        <div class="p-3 my-2 border-2 border-gray-900">
-                            <p class="text-white">Actioned by: {{ $comment->commenter }} at
-                                {{ date('Y-m-d H:i:s', $comment->time) }}
-                            </p>
-                            <div>
-                                <p class="text-gray-400">{{ $comment->comments }}</p>
-                            </div>
+                @foreach ($histories as $history)
+                    <div class="p-3 my-2 border-2 border-gray-900">
+                        <p class="text-white">Actioned by: {{ $history->user->discord }} at
+                            {{ $history->created_at->format('m/d/Y H:i:s') }}
+                        </p>
+                        <div>
+                            <p class="text-gray-400">{{ $history->description }}</p>
                         </div>
-                    @endforeach
-                @endif
+                    </div>
+                @endforeach
             </div>
         </div>
 

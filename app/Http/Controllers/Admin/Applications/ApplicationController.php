@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Applications;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\History;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -64,7 +65,9 @@ class ApplicationController extends Controller
             abort_unless(Gate::allows('application_admin_review'), 403);
         }
 
-        return view('admin.applications.show', compact('application'));
+        $histories = History::where('subject_type', 'application')->where('subject_id', $application->id)->orderBy('created_at', 'desc')->get();
+
+        return view('admin.applications.show', compact('application', 'histories'));
     }
 
     // public function edit(Application $application): View

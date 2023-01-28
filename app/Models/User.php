@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Application');
     }
 
+    public function histories()
+    {
+        return $this->hasMany('App\Models\History');
+    }
+
     public static function dec2hex($number)
     {
         $hexvalues = array(
@@ -84,46 +89,6 @@ class User extends Authenticatable
             case 6:
                 return "Permanent Ban";
                 break;
-        }
-    }
-
-    public function generateHistory($message)
-    {
-        $current_history = $this->history;
-
-        if (empty($current_history)) {
-            $history = array();
-        } else {
-            $history = json_decode($current_history);
-        }
-
-        $history[] = [
-            'time' => time(),
-            'user' => auth()->user()->id,
-            'comments' => $message,
-        ];
-
-        return $new_history = json_encode($history);
-    }
-
-    public function getUsableHistoryAttribute()
-    {
-        if (!is_null($this->history)) {
-            $history = json_decode($this->history);
-
-            foreach ($history as $hsitory) {
-                if ($hsitory->user === "System") {
-                    $hsitory->commenter = "System";
-                } else {
-                    $hsitoryer = DB::table('users')
-                        ->where('id', $hsitory->user)
-                        ->first(['discord_name', 'discriminator']);
-                    $hsitory->commenter = $hsitoryer->discord_name . "#" . $hsitoryer->discriminator;
-                }
-            }
-            return $history;
-        } else {
-            return "No History";
         }
     }
 

@@ -29,8 +29,6 @@ return new class extends Migration
             $table->boolean('legal_copy');
             $table->boolean('previous_member');
 
-            $table->json('comments')->nullable();
-
             $table->softDeletes();
             $table->timestamps();
 
