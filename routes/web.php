@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Applications\FlagApplicationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
@@ -60,6 +61,8 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
     Route::resource('/permissions', PermissionController::class);
 
     Route::get('/users/advanced', [UserController::class, 'all_users'])->name('users.advanced.index');
+    Route::get('/user/{user}/roles/edit', [UserRoleController::class, 'edit'])->name('users.roles.edit');
+    Route::put('/user/{user}/roles', [UserRoleController::class, 'update'])->name('users.roles.update');
     Route::resource('/users', UserController::class);
 });
 

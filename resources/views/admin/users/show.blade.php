@@ -166,7 +166,10 @@
                                     Information</a>
                                 <a href="#" class="px-2 py-1 m-1 text-black rounded bg-slate-300">Force Change
                                     Status</a>
-                                <a href="#" class="px-2 py-1 m-1 text-black rounded bg-slate-300">Edit Roles</a>
+                                @can('user_edit_roles')
+                                    <a href="{{ route('admin.users.roles.edit', $user->id) }}"
+                                        class="px-2 py-1 m-1 text-black rounded bg-slate-300">Edit Roles</a>
+                                @endcan
                             </div>
                         </div>
                     @endcan
