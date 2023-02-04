@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function show(User $user): View
     {
-        $histories = History::where('subject_type', 'user')->where('subject_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $histories = History::where('subject_type', 'user')->where('subject_id', $user->id)->orderBy('created_at', 'desc')->take(5)->get();
         return view('admin.users.show', compact('user', 'histories'));
     }
 

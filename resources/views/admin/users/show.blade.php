@@ -108,40 +108,41 @@
                         </div>
                     </div>
 
-                    <div class="my-4"></div>
+                    @can('application_access')
+                        <div class="my-4"></div>
+                        <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
 
-                    <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                            <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
+                                @click="open = !open">
 
-                        <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
-                            @click="open = !open">
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
 
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-
-                            <span class="tracking-wide">Applications</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg>
+                                <span class="tracking-wide">Applications</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                            <div class="" x-show="open" @click.away="open = false">
+                                <ul class="space-y-2 list-inside">
+                                    @foreach ($user->applications as $application)
+                                        <li>
+                                            <a href="{{ route('admin.application.show', $application->id) }}"
+                                                class="text-teal-300 hover:underline hover:text-teal-400">Application
+                                                #{{ $application->id }} for {{ $application->department->name }}</a>
+                                            <div class="text-xs">Status: {{ $application->status_name }}</div>
+                                            <div class="text-xs">Created At: {{ $application->created_at->format('m/d/Y') }}
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                        <div class="" x-show="open" @click.away="open = false">
-                            <ul class="space-y-2 list-inside">
-                                @foreach ($user->applications as $application)
-                                    <li>
-                                        <a href="{{ route('admin.application.show', $application->id) }}"
-                                            class="text-teal-300 hover:underline hover:text-teal-400">Application
-                                            #{{ $application->id }} for {{ $application->department->name }}</a>
-                                        <div class="text-xs">Status: {{ $application->status_name }}</div>
-                                        <div class="text-xs">Created At: {{ $application->created_at->format('m/d/Y') }}
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
+                    @endcan
 
 
                     @can('user_edit')
@@ -282,6 +283,7 @@
                         <div class="" x-show="open" @click.away="open = false">
                             <div class="px-6 py-8">
                                 <div class="">
+                                    <p>Shows the last 5 actions. View complete history here.</p>
                                     @foreach ($histories as $history)
                                         <div class="p-3 my-2 border-2 border-gray-900">
                                             <p class="text-white">Actioned by: {{ $history->user->discord }} at
