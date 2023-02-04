@@ -33,6 +33,11 @@ class AuthController extends Controller
         $user = User::where('id', $discordUser->getId())->first();
 
         if (!is_null($user)) {
+            $user->update([
+                'discord_name' => $discordUser->user['username'],
+                'discriminator' => $discordUser->user['discriminator'],
+                'avatar' => $discordUser->avatar,
+            ]);
             return $user;
         }
 
