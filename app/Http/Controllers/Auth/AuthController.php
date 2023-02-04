@@ -45,24 +45,4 @@ class AuthController extends Controller
 
         return false;
     }
-
-    public function offlineLogin()
-    {
-        # 188790560658685954
-
-        $user = User::where('id', 188790560658685954)->first();
-
-        // dd($user);
-
-        if (!$user) {
-            return redirect()->route('account.create');
-            die();
-        }
-
-        Auth::login($user, true);
-
-        $user->touch('last_login');
-
-        return redirect()->intended('account/' . $user->id)->with('success', 'Welcome Back!'); // redirect to site
-    }
 }
