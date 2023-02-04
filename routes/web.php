@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
+use App\Http\Controllers\Admin\User\UserStatusController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
@@ -63,6 +64,9 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
     Route::get('/users/advanced', [UserController::class, 'all_users'])->name('users.advanced.index');
     Route::get('/user/{user}/roles/edit', [UserRoleController::class, 'edit'])->name('users.roles.edit');
     Route::put('/user/{user}/roles', [UserRoleController::class, 'update'])->name('users.roles.update');
+    Route::get('/user/{user}/status/edit', [UserStatusController::class, 'edit'])->name('users.status.edit');
+    Route::put('/user/{user}/status', [UserStatusController::class, 'update'])->name('users.status.update');
+
     Route::resource('/users', UserController::class);
 });
 
