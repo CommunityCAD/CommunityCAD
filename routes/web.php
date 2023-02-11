@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\Cad\PageController;
+use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +40,14 @@ Route::middleware(['auth'])->name('portal.')->prefix('portal')->group(function (
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
+});
+
+Route::middleware(['auth'])->name('cad.')->prefix('cad')->group(function () {
+    Route::get('landing', [PageController::class, 'index'])->name('landing');
+});
+
+Route::middleware(['auth'])->name('civilian.')->prefix('civilian')->group(function () {
+    Route::resource('civilians', CivilianController::class);
 });
 
 Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {

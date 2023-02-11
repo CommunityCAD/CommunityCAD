@@ -47,13 +47,14 @@
             </li>
 
             <li class="relative px-6 py-3">
-                @if (request()->is(''))
+                @if (request()->is('cad/*'))
                     <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
                         aria-hidden="true"></span>
                     <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
                         aria-hidden="true"></span>
                 @endif
-                <a class="sidebar-link @if (request()->is('')) sidebar-link-active @endif" href="#">
+                <a class="sidebar-link @if (request()->is('cad/*')) sidebar-link-active @endif"
+                    href="{{ route('cad.landing') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,13 +66,14 @@
             </li>
 
             <li class="relative px-6 py-3">
-                @if (request()->is(''))
+                @if (request()->is('civilian/*'))
                     <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
                         aria-hidden="true"></span>
                     <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
                         aria-hidden="true"></span>
                 @endif
-                <a class="sidebar-link @if (request()->is('')) sidebar-link-active @endif" href="#">
+                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif"
+                    href="{{ route('civilian.civilians.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
