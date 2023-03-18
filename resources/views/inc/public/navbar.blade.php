@@ -4,7 +4,7 @@
         <div class="flex flex-row items-center justify-between p-4">
             <img src="{{ config('cad.community_logo') }}" width="40" height="40" alt="">
             <a href="{{ route('home') }}"
-                class="text-lg font-semibold tracking-widest text-white uppercase rounded-lg xl:ml-3 focus:outline-none focus:shadow-outline">
+                class="text-lg font-semibold tracking-widest dark:text-white uppercase rounded-lg xl:ml-3 focus:outline-none focus:shadow-outline">
                 {{ config('cad.community_name') }}
             </a>
             <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
@@ -30,10 +30,10 @@
                             class="absolute right-0 w-full md:w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                             aria-label="submenu">
                             <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                     href="{{ route('account.show', auth()->user()->id) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-3">
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
@@ -42,7 +42,7 @@
                             </li>
                             @if (auth()->user()->account_status === 3)
                                 <li class="flex">
-                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                         href="{{ route('portal.dashboard') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-3">
@@ -53,9 +53,23 @@
                                     </a>
                                 </li>
                             @endif
-                            <li>
+                            <li class="flex">
                                 <x-simple-theme-switch
-                                    class="w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                                    class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                                    <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none"
+                                            fill-rule="evenodd">
+                                            <g id="ic_fluent_dark_theme_24_regular" fill="#212121" fill-rule="nonzero">
+                                                <path
+                                                    d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z"
+                                                    id="🎨-Color">
+
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <span>Change Theme</span>
                                 </x-simple-theme-switch>
                             </li>
                             <li>
@@ -64,7 +78,7 @@
                             <li class="flex">
                                 <form method="POST" action="{{ route('logout') }}" class="block w-full text-red-400">
                                     @csrf
-                                    <a class="flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                    <a class="flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                         href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                         this.closest('form').submit();">
@@ -110,8 +124,8 @@
                         </a>
 
                         <div x-show="open" @click.away="open = false">
-                            <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
+                            <ul x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                 class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                                 aria-label="submenu">
                                 <li class="flex">

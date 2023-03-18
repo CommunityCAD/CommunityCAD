@@ -26,13 +26,11 @@
     @livewireStyles
 </head>
 
-<body class="bg-slate-200 dark:bg-[#01161e]">
+<body class="bg-[#eff6e0] dark:bg-[#01161e]">
 
     @include('inc.public.navbar')
 
-    <main>
-        @yield('content')
-    </main>
+    @yield('content')
 
     @if (session('alerts'))
         <div class="">

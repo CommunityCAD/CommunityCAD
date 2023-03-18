@@ -1,10 +1,10 @@
-<button id="theme-toggle" type="button" class="{{ $attributes->get('class') }}">
-    Switch Theme
+<button id="simple-theme-toggle" type="button" class="{{ $attributes->get('class') }}">
+    {{ $slot }}
 </button>
 
 <script>
     (function() {
-        const darkToggle = document.querySelector('#theme-toggle');
+        const darkToggle = document.querySelector('#simple-theme-toggle');
 
         darkToggle.addEventListener('click', (event) => {
             event.preventDefault();
