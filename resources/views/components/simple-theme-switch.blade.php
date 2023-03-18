@@ -1,4 +1,4 @@
-<button id="theme-toggle" type="button" class="text-gray-300 underline text-sm">
+<button id="theme-toggle" type="button" class="{{ $attributes->get('class') }}">
     Switch Theme
 </button>
 

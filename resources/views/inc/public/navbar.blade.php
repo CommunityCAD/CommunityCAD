@@ -1,4 +1,4 @@
-<div class="w-full text-gray-700 dark:bg-[#598392]">
+<div class="w-full text-gray-700">
     <div x-data="{ open: false }"
         class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div class="flex flex-row items-center justify-between p-4">
@@ -20,8 +20,6 @@
         </div>
         <nav :class="{ 'flex': open, 'hidden': !open }"
             class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
-
-            <x-theme-switch></x-theme-switch>
 
             @auth
                 <div x-data="{ open: false }" class="relative z-50">
@@ -55,6 +53,11 @@
                                     </a>
                                 </li>
                             @endif
+                            <li>
+                                <x-simple-theme-switch
+                                    class="w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                                </x-simple-theme-switch>
+                            </li>
                             <li>
                                 <hr>
                             </li>
