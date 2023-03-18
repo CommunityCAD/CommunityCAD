@@ -17,7 +17,7 @@ class CivilianController extends Controller
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
         $civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level)->first();
 
-        return view('civilian.civilians.index', compact('civilians', $civilian_level));
+        return view('civilian.civilians.index', compact('civilians', 'civilian_level'));
     }
 
     public function create(): View
