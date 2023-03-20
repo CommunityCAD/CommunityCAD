@@ -4,9 +4,8 @@
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
         <h2 class="text-2xl font-bold dark:text-gray-200">Community Application</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
-            <div class="text-gray-900 dark:text-white">
+        <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
+            <div class="text-white">
 
                 @if ($application->status <= 3)
                     <div class="w-full">
