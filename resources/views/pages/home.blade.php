@@ -127,7 +127,7 @@
         @endguest
 
         <div class="border-t mt-3 flex space-x-2 justify-between pt-2">
-            <x-simple-theme-switch class="text-gray-300 underline text-sm">Change Theme</x-simple-theme-switch>
+            {{-- <x-simple-theme-switch class="text-gray-300 underline text-sm">Change Theme</x-simple-theme-switch> --}}
 
             <a class="text-sm text-slate-400 underline" href="https://communitycad.app">Community CAD
                 {{ config('app.version') }}</a>
