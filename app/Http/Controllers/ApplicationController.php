@@ -54,6 +54,9 @@ class ApplicationController extends Controller
 
     public function show(Application $application): View
     {
+        if (auth()->user()->id != $application->user_id) {
+            return abort(404);
+        }
         return view('applications.show', compact('application'));
     }
 

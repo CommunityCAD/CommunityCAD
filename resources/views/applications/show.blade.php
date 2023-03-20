@@ -8,24 +8,31 @@
             class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
             <div class="text-gray-900 dark:text-white">
 
+                @if ($application->status <= 3)
+                    <div class="w-full">
+                        <form action="{{ route('application.update', $application->id) }}" method="post">
+                            @csrf
+                            @method('put')
+
+                            <input type="hidden" name="status" value="6">
+                            <input type="submit"
+                                class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md cursor-pointer hover:opacity-70"
+                                value="Withdraw Application">
+                        </form>
+                    </div>
+                @endif
+
                 <div class="w-full">
-                    <form action="{{ route('application.update', $application->id) }}" method="post">
-                        @csrf
-                        @method('put')
-
-                        <input type="hidden" name="status" value="6">
-                        <input type="submit"
-                            class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md cursor-pointer hover:opacity-70"
-                            value="Withdraw Application">
-                    </form>
+                    <label for="department_id" class="block mt-3 font-bold">Application Status</label>
+                    <p class="w-full p-3 mt-2 border rounded-md">
+                        {{ $application->status_name }}</p>
                 </div>
-
 
                 <div class="w-full">
                     <label for="department_id" class="block mt-3 font-bold">What department are you applying
                         for?</label>
                     <p class="w-full p-3 mt-2 border rounded-md">
-                        {{ $application->department_id }}</p>
+                        {{ $application->department->name }}</p>
                 </div>
 
                 <div class="w-full">
@@ -108,31 +115,6 @@
                     <p class="w-full p-3 mt-2 border rounded-md">
                         {{ $application->why_join_community }}</p>
                 </div>
-
-                <hr class="my-4">
-
-                <h3 class="my-4 text-lg text-center">Application Terms</h3>
-                <div class="space-y-4">
-                    <p class="">You understand that you may only submit one application per recruitment cycle and that
-                        if you are denied
-                        you are required to wait until the next recruitment cycle to reapply.</p>
-
-                    <p class="">You have read over the Applacation Rules & Regulations and agree to them?</p>
-
-                    <p class="">Have you read over your application and ensured that all of the information on this
-                        application is fully
-                        accurate and correct, and that you are ready to submit this application for review?</p>
-
-                    <p class="">You are at least {{ config('cad.minimum_age') }} years of age at the time of
-                        submitting this application
-                    </p>
-
-                    <p class="">You understand that applicants will be contacted via our Fan Discord and you must be a
-                        member of it if
-                        you
-                        wish to further within your application</p>
-                </div>
-
 
             </div>
         </div>

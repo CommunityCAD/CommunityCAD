@@ -4,9 +4,8 @@
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
         <h2 class="text-2xl font-bold dark:text-gray-200">Community Application</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
-            <div class="text-gray-900 dark:text-white">
+        <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
+            <div class="text-white">
                 <form action="{{ route('application.store') }}" method="POST">
                     @csrf
 
@@ -120,24 +119,13 @@
 
                 <h3 class="my-4 text-lg text-center">Application Terms</h3>
                 <div class="space-y-4">
-                    <p class="">You understand that you may only submit one application per recruitment cycle and that
-                        if you are denied
-                        you are required to wait until the next recruitment cycle to reapply.</p>
+                    @if (config('cad.minimum_age') > 0)
+                        <p>You are at least {{ config('cad.minimum_age') }} years of age at the time of
+                            submitting this application
+                        </p>
+                    @endif
 
-                    <p class="">You have read over the Applacation Rules & Regulations and agree to them?</p>
-
-                    <p class="">Have you read over your application and ensured that all of the information on this
-                        application is fully
-                        accurate and correct, and that you are ready to submit this application for review?</p>
-
-                    <p class="">You are at least {{ config('cad.minimum_age') }} years of age at the time of
-                        submitting this application
-                    </p>
-
-                    <p class="">You understand that applicants will be contacted via our Fan Discord and you must be a
-                        member of it if
-                        you
-                        wish to further within your application</p>
+                    {!! config('cad.application_terms') !!}
                 </div>
 
 
