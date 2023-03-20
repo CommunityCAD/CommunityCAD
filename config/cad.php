@@ -7,6 +7,8 @@ return [
 
     'days_until_inactive' => 14,
 
+    'days_until_reapply' => 7,
+
     // Must be a https link
 
     'community_logo' => 'https://gages.space/images/logo.png',

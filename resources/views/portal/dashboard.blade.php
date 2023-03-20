@@ -5,9 +5,7 @@
         <div class="">
             <p class="text-lg dark:text-white">Dashboard</p>
         </div>
-
         @livewire('breadcrumbs', ['paths' => []])
-
     </nav>
 
     <div class="my-4 space-y-4 md:flex md:justify-between md:space-y-0 md:space-x-4">

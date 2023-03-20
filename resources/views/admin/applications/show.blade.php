@@ -1,9 +1,9 @@
 @extends('layouts.portal')
 
 @section('content')
-    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
+    <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
         <div class="">
-            <p class="text-lg text-white">Show Application {{ $application->id }} |
+            <p class="text-lg dark:text-white">Show Application {{ $application->id }} |
                 {{ $application->user->discord_name }}#{{ $application->user->discriminator }}</p>
         </div>
 
@@ -14,8 +14,7 @@
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
         <h2 class="text-2xl font-bold dark:text-gray-200">User Information Application</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
+        <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
             <div class="">
                 <div class="grid text-sm md:grid-cols-2">
                     <div class="grid grid-cols-2">
@@ -59,7 +58,7 @@
         <h2 class="text-2xl font-bold dark:text-gray-200">Application Meta Data</h2>
 
         <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
             <div class="">
                 <div class="grid text-sm md:grid-cols-2">
                     <div class="grid grid-cols-2">
@@ -93,19 +92,19 @@
         <h2 class="text-2xl font-bold dark:text-gray-200">Community Application</h2>
 
         <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg ">
-            <div class="text-gray-900 dark:text-white">
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+            <div class="">
                 <div class="w-full">
                     <label for="department_id" class="block mt-3 font-bold">What department are you applying
                         for?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->department->name }}</p>
                 </div>
 
                 <div class="w-full">
                     <label for="why_join_department" class="block mt-3 font-bold">Why do you wish to join this
                         department?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->why_join_department }}</p>
                 </div>
 
@@ -114,7 +113,7 @@
                         experiences in
                         this
                         field?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->experience_department }}</p>
                 </div>
 
@@ -123,14 +122,14 @@
                         the
                         general
                         duties of the department?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->department_duties }}</p>
                 </div>
 
                 <div class="w-full">
                     <label for="scenario" class="block mt-3 font-bold">Please create a detailed scenario (For
                         Example: 911 call, traffic stop, crime scene, etc.)</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->scenario }}</p>
                 </div>
 
@@ -138,7 +137,7 @@
 
                 <div class="w-full">
                     <label for="about_you" class="block mt-3 font-bold">Tell us about yourself</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->about_you }}</p>
                 </div>
 
@@ -146,7 +145,7 @@
                     <label for="skills" class="block mt-3 font-bold">Do you have any skills that can be
                         useful in
                         your department and/or the community?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->skills }}</p>
                 </div>
 
@@ -154,7 +153,7 @@
                     <label for="legal_copy" class="block mt-3 font-bold">Do you have a working and legal copy
                         of
                         GTA V on PC?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         @if ($application->legal_copy)
                             Yes
                         @else
@@ -166,7 +165,7 @@
                 <div class="w-full">
                     <label for="previous_member" class="block mt-3 font-bold">Are you a previous member of
                         {{ config('cad.community_name') }}?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         @if ($application->previous_member)
                             Yes
                         @else
@@ -179,7 +178,7 @@
                     <label for="why_join_community" class="block mt-3 font-bold">Why do you want to be apart
                         of
                         {{ config('cad.community_name') }}?</label>
-                    <p class="w-full p-3 mt-2 border rounded-md">
+                    <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->why_join_community }}</p>
                 </div>
             </div>
@@ -188,7 +187,7 @@
         <h2 class="text-2xl font-bold dark:text-gray-200">Application Options</h2>
 
         <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
             <div class="">
                 <div class="space-y-4">
                     @can('application_action')
@@ -243,7 +242,7 @@
         <h2 class="text-2xl font-bold dark:text-gray-200">Application Comments</h2>
 
         <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
             <div class="">
                 @foreach ($histories as $history)
                     <div class="p-3 my-2 border-2 border-gray-900">

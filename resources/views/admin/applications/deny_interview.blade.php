@@ -5,11 +5,11 @@
 
         <h2 class="text-2xl font-bold dark:text-gray-200">Deny Interview</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
-            <div class="mb-3 text-white space-y-4">
+        <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+            <div class="mb-3 space-y-4">
                 <p class="mt-1"><b>Can this person reapply?:</b> Is this applicant allowed to reapply. Default is Yes.</p>
-                <p class="mt-1"><b>Reapply Date:</b> Date the applicant can reapply. Default is 14 days.</p>
+                <p class="mt-1"><b>Reapply Date:</b> Date the applicant can reapply. Default is
+                    {{ config('cad.days_until_reapply') }} days.</p>
                 <p class="mt-1"><b>Reason:</b> This should be respectful and should include as much information as
                     possible. "Lack of effort" is not a good reason. Say "Application showed little effort on the why would
                     you like to join and roleplay experience questions."
@@ -36,7 +36,8 @@
 
                 <div class="w-full">
                     <label for="reapply_date" class="block mt-3 text-black-500">Reapply Date</label>
-                    <input type="date" name="reapply_date" value="{{ date('Y-m-d', strtotime('+14 days', time())) }}"
+                    <input type="date" name="reapply_date"
+                        value="{{ date('Y-m-d', strtotime('+' . config('cad.days_until_reapply') . ' days', time())) }}"
                         class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
                     <x-input-error :messages="$errors->get('reapply_date')" class="mt-2" />
                 </div>
@@ -50,7 +51,7 @@
                 </div>
 
                 <button type="submit"
-                    class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-red-500 hover:bg-red-600 border border-transparent rounded-md">
+                    class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-red-500 border border-transparent rounded-md hover:bg-red-600">
                     Deny Interview
                 </button>
 

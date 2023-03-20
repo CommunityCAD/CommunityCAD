@@ -1,9 +1,9 @@
 @extends('layouts.portal')
 
 @section('content')
-    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
+    <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
         <div class="">
-            <p class="text-lg text-white">{{ $page_title }}</p>
+            <p class="text-lg dark:text-white">{{ $page_title }}</p>
         </div>
 
         @livewire('breadcrumbs', ['paths' => []])
@@ -59,7 +59,7 @@
             }
         @endphp
         <div
-            class="my-4 dark:bg-[#124559] hover:opacity-70 px-3 py-2 rounded-lg w-full text-white border-l-8 {{ $border_color }}">
+            class="my-4 bg-[#124559] hover:opacity-70 px-3 py-2 rounded-lg w-full text-white border-l-8 {{ $border_color }}">
             <a href="{{ route('admin.application.show', $application->id) }}">
                 <div class="flex justify-between">
                     <p class="{{ $text_color }}">{{ $application->id }} |

@@ -5,8 +5,7 @@
 
         <h2 class="text-2xl font-bold dark:text-gray-200">Flag Application</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-4xl sm:rounded-lg text-gray-900 dark:text-white">
+        <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
 
             <form action="{{ route('admin.application.flag_application.store', $application->id) }}" method="POST">
                 @csrf
@@ -20,7 +19,7 @@
                 </div>
 
                 <button type="submit"
-                    class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-black uppercase transition duration-150 ease-in-out bg-yellow-500 hover:bg-yellow-600 border border-transparent rounded-md">
+                    class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-black uppercase transition duration-150 ease-in-out bg-yellow-500 border border-transparent rounded-md hover:bg-yellow-600">
                     Flag Application
                 </button>
 
