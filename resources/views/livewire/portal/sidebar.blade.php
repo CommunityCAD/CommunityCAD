@@ -260,8 +260,7 @@
 
         </ul>
         <div class="px-6 my-6">
-            <x-simple-theme-switch
-                class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+            <x-simple-theme-switch class="inline-flex items-center sidebar-link">
                 <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
