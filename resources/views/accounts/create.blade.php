@@ -7,8 +7,8 @@
         <div x-data="{
             currentStep: 1
         }"
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden bg-white shadow-md dark:bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
-            <div class="flex text-gray-900 dark:text-white">
+            class="w-full px-6 py-8 mt-6 mb-6 overflow-hiddenshadow-md bg-[#124559] sm:max-w-2xl sm:rounded-lg ">
+            <div class="flex text-white">
 
                 @if (session('steam_id'))
                     <button type="button" @click="currentStep = 1"
@@ -51,7 +51,7 @@
                         :class="currentStep == 2 ? 'border border-b-0' : 'border-b'">Step 2 (IG Names)</button>
                 @endif
 
-                @if ($errors->has(['real_name', 'birthday', 'email']))
+                @if ($errors->hasAny(['real_name', 'birthday', 'email']))
                     <button type="button" @click="currentStep = 3"
                         class="flex items-center p-2 text-red-400 border-indigo-500"
                         :class="currentStep == 3 ? 'border border-b-0' : 'border-b'">Step 3 (IRL Information)
@@ -69,7 +69,7 @@
 
                 <div class="flex-grow border-b border-indigo-500"></div>
             </div>
-            <form class="mt-2 text-gray-900 dark:text-white" method="POST" action="{{ route('account.store') }}">
+            <form class="mt-2 text-white" method="POST" action="{{ route('account.store') }}">
                 @csrf
 
                 <div x-show="currentStep == 1">
@@ -81,9 +81,16 @@
                             <p>Steam ID: {{ session('steam_id') }}</p>
                             <p>Steam Hex: {{ session('steam_hex') }}</p>
                         @else
-                            <p class="text-lg text-red-400">You must complete this step before moving forward. Data entered
-                                into Step 2 and 3 will be
-                                deleted.</p>
+                            @if (config('cad.force_steam_link'))
+                                <p class="text-lg text-red-400">You must complete this step before moving forward. Data
+                                    entered
+                                    into Step 2 and 3 will be
+                                    deleted.</p>
+                            @else
+                                <p class="text-lg text-white">If you wish to add your steam information to help with our CAD
+                                    system please link below first. If not you can safely skip this step.</p>
+                            @endif
+
 
                             <a href="{{ route('auth.steam') }}"
                                 class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-green-900 border border-transparent rounded-md hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:shadow-outline-green disabled:opacity-25">
@@ -93,22 +100,22 @@
                     </div>
                 </div>
                 <div x-show="currentStep == 2">
-                    <p class="text-lg">Names that you would like to see in the CAD/Website.</p>
+                    <p class="text-lg">Names that you would like to use in the CAD/Website.</p>
 
                     <div>
-                        <label for="display_name" class="block mt-3 text-black-500">Display Name</label>
+                        <label for="display_name" class="block mt-3">Display Name</label>
                         <input type="text" name="display_name" value="{{ old('display_name') }}"
                             class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
                         <x-input-error :messages="$errors->get('display_name')" class="mt-2" />
                     </div>
                     <div>
-                        <label for="officer_name" class="block mt-3 text-black-500">Officer Name</label>
+                        <label for="officer_name" class="block mt-3">Officer Name</label>
                         <input type="text" name="officer_name" value="{{ old('officer_name') }}"
                             class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
                         <x-input-error :messages="$errors->get('officer_name')" class="mt-2" />
                     </div>
                     <div>
-                        <label for="ts_name" class="block mt-3 text-black-500">Teamspeak Name</label>
+                        <label for="ts_name" class="block mt-3">Teamspeak Name</label>
                         <input type="text" name="ts_name" value="{{ old('ts_name') }}"
                             class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
                         <x-input-error :messages="$errors->get('ts_name')" class="mt-2" />

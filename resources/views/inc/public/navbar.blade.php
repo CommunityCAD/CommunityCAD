@@ -4,7 +4,7 @@
         <div class="flex flex-row items-center justify-between p-4">
             <img src="{{ config('cad.community_logo') }}" width="40" height="40" alt="">
             <a href="{{ route('home') }}"
-                class="text-lg font-semibold tracking-widest dark:text-white uppercase rounded-lg xl:ml-3 focus:outline-none focus:shadow-outline">
+                class="text-lg font-semibold tracking-widest dark:text-white uppercase rounded-lg ml-3 focus:outline-none focus:shadow-outline">
                 {{ config('cad.community_name') }}
             </a>
             <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
@@ -114,11 +114,11 @@
 
             @guest
                 @if (!session('id'))
-                    <a class="px-4 py-2 mt-2 font-semibold text-white rounded-lg cursor-pointer md:mt-0 hover:text-gray-300"
+                    <a class="px-4 py-2 mt-2 font-semibold dark:text-white rounded-lg cursor-pointer md:mt-0 dark:hover:text-gray-300 hover:text-gray-400"
                         href="{{ route('auth.discord') }}">Login/Apply</a>
                 @else
                     <div x-data="{ open: false }" class="relative z-50">
-                        <a class="discord-link" @click="open = !open">
+                        <a class="discord-link cursor-pointer" @click="open = !open">
                             <img class="object-cover mr-2 rounded-full w-9 h-9" src="{{ session('avatar') }}"
                                 alt="{{ session('discord_name') }}#{{ session('discriminator') }}" />
 
@@ -151,6 +151,26 @@
 
                                         <span>Create Account</span>
                                     </a>
+                                </li>
+                                <li class="flex" x-on:click="open=false">
+                                    <x-simple-theme-switch
+                                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                                        <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none"
+                                                fill-rule="evenodd">
+                                                <g id="ic_fluent_dark_theme_24_regular" fill="#212121"
+                                                    fill-rule="nonzero">
+                                                    <path
+                                                        d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z"
+                                                        id="🎨-Color">
+
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <span>Change Theme</span>
+                                    </x-simple-theme-switch>
                                 </li>
                                 <li>
                                     <hr>

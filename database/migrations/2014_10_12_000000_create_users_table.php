@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('discriminator');
             $table->text('avatar');
 
-            $table->string('steam_hex');
-            $table->bigInteger('steam_id');
-            $table->string('steam_name');
+            $table->string('steam_hex')->nullable();
+            $table->bigInteger('steam_id')->nullable();
+            $table->string('steam_name')->nullable();
 
             $table->unsignedBigInteger('account_status')->default(1);
 

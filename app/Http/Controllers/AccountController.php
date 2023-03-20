@@ -26,14 +26,22 @@ class AccountController extends Controller
     {
         $data = $request->validated();
 
+        if (config('cad.force_steam_link')) {
+            if (!session()->has('steam_id')) {
+                return redirect()->route('account.create')->with('alerts', [['message' => 'You must link your steam account. Form has been reset.', 'level' => 'error']]);
+            }
+        }
+
         $data['id'] = session('id');
         $data['discord_name'] = session('discord_name');
         $data['discriminator'] = session('discriminator');
         $data['avatar'] = session('avatar');
-        $data['steam_id'] = session('steam_id');
-        $data['steam_hex'] = session('steam_hex');
-        $data['steam_name'] = session('steam_username');
 
+        if (session()->has('steam_id')) {
+            $data['steam_id'] = session('steam_id');
+            $data['steam_hex'] = session('steam_hex');
+            $data['steam_name'] = session('steam_username');
+        }
 
         $user = User::create($data);
 
