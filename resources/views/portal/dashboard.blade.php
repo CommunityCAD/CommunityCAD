@@ -1,9 +1,9 @@
 @extends('layouts.portal')
 
 @section('content')
-    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
+    <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
         <div class="">
-            <p class="text-lg text-white">Dashboard</p>
+            <p class="text-lg dark:text-white">Dashboard</p>
         </div>
 
         @livewire('breadcrumbs', ['paths' => []])
@@ -12,7 +12,7 @@
 
     <div class="my-4 space-y-4 md:flex md:justify-between md:space-y-0 md:space-x-4">
         <div
-            class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-red-500">
+            class="bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-red-500">
             <div class="">
                 <p class="text-sm text-red-500">Total Members</p>
                 <p class="text-2xl">{{ $total_members }}</p>
@@ -29,7 +29,7 @@
         </div>
 
         <div
-            class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-yellow-600">
+            class="bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-yellow-600">
             <div class="">
                 <p class="text-sm text-yellow-600">Total Play Time</p>
                 <p class="text-2xl">15:56</p>
@@ -44,7 +44,7 @@
         </div>
 
         <div
-            class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-teal-400">
+            class="bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-teal-400">
             <div class="">
                 <p class="text-sm text-teal-400">Online Members or Active</p>
                 <p class="text-2xl">{{ $total_active_members }}/{{ $total_members }}</p>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div class="my-4 dark:bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-purple-500">
+    <div class="my-4 bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-purple-500">
         <div class="flex justify-between">
             <p class="text-purple-600">Announcements</p>
             <div>
@@ -150,7 +150,7 @@
         </div>
     </div>
 
-    <div class="my-4 dark:bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-green-600">
+    <div class="my-4 bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-green-600">
         <div class="flex justify-between">
             <p class="text-green-600">Upcoming Events</p>
             <div>

@@ -4,7 +4,7 @@
         <div class="flex flex-row items-center justify-between p-4">
             <img src="{{ config('cad.community_logo') }}" width="40" height="40" alt="">
             <a href="{{ route('home') }}"
-                class="text-lg font-semibold tracking-widest dark:text-white uppercase rounded-lg ml-3 focus:outline-none focus:shadow-outline">
+                class="ml-3 text-lg font-semibold tracking-widest uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">
                 {{ config('cad.community_name') }}
             </a>
             <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
@@ -27,7 +27,7 @@
                     <div x-show="open" @click.away="open = false" @keydown.escape="open = false">
                         <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                             x-transition:leave-end="opacity-0"
-                            class="absolute right-0 w-full md:w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                            class="absolute right-0 w-full p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md md:w-56 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                             aria-label="submenu">
                             <li class="flex">
                                 <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
@@ -114,11 +114,11 @@
 
             @guest
                 @if (!session('id'))
-                    <a class="px-4 py-2 mt-2 font-semibold dark:text-white rounded-lg cursor-pointer md:mt-0 dark:hover:text-gray-300 hover:text-gray-400"
+                    <a class="px-4 py-2 mt-2 font-semibold rounded-lg cursor-pointer dark:text-white md:mt-0 dark:hover:text-gray-300 hover:text-gray-400"
                         href="{{ route('auth.discord') }}">Login/Apply</a>
                 @else
                     <div x-data="{ open: false }" class="relative z-50">
-                        <a class="discord-link cursor-pointer" @click="open = !open">
+                        <a class="cursor-pointer discord-link" @click="open = !open">
                             <img class="object-cover mr-2 rounded-full w-9 h-9" src="{{ session('avatar') }}"
                                 alt="{{ session('discord_name') }}#{{ session('discriminator') }}" />
 

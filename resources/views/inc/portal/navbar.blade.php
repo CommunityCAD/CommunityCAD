@@ -12,9 +12,6 @@
         </button>
 
         <ul class="flex items-center flex-shrink-0 space-x-6">
-            <!-- Theme toggler -->
-            <x-theme-switch></x-theme-switch>
-
             <!-- Notifications menu -->
             <li class="relative" x-data="{ open: false }">
                 <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"

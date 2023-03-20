@@ -18,17 +18,15 @@
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
                 '(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
-            localStorage.theme = 'dark'
         } else {
             document.documentElement.classList.remove('dark');
-            localStorage.theme = 'light'
         }
     </script>
 
     @livewireStyles
 </head>
 
-<body class="antialiased bg-slate-200 dark:bg-[#01161e]" x-data="{ sideMenu: false }">
+<body class="bg-[#eff6e0] dark:bg-[#01161e]" x-data="{ sideMenu: false }">
     <div class="flex h-screen" :class="{ 'overflow-hidden': sideMenu }">
         @include('inc.portal.sidebar')
         <div class="flex flex-col flex-1">
@@ -50,6 +48,27 @@
             </div>
         </div>
     @endif
+
+    <script>
+        (function() {
+            const darkToggle = document.querySelector('#simple-theme-toggle');
+
+            darkToggle.addEventListener('click', (event) => {
+                event.preventDefault();
+                document.documentElement.classList.toggle('dark');
+                updateLocalStorage();
+            })
+        })();
+
+        function updateLocalStorage() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
+                    '(prefers-color-scheme: dark)').matches)) {
+                localStorage.theme = 'light';
+            } else {
+                localStorage.theme = 'dark'
+            }
+        }
+    </script>
 
     @livewireScripts
 

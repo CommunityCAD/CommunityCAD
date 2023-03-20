@@ -1,6 +1,6 @@
 <div>
-    <div class="py-4 text-gray-500 dark:text-gray-400">
-        <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+    <div class="py-4 text-gray-200">
+        <a class="ml-6 text-lg font-bold" href="#">
             Member Portal
         </a>
         <ul class="mt-6">
@@ -16,13 +16,13 @@
                     x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
                     x-transition:leave="transition-all ease-in-out duration-200"
                     x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                    class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-[#01161e]"
+                    class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium rounded-md shadow-inner text-gray-200 bg-[#01161e]"
                     aria-label="submenu" @click.away="open = false">
-                    <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="#">Profile</a>
+                    <li class="px-2 py-1 transition-colors duration-150">
+                        <a class="w-full hover:text-gray-400" href="#">Profile</a>
                     </li>
-                    <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="#">Settings</a>
+                    <li class="px-2 py-1 transition-colors duration-150">
+                        <a class="w-full hover:text-gray-400" href="#">Settings</a>
                     </li>
                 </ul>
             </li>
@@ -164,28 +164,30 @@
                         x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
                         x-transition:leave="transition-all ease-in-out duration-200"
                         x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                        class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-[#01161e]"
+                        class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium rounded-md shadow-inner text-gray-200 bg-[#01161e]"
                         aria-label="submenu" @click.away="open = false">
                         @can('announcements_access')
-                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 ">
-                                <a class="w-full" href="#">Announcements</a>
+                            <li class="px-2 py-1 transition-colors duration-150 ">
+                                <a class="w-full hover:text-gray-400" href="#">Announcements</a>
                             </li>
                         @endcan
                         @can('application_access')
                             <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 @if (request()->is('admin/application/*')) sidebar-link-active @endif">
-                                <a class="w-full" href="{{ route('admin.application.index', 1) }}">Applications</a>
+                                class="px-2 py-1 transition-colors duration-150 @if (request()->is('admin/application/*')) sidebar-link-active @endif">
+                                <a class="w-full hover:text-gray-400"
+                                    href="{{ route('admin.application.index', 1) }}">Applications</a>
                             </li>
                         @endcan
                         @can('user_access')
-                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="{{ route('admin.users.index') }}">Manage Members</a>
+                            <li class="px-2 py-1 transition-colors duration-150">
+                                <a class="w-full hover:text-gray-400" href="{{ route('admin.users.index') }}">Manage
+                                    Members</a>
                             </li>
                         @endcan
                         @can('role_access')
                             <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200  @if (request()->is('admin/roles/*')) sidebar-link-active @endif">
-                                <a class="w-full" href="{{ route('admin.roles.index') }}">Roles</a>
+                                class="px-2 py-1 transition-colors duration-150  @if (request()->is('admin/roles/*')) sidebar-link-active @endif">
+                                <a class="w-full hover:text-gray-400" href="{{ route('admin.roles.index') }}">Roles</a>
                             </li>
                         @endcan
 
@@ -258,7 +260,22 @@
 
         </ul>
         <div class="px-6 my-6">
+            <x-simple-theme-switch
+                class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-200 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="ic_fluent_dark_theme_24_regular" fill="#212121" fill-rule="nonzero">
+                            <path
+                                d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z"
+                                id="🎨-Color">
 
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+                <span>Change Theme</span>
+            </x-simple-theme-switch>
         </div>
     </div>
 
