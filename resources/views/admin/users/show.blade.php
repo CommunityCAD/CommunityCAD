@@ -1,9 +1,9 @@
 @extends('layouts.portal')
 
 @section('content')
-    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
+    <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
         <div class="">
-            <p class="text-lg text-white">User Profile | {{ $user->discord }}</p>
+            <p class="text-lg dark:text-white">User Profile | {{ $user->discord }}</p>
         </div>
 
         @livewire('breadcrumbs', ['paths' => [['href' => route('admin.users.index'), 'text' => 'View All Members']]])
@@ -11,10 +11,10 @@
     </nav>
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
 
-        <div class="w-full px-6 py-8 mt-6 mb-6 text-gray-900 shadow-md sm:max-w-5xl sm:rounded-lg dark:text-white">
+        <div class="w-full px-6 py-8 mt-6 mb-6 text-gray-900 sm:max-w-5xl sm:rounded-lg dark:text-white">
             <div class="md:flex md:-mx-2 ">
                 <!-- Left Side -->
-                <div class="w-full md:w-3/12 md:mx-2 dark:bg-[#124559] shadow-md sm:rounded-lg">
+                <div class="w-full md:w-3/12 md:mx-2 bg-[#124559] shadow-md sm:rounded-lg">
                     <!-- Profile Card -->
                     <div class="p-3">
                         <div class="overflow-hidden image">
@@ -27,23 +27,23 @@
                                 <span class="ml-auto"><span
                                         class="px-2 py-1 text-sm text-white bg-green-500 rounded">{{ $user->status_name }}</span></span>
                             </li>
-                            <li class="flex items-center py-3">
-                                <span>Member since</span>
-                                <span class="ml-auto">
+                            <li class="py-3">
+                                <p>Member since</p>
+                                <p class="ml-auto">
                                     @if (!is_null($user->member_join_date))
                                         {{ $user->member_join_date->format('M d, Y') }}
                                     @else
                                         Not a member
                                     @endif
-                                </span>
+                                </p>
                             </li>
-                            <li class="flex items-center py-3">
-                                <span>Account since</span>
-                                <span class="ml-auto">{{ $user->created_at->format('M d, Y') }}</span>
+                            <li class="py-3">
+                                <p>Account since</p>
+                                <p class="ml-auto">{{ $user->created_at->format('M d, Y') }}</p>
                             </li>
-                            <li class="flex items-center py-3">
-                                <span>Last login</span>
-                                <span class="ml-auto">{{ $user->last_login->format('M d, Y H:i') }}</span>
+                            <li class="py-3">
+                                <p>Last login</p>
+                                <p class="ml-auto">{{ $user->last_login->format('M d, Y H:i') }}</p>
                             </li>
                         </ul>
                     </div>
@@ -54,7 +54,7 @@
                 <div class="w-full mx-2 md:w-9/12">
                     <!-- Profile tab -->
                     <!-- About Section -->
-                    <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                    <div class="p-3 bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
                         <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
                             @click="open = !open">
                             <span clas="text-green-500">
@@ -110,7 +110,7 @@
 
                     @can('application_access')
                         <div class="my-4"></div>
-                        <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                        <div class="p-3 bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
 
                             <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
                                 @click="open = !open">
@@ -148,7 +148,7 @@
                     @can('user_edit')
                         <div class="my-4"></div>
 
-                        <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                        <div class="p-3 bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
                             <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
                                 @click="open = !open">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -182,7 +182,7 @@
                     @can(['user_edit', 'user_edit'])
                         <div class="my-4"></div>
 
-                        <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                        <div class="p-3 bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
                             <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
                                 @click="open = !open">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -208,7 +208,7 @@
                         {{-- Will be user_da_access --}}
                         <div class="my-4"></div>
 
-                        <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                        <div class="p-3 bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
                             <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
                                 @click="open = !open">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -235,7 +235,7 @@
                         {{-- Will be user_loa_access --}}
                         <div class="my-4"></div>
 
-                        <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                        <div class="p-3 bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
                             <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
                                 @click="open = !open">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -265,7 +265,7 @@
 
                     <div class="my-4"></div>
 
-                    <div class="p-3 dark:bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
+                    <div class="p-3 bg-[#124559] text-[#eff6e0] rounded-sm shadow-sm" x-data="{ open: false }">
                         <div class="flex items-center justify-between space-x-2 text-lg font-semibold leading-8 border-b border-black cursor-pointer"
                             @click="open = !open">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
