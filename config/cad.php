@@ -12,6 +12,7 @@ return [
     // Must be a https link
 
     'community_logo' => 'https://gages.space/images/logo.png',
+    'postal_map_link' => null,
 
     'force_discord_link' => true,
 

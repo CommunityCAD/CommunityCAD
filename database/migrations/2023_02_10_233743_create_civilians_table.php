@@ -19,13 +19,14 @@ return new class extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
+            $table->text('picture')->nullable();
             $table->date('date_of_birth');
             $table->string('gender');
             $table->string('race');
             $table->integer('postal');
             $table->string('street');
             $table->string('city');
-            $table->string('occupation');
+            $table->string('occupation')->nullable();
             $table->string('height');
             $table->string('weight');
 

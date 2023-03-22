@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Civilian;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Civilian\CivilianStoreRequest;
 use App\Models\Civilian;
 use App\Models\CivilianLevel;
 use Illuminate\Contracts\View\View;
@@ -22,13 +23,15 @@ class CivilianController extends Controller
 
     public function create(): View
     {
-        return view('civilians.create');
+        return view('civilian.civilians.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(CivilianStoreRequest $request): RedirectResponse
     {
-        Civilian::create($request->validated());
-        return redirect()->route('civilians.index')->with('success', 'Message');
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+        Civilian::create($data);
+        return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Created', 'level' => 'success']]);
     }
 
     public function show(Civilian $civilian): View

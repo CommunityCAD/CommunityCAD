@@ -28,20 +28,14 @@
     @livewireStyles
 </head>
 
-<body class="antialiased bg-slate-200 dark:bg-[#01161e]" x-data="{ sideMenu: false }">
-    <div class="flex h-screen" :class="{ 'overflow-hidden': sideMenu }">
-        @include('inc.civilian.sidebar')
-        <div class="flex flex-col flex-1">
-            @include('inc.civilian.navbar')
-            <main class="h-full pb-16 overflow-y-auto">
-                <!-- Remove everything INSIDE this div to a really blank page -->
-                <div class="container px-6 py-3">
-                    @yield('content')
-                </div>
+<body class="antialiased bg-slate-200 dark:bg-[#01161e]">
 
-            </main>
-        </div>
+    <div class="">
+        @include('inc.civilian.navbar')
+
+        @yield('content')
     </div>
+
 
     @if (session('alerts'))
         <div class="">
