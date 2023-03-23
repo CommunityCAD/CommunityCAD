@@ -32,8 +32,9 @@
 
     <div class="">
         @include('inc.civilian.navbar')
-
-        @yield('content')
+        <div class="p-4">
+            @yield('content')
+        </div>
     </div>
 
 

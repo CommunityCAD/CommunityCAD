@@ -36,7 +36,7 @@ class CivilianController extends Controller
 
     public function show(Civilian $civilian): View
     {
-        return view('civilians.show', compact('civilians'));
+        return view('civilian.civilians.show', compact('civilian'));
     }
 
     public function edit(Civilian $civilian): View

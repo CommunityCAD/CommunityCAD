@@ -21,26 +21,26 @@
                         class="absolute right-4 top-full w-full max-w-[250px] bg-[#598392] rounded-lg py-5 px-6 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none">
                         <ul class="block lg:flex">
                             <li>
-                                <a href="javascript:void(0)"
-                                    class="text-dark hover:text-gray-700 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
+                                <a href="{{ route('portal.dashboard') }}"
+                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
                                     Member Portal
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"
-                                    class="text-dark hover:text-gray-700 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
+                                <a href="{{ route('civilian.civilians.index') }}"
+                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex @if (request()->is('civilian/*')) text-white underline @endif">
                                     Civilians
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)"
-                                    class="text-dark hover:text-gray-700 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
+                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
                                     Businesses
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)"
-                                    class="text-dark hover:text-gray-700 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
+                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
                                     Tow
                                 </a>
                             </li>
