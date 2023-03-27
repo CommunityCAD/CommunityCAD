@@ -3,12 +3,12 @@
 }" class="z-10 shadow-md bg-[#598392]">
     <div class="container mx-auto">
         <div class="relative flex items-center justify-between">
-            <div class="w-60 max-w-full px-4">
+            <div class="max-w-full px-4 w-60">
                 <a href="javascript:void(0)" class="block w-full py-5 text-lg font-bold text-gray-200">
                     Civilian Portal
                 </a>
             </div>
-            <div class="flex w-full items-center justify-between px-4">
+            <div class="flex items-center justify-between w-full px-4">
                 <div>
                     <button @click="navbarOpen = !navbarOpen" :class="navbarOpen && 'navbarTogglerActive'"
                         id="navbarToggler"
@@ -22,7 +22,7 @@
                         <ul class="block lg:flex">
                             <li>
                                 <a href="{{ route('portal.dashboard') }}"
-                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
+                                    class="flex py-2 text-base font-medium text-gray-300 hover:text-gray-100 lg:ml-12 lg:inline-flex">
                                     Member Portal
                                 </a>
                             </li>
@@ -32,18 +32,18 @@
                                     Civilians
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="javascript:void(0)"
-                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
+                                    class="flex py-2 text-base font-medium text-gray-300 hover:text-gray-100 lg:ml-12 lg:inline-flex">
                                     Businesses
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)"
-                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex">
+                                    class="flex py-2 text-base font-medium text-gray-300 hover:text-gray-100 lg:ml-12 lg:inline-flex">
                                     Tow
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </nav>
                 </div>

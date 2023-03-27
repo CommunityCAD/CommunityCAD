@@ -10,6 +10,7 @@ use App\Models\CivilianLevel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CivilianController extends Controller
 {
@@ -32,6 +33,12 @@ class CivilianController extends Controller
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+
+        if ($this->name_check($data['first_name'], $data['last_name'])) {
+            return redirect()->route('civilian.civilians.create')
+                ->with('alerts', [['message' => 'That name is already in use. Choose a diffrent name.', 'level' => 'error']])
+                ->withInput($request->input());
+        }
         Civilian::create($data);
         return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Created', 'level' => 'success']]);
     }
@@ -64,5 +71,15 @@ class CivilianController extends Controller
 
         $civilian->delete();
         return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Deceased', 'level' => 'success']]);
+    }
+
+    private function name_check($first_name, $last_name)
+    {
+        $results = DB::table('civilians')->where('first_name', $first_name)->where('last_name', $last_name)->count();
+
+        if ($results == 0) {
+            return false;
+        }
+        return true;
     }
 }
