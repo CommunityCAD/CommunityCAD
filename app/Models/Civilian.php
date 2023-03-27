@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Civilian\MedicalRecord;
+use App\Models\Civilian\Vehicle;
+use App\Models\Civilian\Weapon;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +25,7 @@ class Civilian extends Model
         'date_of_birth' => 'date',
     ];
 
-    protected $with = ['licenses'];
+    protected $with = ['licenses', 'medical_records', 'vehicles', 'weapons'];
 
 
     public function getSNNAttribute()
@@ -57,5 +59,15 @@ class Civilian extends Model
     public function medical_records()
     {
         return $this->HasMany(MedicalRecord::class);
+    }
+
+    public function vehicles()
+    {
+        return $this->HasMany(Vehicle::class);
+    }
+
+    public function weapons()
+    {
+        return $this->HasMany(Weapon::class);
     }
 }

@@ -98,23 +98,20 @@
                             $revoked = true;
                         }
                         ?>
-
-
-                        <div class="flex items-center">
+                        <div class="flex items-center p-2">
                             @if ($reregister_button)
                                 <a href="{{ route('civilian.license.renew', ['license' => $license->id, 'civilian' => $civilian->id]) }}"
-                                    class="inline-flex px-1 py-1 mr-4 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                                    class="inline-flex px-1 py-1 mr-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                                     </svg>
-
                                 </a>
                             @endif
 
                             @if (!$revoked && !$reregister)
-                                <form class="mr-4 p-2"
+                                <form class="mr-2"
                                     action="{{ route('civilian.license.destroy', ['civilian' => $civilian->id, 'license' => $license->id]) }}"
                                     method="POST"
                                     onsubmit="return confirm('Are you sure you wish to delete this license? This can\'t be undone!');">
@@ -163,14 +160,13 @@
             <div class="w-full px-4">
                 <div class="text-white">
                     @forelse($civilian->medical_records as $medical_record)
-                        <div class="flex items-center">
-                            <form class="mr-4 p-2"
+                        <div class="flex items-center p-2">
+                            <form class="mr-2"
                                 action="{{ route('civilian.medical_record.destroy', ['civilian' => $civilian->id, 'medical_record' => $medical_record->id]) }}"
                                 method="POST"
                                 onsubmit="return confirm('Are you sure you wish to delete this record? This can\'t be undone!');">
                                 @csrf
                                 @method('DELETE')
-
                                 <button class="inline-flex px-1 py-1 bg-red-500 text-white rounded-lg hover:bg-red-400">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -178,7 +174,6 @@
                                             d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                     </svg>
                                 </button>
-
                             </form>
                             <p class=""><span class="font-bold">{{ $medical_record->name }}:</span>
                                 {{ $medical_record->value }}
@@ -193,29 +188,163 @@
     </div>
 
     <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
-        <h2 class="text-2xl text-white my-2 border-b-2">Vehicles</h2>
+        <div class="flex justify-between border-b-2 py-2">
+            <h2 class="text-2xl text-white">Vehicles</h2>
+            <div class="flex">
+                <a href="{{ route('civilian.vehicle.create', $civilian->id) }}"
+                    class="px-1 py-1 bg-green-500 text-white rounded-lg hover:bg-green-400 inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
         <div class="-mx-4 flex flex-wrap">
             <div class="w-full px-4">
-                @if (!is_null($civilian->picture))
-                    <img class="block h-full" src="{{ $civilian->picture }}">
-                @else
-                    <img class="block h-full"
-                        src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg">
-                @endif
+                @forelse($civilian->vehicles as $vehicle)
+                    <?php
+                    $status = $vehicle->status_name;
+                    $status_color = 'text-green-400';
+                    $reregister = false;
+                    $transfer = false;
+                    $delete = true;
+                    $stolen = true;
+                    
+                    if ($vehicle->registration_expire < date('Y-m-d')) {
+                        $status = 'Expired';
+                        $status_color = 'text-yellow-400';
+                        $reregister = true;
+                        $transfer = false;
+                        $delete = false;
+                    }
+                    
+                    if ($vehicle->status_name == 'Stolen') {
+                        $status = 'Stolen';
+                        $status_color = 'text-yellow-400';
+                        $reregister = false;
+                        $transfer = false;
+                        $delete = false;
+                        $stolen = false;
+                    }
+                    
+                    if ($vehicle->status_name == 'Impounded' || $vehicle->status_name == 'Booted') {
+                        $status = $vehicle->status_name;
+                        $status_color = 'text-red-400';
+                        $reregister = false;
+                        $transfer = false;
+                        $delete = false;
+                        $stolen = false;
+                    }
+                    ?>
+                    <div class="flex items-center p-2">
+                        @if ($reregister)
+                            <a href="{{ route('civilian.vehicle.renew', ['vehicle' => $vehicle->id, 'civilian' => $civilian->id]) }}"
+                                class="inline-flex px-1 py-1 mr-2 bg-green-500 text-white rounded-lg hover:bg-green-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                </svg>
+                            </a>
+                        @endif
+
+                        @if ($transfer)
+                            <a href="{{ route('civilian.vehicle.renew', ['vehicle' => $vehicle->id, 'civilian' => $civilian->id]) }}"
+                                class="inline-flex px-1 py-1 mr-2 bg-purple-500 text-white rounded-lg hover:bg-purple-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                </svg>
+                            </a>
+                        @endif
+
+                        @if ($stolen)
+                            <a href="{{ route('civilian.vehicle.stolen', ['vehicle' => $vehicle->id, 'civilian' => $civilian->id]) }}"
+                                class="inline-flex px-1 py-1 mr-2 bg-orange-500 text-white rounded-lg hover:bg-orange-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                </svg>
+
+                            </a>
+                        @endif
+
+                        @if ($delete)
+                            <form class="mr-2"
+                                action="{{ route('civilian.vehicle.destroy', ['civilian' => $civilian->id, 'vehicle' => $vehicle->id]) }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure you wish to delete this vehicle? This can\'t be undone!');">
+                                @csrf
+                                @method('DELETE')
+
+                                <button class="inline-flex px-1 py-1 bg-red-500 text-white rounded-lg hover:bg-red-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+
+                            </form>
+                        @endif
+
+                        <p class="{{ $status_color }}">{{ $vehicle->plate }} | {{ $vehicle->model }} |
+                            {{ $status }} | Expires: {{ $vehicle->registration_expire->format('m/d/Y') }}
+                        </p>
+
+                    </div>
+                @empty
+                    <p class="text-white">No Vehicles</p>
+                @endforelse
             </div>
         </div>
     </div>
 
     <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
-        <h2 class="text-2xl text-white my-2 border-b-2">Weapons</h2>
+        <div class="flex justify-between border-b-2 py-2">
+            <h2 class="text-2xl text-white">Weapons</h2>
+            <div class="flex">
+                <a href="{{ route('civilian.weapon.create', $civilian->id) }}"
+                    class="px-1 py-1 bg-green-500 text-white rounded-lg hover:bg-green-400 inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
         <div class="-mx-4 flex flex-wrap">
             <div class="w-full px-4">
-                @if (!is_null($civilian->picture))
-                    <img class="block h-full" src="{{ $civilian->picture }}">
-                @else
-                    <img class="block h-full"
-                        src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg">
-                @endif
+                <div class="text-white">
+                    @forelse($civilian->weapons as $weapon)
+                        <div class="flex items-center p-2">
+                            <form class="mr-2"
+                                action="{{ route('civilian.weapon.destroy', ['civilian' => $civilian->id, 'weapon' => $weapon->id]) }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure you wish to delete this weapon? This can\'t be undone!');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="inline-flex px-1 py-1 bg-red-500 text-white rounded-lg hover:bg-red-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+                            </form>
+                            <p class=""><span class="font-bold">{{ $weapon->model }}:</span>
+                                {{ $weapon->serial_number }}
+                            </p>
+                        </div>
+                    @empty
+                        <p class="">No Weapons</p>
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>
