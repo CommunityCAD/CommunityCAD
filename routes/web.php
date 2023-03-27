@@ -15,6 +15,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Cad\PageController;
 use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Civilian\LicenseController;
+use App\Http\Controllers\Civilian\MedicalRecordController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::resource('civilians', CivilianController::class);
         Route::get('/civilians/{civilian}/license/{license}/renew', [LicenseController::class, 'renew'])->name('license.renew');
         Route::resource('civilians/{civilian}/license', LicenseController::class);
+        Route::resource('civilians/{civilian}/medical_record', MedicalRecordController::class);
     });
 
     Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {

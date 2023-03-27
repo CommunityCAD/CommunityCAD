@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Civilian\MedicalRecord;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,5 +52,10 @@ class Civilian extends Model
     public function licenses()
     {
         return $this->HasMany(License::class);
+    }
+
+    public function medical_records()
+    {
+        return $this->HasMany(MedicalRecord::class);
     }
 }

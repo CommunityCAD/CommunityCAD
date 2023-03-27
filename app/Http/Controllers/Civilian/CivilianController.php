@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Civilian;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\CivilianStoreRequest;
+use App\Http\Requests\Civilian\CivilianUpdateRequest;
 use App\Models\Civilian;
 use App\Models\CivilianLevel;
 use Illuminate\Contracts\View\View;
@@ -28,6 +29,7 @@ class CivilianController extends Controller
 
     public function store(CivilianStoreRequest $request): RedirectResponse
     {
+
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         Civilian::create($data);
@@ -36,23 +38,31 @@ class CivilianController extends Controller
 
     public function show(Civilian $civilian): View
     {
+        abort_if(auth()->user()->id != $civilian->user_id, 403);
+
         return view('civilian.civilians.show', compact('civilian'));
     }
 
     public function edit(Civilian $civilian): View
     {
-        return view('civilians.edit', compact('civilians'));
+        abort_if(auth()->user()->id != $civilian->user_id, 403);
+
+        return view('civilian.civilians.edit', compact('civilian'));
     }
 
-    public function update(Request $request, Civilian $civilian): RedirectResponse
+    public function update(CivilianUpdateRequest $request, Civilian $civilian): RedirectResponse
     {
+        abort_if(auth()->user()->id != $civilian->user_id, 403);
+
         $civilian->update($request->validated());
-        return redirect()->route('civilians.index')->with('success', 'Message');
+        return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'Civilian Updated.', 'level' => 'success']]);
     }
 
     public function destroy(Civilian $civilian): RedirectResponse
     {
+        abort_if(auth()->user()->id != $civilian->user_id, 403);
+
         $civilian->delete();
-        return redirect()->route('civilians.index')->with('success', 'Message');
+        return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Deceased', 'level' => 'success']]);
     }
 }
