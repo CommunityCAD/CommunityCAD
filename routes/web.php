@@ -50,6 +50,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('landing', [PageController::class, 'landing'])->name('landing');
         Route::get('home', [PageController::class, 'home'])->name('home');
         Route::get('cad', [PageController::class, 'cad'])->name('cad');
+        Route::get('incident', [PageController::class, 'incident'])->name('incident');
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {

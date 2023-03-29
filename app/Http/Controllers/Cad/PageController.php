@@ -23,4 +23,9 @@ class PageController extends Controller
     {
         return view('cad.cad');
     }
+
+    public function incident()
+    {
+        return view('cad.incident');
+    }
 }

@@ -47,7 +47,7 @@
                 <p>CAD</p>
             </a>
 
-            <a href="#"
+            <a href="{{ route('cad.incident') }}"
                 class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/incidents/*')) bg-[#598392] @endif">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6 mx-auto">
