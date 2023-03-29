@@ -47,7 +47,9 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('cad.')->prefix('cad')->group(function () {
-        Route::get('landing', [PageController::class, 'index'])->name('landing');
+        Route::get('landing', [PageController::class, 'landing'])->name('landing');
+        Route::get('home', [PageController::class, 'home'])->name('home');
+        Route::get('cad', [PageController::class, 'cad'])->name('cad');
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {

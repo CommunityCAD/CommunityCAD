@@ -28,7 +28,7 @@
                             </li>
                             <li>
                                 <a href="{{ route('civilian.civilians.index') }}"
-                                    class="text-gray-300 hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex @if (request()->is('civilian/*')) text-white underline @endif">
+                                    class="hover:text-gray-100 flex py-2 text-base font-medium lg:ml-12 lg:inline-flex @if (request()->is('civilian/*')) text-white underline @endif">
                                     Civilians
                                 </a>
                             </li>
