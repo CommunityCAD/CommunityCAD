@@ -1,14 +1,14 @@
 @extends('layouts.civilian')
 
 @section('content')
-    <div class="container mx-auto max-w-4xl mt-2 p-4">
-        <h2 class="text-2xl text-white my-2 border-b-2">Create Civilian</h2>
-        <form action="{{ route('civilian.civilians.store') }}" method="POST" class="-mx-4 flex flex-wrap">
+    <div class="container max-w-4xl p-4 mx-auto mt-2">
+        <h2 class="my-2 text-2xl text-white border-b-2">Create Civilian</h2>
+        <form action="{{ route('civilian.civilians.store') }}" method="POST" class="flex flex-wrap -mx-4">
             @csrf
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="first_name" class="mb-3 block text-base font-medium text-white">
+                    <label for="first_name" class="block mb-3 text-base font-medium text-white">
                         First Name
                     </label>
                     <input type="text" placeholder="John" name="first_name" value="{{ old('first_name') }}"
@@ -19,7 +19,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="last_name" class="mb-3 block text-base font-medium text-white">
+                    <label for="last_name" class="block mb-3 text-base font-medium text-white">
                         Last Name
                     </label>
                     <input type="text" placeholder="Doe" name="last_name" value="{{ old('last_name') }}"
@@ -31,7 +31,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="date_of_birth" class="mb-3 block text-base font-medium text-white">
+                    <label for="date_of_birth" class="block mb-3 text-base font-medium text-white">
                         Date of Birth
                     </label>
                     <input type="date" placeholder="mm/dd/yyyy" name="date_of_birth" value="{{ old('date_of_birth') }}"
@@ -43,7 +43,7 @@
 
             <div class="w-full px-4">
                 <div class="mb-6">
-                    <label for="picture" class="mb-3 block text-base font-medium text-white">
+                    <label for="picture" class="block mb-3 text-base font-medium text-white">
                         Image URL <span class="text-gray-400">(optional)</span> <a href="#"
                             class="text-gray-400 underline">How to upload picture</a>
                     </label>
@@ -58,7 +58,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="gender" class="mb-3 block text-base font-medium text-white">
+                    <label for="gender" class="block mb-3 text-base font-medium text-white">
                         Gender
                     </label>
                     <div class="relative">
@@ -80,7 +80,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="race" class="mb-3 block text-base font-medium text-white">
+                    <label for="race" class="block mb-3 text-base font-medium text-white">
                         Race
                     </label>
                     <div class="relative">
@@ -103,7 +103,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="occupation" class="mb-3 block text-base font-medium text-white">
+                    <label for="occupation" class="block mb-3 text-base font-medium text-white">
                         Occupation <span class="text-gray-400">(optional)</span>
                     </label>
                     <input type="text" placeholder="Farmer" name="occupation" value="{{ old('occupation') }}"
@@ -115,7 +115,7 @@
 
             <div class="w-full px-4 md:w-1/2">
                 <div class="mb-6">
-                    <label for="height" class="mb-3 block text-base font-medium text-white">
+                    <label for="height" class="block mb-3 text-base font-medium text-white">
                         Height
                     </label>
                     <input type="number" placeholder="512" name="height" value="{{ old('height') }}"
@@ -128,7 +128,7 @@
 
             <div class="w-full px-4 md:w-1/2">
                 <div class="mb-6">
-                    <label for="weight" class="mb-3 block text-base font-medium text-white">
+                    <label for="weight" class="block mb-3 text-base font-medium text-white">
                         Weight
                     </label>
                     <input type="number" placeholder="250" name="weight" value="{{ old('weight') }}"
@@ -140,7 +140,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="postal" class="mb-3 block text-base font-medium text-white">
+                    <label for="postal" class="block mb-3 text-base font-medium text-white">
                         Postal
                     </label>
                     <input type="text" placeholder="123" name="postal" value="{{ old('postal') }}"
@@ -152,7 +152,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="street" class="mb-3 block text-base font-medium text-white">
+                    <label for="street" class="block mb-3 text-base font-medium text-white">
                         Street
                     </label>
                     <input type="text" placeholder="Route 68" name="street" value="{{ old('street') }}"
@@ -164,7 +164,7 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="city" class="mb-3 block text-base font-medium text-white">
+                    <label for="city" class="block mb-3 text-base font-medium text-white">
                         City
                     </label>
                     <input type="text" placeholder="Sandy Shores" name="city" value="{{ old('city') }}"
@@ -177,14 +177,16 @@
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
                     <input type="Submit" value="Create"
-                        class="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 inline-block cursor-pointer" />
+                        class="inline-block px-4 py-2 text-white rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-600" />
                 </div>
             </div>
         </form>
 
+        <a href="{{ route('civilian.civilians.index') }}" class="delete-button-md">Cancel</a>
+
         @if (!is_null(config('cad.postal_map_link')))
             <a href="{{ config('cad.postal_map_link') }}" target="_blank"
-                class="px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 inline-block cursor-pointer">Link
+                class="inline-block px-4 py-2 text-white rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-600">Link
                 to postal map</a>
         @endif
 

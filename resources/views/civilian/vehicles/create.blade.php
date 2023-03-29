@@ -78,14 +78,12 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <input type="Submit" value="Create"
-                        class="inline-block px-4 py-2 text-white rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-600" />
+                    <input type="Submit" value="Create" class="secondary-button-md" />
                 </div>
             </div>
         </form>
 
-        <a href="{{ route('civilian.civilians.show', $civilian->id) }}"
-            class="inline-block px-4 py-2 text-white bg-red-700 rounded-lg cursor-pointer hover:bg-red-600">Cancel</a>
+        <a href="{{ route('civilian.civilians.show', $civilian->id) }}" class="delete-button-md">Cancel</a>
 
     </div>
 @endsection
