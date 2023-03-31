@@ -29,49 +29,8 @@
                         <th class="p-1 border border-slate-400">Time</th>
                         <th class="p-1 border border-slate-400">Units</th>
                     </tr>
-                    <tr class="text-green-500">
-                        <td class="p-1 border border-slate-400"><a href="#" class="hover:underline">228</a></td>
-                        <td class="p-1 border border-slate-400">Suspicious Person</td>
-                        <td class="p-1 border border-slate-400">456 Route 68</td>
-                        <td class="p-1 border border-slate-400">Sandy Shores</td>
-                        <td class="p-1 border border-slate-400">1</td>
-                        <td class="p-1 border border-slate-400">ARRV</td>
-                        <td class="p-1 border border-slate-400">9.8m</td>
-                        <td class="p-1 border border-slate-400">1K-1, 1B-3,1K-1, 1B-3,1K-1, 1B-3</td>
-                    </tr>
-                    <tr class="text-red-500">
-                        <td class="p-1 border border-slate-400"><a href="#" class="hover:underline">228</a></td>
-                        <td class="p-1 border border-slate-400">Suspicious Person</td>
-                        <td class="p-1 border border-slate-400">456 Route 68</td>
-                        <td class="p-1 border border-slate-400">Sandy Shores</td>
-                        <td class="p-1 border border-slate-400">1</td>
-                        <td class="p-1 border border-slate-400">ARRV</td>
-                        <td class="p-1 border border-slate-400">9.8m</td>
-                        <td class="p-1 border border-slate-400">1K-1, 1B-3,1K-1, 1B-3,1K-1, 1B-3</td>
-                    </tr>
-                    <tr class="text-yellow-500">
-                        <td class="p-1 border border-slate-400"><a href="#" class="hover:underline">228</a></td>
-                        <td class="p-1 border border-slate-400">Suspicious Person</td>
-                        <td class="p-1 border border-slate-400">456 Route 68</td>
-                        <td class="p-1 border border-slate-400">Sandy Shores</td>
-                        <td class="p-1 border border-slate-400">1</td>
-                        <td class="p-1 border border-slate-400">ARRV</td>
-                        <td class="p-1 border border-slate-400">9.8m</td>
-                        <td class="p-1 border border-slate-400">1K-1, 1B-3,1K-1, 1B-3,1K-1, 1B-3</td>
-                    </tr>
-                    <tr class="text-blue-500">
-                        <td class="p-1 border border-slate-400"><a href="#" class="hover:underline">228</a></td>
-                        <td class="p-1 border border-slate-400">Suspicious Person</td>
-                        <td class="p-1 border border-slate-400">456 Route 68</td>
-                        <td class="p-1 border border-slate-400">Sandy Shores</td>
-                        <td class="p-1 border border-slate-400">1</td>
-                        <td class="p-1 border border-slate-400">ARRV</td>
-                        <td class="p-1 border border-slate-400">9.8m</td>
-                        <td class="p-1 border border-slate-400">
-                            <a href="#" class="hover:underline">1K-1</a>,
-                            <a href="#" class="hover:underline">1B-3</a>
-                        </td>
-                    </tr>
+
+                    <livewire:cad.leo.leo-cad-table>
                 </table>
             </main>
             <main class="overflow-scroll h-2/5">

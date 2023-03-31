@@ -28,4 +28,14 @@ class PageController extends Controller
     {
         return view('cad.incident');
     }
+
+    public function name()
+    {
+        return view('cad.name');
+    }
+
+    public function vehicle()
+    {
+        return view('cad.vehicle');
+    }
 }
