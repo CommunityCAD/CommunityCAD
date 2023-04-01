@@ -18,20 +18,9 @@
         </div>
         <div class="h-full p-4 mt-5 text-white rounded cursor-default">
             <main class="h-3/5">
-                <table class="w-full border border-collapse table-auto border-slate-400">
-                    <tr class="text-lg font-bold">
-                        <th class="p-1 border border-slate-400">Call #</th>
-                        <th class="p-1 border border-slate-400">Nature</th>
-                        <th class="p-1 border border-slate-400">Location</th>
-                        <th class="p-1 border border-slate-400">City</th>
-                        <th class="p-1 border border-slate-400">Pri</th>
-                        <th class="p-1 border border-slate-400">Status</th>
-                        <th class="p-1 border border-slate-400">Time</th>
-                        <th class="p-1 border border-slate-400">Units</th>
-                    </tr>
 
-                    <livewire:cad.leo.leo-cad-table>
-                </table>
+                <livewire:cad.leo.leo-cad-table>
+
             </main>
             <main class="overflow-scroll h-2/5">
                 <table class="w-full border border-collapse table-auto border-slate-400">

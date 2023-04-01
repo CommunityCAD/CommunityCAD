@@ -13,5 +13,9 @@
         "postcss": "^8.4.20",
         "tailwindcss": "^3.2.4",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@ably/laravel-echo": "^1.0.2",
+        "ably": "^1.2.37"
     }
 }

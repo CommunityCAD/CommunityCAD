@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\CadTableUpdate;
 use App\Http\Controllers\Admin\Applications\ApplicationController as AdminApplicationController;
 use App\Http\Controllers\Admin\Applications\ApproveApplicationController;
 use App\Http\Controllers\Admin\Applications\ApproveInterviewController;
@@ -35,6 +36,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'pages.home')->name('home');
+
+// Route::get('/event', function () {
+//     event(new CadTableUpdate());
+// });
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('application', ApplicationController::class);
