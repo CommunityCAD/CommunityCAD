@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\Cad\CallController;
 use App\Http\Controllers\Cad\PageController;
 use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Civilian\LicenseController;
@@ -55,7 +56,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('landing', [PageController::class, 'landing'])->name('landing');
         Route::get('home', [PageController::class, 'home'])->name('home');
         Route::get('cad', [PageController::class, 'cad'])->name('cad');
-        Route::get('incident', [PageController::class, 'incident'])->name('incident');
+        Route::resource('call', CallController::class);
         Route::get('name', [PageController::class, 'name'])->name('name');
         Route::get('vehicle', [PageController::class, 'vehicle'])->name('vehicle');
     });

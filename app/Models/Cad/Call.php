@@ -2,6 +2,8 @@
 
 namespace App\Models\Cad;
 
+use App\Models\Civilian;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +19,18 @@ class Call extends Model
         'units' => 'array',
     ];
 
+    protected $with = ['user', 'civilian'];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'lead_user_id');
+    }
+
+    public function civilian()
+    {
+        return $this->hasOne(Civilian::class, 'id', 'rp_civilian_id');
+    }
+
     public function getTimeAttribute()
     {
         $updated_at = Carbon::parse($this->updated_at);
@@ -25,5 +39,26 @@ class Call extends Model
         $age = $updated_at->diffInMinutes($now);
 
         return $age;
+    }
+
+    public function getTypeNameAttribute()
+    {
+        switch ($this->type) {
+            case 1:
+                return "Police Department";
+                break;
+
+            case 2:
+                return "Fire Department";
+                break;
+
+            case 3:
+                return "EMS";
+                break;
+
+            default:
+                # code...
+                break;
+        }
     }
 }

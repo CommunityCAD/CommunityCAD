@@ -14,7 +14,7 @@ class LeoCadTable extends Component
 
     public function mount()
     {
-        $this->calls = Call::all(['id', 'nature', 'location', 'city', 'priority', 'status', 'updated_at', 'units']);
+        $this->calls = Call::where('status', "!=", "CLO")->get(['id', 'nature', 'location', 'city', 'priority', 'status', 'updated_at', 'units']);
     }
 
     public function render()

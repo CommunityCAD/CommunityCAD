@@ -11,8 +11,39 @@
             <th class="p-1 border border-slate-400">Units</th>
         </tr>
         @foreach ($calls as $call)
-            <tr class="text-green-500">
-                <td class="p-1 border border-slate-400"><a href="#"
+            @php
+                switch ($call->status) {
+                    case 'OPEN':
+                        $text_color = 'text-green-500';
+                        break;
+                
+                    case 'HOLD':
+                        $text_color = 'text-gray-500';
+                        break;
+                
+                    case 'DISP':
+                        $text_color = 'text-yellow-500';
+                        break;
+                
+                    case 'INRUTE':
+                        $text_color = 'text-yellow-500';
+                        break;
+                
+                    case 'ARRV':
+                        $text_color = 'text-orange-500';
+                        break;
+                
+                    case 'CLO':
+                        $text_color = 'text-red-500';
+                        break;
+                
+                    default:
+                        $text_color = 'text-red-500';
+                        break;
+                }
+            @endphp
+            <tr class="{{ $text_color }}">
+                <td class="p-1 border border-slate-400"><a href="{{ route('cad.call.show', $call->id) }}"
                         class="hover:underline">{{ $call->id }}</a>
                 </td>
                 <td class="p-1 border border-slate-400">{{ $call->nature }}</td>

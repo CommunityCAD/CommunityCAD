@@ -18,6 +18,9 @@
         </div>
         <div class="h-full p-4 mt-5 text-white rounded cursor-default">
             <main class="h-3/5">
+                <div class="float-right mb-3">
+                    <a href="#" class="new-button-sm">New Call</a>
+                </div>
 
                 <livewire:cad.leo.leo-cad-table>
 
