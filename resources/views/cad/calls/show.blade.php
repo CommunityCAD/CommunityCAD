@@ -1,7 +1,7 @@
 @extends('layouts.cad')
 
 @section('content')
-    <div class="flex flex-col">
+    <div class="flex flex-col uppercase">
         <div class="flex items-center justify-around p-1 space-x-3 text-white rounded cursor-default">
             <p class="text-sm font-semibold">
                 Officer {{ auth()->user()->officer_name ? auth()->user()->officer_name : auth()->user()->discord_name }}
@@ -50,13 +50,13 @@
                 <div class="flex items-center w-1/5 ml-3">
                     <span class="mr-2 text-lg">Lead:</span>
                     <p class="w-full px-1 py-1 text-lg font-bold border-2 border-white">
-                        {{ $call->user->discord }}</p>
+                        {{ $call->lead_user_id != null ? $call->user->discord : 'None' }}</p>
                 </div>
                 <div class="flex items-center w-1/5 ml-3">
                     <span class="mr-2 text-lg">RP:</span>
                     <p class="w-full px-1 py-1 text-lg font-bold border-2 border-white">
-                        {{ $call->civilian->first_name }}
-                        {{ $call->civilian->last_name }}</p>
+                        {{ $call->rp_civilian_id != null ? $call->civilian->first_name . $call->civilian->last_name : 'None' }}
+                    </p>
                 </div>
             </div>
         </div>

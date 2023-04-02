@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cad\CallStoreRequest;
 use App\Models\Cad\Call;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -19,13 +20,13 @@ class CallController extends Controller
 
     public function create(): View
     {
-        return view('calls.create');
+        return view('cad.calls.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(CallStoreRequest $request): RedirectResponse
     {
         Call::create($request->validated());
-        return redirect()->route('calls.index')->with('success', 'Message');
+        return redirect()->route('cad.cad');
     }
 
     public function show(Call $call): View

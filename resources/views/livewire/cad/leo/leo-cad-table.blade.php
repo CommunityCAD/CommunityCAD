@@ -1,5 +1,5 @@
 <div>
-    <table class="w-full border border-collapse table-auto border-slate-400">
+    <table class="w-full border border-collapse table-auto border-slate-400 uppercase">
         <tr class="text-lg font-bold">
             <th class="p-1 border border-slate-400">Call #</th>
             <th class="p-1 border border-slate-400">Nature</th>
