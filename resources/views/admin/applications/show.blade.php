@@ -77,7 +77,7 @@
                     <div class="grid grid-cols-2">
                         @php
                             $flag = '';
-                            if ($application->user->age < config('cad.minimum_age')) {
+                            if ($application->user->age < get_setting('minimum_age')) {
                                 $flag .= "<span class='text-red-600'>{Under Age}</span>";
                             }
                         @endphp
@@ -164,7 +164,7 @@
 
                 <div class="w-full">
                     <label for="previous_member" class="block mt-3 font-bold">Are you a previous member of
-                        {{ config('cad.community_name') }}?</label>
+                        {{ get_setting('community_name') }}?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
                         @if ($application->previous_member)
                             Yes
@@ -177,7 +177,7 @@
                 <div class="w-full">
                     <label for="why_join_community" class="block mt-3 font-bold">Why do you want to be apart
                         of
-                        {{ config('cad.community_name') }}?</label>
+                        {{ get_setting('community_name') }}?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->why_join_community }}</p>
                 </div>

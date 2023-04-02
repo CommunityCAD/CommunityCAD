@@ -35,7 +35,7 @@ class ApplicationController extends Controller
             'description' => 'Application Created.'
         ]);
 
-        if (auth()->user()->age < config('cad.minimum_age')) {
+        if (auth()->user()->age < get_setting('minimum_age')) {
             History::create([
                 'subject_type' => 'application',
                 'subject_id' => $application->id,

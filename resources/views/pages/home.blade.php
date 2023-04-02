@@ -5,7 +5,7 @@
     <main class="max-w-md w-full mx-auto bg-[#124559] text-white mt-16 rounded-xl p-4">
         @auth
             <div class="space-y-3">
-                <p class="text-2xl flex">Welcome back, {{ auth()->user()->discord_name }}!</p>
+                <p class="flex text-2xl">Welcome back, {{ auth()->user()->discord_name }}!</p>
                 <p class="text-lg">What would you like to do?</p>
 
                 @if (auth()->user()->account_status === 1)
@@ -77,7 +77,7 @@
                 <div class="flex">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a class="inline-flex items-center px-4 py-2 transition-colors duration-150 rounded-md bg-red-500 hover:opacity-75 hover:text-red-200 cursor-pointer"
+                        <a class="inline-flex items-center px-4 py-2 transition-colors duration-150 bg-red-500 rounded-md cursor-pointer hover:opacity-75 hover:text-red-200"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                             <svg class="w-4 h-4 mr-1" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -96,12 +96,12 @@
 
         @guest
             <div class="space-y-2">
-                <p class="text-2xl flex">Welcome to {{ config('cad.community_name') }}!</p>
-                <img src="{{ config('cad.community_logo') }}" alt="" class="mx-auto">
-                <p class="">{{ config('cad.community_intro') }}</p>
+                <p class="flex text-2xl">Welcome to {{ get_setting('community_name') }}!</p>
+                <img src="{{ get_setting('community_logo') }}" alt="" class="mx-auto">
+                <p class="">{{ get_setting('community_intro') }}}</p>
 
                 <div class="flex w-full">
-                    <a class="inline-flex items-center mx-auto px-4 py-2 transition-colors duration-150 rounded-md bg-slate-500 hover:bg-slate-800 hover:text-slate-200"
+                    <a class="inline-flex items-center px-4 py-2 mx-auto transition-colors duration-150 rounded-md bg-slate-500 hover:bg-slate-800 hover:text-slate-200"
                         href="{{ route('auth.discord') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" class="w-4 h-4 mr-2">
                             <defs>
@@ -126,10 +126,10 @@
             </div>
         @endguest
 
-        <div class="border-t mt-3 flex space-x-2 justify-between pt-2">
-            {{-- <x-simple-theme-switch class="text-gray-300 underline text-sm">Change Theme</x-simple-theme-switch> --}}
+        <div class="flex justify-between pt-2 mt-3 space-x-2 border-t">
+            {{-- <x-simple-theme-switch class="text-sm text-gray-300 underline">Change Theme</x-simple-theme-switch> --}}
 
-            <a class="text-sm text-slate-400 underline" href="https://communitycad.app">Community CAD
+            <a class="text-sm underline text-slate-400" href="https://communitycad.app">Community CAD
                 {{ config('app.version') }}</a>
         </div>
     </main>

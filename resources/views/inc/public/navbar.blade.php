@@ -2,10 +2,10 @@
     <div x-data="{ open: false }"
         class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div class="flex flex-row items-center justify-between p-4">
-            <img src="{{ config('cad.community_logo') }}" width="40" height="40" alt="">
+            <img src="{{ get_setting('community_logo') }}" width="40" height="40" alt="">
             <a href="{{ route('home') }}"
                 class="ml-3 text-lg font-semibold tracking-widest uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">
-                {{ config('cad.community_name') }}
+                {{ get_setting('community_name') }}
             </a>
             <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
                 <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">

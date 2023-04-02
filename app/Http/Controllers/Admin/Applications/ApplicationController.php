@@ -69,19 +69,4 @@ class ApplicationController extends Controller
 
         return view('admin.applications.show', compact('application', 'histories'));
     }
-
-    // public function edit(Application $application): View
-    // {
-    //     abort_unless(Gate::allows('application_access'), 403);
-
-    //     return view('applications.edit', compact('applications'));
-    // }
-
-    // public function update(Request $request, Application $application): RedirectResponse
-    // {
-    //     abort_unless(Gate::allows('application_access'), 403);
-
-    //     $application->update($request->validated());
-    //     return redirect()->route('applications.index')->with('success', 'Message');
-    // }
 }

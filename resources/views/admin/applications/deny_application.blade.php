@@ -9,7 +9,7 @@
             <div class="mb-3 space-y-4 text-white">
                 <p class="mt-1"><b>Can this person reapply?:</b> Is this applicant allowed to reapply. Default is Yes.</p>
                 <p class="mt-1"><b>Reapply Date:</b> Date the applicant can reapply. Default is
-                    {{ config('cad.days_until_reapply') }} days.</p>
+                    {{ get_setting('days_until_reapply') }} days.</p>
                 <p class="mt-1"><b>Reason:</b> This should be respectful and should include as much information as
                     possible. "Lack of effort" is not a good reason. Say "Application showed little effort on the why would
                     you like to join and roleplay experience questions."
@@ -36,7 +36,7 @@
                 <div class="w-full">
                     <label for="reapply_date" class="block mt-3 text-black-500">Reapply Date</label>
                     <input type="date" name="reapply_date"
-                        value="{{ date('Y-m-d', strtotime('+' . config('cad.days_until_reapply') . ' days', time())) }}"
+                        value="{{ date('Y-m-d', strtotime('+' . get_setting('days_until_reapply') . ' days', time())) }}"
                         class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
                     <x-input-error :messages="$errors->get('reapply_date')" class="mt-2" />
                 </div>

@@ -79,8 +79,8 @@
         <a href="{{ route('civilian.civilians.show', $civilian->id) }}"
             class="inline-block px-4 py-2 text-white bg-red-700 rounded-lg cursor-pointer hover:bg-red-600">Cancel</a>
 
-        @if (!is_null(config('cad.postal_map_link')))
-            <a href="{{ config('cad.postal_map_link') }}" target="_blank"
+        @if (!is_null(get_setting('postal_map_link')))
+            <a href="{{ get_setting('postal_map_link') }}" target="_blank"
                 class="inline-block px-4 py-2 text-white rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-600">Link
                 to postal map</a>
         @endif

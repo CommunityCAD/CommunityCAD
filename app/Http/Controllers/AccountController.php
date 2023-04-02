@@ -26,7 +26,7 @@ class AccountController extends Controller
     {
         $data = $request->validated();
 
-        if (config('cad.force_steam_link')) {
+        if (get_setting('force_steam_link')) {
             if (!session()->has('steam_id')) {
                 return redirect()->route('account.create')->with('alerts', [['message' => 'You must link your steam account. Form has been reset.', 'level' => 'error']]);
             }

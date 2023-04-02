@@ -16,7 +16,7 @@ class DashboardController extends Controller
 
         $total_members = User::where('account_status', 3)->count();
 
-        $total_active_members = User::where('last_login', '>=', Carbon::now()->subDays(config('cad.days_until_inactive')))->count();
+        $total_active_members = User::where('last_login', '>=', Carbon::now()->subDays(get_setting('days_until_inactive')))->count();
 
         return view('portal.dashboard', compact('total_members', 'total_active_members'));
     }

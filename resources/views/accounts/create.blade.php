@@ -81,7 +81,7 @@
                             <p>Steam ID: {{ session('steam_id') }}</p>
                             <p>Steam Hex: {{ session('steam_hex') }}</p>
                         @else
-                            @if (config('cad.force_steam_link'))
+                            @if (get_setting('force_steam_link'))
                                 <p class="text-lg text-red-400">You must complete this step before moving forward. Data
                                     entered
                                     into Step 2 and 3 will be

@@ -90,7 +90,7 @@
 
                     <div class="w-full">
                         <label for="previous_member" class="block mt-3 text-black-500">Are you a previous member of
-                            {{ config('cad.community_name') }}?</label>
+                            {{ get_setting('community_name') }}?</label>
                         <select name="previous_member"
                             class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" id="">
                             <option {{ old('previous_member') == 0 ? 'selected="selected"' : '' }} value="0">No
@@ -104,7 +104,7 @@
 
                     <div class="w-full">
                         <label for="why_join_community" class="block mt-3 text-black-500">Why do you want to be apart of
-                            {{ config('cad.community_name') }}?</label>
+                            {{ get_setting('community_name') }}?</label>
                         <textarea type="text" name="why_join_community"
                             class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('why_join_community') }}</textarea>
                         <x-input-error :messages="$errors->get('why_join_community')" class="mt-2" />
@@ -119,13 +119,13 @@
 
                 <h3 class="my-4 text-lg text-center">Application Terms</h3>
                 <div class="space-y-4">
-                    @if (config('cad.minimum_age') > 0)
-                        <p>You are at least {{ config('cad.minimum_age') }} years of age at the time of
+                    @if (get_setting('minimum_age') > 0)
+                        <p>You are at least {{ get_setting('minimum_age') }} years of age at the time of
                             submitting this application
                         </p>
                     @endif
 
-                    {!! config('cad.application_terms') !!}
+                    {!! get_setting('application_terms') !!}
                 </div>
 
 
