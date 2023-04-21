@@ -18,16 +18,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from '@ably/laravel-echo';
-import * as Ably from 'ably';
+// import Echo from '@ably/laravel-echo';
+// import * as Ably from 'ably';
 
-window.Ably = Ably; // make globally accessible to Echo
-window.Echo = new Echo({
-    broadcaster: 'ably',
-});
+// window.Ably = Ably; // make globally accessible to Echo
+// window.Echo = new Echo({
+//     broadcaster: 'ably',
+// });
 
-window.Echo.connector.ably.connection.on(stateChange => {
-    if (stateChange.current === 'connected') {
-        console.log('connected to ably server');
-    }
-});
+// window.Echo.connector.ably.connection.on(stateChange => {
+//     if (stateChange.current === 'connected') {
+//         console.log('connected to ably server');
+//     }
+// });

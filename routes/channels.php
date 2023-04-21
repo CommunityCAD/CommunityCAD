@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('cadtableupdatechannel', function () {
-    return true;
-});
+// Broadcast::channel('cadtableupdatechannel', function () {
+//     return true;
+// });

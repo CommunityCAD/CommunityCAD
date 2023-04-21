@@ -10,7 +10,7 @@ class LeoCadTable extends Component
 
     public $calls;
 
-    protected $listeners = ['echo:cadtableupdatechannel,CadTableUpdate' => '$refresh'];
+    // protected $listeners = ['echo:cadtableupdatechannel,CadTableUpdate' => '$refresh'];
 
     public function mount()
     {
