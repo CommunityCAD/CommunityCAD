@@ -25,7 +25,8 @@ class CallController extends Controller
 
     public function store(CallStoreRequest $request): RedirectResponse
     {
-        Call::create($request->validated());
+        $input = $request->validated();
+        $call = Call::create($input);
         return redirect()->route('cad.cad');
     }
 
