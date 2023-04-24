@@ -57,8 +57,8 @@
             <div
                 class="px-3 py-1 m-4 bg-gray-600 border-l-4 {{ $border_color }} cursor-pointer rounded-2xl hover:bg-gray-500">
                 <a href="{{ route('admin.users.show', $user->id) }}" class="flex">
-                    <div class="ml-3 text-white flex items-center">
-                        <img src="{{ $user->avatar }}" class="h-10 w-10 rounded-full mr-3" alt="">
+                    <div class="flex items-center ml-3 text-white">
+                        <img src="{{ $user->avatar }}" class="w-10 h-10 mr-3 rounded-full" alt="">
                         <span>{{ $user->discord }}</span>
                     </div>
                 </a>
