@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class Search extends Component
 {
@@ -23,7 +22,7 @@ class Search extends Component
         } else {
             $users = User::where('account_status', $this->status_id)->get();
             if ($this->status_id == 0) {
-                $users = User::all();
+                $users = User::orderBy('discord_name', 'asc')->get();
             } else {
                 $users = User::where('account_status', $this->status_id)->get();
             }
