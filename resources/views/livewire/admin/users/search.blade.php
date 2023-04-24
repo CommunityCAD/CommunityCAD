@@ -9,13 +9,13 @@
         <div class="">
             <h1>Show User Status</h1>
             <select wire:model='status_id' class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">
-                <option value="1">User</option>
-                <option value="2">Applicant</option>
-                <option value="3" selected="selected">Member</option>
-                <option value="4">Suspended/LOA</option>
-                <option value="5">Temporary Ban</option>
-                <option value="6">Permanent Ban</option>
-                <option value="0">All</option>
+                <option value="1" class="text-orange-500">User</option>
+                <option value="2" class="text-yellow-500">Applicant</option>
+                <option value="3" class="text-green-500" selected="selected">Member</option>
+                <option value="4" class="text-red-500">Suspended/LOA</option>
+                <option value="5" class="text-red-500">Temporary Ban</option>
+                <option value="6" class="text-red-500">Permanent Ban</option>
+                <option value="0" class="text-blue-500">All</option>
 
             </select>
         </div>
