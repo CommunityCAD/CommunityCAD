@@ -1,7 +1,7 @@
 @extends('layouts.portal')
 
 @section('content')
-    <div x-data="{ noteModal: false, accommodationModal: false, daModal: false }">
+    <div x-data="{ noteModal: false, accommodationModal: false, daModal: false, communityRankModal: false }">
         <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
             <div class="">
                 <p class="text-lg dark:text-white">User Profile | {{ $user->discord }}</p>
@@ -145,7 +145,7 @@
                 <div class="grid gap-4 text-sm grid-cols-1 xl:grid-cols-2">
                     <a href="#" class="secondary-button-md">Suspend/LOA User</a>
                     <a href="#" class="delete-button-md">Ban User</a>
-                    <a href="#" class="secondary-button-md">Community Rank</a>
+                    <a href="#" class="secondary-button-md" @click="communityRankModal = true">Community Rank</a>
                 </div>
             </div>
 
@@ -316,6 +316,39 @@
                         </div>
                         <div class="w-1/2 px-3">
                             <button @click.prevent="daModal = false"
+                                class="text-dark block w-full rounded-lg border border-[#E9EDF9] p-3 text-center text-base font-medium transition hover:border-red-600 hover:bg-red-600 hover:text-white">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div x-show="communityRankModal" x-transition
+            class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+            <div @click.outside="communityRankModal = false"
+                class="w-full max-w-[570px] rounded-[20px] bg-[#124559] text-[#eff6e0] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                <h3 class="pb-2 text-xl font-bold sm:text-2xl">
+                    Edit Community Rank
+                </h3>
+                <p>Community rank has no impact on roles or permissions. This is only to help identify members.</p>
+                <form action="" method="POST">
+                    <select name="community_rank" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none"
+                        required>
+                        <option value="1">Member</option>
+                        <option value="2">Moderator</option>
+                        <option value="3">Admin</option>
+                        <option value="4">Department Head</option>
+                        <option value="5">Head Admin</option>
+                    </select>
+                    <div class="flex flex-wrap -mx-3 mt-4">
+                        <div class="w-1/2 px-3">
+                            <input value="Save" type="submit"
+                                class="block w-full p-3 text-base font-medium text-center text-white transition bg-blue-500 border rounded-lg border-primary hover:bg-opacity-90">
+                        </div>
+                        <div class="w-1/2 px-3">
+                            <button @click.prevent="communityRankModal = false"
                                 class="text-dark block w-full rounded-lg border border-[#E9EDF9] p-3 text-center text-base font-medium transition hover:border-red-600 hover:bg-red-600 hover:text-white">
                                 Cancel
                             </button>
