@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\User\UserNotes;
 use App\Models\History;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -44,7 +45,8 @@ class UserController extends Controller
     public function show(User $user): View
     {
         $histories = History::where('subject_type', 'user')->where('subject_id', $user->id)->orderBy('created_at', 'desc')->take(5)->get();
-        return view('admin.users.show', compact('user', 'histories'));
+        $notes = UserNotes::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
+        return view('admin.users.show', compact('user', 'histories', 'notes'));
     }
 
     public function edit(User $user): View

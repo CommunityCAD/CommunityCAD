@@ -71,27 +71,27 @@
                                 case '1':
                                     $text_color = 'text-orange-500';
                                     break;
-                            
+
                                 case '2':
                                     $text_color = 'text-yellow-500';
                                     break;
-                            
+
                                 case '3':
                                     $text_color = 'text-green-500';
                                     break;
-                            
+
                                 case '4':
                                     $text_color = 'text-red-500';
                                     break;
-                            
+
                                 case '5':
                                     $text_color = 'text-red-500';
                                     break;
-                            
+
                                 case '6':
                                     $text_color = 'text-red-500';
                                     break;
-                            
+
                                 default:
                                     $text_color = 'text-red-500';
                                     break;
@@ -156,46 +156,34 @@
                         <x-new-button></x-new-button>
                     </a>
                 </div>
-                <div class="">
-                    <div class="p-3 my-2 border-2 border-gray-900" x-data="{ open: true }" @click.away="open = false">
-                        <div class="flex items-center justify-between">
-                            <p class="text-white cursor-pointer select-none" @click="open = !open">From: Ron Swanson at
-                                04/23/2023 19:37:30
-                            </p>
-                            <a href="#" class="delete-button-sm">
-                                <x-delete-button></x-delete-button>
-                            </a>
-                        </div>
-                        <div x-show="open">
-                            <p class="text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aliquid, veniam suscipit
-                                corrupti
-                                incidunt accusantium at earum, fugit laborum similique quidem corporis? Saepe optio quia
-                                minima,
-                                ea rem rerum velit.
-                            </p>
-                        </div>
-                    </div>
 
-                    <div class="p-3 my-2 border-2 border-gray-900" x-data="{ open: false }" @click.away="open = false">
-                        <div class="flex items-center justify-between">
-                            <p class="text-white cursor-pointer select-none" @click="open = !open">From: Ron Swanson at
-                                04/23/2023 19:37:30
-                            </p>
-                            <a href="#" class="delete-button-sm">
-                                <x-delete-button></x-delete-button>
-                            </a>
+                <div class="">
+                    @foreach ($notes as $note)
+                        <div class="p-3 my-2 border-2 border-gray-900" x-data="{ open: true }" @click.away="open = false">
+                            <div class="flex items-center justify-between">
+                                <p class="text-white cursor-pointer select-none" @click="open = !open">From:
+                                    {{ $note->giver_user->discord }} at
+                                    {{ $note->created_at->format('m/d/Y H:i') }}
+                                </p>
+                                <form
+                                    action="{{ route('admin.users.notes.destroy', ['userNotes' => $note->id, 'user' => $user->id]) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Are you sure you wish to delete this note? This can\'t be undone!');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="">
+                                        <x-delete-button></x-delete-button>
+                                    </button>
+                                </form>
+                            </div>
+                            <div x-show="open">
+                                <p class="text-gray-400">
+                                    {{ $note->note }}
+                                </p>
+                            </div>
                         </div>
-                        <div x-show="open">
-                            <p class="text-gray-400">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aliquid, veniam suscipit
-                                corrupti
-                                incidunt accusantium at earum, fugit laborum similique quidem corporis? Saepe optio quia
-                                minima,
-                                ea rem rerum velit.
-                            </p>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
 
                 <div class="mt-4">
@@ -254,7 +242,9 @@
                 <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                     Add New Note
                 </h3>
-                <form action="" method="POST">
+                <form action="{{ route('admin.users.notes.store', $user->id) }}" method="POST">
+                    @csrf
+
                     <textarea type="text" name="note" class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none"
                         required>{{ old('denied_reason') }}</textarea>
                     <div class="flex flex-wrap -mx-3">

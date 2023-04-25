@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Applications\DenyInterviewController;
 use App\Http\Controllers\Admin\Applications\FlagApplicationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\User\NotesController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Civilian\VehicleController;
 use App\Http\Controllers\Civilian\WeaponController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
+use App\Models\Admin\User\UserNotes;
 use Illuminate\Support\Facades\Route;
 
 
@@ -103,6 +105,9 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::put('/user/{user}/roles', [UserRoleController::class, 'update'])->name('users.roles.update');
         Route::get('/user/{user}/status/edit', [UserStatusController::class, 'edit'])->name('users.status.edit');
         Route::put('/user/{user}/status', [UserStatusController::class, 'update'])->name('users.status.update');
+
+        Route::post('/user/{user}/note', [NotesController::class, 'store'])->name('users.notes.store');
+        Route::delete('/user/{user}/note/{userNotes}', [NotesController::class, 'destroy'])->name('users.notes.destroy');
 
         Route::resource('/users', UserController::class);
     });
