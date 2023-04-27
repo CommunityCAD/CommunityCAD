@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Applications\FlagApplicationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\NotesController;
+use App\Http\Controllers\Admin\User\UserAccommodationController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
@@ -108,6 +109,9 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::post('/user/{user}/note', [NotesController::class, 'store'])->name('users.notes.store');
         Route::delete('/user/{user}/note/{userNotes}', [NotesController::class, 'destroy'])->name('users.notes.destroy');
+
+        Route::post('/user/{user}/accommodation', [UserAccommodationController::class, 'store'])->name('users.accommodation.store');
+        Route::delete('/user/{user}/accommodation/{userAccommodation}', [UserAccommodationController::class, 'destroy'])->name('users.accommodation.destroy');
 
         Route::resource('/users', UserController::class);
     });

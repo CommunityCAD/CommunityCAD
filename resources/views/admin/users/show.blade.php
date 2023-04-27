@@ -198,7 +198,38 @@
                         <x-new-button></x-new-button>
                     </a>
                 </div>
+                <div class="">
+                    @foreach ($accommodations as $accommodation)
+                        <div class="p-3 my-2 border-2 border-gray-900" x-data="{ open: true }" @click.away="open = false">
+                            <div class="flex items-center justify-between">
+                                <p class="text-white cursor-pointer select-none" @click="open = !open">From:
+                                    {{ $accommodation->giver_user->discord }} at
+                                    {{ $accommodation->created_at->format('m/d/Y H:i') }}
+                                </p>
+                                <form
+                                    action="{{ route('admin.users.accommodation.destroy', ['userAccommodation' => $accommodation->id, 'user' => $user->id]) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Are you sure you wish to delete this accommodation? This can\'t be undone!');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="">
+                                        <x-delete-button></x-delete-button>
+                                    </button>
+                                </form>
+                            </div>
+                            <div x-show="open">
+                                <p class="text-gray-400">
+                                    {{ $accommodation->accommodation }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
 
+                </div>
+
+                <div class="mt-4">
+                    <a href="#" class="text-sm edit-button-md">View All</a>
+                </div>
             </div>
 
             <div class="w-full bg-[#124559] text-[#eff6e0] p-3 sm:mr-2 rounded-xl">
@@ -246,7 +277,7 @@
                     @csrf
 
                     <textarea type="text" name="note" class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none"
-                        required>{{ old('denied_reason') }}</textarea>
+                        required>{{ old('note') }}</textarea>
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-1/2 px-3">
                             <input value="Save" type="submit"
@@ -270,9 +301,10 @@
                 <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                     Add New Accommodation
                 </h3>
-                <form action="" method="POST">
+                <form action="{{ route('admin.users.accommodation.store', $user->id) }}" method="POST">
+                    @csrf
                     <textarea type="text" name="accommodation"
-                        class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none" required>{{ old('denied_reason') }}</textarea>
+                        class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none" required>{{ old('accommodation') }}</textarea>
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-1/2 px-3">
                             <input value="Save" type="submit"

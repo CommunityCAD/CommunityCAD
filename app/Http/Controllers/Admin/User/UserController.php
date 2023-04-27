@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\User\UserAccommodation;
 use App\Models\Admin\User\UserNotes;
 use App\Models\History;
 use App\Models\User;
@@ -46,7 +47,9 @@ class UserController extends Controller
     {
         $histories = History::where('subject_type', 'user')->where('subject_id', $user->id)->orderBy('created_at', 'desc')->take(5)->get();
         $notes = UserNotes::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
-        return view('admin.users.show', compact('user', 'histories', 'notes'));
+        $accommodations = UserAccommodation::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('admin.users.show', compact('user', 'histories', 'notes', 'accommodations'));
     }
 
     public function edit(User $user): View
