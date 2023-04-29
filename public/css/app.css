@@ -733,6 +733,15 @@ video {
 .mt-\[-2px\] {
   margin-top: -2px;
 }
+.-mt-2 {
+  margin-top: -0.5rem;
+}
+.-mt-5 {
+  margin-top: -1.25rem;
+}
+.-mt-1 {
+  margin-top: -0.25rem;
+}
 .block {
   display: block;
 }
@@ -1349,6 +1358,10 @@ video {
 .border-yellow-600 {
   --tw-border-opacity: 1;
   border-color: rgb(202 138 4 / var(--tw-border-opacity));
+}
+.border-cyan-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(8 145 178 / var(--tw-border-opacity));
 }
 .border-b-black {
   --tw-border-opacity: 1;

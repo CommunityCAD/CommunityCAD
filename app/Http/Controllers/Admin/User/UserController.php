@@ -51,7 +51,7 @@ class UserController extends Controller
         $notes = UserNotes::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
         $accommodations = UserAccommodation::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
 
-        $da_types = DB::table('displinary_action_types')->select(['name', 'id'])->get();
+        $da_types = DB::table('displinary_action_types')->get(['id', 'name'])->pluck('name', 'id')->toArray();
 
         $das = DisciplinaryAction::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
 
