@@ -34,19 +34,19 @@ class UserController extends Controller
         return view('admin.users.advanced_index', compact('users'));
     }
 
-    public function create(): View
+    public function show(User $user): mixed
     {
-        return view('users.create');
-    }
 
-    public function store(Request $request): RedirectResponse
-    {
-        User::create($request->validated());
-        return redirect()->route('users.index')->with('success', 'Message');
-    }
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-    public function show(User $user): View
-    {
+        if ($user->is_protected_user && !auth()->user()->is_super_user) {
+            return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a protected user. You can not edit them.', 'level' => 'error']]);
+        }
+
+        if ($user->is_super_user && !auth()->user()->is_super_user) {
+            return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a super user. You can not edit them.', 'level' => 'error']]);
+        }
+
         $histories = History::where('subject_type', 'user')->where('subject_id', $user->id)->orderBy('created_at', 'desc')->take(5)->get();
         $notes = UserNotes::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
         $accommodations = UserAccommodation::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
@@ -56,22 +56,5 @@ class UserController extends Controller
         $das = DisciplinaryAction::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
 
         return view('admin.users.show', compact('user', 'histories', 'notes', 'accommodations', 'da_types', 'das'));
-    }
-
-    public function edit(User $user): View
-    {
-        return view('users.edit', compact('users'));
-    }
-
-    public function update(Request $request, User $user): RedirectResponse
-    {
-        $user->update($request->validated());
-        return redirect()->route('users.index')->with('success', 'Message');
-    }
-
-    public function destroy(User $user): RedirectResponse
-    {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'Message');
     }
 }
