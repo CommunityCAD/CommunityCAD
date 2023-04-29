@@ -3,7 +3,7 @@
         <div class="">
             <h1>Search Username</h1>
             <input type="text" wire:model='search'
-                class="w-full px-1 py-1 text-lg font-bold text-black border-2 border-white">
+                class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">
         </div>
 
         <div class="">

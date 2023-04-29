@@ -59,13 +59,16 @@
 
     <div class="my-4 bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-purple-500">
         <div class="flex justify-between">
-            <p class="text-purple-600">Announcements</p>
-            <div>
+            <div class="flex items-center space-x-2 text-purple-600">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
                     <path
                         d="M16.881 4.346A23.112 23.112 0 018.25 6H7.5a5.25 5.25 0 00-.88 10.427 21.593 21.593 0 001.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 01-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0018 11.25c0-2.413-.393-4.735-1.119-6.904zM18.26 3.74a23.22 23.22 0 011.24 7.51 23.22 23.22 0 01-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 101.409.516 24.555 24.555 0 001.415-6.43 2.992 2.992 0 00.836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 00-1.415-6.43.75.75 0 10-1.409.516c.059.16.116.321.17.483z" />
                 </svg>
+                <p class="">Announcements</p>
             </div>
+            <a href="#" class="new-button-sm">
+                <x-new-button></x-new-button>
+            </a>
         </div>
         <div class="">
             <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
@@ -82,24 +85,15 @@
                         </div>
                     </div>
                     <div class="space-y-6">
-                        <a href="" class="block">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6 mx-3 text-blue-500">
-                                <path
-                                    d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
-                            </svg>
+                        <a href="" class="edit-button-sm">
+                            <x-edit-button></x-edit-button>
                         </a>
-                        <form class="block" action="" method="POST"
+                        <form class="delete-button-sm" action="" method="POST"
                             onsubmit="return confirm('Are you sure you wish to delete this announcement? This can\'t be undone!');">
                             @csrf
                             @method('DELETE')
                             <button class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-6 h-6 mx-3 text-red-500">
-                                    <path fill-rule="evenodd"
-                                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                                <x-delete-button></x-delete-button>
                             </button>
                         </form>
                     </div>
@@ -121,24 +115,15 @@
                         </div>
                     </div>
                     <div class="space-y-6">
-                        <a href="" class="block">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6 mx-3 text-blue-500">
-                                <path
-                                    d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
-                            </svg>
+                        <a href="" class="edit-button-sm">
+                            <x-edit-button></x-edit-button>
                         </a>
-                        <form class="block" action="" method="POST"
+                        <form class="delete-button-sm" action="" method="POST"
                             onsubmit="return confirm('Are you sure you wish to delete this announcement? This can\'t be undone!');">
                             @csrf
                             @method('DELETE')
                             <button class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-6 h-6 mx-3 text-red-500">
-                                    <path fill-rule="evenodd"
-                                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                                <x-delete-button></x-delete-button>
                             </button>
                         </form>
                     </div>
@@ -150,8 +135,7 @@
 
     <div class="my-4 bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-green-600">
         <div class="flex justify-between">
-            <p class="text-green-600">Upcoming Events</p>
-            <div>
+            <div class="flex items-center space-x-2 text-green-600">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
                     <path
                         d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
@@ -159,7 +143,11 @@
                         d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z"
                         clip-rule="evenodd" />
                 </svg>
+                <p class="">Upcoming Events</p>
             </div>
+            <a href="#" class="new-button-sm">
+                <x-new-button></x-new-button>
+            </a>
         </div>
     </div>
 @endsection
