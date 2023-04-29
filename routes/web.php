@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\NotesController;
 use App\Http\Controllers\Admin\User\UserAccommodationController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Admin\User\UserDisciplinaryActionController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
 use App\Http\Controllers\ApplicationController;
@@ -112,6 +113,9 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::post('/user/{user}/accommodation', [UserAccommodationController::class, 'store'])->name('users.accommodation.store');
         Route::delete('/user/{user}/accommodation/{userAccommodation}', [UserAccommodationController::class, 'destroy'])->name('users.accommodation.destroy');
+
+        Route::post('/user/{user}/da', [UserDisciplinaryActionController::class, 'store'])->name('users.da.store');
+        Route::delete('/user/{user}/da/{disciplinaryAction}', [UserDisciplinaryActionController::class, 'destroy'])->name('users.da.destroy');
 
         Route::resource('/users', UserController::class);
     });

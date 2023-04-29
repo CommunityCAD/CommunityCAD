@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="pt-5 pb-5 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-4 pt-5 pb-5 md:grid-cols-2 lg:grid-cols-3">
 
             <div class="w-full bg-[#124559] text-[#eff6e0] p-3 sm:mr-2 rounded-xl">
                 <div class="text-center">
@@ -71,27 +71,27 @@
                                 case '1':
                                     $text_color = 'text-orange-500';
                                     break;
-
+                            
                                 case '2':
                                     $text_color = 'text-yellow-500';
                                     break;
-
+                            
                                 case '3':
                                     $text_color = 'text-green-500';
                                     break;
-
+                            
                                 case '4':
                                     $text_color = 'text-red-500';
                                     break;
-
+                            
                                 case '5':
                                     $text_color = 'text-red-500';
                                     break;
-
+                            
                                 case '6':
                                     $text_color = 'text-red-500';
                                     break;
-
+                            
                                 default:
                                     $text_color = 'text-red-500';
                                     break;
@@ -142,7 +142,7 @@
             <div class="w-full bg-[#124559] text-[#eff6e0] p-3 sm:mr-2 rounded-xl">
                 <h2 class="mb-4 text-xl font-semibold underline">Quick Admin Options</h2>
 
-                <div class="grid gap-4 text-sm grid-cols-1 xl:grid-cols-2">
+                <div class="grid grid-cols-1 gap-4 text-sm xl:grid-cols-2">
                     <a href="#" class="secondary-button-md">Suspend/LOA User</a>
                     <a href="#" class="delete-button-md">Ban User</a>
                     <a href="#" class="secondary-button-md" @click="communityRankModal = true">Community Rank</a>
@@ -241,6 +241,36 @@
                     </a>
                 </div>
 
+                <div class="">
+                    @foreach ($das as $da)
+                        <div class="p-3 my-2 border-2 border-gray-900" x-data="{ open: true }"
+                            @click.away="open = false">
+                            <div class="flex items-center justify-between">
+                                <p class="text-white cursor-pointer select-none" @click="open = !open">From:
+                                    {{ $da->giver_user->discord }} at
+                                    {{ $da->created_at->format('m/d/Y H:i') }} | Level:
+                                </p>
+                                <form
+                                    action="{{ route('admin.users.da.destroy', ['disciplinaryAction' => $da->id, 'user' => $user->id]) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Are you sure you wish to delete this disciplinary action? This can\'t be undone!');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="">
+                                        <x-delete-button></x-delete-button>
+                                    </button>
+                                </form>
+                            </div>
+                            <div x-show="open">
+                                <p class="text-gray-400">
+                                    {{ $da->disciplinary_action }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+
             </div>
 
             <div class="w-full bg-[#124559] text-[#eff6e0] p-3 sm:mr-2 rounded-xl">
@@ -326,11 +356,18 @@
             <div @click.outside="daModal = false"
                 class="w-full max-w-[570px] rounded-[20px] bg-[#124559] text-[#eff6e0] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                 <h3 class="pb-2 text-xl font-bold sm:text-2xl">
-                    Add New Note
+                    Add New Disciplinary Actions
                 </h3>
-                <form action="" method="POST">
-                    <textarea type="text" name="note" class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none"
-                        required>{{ old('denied_reason') }}</textarea>
+                <form action="{{ route('admin.users.da.store', $user->id) }}" method="POST">
+                    @csrf
+                    <select name="disciplinary_action_type_id"
+                        class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" required>
+                        @foreach ($da_types as $da_type)
+                            <option value="{{ $da_type->id }}">{{ $da_type->name }}</option>
+                        @endforeach
+                    </select>
+                    <textarea type="text" name="disciplinary_action"
+                        class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none" required>{{ old('disciplinary_action') }}</textarea>
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-1/2 px-3">
                             <input value="Save" type="submit"
@@ -364,7 +401,7 @@
                         <option value="4">Department Head</option>
                         <option value="5">Head Admin</option>
                     </select>
-                    <div class="flex flex-wrap -mx-3 mt-4">
+                    <div class="flex flex-wrap mt-4 -mx-3">
                         <div class="w-1/2 px-3">
                             <input value="Save" type="submit"
                                 class="block w-full p-3 text-base font-medium text-center text-white transition bg-blue-500 border rounded-lg border-primary hover:bg-opacity-90">

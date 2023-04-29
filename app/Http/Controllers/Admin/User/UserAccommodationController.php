@@ -23,12 +23,12 @@ class UserAccommodationController extends Controller
         $input['receiver_id'] = $user->id;
 
         UserAccommodation::create($input);
-        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Accommodation added.', 'level' => 'success']]);;
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Accommodation added.', 'level' => 'success']]);
     }
 
     public function destroy(User $user, UserAccommodation $userAccommodation): RedirectResponse
     {
         $userAccommodation->delete();
-        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Accommodation deleted.', 'level' => 'success']]);;
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Accommodation deleted.', 'level' => 'success']]);
     }
 }

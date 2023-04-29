@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\User\DisciplinaryAction;
 use App\Models\Admin\User\UserAccommodation;
 use App\Models\Admin\User\UserNotes;
 use App\Models\History;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -49,7 +51,11 @@ class UserController extends Controller
         $notes = UserNotes::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
         $accommodations = UserAccommodation::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
 
-        return view('admin.users.show', compact('user', 'histories', 'notes', 'accommodations'));
+        $da_types = DB::table('displinary_action_types')->select(['name', 'id'])->get();
+
+        $das = DisciplinaryAction::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('admin.users.show', compact('user', 'histories', 'notes', 'accommodations', 'da_types', 'das'));
     }
 
     public function edit(User $user): View
