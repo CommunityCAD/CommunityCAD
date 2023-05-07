@@ -66,7 +66,7 @@
                 </svg>
                 <p class="">Announcements</p>
             </div>
-            <a href="#" class="new-button-sm">
+            <a href="{{ route('admin.announcement.create') }}" class="new-button-sm">
                 <x-new-button></x-new-button>
             </a>
         </div>
