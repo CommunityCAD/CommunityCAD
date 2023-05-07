@@ -1,0 +1,11 @@
+.text-input {
+    @apply w-full px-2 py-2 mt-2 text-black border rounded-md focus:outline-none;
+}
+
+.textarea-input {
+    @apply w-full h-24 px-2 py-2 mt-2 text-black border rounded-md focus:outline-none;
+}
+
+.select-input {
+    @apply w-full px-2 py-2 mt-2 text-black border rounded-md cursor-pointer focus:outline-none;
+}

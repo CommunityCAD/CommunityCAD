@@ -8,36 +8,36 @@
         @livewire('breadcrumbs', ['paths' => []])
     </nav>
 
-    <div
-        class="w-full mx-auto px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+    <div class="main-wrapper">
         <form action="{{ route('admin.announcement.store') }}" method="POST">
             @csrf
 
             <div>
-                <label for="title" class="block mt-3 text-black-500">Title <span class="text-red-600">*</span></label>
-                <input type="text" name="title" value="{{ old('title') }}"
-                    class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
+                <label for="title" class="block mt-3 text-black-500">Title<span class="text-red-600">*</span></label>
+                <input type="text" name="title" value="{{ old('title') }}" class="text-input" />
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
 
             <div>
-                <label for="text" class="block mt-3 text-black-500">Announcement <span
+                <label for="text" class="block mt-3 text-black-500">Announcement<span
                         class="text-red-600">*</span></label>
-                <textarea name="text" class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('text') }}</textarea>
+                <textarea name="text" class="textarea-input">{{ old('text') }}</textarea>
                 <x-input-error :messages="$errors->get('text')" class="mt-2" />
             </div>
 
             <div>
-                <label for="title" class="block mt-3 text-black-500">Title <span class="text-red-600">*</span></label>
-                <input type="text" name="title" value="{{ old('title') }}"
-                    class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
-                <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                <label for="department_id" class="block mt-3 text-black-500">Department<span
+                        class="text-red-600">*</span></label>
+                <select name="department_id" id="department_id" class="select-input">
+                    <option value="0">All Departments</option>
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
             </div>
 
-
-            <input type="submit" value="Create Annoucnement" class="mt-4 new-button-md">
-
-
+            <input type="submit" value="Create Announcement" class="mt-4 new-button-md">
         </form>
     </div>
 @endsection
