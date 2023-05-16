@@ -42,6 +42,8 @@ class UserStatusController extends Controller
     public function super_user(Request $request, User $user)
     {
 
+        abort_if(Gate::denies('is_super_user') || Gate::denies('is_owner_user'), 403);
+
         $user->update(['is_super_user' => !$user->is_super_user]);
 
         $status = "No";
@@ -61,6 +63,8 @@ class UserStatusController extends Controller
 
     public function protected_user(Request $request, User $user)
     {
+        abort_if(Gate::denies('is_super_user') || Gate::denies('is_owner_user'), 403);
+
         $user->update(['is_protected_user' => !$user->is_protected_user]);
 
         $status = "No";

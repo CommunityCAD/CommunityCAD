@@ -8,11 +8,14 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserDisciplinaryActionController extends Controller
 {
     public function store(Request $request, User $user): RedirectResponse
     {
+        abort_if(Gate::denies('user_manage_disciplinary_actions'), 403);
+
         $input = $request->validate([
             'disciplinary_action' => 'required',
             'disciplinary_action_type_id' => 'required|integer',
@@ -27,6 +30,8 @@ class UserDisciplinaryActionController extends Controller
 
     public function destroy(User $user, DisciplinaryAction $disciplinaryAction): RedirectResponse
     {
+        abort_if(Gate::denies('user_manage_disciplinary_actions'), 403);
+
         $disciplinaryAction->delete();
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Disciplinary action deleted.', 'level' => 'success']]);
     }

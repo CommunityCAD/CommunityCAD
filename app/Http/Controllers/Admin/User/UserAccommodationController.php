@@ -8,12 +8,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class UserAccommodationController extends Controller
 {
 
     public function store(Request $request, User $user): RedirectResponse
     {
+        abort_if(Gate::denies('user_manage_accommodations'), 403);
 
         $input = $request->validate([
             'accommodation' => 'required',
@@ -28,6 +30,8 @@ class UserAccommodationController extends Controller
 
     public function destroy(User $user, UserAccommodation $userAccommodation): RedirectResponse
     {
+        abort_if(Gate::denies('user_manage_accommodations'), 403);
+
         $userAccommodation->delete();
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Accommodation deleted.', 'level' => 'success']]);
     }
