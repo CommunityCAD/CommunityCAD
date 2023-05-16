@@ -103,7 +103,6 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::resource('/roles', RoleController::class);
         Route::resource('/permissions', PermissionController::class);
 
-        Route::get('/users/advanced', [UserController::class, 'all_users'])->name('users.advanced.index');
         Route::get('/user/{user}/roles/edit', [UserRoleController::class, 'edit'])->name('users.roles.edit');
         Route::put('/user/{user}/roles', [UserRoleController::class, 'update'])->name('users.roles.update');
         Route::get('/user/{user}/status/edit', [UserStatusController::class, 'edit'])->name('users.status.edit');

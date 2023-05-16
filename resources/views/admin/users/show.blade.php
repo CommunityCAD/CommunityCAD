@@ -1,14 +1,13 @@
 @extends('layouts.portal')
 
 @section('content')
-    <div x-data="{ noteModal: false, accommodationModal: false, daModal: false, communityRankModal: false }" class="text-white">
+    <div x-data="{ noteModal: false, accommodationModal: false, daModal: false, communityRankModal: false, rolesModal: false }" class="text-white">
         <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
             <div class="">
                 <p class="text-lg dark:text-white">User Profile | {{ $user->discord }}</p>
             </div>
 
             @livewire('breadcrumbs', ['paths' => [['href' => route('admin.users.index'), 'text' => 'View All Members']]])
-
         </nav>
 
         <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
@@ -123,7 +122,7 @@
                             <span>Roles</span>
                             @can('user_edit_roles')
                                 @if ($user->account_status == 3)
-                                    <a href="{{ route('admin.users.roles.edit', $user->id) }}" class="edit-button-sm">
+                                    <a @click="rolesModal = true" class="edit-button-sm">
                                         <x-edit-button></x-edit-button>
                                     </a>
                                 @endif
@@ -384,88 +383,89 @@
             </div>
         </div>
 
+        @can('user_manage_notes')
+            <div x-show="noteModal" x-transition
+                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+                <div @click.outside="noteModal = false"
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    <h3 class="pb-2 text-xl font-bold sm:text-2xl">
+                        Add New Note
+                    </h3>
+                    <form action="{{ route('admin.users.notes.store', $user->id) }}" method="POST">
+                        @csrf
 
-        <div x-show="noteModal" x-transition
-            class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
-            <div @click.outside="noteModal = false"
-                class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
-                <h3 class="pb-2 text-xl font-bold sm:text-2xl">
-                    Add New Note
-                </h3>
-                <form action="{{ route('admin.users.notes.store', $user->id) }}" method="POST">
-                    @csrf
-
-                    <textarea type="text" name="note" class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none"
-                        required>{{ old('note') }}</textarea>
-                    <div class="flex flex-wrap -mx-3">
-                        <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="w-full edit-button-md">
+                        <textarea type="text" name="note" class="textarea-input" required>{{ old('note') }}</textarea>
+                        <div class="flex flex-wrap -mx-3">
+                            <div class="w-1/2 px-3">
+                                <button class="w-full edit-button-md">Save</button>
+                            </div>
+                            <div class="w-1/2 px-3">
+                                <button @click.prevent="noteModal = false" class="w-full delete-button-md">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
-                        <div class="w-1/2 px-3">
-                            <button @click.prevent="noteModal = false" class="w-full delete-button-md">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endcan
 
-        <div x-show="accommodationModal" x-transition
-            class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
-            <div @click.outside="accommodationModal = false"
-                class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
-                <h3 class="pb-2 text-xl font-bold sm:text-2xl">
-                    Add New Accommodation
-                </h3>
-                <form action="{{ route('admin.users.accommodation.store', $user->id) }}" method="POST">
-                    @csrf
-                    <textarea type="text" name="accommodation"
-                        class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none" required>{{ old('accommodation') }}</textarea>
-                    <div class="flex flex-wrap -mx-3">
-                        <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="w-full edit-button-md">
+        @can('user_manage_accommodations')
+            <div x-show="accommodationModal" x-transition
+                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+                <div @click.outside="accommodationModal = false"
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    <h3 class="pb-2 text-xl font-bold sm:text-2xl">
+                        Add New Accommodation
+                    </h3>
+                    <form action="{{ route('admin.users.accommodation.store', $user->id) }}" method="POST">
+                        @csrf
+                        <textarea type="text" name="accommodation" class="textarea-input" required>{{ old('accommodation') }}</textarea>
+                        <div class="flex flex-wrap -mx-3">
+                            <div class="w-1/2 px-3">
+                                <button class="w-full edit-button-md">Save</button>
+                            </div>
+                            <div class="w-1/2 px-3">
+                                <button @click.prevent="accommodationModal = false" class="w-full delete-button-md">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
-                        <div class="w-1/2 px-3">
-                            <button @click.prevent="accommodationModal = false" class="w-full delete-button-md">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endcan
 
-        <div x-show="daModal" x-transition
-            class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
-            <div @click.outside="daModal = false"
-                class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
-                <h3 class="pb-2 text-xl font-bold sm:text-2xl">
-                    Add New Disciplinary Actions
-                </h3>
-                <form action="{{ route('admin.users.da.store', $user->id) }}" method="POST">
-                    @csrf
-                    <select name="disciplinary_action_type_id"
-                        class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" required>
-                        @foreach ($da_types as $da_type_id => $da_type_name)
-                            <option value="{{ $da_type_id }}">{{ $da_type_name }}</option>
-                        @endforeach
-                    </select>
-                    <textarea type="text" name="disciplinary_action"
-                        class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none" required>{{ old('disciplinary_action') }}</textarea>
-                    <div class="flex flex-wrap -mx-3">
-                        <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="w-full edit-button-md">
+        @can('user_manage_disciplinary_actions')
+            <div x-show="daModal" x-transition
+                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+                <div @click.outside="daModal = false"
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    <h3 class="pb-2 text-xl font-bold sm:text-2xl">
+                        Add New Disciplinary Actions
+                    </h3>
+                    <form action="{{ route('admin.users.da.store', $user->id) }}" method="POST">
+                        @csrf
+                        <select name="disciplinary_action_type_id" class="select-input" required>
+                            @foreach ($da_types as $da_type_id => $da_type_name)
+                                <option value="{{ $da_type_id }}">{{ $da_type_name }}</option>
+                            @endforeach
+                        </select>
+                        <textarea type="text" name="disciplinary_action" class="textarea-input" required>{{ old('disciplinary_action') }}</textarea>
+                        <div class="flex flex-wrap -mx-3">
+                            <div class="w-1/2 px-3">
+                                <button class="w-full edit-button-md">Save</button>
+                            </div>
+                            <div class="w-1/2 px-3">
+                                <button @click.prevent="daModal = false" class="w-full delete-button-md">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
-                        <div class="w-1/2 px-3">
-                            <button @click.prevent="daModal = false" class="w-full delete-button-md">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endcan
 
         <div x-show="communityRankModal" x-transition
             class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
@@ -476,17 +476,16 @@
                 </h3>
                 <p>Community rank has no impact on roles or permissions. This is only to help identify members.</p>
                 <form action="" method="POST">
-                    <select name="community_rank" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none"
-                        required>
+                    <select name="community_rank" class="select-input" required>
                         <option value="1">Member</option>
                         <option value="2">Moderator</option>
                         <option value="3">Admin</option>
                         <option value="4">Department Head</option>
                         <option value="5">Head Admin</option>
                     </select>
-                    <div class="flex flex-wrap -mx-3">
+                    <div class="flex flex-wrap -mx-3 mt-3">
                         <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="w-full edit-button-md">
+                            <button class="w-full edit-button-md">Save</button>
                         </div>
                         <div class="w-1/2 px-3">
                             <button @click.prevent="communityRankModal = false" class="w-full delete-button-md">
@@ -497,6 +496,66 @@
                 </form>
             </div>
         </div>
+
+        @can('user_edit_roles')
+            <div x-show="rolesModal" x-transition
+                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+                <div @click.outside="rolesModal = false"
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    <h3 class="pb-2 text-xl font-bold sm:text-2xl">
+                        Edit Roles
+                    </h3>
+                    <form action="{{ route('admin.users.roles.update', $user->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <label for="title" class="block mt-3 text-black-500">Roles <span
+                                class="text-red-600">*</span></label>
+                        <div class="mt-3 space-y-2">
+
+                            @foreach ($roles as $role)
+                                @if ($user->roles->contains($role->id))
+                                    <label for="{{ $role->id }}" class="flex items-center cursor-pointer">
+                                        <div class="relative">
+                                            <input type="checkbox" class="checkbox hidden" name="roles[]"
+                                                id="{{ $role->id }}" value="{{ $role->id }}" checked>
+                                            <div
+                                                class="block border-[1px] dark:border-white border-gray-900 w-14 h-8 rounded-full">
+                                            </div>
+                                            <div
+                                                class="dot absolute left-1 top-1 dark:bg-white bg-gray-800 w-6 h-6 rounded-full transition">
+                                            </div>
+                                        </div>
+                                        <div class="ml-3 dark:text-white text-gray-900 font-medium">
+                                            {{ $role->title }}
+                                        </div>
+                                    </label>
+                                @else
+                                    <label for="{{ $role->id }}" class="flex items-center cursor-pointer">
+                                        <div class="relative">
+                                            <input type="checkbox" class="checkbox hidden" name="roles[]"
+                                                id="{{ $role->id }}" value="{{ $role->id }}">
+                                            <div
+                                                class="block border-[1px] dark:border-white border-gray-900 w-14 h-8 rounded-full">
+                                            </div>
+                                            <div
+                                                class="dot absolute left-1 top-1 dark:bg-white bg-gray-800 w-6 h-6 rounded-full transition">
+                                            </div>
+                                        </div>
+                                        <div class="ml-3 dark:text-white text-gray-900 font-medium">
+                                            {{ $role->title }}
+                                        </div>
+                                    </label>
+                                @endif
+                            @endforeach
+
+                        </div>
+
+                        <button class="edit-button-md w-1/2 mt-5">Save</button>
+                    </form>
+                </div>
+            </div>
+        @endcan
 
     </div>
 @endsection

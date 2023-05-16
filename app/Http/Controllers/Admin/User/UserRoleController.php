@@ -12,17 +12,6 @@ use Illuminate\Support\Facades\Gate;
 
 class UserRoleController extends Controller
 {
-    public function edit(User $user)
-    {
-        abort_if(Gate::denies('user_edit_roles'), 403);
-
-        $roles = Role::all(['title', 'id']);
-
-        $user->load('roles');
-
-        return view('admin.users.roles.edit', compact('roles', 'user'));
-    }
-
     public function update(Request $request, User $user)
     {
         abort_if(Gate::denies('user_edit_roles'), 403);
