@@ -136,7 +136,81 @@
                         @endforeach
                     </li>
 
+                    <li class="flex items-center justify-between">
+                        <p class="">Protected User <br>
+                            @if ($user->is_protected_user)
+                                <span class="font-bold text-green-600">Yes</span>
+                            @else
+                                <span class="font-bold text-red-600">No</span>
+                            @endif
+                        </p>
+
+                        @can('is_super_user')
+                            @if ($user->account_status == 3)
+                                <form action="{{ route('admin.users.protected_user.update', $user->id) }}" method="POST"
+                                    class="block">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <button class="edit-button-sm">
+                                        <x-edit-button></x-edit-button>
+                                    </button>
+                                </form>
+                            @endif
+                        @endcan
+                    </li>
+
+                    <li class="flex items-center justify-between">
+                        <p class="">Super User <br>
+                            @if ($user->is_super_user)
+                                <span class="font-bold text-green-600">Yes</span>
+                            @else
+                                <span class="font-bold text-red-600">No</span>
+                            @endif
+                        </p>
+
+                        @can('is_super_user')
+                            @if ($user->account_status == 3)
+                                <form action="{{ route('admin.users.super_user.update', $user->id) }}" method="POST"
+                                    class="block">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <button class="edit-button-sm">
+                                        <x-edit-button></x-edit-button>
+                                    </button>
+                                </form>
+                            @endif
+                        @endcan
+                    </li>
+
+                    <li class="flex items-center justify-between" x-data="{ open_tip: false }">
+                        <p class="">Owner <br>
+                            @if (in_array($user->id, config('cad.owner_ids')))
+                                <span class="font-bold text-green-600">Yes</span>
+                            @else
+                                <span class="font-bold text-red-600">No</span>
+                            @endif
+                        </p>
+                        <div class="relative inline-block">
+
+
+                            <a href="#" @click="open_tip = true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                </svg>
+                            </a>
+                            <div class="bg-black text-white p-2 absolute z-50 w-56 rounded-lg" x-show="open_tip"
+                                @click.outside="open_tip = false">
+                                This is set in the cad config file. See docs for help.
+                            </div>
+                        </div>
+                    </li>
                 </ul>
+
+
             </div>
 
             <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
@@ -159,15 +233,15 @@
 
                 <div class="">
                     @foreach ($notes as $note)
-                        <div class="px-3 py-1 m-4 bg-gray-600 border-l-4 border-cyan-600 cursor-default rounded-2xl hover:bg-gray-500"
+                        <div class="px-3 py-1 m-4 bg-gray-600 border-l-4 cursor-default border-cyan-600 rounded-2xl hover:bg-gray-500"
                             x-data="{ open: true }" @click.away="open = false">
 
                             <div class="flex items-center justify-between">
-                                <p class="text-white  select-none" @click="open = !open">
+                                <p class="text-white select-none" @click="open = !open">
                                     From:
                                     {{ $note->giver_user->discord }}
                                     <span
-                                        class="text-xs tracking-widest -mt-1 block">{{ $note->created_at->format('m/d/Y H:i') }}</span>
+                                        class="block -mt-1 text-xs tracking-widest">{{ $note->created_at->format('m/d/Y H:i') }}</span>
                                 </p>
                                 <form
                                     action="{{ route('admin.users.notes.destroy', ['userNotes' => $note->id, 'user' => $user->id]) }}"
@@ -204,10 +278,10 @@
                             x-data="{ open: true }" @click.away="open = false">
 
                             <div class="flex items-center justify-between">
-                                <p class="text-white  select-none" @click="open = !open">
+                                <p class="text-white select-none" @click="open = !open">
                                     From: {{ $accommodation->giver_user->discord }}
                                     <span
-                                        class="text-xs tracking-widest -mt-1 block">{{ $accommodation->created_at->format('m/d/Y H:i') }}</span>
+                                        class="block -mt-1 text-xs tracking-widest">{{ $accommodation->created_at->format('m/d/Y H:i') }}</span>
                                 </p>
                                 <form
                                     action="{{ route('admin.users.accommodation.destroy', ['userAccommodation' => $accommodation->id, 'user' => $user->id]) }}"
@@ -247,7 +321,7 @@
                             <div class="flex items-center justify-between">
                                 <p class="text-white select-none" @click="open = !open">From:
                                     {{ $da->giver_user->discord }}
-                                    <span class="text-xs tracking-widest -mt-1 block">
+                                    <span class="block -mt-1 text-xs tracking-widest">
                                         {{ $da->created_at->format('m/d/Y H:i') }}
                                         | Level: {{ $da_types[$da->disciplinary_action_type_id] }}
                                     </span>
@@ -287,7 +361,7 @@
                             class="px-3 py-1 m-4 bg-gray-600 border-l-4 border-blue-600 cursor-default rounded-2xl hover:bg-gray-500">
                             <p class="text-white">Actioned by: {{ $history->user->discord }}
                                 <span
-                                    class="text-xs tracking-widest -mt-1 block">{{ $history->created_at->format('m/d/Y H:i:s') }}</span>
+                                    class="block -mt-1 text-xs tracking-widest">{{ $history->created_at->format('m/d/Y H:i:s') }}</span>
                             </p>
                             <div>
                                 <p class="text-gray-300">{{ $history->description }}</p>
@@ -313,10 +387,10 @@
                         required>{{ old('note') }}</textarea>
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="edit-button-md w-full">
+                            <input value="Save" type="submit" class="w-full edit-button-md">
                         </div>
                         <div class="w-1/2 px-3">
-                            <button @click.prevent="noteModal = false" class="delete-button-md w-full">
+                            <button @click.prevent="noteModal = false" class="w-full delete-button-md">
                                 Cancel
                             </button>
                         </div>
@@ -338,10 +412,10 @@
                         class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none" required>{{ old('accommodation') }}</textarea>
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="edit-button-md w-full">
+                            <input value="Save" type="submit" class="w-full edit-button-md">
                         </div>
                         <div class="w-1/2 px-3">
-                            <button @click.prevent="accommodationModal = false" class="delete-button-md w-full">
+                            <button @click.prevent="accommodationModal = false" class="w-full delete-button-md">
                                 Cancel
                             </button>
                         </div>
@@ -369,10 +443,10 @@
                         class="w-full h-24 p-1 mt-2 text-black border rounded-md focus:outline-none" required>{{ old('disciplinary_action') }}</textarea>
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="edit-button-md w-full">
+                            <input value="Save" type="submit" class="w-full edit-button-md">
                         </div>
                         <div class="w-1/2 px-3">
-                            <button @click.prevent="daModal = false" class="delete-button-md w-full">
+                            <button @click.prevent="daModal = false" class="w-full delete-button-md">
                                 Cancel
                             </button>
                         </div>
@@ -400,10 +474,10 @@
                     </select>
                     <div class="flex flex-wrap -mx-3">
                         <div class="w-1/2 px-3">
-                            <input value="Save" type="submit" class="edit-button-md w-full">
+                            <input value="Save" type="submit" class="w-full edit-button-md">
                         </div>
                         <div class="w-1/2 px-3">
-                            <button @click.prevent="communityRankModal = false" class="delete-button-md w-full">
+                            <button @click.prevent="communityRankModal = false" class="w-full delete-button-md">
                                 Cancel
                             </button>
                         </div>

@@ -39,13 +39,17 @@ class UserController extends Controller
 
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        if ($user->is_protected_user && !auth()->user()->is_super_user) {
-            return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a protected user. You can not edit them.', 'level' => 'error']]);
+        if (!in_array(auth()->user()->id, config('cad.owner_ids'))) {
+            if ($user->is_protected_user && !auth()->user()->is_super_user) {
+                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a protected user. You can not edit them.', 'level' => 'error']]);
+            }
+
+            if ($user->is_super_user && !auth()->user()->is_super_user) {
+                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a super user. You can not edit them.', 'level' => 'error']]);
+            }
         }
 
-        if ($user->is_super_user && !auth()->user()->is_super_user) {
-            return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a super user. You can not edit them.', 'level' => 'error']]);
-        }
+
 
         $histories = History::where('subject_type', 'user')->where('subject_id', $user->id)->orderBy('created_at', 'desc')->take(5)->get();
         $notes = UserNotes::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();

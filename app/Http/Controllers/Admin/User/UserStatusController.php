@@ -36,6 +36,20 @@ class UserStatusController extends Controller
             'description' => 'Account status forced updated to: (' . $request->account_status . ').',
         ]);
 
-        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Roles Updated.', 'level' => 'success']]);;
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Status Updated.', 'level' => 'success']]);;
+    }
+
+    public function super_user(Request $request, User $user)
+    {
+        $user->update(['is_super_user' => !$user->is_super_user]);
+
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Super User Status Updated.', 'level' => 'success']]);;
+    }
+
+    public function protected_user(Request $request, User $user)
+    {
+        $user->update(['is_protected_user' => !$user->is_protected_user]);
+
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Protected User Status Updated.', 'level' => 'success']]);;
     }
 }

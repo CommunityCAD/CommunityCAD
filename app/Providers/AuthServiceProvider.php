@@ -30,6 +30,10 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->is_super_user == 1) {
                 return true;
             }
+
+            if (in_array($user->id, config('cad.owner_ids'))) {
+                return true;
+            }
         });
     }
 }

@@ -117,6 +117,10 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::post('/user/{user}/da', [UserDisciplinaryActionController::class, 'store'])->name('users.da.store');
         Route::delete('/user/{user}/da/{disciplinaryAction}', [UserDisciplinaryActionController::class, 'destroy'])->name('users.da.destroy');
 
+        Route::put('/user/{user}/super_user', [UserStatusController::class, 'super_user'])->name('users.super_user.update');
+        Route::put('/user/{user}/protected_user', [UserStatusController::class, 'protected_user'])->name('users.protected_user.update');
+
+
         Route::resource('/users', UserController::class);
     });
 });

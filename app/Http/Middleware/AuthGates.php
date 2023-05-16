@@ -32,6 +32,18 @@ class AuthGates
             });
         }
 
+        Gate::define('is_super_user', function (User $user) {
+            return $user->is_super_user;
+        });
+
+        Gate::define('is_protected_user', function (User $user) {
+            return $user->is_protected_user;
+        });
+
+        Gate::define('is_owner_user', function (User $user) {
+            return in_array($user->id, config('cad.owner_ids'));
+        });
+
         return $next($request);
     }
 }
