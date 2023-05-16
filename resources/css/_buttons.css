@@ -1,39 +1,39 @@
 .new-button-sm {
-    @apply inline-flex px-1 py-1 text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
+    @apply inline-flex px-1 py-1 text-center text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
 }
 
 .new-button-md {
-    @apply inline-flex px-4 py-2 text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
+    @apply inline-flex px-4 py-2 text-center text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
 }
 
 .edit-button-sm {
-    @apply inline-block px-1 py-1 text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-500;
+    @apply inline-block px-1 py-1 text-center text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-500;
 }
 
 .edit-button-md {
-    @apply inline-block px-4 py-2 text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-500;
+    @apply inline-block px-4 py-2 text-center text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-500;
 }
 
 .delete-button-sm {
-    @apply inline-flex px-1 py-1 text-white bg-red-600 rounded-lg cursor-pointer hover:bg-red-500;
+    @apply inline-flex px-1 py-1 text-center text-white bg-red-600 rounded-lg cursor-pointer hover:bg-red-500;
 }
 
 .delete-button-md {
-    @apply inline-block px-4 py-2 text-white bg-red-600 rounded-lg cursor-pointer hover:bg-red-500;
+    @apply inline-block px-4 py-2 text-center text-white bg-red-600 rounded-lg cursor-pointer hover:bg-red-500;
 }
 
 .secondary-button-sm {
-    @apply inline-block px-1 py-1 text-white bg-gray-600 rounded-lg cursor-pointer hover:bg-gray-500;
+    @apply inline-block px-1 py-1 text-center text-white bg-gray-600 rounded-lg cursor-pointer hover:bg-gray-500;
 }
 
 .secondary-button-md {
-    @apply inline-block px-4 py-2 text-white bg-gray-600 rounded-lg cursor-pointer hover:bg-gray-500;
+    @apply inline-block px-4 py-2 text-center text-white bg-gray-600 rounded-lg cursor-pointer hover:bg-gray-500;
 }
 
 .button-sm {
-    @apply inline-block px-1 py-1 rounded-lg cursor-pointer;
+    @apply inline-block px-1 py-1 text-center rounded-lg cursor-pointer;
 }
 
 .button-md {
-    @apply inline-block px-4 py-2 rounded-lg cursor-pointer;
+    @apply inline-block px-4 py-2 text-center rounded-lg cursor-pointer;
 }

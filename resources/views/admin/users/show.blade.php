@@ -249,7 +249,7 @@
                                         onsubmit="return confirm('Are you sure you wish to delete this note? This can\'t be undone!');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="">
+                                        <button class="delete-button-sm">
                                             <x-delete-button></x-delete-button>
                                         </button>
                                     </form>
@@ -293,7 +293,7 @@
                                         onsubmit="return confirm('Are you sure you wish to delete this accommodation? This can\'t be undone!');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="">
+                                        <button class="delete-button-sm">
                                             <x-delete-button></x-delete-button>
                                         </button>
                                     </form>
@@ -342,7 +342,7 @@
                                         onsubmit="return confirm('Are you sure you wish to delete this disciplinary action? This can\'t be undone!');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="">
+                                        <button class="delete-button-sm">
                                             <x-delete-button></x-delete-button>
                                         </button>
                                     </form>

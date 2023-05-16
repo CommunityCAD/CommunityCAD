@@ -10,47 +10,37 @@
 
     </nav>
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
-
-        <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
-
-            <div class="mb-3">
-                @can('role_create')
-                    <a class="px-2 py-1 bg-green-500 rounded hover:bg-green-600" href="{{ route('admin.roles.create') }}">
-                        Add Role
-                    </a>
-                @endcan
+        <div class="main-wrapper">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-2xl underline">Roles</h2>
+                <div class="">
+                    @can('role_create')
+                        <a href="{{ route('admin.roles.create') }}" class="new-button-sm">
+                            <x-new-button></x-new-button>
+                        </a>
+                    @endcan
+                </div>
             </div>
-
-            <table class="w-full border border-collapse table-auto border-spacing-2 border-slate-500">
-                <thead>
-                    <tr>
-                        <th class="border border-spacing-2 border-slate-500">Title</th>
-                        <th class="border border-spacing-2 border-slate-500">Permissions</th>
-                        <th class="border border-spacing-2 border-slate-500"></th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    @foreach ($roles as $role)
-                        <tr>
-                            <td class="border border-slate-500">{{ $role->title }}</td>
-                            <td class="flex flex-wrap p-3 text-xs border border-slate-500">
+            @foreach ($roles as $role)
+                <div class="px-3 py-1 m-4 bg-gray-600 border-l-4 cursor-pointer rounded-2xl hover:bg-gray-500">
+                    <a href="{{ route('admin.roles.edit', $role->id) }}">
+                        <div class="flex items-center justify-between ml-3 text-white">
+                            <span class="w-1/12">{{ $role->title }}</span>
+                            <span class="flex flex-wrap w-10/12 p-3 text-xs">
                                 @foreach ($role->permissions as $permission)
                                     <p class="px-2 py-1 m-1 text-black rounded bg-slate-300">{{ $permission->title }}</p>
                                 @endforeach
-                            </td>
-                            <td class="border border-slate-500">
-                                @can('role_edit')
-                                    <a href="{{ route('admin.roles.edit', $role->id) }}"
-                                        class="px-2 py-1 bg-blue-500 rounded hover:bg-blue-600">Edit</a>
-                                @endcan
+                            </span>
+                            <span class="w-1/12">
+                                <button class="edit-button-sm">
+                                    <x-edit-button></x-edit-button>
+                                </button>
 
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
         </div>
-
-
     </div>
 @endsection

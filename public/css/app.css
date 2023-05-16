@@ -18,6 +18,8 @@
 
     padding-bottom: 0.25rem;
 
+    text-align: center;
+
     --tw-text-opacity: 1;
 
     color: rgb(255 255 255 / var(--tw-text-opacity))
@@ -49,6 +51,8 @@
     padding-top: 0.5rem;
 
     padding-bottom: 0.5rem;
+
+    text-align: center;
 
     --tw-text-opacity: 1;
 
@@ -82,6 +86,8 @@
 
     padding-bottom: 0.25rem;
 
+    text-align: center;
+
     --tw-text-opacity: 1;
 
     color: rgb(255 255 255 / var(--tw-text-opacity))
@@ -113,6 +119,8 @@
     padding-top: 0.5rem;
 
     padding-bottom: 0.5rem;
+
+    text-align: center;
 
     --tw-text-opacity: 1;
 
@@ -146,6 +154,8 @@
 
     padding-bottom: 0.25rem;
 
+    text-align: center;
+
     --tw-text-opacity: 1;
 
     color: rgb(255 255 255 / var(--tw-text-opacity))
@@ -177,6 +187,8 @@
     padding-top: 0.5rem;
 
     padding-bottom: 0.5rem;
+
+    text-align: center;
 
     --tw-text-opacity: 1;
 
@@ -210,6 +222,8 @@
 
     padding-bottom: 0.25rem;
 
+    text-align: center;
+
     --tw-text-opacity: 1;
 
     color: rgb(255 255 255 / var(--tw-text-opacity))
@@ -242,6 +256,8 @@
 
     padding-bottom: 0.5rem;
 
+    text-align: center;
+
     --tw-text-opacity: 1;
 
     color: rgb(255 255 255 / var(--tw-text-opacity))
@@ -268,7 +284,9 @@
 
     padding-top: 0.25rem;
 
-    padding-bottom: 0.25rem
+    padding-bottom: 0.25rem;
+
+    text-align: center
 }
 
 .button-md {
@@ -285,7 +303,9 @@
 
     padding-top: 0.5rem;
 
-    padding-bottom: 0.5rem
+    padding-bottom: 0.5rem;
+
+    text-align: center
 }
 
 .text-input {
@@ -951,6 +971,9 @@ video {
 .float-right {
   float: right;
 }
+.float-left {
+  float: left;
+}
 .m-1 {
   margin: 0.25rem;
 }
@@ -1303,6 +1326,30 @@ video {
 }
 .w-14 {
   width: 3.5rem;
+}
+.w-1\/4 {
+  width: 25%;
+}
+.w-2\/4 {
+  width: 50%;
+}
+.w-1\/6 {
+  width: 16.666667%;
+}
+.w-4\/6 {
+  width: 66.666667%;
+}
+.w-2\/12 {
+  width: 16.666667%;
+}
+.w-8\/12 {
+  width: 66.666667%;
+}
+.w-1\/12 {
+  width: 8.333333%;
+}
+.w-10\/12 {
+  width: 83.333333%;
 }
 .min-w-full {
   min-width: 100%;
