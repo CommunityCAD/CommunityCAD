@@ -96,18 +96,18 @@
 
         @guest
             <div class="space-y-2">
-                <p class="flex text-2xl">Welcome to {{ get_setting('community_name') }}!</p>
+                <p class="flex text-2xl">{{ __('Welcome to') }} {{ get_setting('community_name') }}!</p>
                 <img src="{{ get_setting('community_logo') }}" alt="" class="mx-auto">
                 <p class="">{{ get_setting('community_intro') }}}</p>
 
                 <div class="flex w-full">
-                    <a class="inline-flex items-center px-4 py-2 mx-auto transition-colors duration-150 rounded-md bg-slate-500 hover:bg-slate-800 hover:text-slate-200"
+                    <a class="flex items-center mx-auto button-md bg-[#7289da] text-gray-800 hover:opacity-70"
                         href="{{ route('auth.discord') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" class="w-4 h-4 mr-2">
                             <defs>
                                 <style>
                                     .cls-1 {
-                                        fill: #fff;
+                                        fill: rgb(31 41 55);
                                     }
                                 </style>
                             </defs>
@@ -120,7 +120,7 @@
                                 </g>
                             </g>
                         </svg>
-                        <span>Login/Apply With Discord</span>
+                        <span>{{ __('Login/Apply with Discord') }}</span>
                     </a>
                 </div>
             </div>

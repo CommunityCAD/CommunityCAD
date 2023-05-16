@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\CadTableUpdate;
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\Applications\ApplicationController as AdminApplicationController;
 use App\Http\Controllers\Admin\Applications\ApproveApplicationController;
 use App\Http\Controllers\Admin\Applications\ApproveInterviewController;
@@ -122,6 +123,8 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
 
         Route::resource('/users', UserController::class);
+
+        Route::resource('/announcement', AnnouncementController::class)->except('index');
     });
 });
 

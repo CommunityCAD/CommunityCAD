@@ -1,3 +1,387 @@
+.new-button-sm {
+
+    display: inline-flex;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+
+    padding-left: 0.25rem;
+
+    padding-right: 0.25rem;
+
+    padding-top: 0.25rem;
+
+    padding-bottom: 0.25rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.new-button-sm:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(34 197 94 / var(--tw-bg-opacity))
+}
+
+.new-button-md {
+
+    display: inline-flex;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+
+    padding-left: 1rem;
+
+    padding-right: 1rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.new-button-md:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(34 197 94 / var(--tw-bg-opacity))
+}
+
+.edit-button-sm {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+
+    padding-left: 0.25rem;
+
+    padding-right: 0.25rem;
+
+    padding-top: 0.25rem;
+
+    padding-bottom: 0.25rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.edit-button-sm:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(59 130 246 / var(--tw-bg-opacity))
+}
+
+.edit-button-md {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+
+    padding-left: 1rem;
+
+    padding-right: 1rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.edit-button-md:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(59 130 246 / var(--tw-bg-opacity))
+}
+
+.delete-button-sm {
+
+    display: inline-flex;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+
+    padding-left: 0.25rem;
+
+    padding-right: 0.25rem;
+
+    padding-top: 0.25rem;
+
+    padding-bottom: 0.25rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.delete-button-sm:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity))
+}
+
+.delete-button-md {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+
+    padding-left: 1rem;
+
+    padding-right: 1rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.delete-button-md:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity))
+}
+
+.secondary-button-sm {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+
+    padding-left: 0.25rem;
+
+    padding-right: 0.25rem;
+
+    padding-top: 0.25rem;
+
+    padding-bottom: 0.25rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.secondary-button-sm:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(107 114 128 / var(--tw-bg-opacity))
+}
+
+.secondary-button-md {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+
+    padding-left: 1rem;
+
+    padding-right: 1rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.secondary-button-md:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(107 114 128 / var(--tw-bg-opacity))
+}
+
+.button-sm {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    padding-left: 0.25rem;
+
+    padding-right: 0.25rem;
+
+    padding-top: 0.25rem;
+
+    padding-bottom: 0.25rem
+}
+
+.button-md {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    border-radius: 0.5rem;
+
+    padding-left: 1rem;
+
+    padding-right: 1rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem
+}
+
+.text-input {
+
+    margin-top: 0.5rem;
+
+    width: 100%;
+
+    border-radius: 0.375rem;
+
+    border-width: 1px;
+
+    padding-left: 0.5rem;
+
+    padding-right: 0.5rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(0 0 0 / var(--tw-text-opacity))
+}
+
+.text-input:focus {
+
+    outline: 2px solid transparent;
+
+    outline-offset: 2px
+}
+
+.textarea-input {
+
+    margin-top: 0.5rem;
+
+    height: 6rem;
+
+    width: 100%;
+
+    border-radius: 0.375rem;
+
+    border-width: 1px;
+
+    padding-left: 0.5rem;
+
+    padding-right: 0.5rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(0 0 0 / var(--tw-text-opacity))
+}
+
+.textarea-input:focus {
+
+    outline: 2px solid transparent;
+
+    outline-offset: 2px
+}
+
+.select-input {
+
+    margin-top: 0.5rem;
+
+    width: 100%;
+
+    cursor: pointer;
+
+    border-radius: 0.375rem;
+
+    border-width: 1px;
+
+    padding-left: 0.5rem;
+
+    padding-right: 0.5rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(0 0 0 / var(--tw-text-opacity))
+}
+
+.select-input:focus {
+
+    outline: 2px solid transparent;
+
+    outline-offset: 2px
+}
+
 /*
 ! tailwindcss v3.3.1 | MIT License | https://tailwindcss.com
 *//*
@@ -375,6 +759,31 @@ video {
 /* Make elements with the HTML hidden attribute stay hidden by default */
 [hidden] {
   display: none;
+}
+    .main-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 69 89 / var(--tw-bg-opacity));
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+    @media (min-width: 640px) {
+
+  .main-wrapper {
+    max-width: 56rem;
+  }
 }
 
 *, ::before, ::after {
@@ -1369,6 +1778,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(89 131 146 / var(--tw-bg-opacity));
 }
+.bg-\[\#7289da\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(114 137 218 / var(--tw-bg-opacity));
+}
 .bg-\[\#eff6e0\] {
   --tw-bg-opacity: 1;
   background-color: rgb(239 246 224 / var(--tw-bg-opacity));
@@ -2107,176 +2520,6 @@ video {
   letter-spacing: 0.05em !important;
   --tw-text-opacity: 1 !important;
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
-}
-
-.new-button-sm {
-  display: inline-flex;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.new-button-sm:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.new-button-md {
-  display: inline-flex;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.new-button-md:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.edit-button-sm {
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.edit-button-sm:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
-
-.edit-button-md {
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.edit-button-md:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
-
-.delete-button-sm {
-  display: inline-flex;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.delete-button-sm:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-
-.delete-button-md {
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.delete-button-md:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-
-.secondary-button-sm {
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.secondary-button-sm:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
-}
-
-.secondary-button-md {
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.secondary-button-md:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
-}
-
-.button-sm {
-  display: inline-block;
-  border-radius: 0.5rem;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-
-.button-md {
-  display: inline-block;
-  border-radius: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .hover\:border-slate-800:hover {
