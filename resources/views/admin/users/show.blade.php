@@ -509,8 +509,6 @@
                         @csrf
                         @method('PUT')
 
-                        <label for="title" class="block mt-3 text-black-500">Roles <span
-                                class="text-red-600">*</span></label>
                         <div class="mt-3 space-y-2">
 
                             @foreach ($roles as $role)
