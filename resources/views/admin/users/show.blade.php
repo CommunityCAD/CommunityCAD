@@ -226,9 +226,11 @@
             <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Notes <span class="ml-3 text-sm">(Last 5)</span></h2>
-                    <a href="#" class="new-button-sm" @click="noteModal = true">
-                        <x-new-button></x-new-button>
-                    </a>
+                    @can('user_manage_notes')
+                        <a href="#" class="new-button-sm" @click="noteModal = true">
+                            <x-new-button></x-new-button>
+                        </a>
+                    @endcan
                 </div>
 
                 <div class="">
@@ -243,16 +245,18 @@
                                     <span
                                         class="block -mt-1 text-xs tracking-widest">{{ $note->created_at->format('m/d/Y H:i') }}</span>
                                 </p>
-                                <form
-                                    action="{{ route('admin.users.notes.destroy', ['userNotes' => $note->id, 'user' => $user->id]) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Are you sure you wish to delete this note? This can\'t be undone!');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="">
-                                        <x-delete-button></x-delete-button>
-                                    </button>
-                                </form>
+                                @can('user_manage_notes')
+                                    <form
+                                        action="{{ route('admin.users.notes.destroy', ['userNotes' => $note->id, 'user' => $user->id]) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Are you sure you wish to delete this note? This can\'t be undone!');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="">
+                                            <x-delete-button></x-delete-button>
+                                        </button>
+                                    </form>
+                                @endcan
                             </div>
 
                             <div x-show="open">
@@ -267,9 +271,11 @@
             <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Accommodations <span class="ml-3 text-sm">(Last 5)</span></h2>
-                    <a href="#" class="new-button-sm" @click="accommodationModal = true">
-                        <x-new-button></x-new-button>
-                    </a>
+                    @can('user_manage_accommodations')
+                        <a href="#" class="new-button-sm" @click="accommodationModal = true">
+                            <x-new-button></x-new-button>
+                        </a>
+                    @endcan
                 </div>
                 <div class="">
 
@@ -283,16 +289,19 @@
                                     <span
                                         class="block -mt-1 text-xs tracking-widest">{{ $accommodation->created_at->format('m/d/Y H:i') }}</span>
                                 </p>
-                                <form
-                                    action="{{ route('admin.users.accommodation.destroy', ['userAccommodation' => $accommodation->id, 'user' => $user->id]) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Are you sure you wish to delete this accommodation? This can\'t be undone!');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="">
-                                        <x-delete-button></x-delete-button>
-                                    </button>
-                                </form>
+                                @can('user_manage_accommodations')
+                                    <form
+                                        action="{{ route('admin.users.accommodation.destroy', ['userAccommodation' => $accommodation->id, 'user' => $user->id]) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Are you sure you wish to delete this accommodation? This can\'t be undone!');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="">
+                                            <x-delete-button></x-delete-button>
+                                        </button>
+                                    </form>
+                                @endcan
+
                             </div>
 
                             <div x-show="open">
@@ -308,9 +317,12 @@
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Disciplinary Actions <span class="ml-3 text-sm">(Last 5)</span>
                     </h2>
-                    <a href="#" class="new-button-sm" @click="daModal = true">
-                        <x-new-button></x-new-button>
-                    </a>
+                    @can('user_manage_disciplinary_actions')
+                        <a href="#" class="new-button-sm" @click="daModal = true">
+                            <x-new-button></x-new-button>
+                        </a>
+                    @endcan
+
                 </div>
 
                 <div class="">
@@ -326,16 +338,18 @@
                                         | Level: {{ $da_types[$da->disciplinary_action_type_id] }}
                                     </span>
                                 </p>
-                                <form
-                                    action="{{ route('admin.users.da.destroy', ['disciplinaryAction' => $da->id, 'user' => $user->id]) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Are you sure you wish to delete this disciplinary action? This can\'t be undone!');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="">
-                                        <x-delete-button></x-delete-button>
-                                    </button>
-                                </form>
+                                @can('user_manage_disciplinary_actions')
+                                    <form
+                                        action="{{ route('admin.users.da.destroy', ['disciplinaryAction' => $da->id, 'user' => $user->id]) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Are you sure you wish to delete this disciplinary action? This can\'t be undone!');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="">
+                                            <x-delete-button></x-delete-button>
+                                        </button>
+                                    </form>
+                                @endcan
                             </div>
 
                             <div x-show="open">
