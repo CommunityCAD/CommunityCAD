@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class WeaponController extends Controller
 {
 
-    public function create(Civilian $civilian): View
+    public function create(Civilian $civilian)
     {
         $current_civilian_level = auth()->user()->civilian_level;
 
