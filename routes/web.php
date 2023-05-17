@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Applications\DenyInterviewController;
 use App\Http\Controllers\Admin\Applications\FlagApplicationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\User\DepartmentController as UserDepartmentController;
 use App\Http\Controllers\Admin\User\NotesController;
 use App\Http\Controllers\Admin\User\UserAccommodationController;
 use App\Http\Controllers\Admin\User\UserController;
@@ -104,6 +105,13 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::put('/user/{user}/super_user', [UserStatusController::class, 'super_user'])->name('users.super_user.update');
         Route::put('/user/{user}/protected_user', [UserStatusController::class, 'protected_user'])->name('users.protected_user.update');
 
+        Route::resource('/user/{user}/departments', UserDepartmentController::class, ['name' => 'users'])->names([
+            'index' => 'users.departments.index',
+            'create' => 'users.departments.create',
+            'store' => 'users.departments.store',
+            'edit' => 'users.departments.edit',
+            'update' => 'users.departments.update',
+        ]);
 
         Route::resource('/users', UserController::class);
 

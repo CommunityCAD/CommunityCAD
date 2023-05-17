@@ -1,9 +1,9 @@
 .new-button-sm {
-    @apply inline-flex px-1 py-1 text-center text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
+    @apply inline-block px-1 py-1 text-center text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
 }
 
 .new-button-md {
-    @apply inline-flex px-4 py-2 text-center text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
+    @apply inline-block px-4 py-2 text-center text-white bg-green-600 rounded-lg cursor-pointer hover:bg-green-500;
 }
 
 .edit-button-sm {
@@ -15,7 +15,7 @@
 }
 
 .delete-button-sm {
-    @apply inline-flex px-1 py-1 text-center text-white bg-red-600 rounded-lg cursor-pointer hover:bg-red-500;
+    @apply inline-block px-1 py-1 text-center text-white bg-red-600 rounded-lg cursor-pointer hover:bg-red-500;
 }
 
 .delete-button-md {

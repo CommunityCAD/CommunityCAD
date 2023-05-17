@@ -6,8 +6,6 @@
         <form action="{{ route('civilian.license.store', $civilian->id) }}" method="POST" class="flex flex-wrap -mx-4">
             @csrf
 
-
-
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
                     <label for="type" class="block mb-3 text-base font-medium text-white">

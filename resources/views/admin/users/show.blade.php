@@ -217,6 +217,8 @@
                     <a href="#" class="secondary-button-md">Suspend/LOA User</a>
                     <a href="#" class="delete-button-md">Ban User</a>
                     <a href="#" class="secondary-button-md" @click="communityRankModal = true">Community Rank</a>
+                    <a href="{{ route('admin.users.departments.index', $user->id) }}"
+                        class="secondary-button-md">Departments</a>
                 </div>
             </div>
 

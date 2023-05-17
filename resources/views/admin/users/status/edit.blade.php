@@ -22,8 +22,7 @@
                         class="text-red-600">*</span></label>
                 <div class="mt-3 space-y-2">
 
-                    <select name="account_status" id="account_status"
-                        class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">
+                    <select name="account_status" id="account_status" class="select-input">
 
                         @foreach ($statuses as $id => $name)
                             @if ($user->account_status === $id)
