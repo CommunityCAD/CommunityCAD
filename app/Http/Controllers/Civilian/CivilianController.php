@@ -18,18 +18,30 @@ class CivilianController extends Controller
     public function index(): View
     {
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
-        $civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level)->first();
+        $current_civilian_level = auth()->user()->civilian_level;
 
-        return view('civilian.civilians.index', compact('civilians', 'civilian_level'));
+        return view('civilian.civilians.index', compact('civilians', 'current_civilian_level'));
     }
 
-    public function create(): View
+    public function create()
     {
+        $civilians = Civilian::where('user_id', auth()->user()->id)->get();
+        $current_civilian_level = auth()->user()->civilian_level;
+
+        if ($current_civilian_level->civilian_limit <= $civilians->count()) {
+            return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
+        }
         return view('civilian.civilians.create');
     }
 
     public function store(CivilianStoreRequest $request): RedirectResponse
     {
+        $civilians = Civilian::where('user_id', auth()->user()->id)->get();
+        $current_civilian_level = auth()->user()->civilian_level;
+
+        if ($current_civilian_level->civilian_limit <= $civilians->count()) {
+            return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
+        }
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
@@ -47,7 +59,9 @@ class CivilianController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        return view('civilian.civilians.show', compact('civilian'));
+        $current_civilian_level = auth()->user()->civilian_level;
+
+        return view('civilian.civilians.show', compact('civilian', 'current_civilian_level'));
     }
 
     public function edit(Civilian $civilian): View

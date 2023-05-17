@@ -11,19 +11,19 @@
                         Model
                     </label>
                     <input type="text" placeholder="Glock 17" name="model" value="{{ old('model') }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('model')" class="mt-2" />
                 </div>
             </div>
 
-            <div class="w-full px-4 md:w-1/2 lg:w-1/3">
-                <div class="mb-6">
-                    <input type="Submit" value="Create" class="secondary-button-md" />
+            <div class="w-full px-4">
+                <div class="mb-6 space-y-3">
+                    <button class="inline-block w-full mr-5 md:w-1/4 new-button-md">Create</button>
+                    <a href="{{ route('civilian.civilians.show', $civilian->id) }}"
+                        class="w-full mr-5 md:w-1/4 delete-button-md">Cancel</a>
                 </div>
             </div>
         </form>
-
-        <a href="{{ route('civilian.civilians.show', $civilian->id) }}" class="delete-button-md">Cancel</a>
 
     </div>
 @endsection

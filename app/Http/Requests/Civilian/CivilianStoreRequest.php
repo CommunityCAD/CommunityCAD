@@ -23,7 +23,7 @@ class CivilianStoreRequest extends FormRequest
     {
         return [
             'first_name' => 'required|alpha|max:255',
-            'last_name' => 'required|alpha|max:255',
+            'last_name' => 'required|max:255',
             'date_of_birth' => 'required|date',
             'height' => 'required',
             'weight' => 'required|numeric',

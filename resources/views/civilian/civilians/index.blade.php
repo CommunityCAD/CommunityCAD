@@ -2,23 +2,55 @@
 
 @section('content')
     <div class="container max-w-4xl p-4 mx-auto mt-2">
-        <div class="flex justify-between py-2 border-b-2">
+        <div class="flex items-center justify-between py-2 border-b-2">
             <h2 class="text-2xl text-white">Your Citizens</h2>
-            <a href="{{ route('civilian.civilians.create') }}" class="new-button-sm">
-                <x-new-button></x-new-button>
-            </a>
+            <div class="text-center">
+                <p class="text-white">Civilians Used: {{ $civilians->count() }} | Allowed Civilians:
+                    {{ $current_civilian_level->civilian_limit }}</p>
+                <p class="text-white">Civilian Level: {{ $current_civilian_level->level_description }}</p>
+            </div>
+
+            @if ($current_civilian_level->civilian_limit > $civilians->count())
+                <a href="{{ route('civilian.civilians.create') }}" class="new-button-sm">
+                    <x-new-button></x-new-button>
+                </a>
+            @endif
         </div>
         <div class="space-x-4 space-y-4">
-            <a href="#" class="secondary-button-md">Create Tow
-                Call</a>
-            <a href="#" class="secondary-button-md">Create
-                911
-                Call</a>
+            <a href="#" class="secondary-button-md">Create 911 Call</a>
         </div>
 
         <div class="grid grid-cols-1 mt-5 sm:grid-cols-2">
             @foreach ($civilians as $civilian)
-                <div class="px-3 py-1 m-4 bg-gray-600 cursor-pointer rounded-2xl hover:bg-gray-500">
+                @php
+                    switch ($civilian->status) {
+                        case 1:
+                            $border_color = 'border-green-600';
+                            break;
+                    
+                        case 2:
+                            $border_color = 'border-orange-600';
+                            break;
+                    
+                        case 3:
+                            $border_color = 'border-red-600';
+                            break;
+                    
+                        case 4:
+                            $border_color = 'border-red-600';
+                            break;
+                    
+                        case 5:
+                            $border_color = 'border-blue-600';
+                            break;
+                    
+                        default:
+                            $border_color = 'border-red-600';
+                            break;
+                    }
+                @endphp
+                <div
+                    class="px-3 py-1 m-4 bg-gray-600 cursor-pointer rounded-2xl hover:bg-gray-500 border-l-4 {{ $border_color }}">
                     <a href="{{ route('civilian.civilians.show', $civilian->id) }}" class="flex">
                         <div class="h-16 p-2">
                             @if (!is_null($civilian->picture))

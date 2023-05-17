@@ -113,7 +113,9 @@
                                     onsubmit="return confirm('Are you sure you wish to delete this license? This can\'t be undone!');">
                                     @csrf
                                     @method('DELETE')
-                                    <x-delete-button></x-delete-button>
+                                    <button class="delete-button-sm">
+                                        <x-delete-button></x-delete-button>
+                                    </button>
                                 </form>
                             @endif
 
@@ -150,7 +152,9 @@
                                 onsubmit="return confirm('Are you sure you wish to delete this record? This can\'t be undone!');">
                                 @csrf
                                 @method('DELETE')
-                                <x-delete-button></x-delete-button>
+                                <button class="delete-button-sm">
+                                    <x-delete-button></x-delete-button>
+                                </button>
                             </form>
                             <p class=""><span class="font-bold">{{ $medical_record->name }}:</span>
                                 {{ $medical_record->value }}
@@ -166,11 +170,18 @@
 
     <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
         <div class="flex justify-between py-2 border-b-2">
-            <h2 class="text-2xl text-white">Vehicles</h2>
+            <h2 class="text-2xl text-white">
+                Vehicles
+                <span class="text-base">{{ $civilian->vehicles->count() }}/{{ $current_civilian_level->vehicle_limit }}
+                    used</span>
+            </h2>
+
             <div class="flex">
-                <a href="{{ route('civilian.vehicle.create', $civilian->id) }}" class="new-button-sm">
-                    <x-new-button></x-new-button>
-                </a>
+                @if ($current_civilian_level->vehicle_limit > $civilian->vehicles->count())
+                    <a href="{{ route('civilian.vehicle.create', $civilian->id) }}" class="new-button-sm">
+                        <x-new-button></x-new-button>
+                    </a>
+                @endif
             </div>
         </div>
         <div class="flex flex-wrap -mx-4">
@@ -224,7 +235,7 @@
 
                         @if ($transfer)
                             <a href="{{ route('civilian.vehicle.renew', ['vehicle' => $vehicle->id, 'civilian' => $civilian->id]) }}"
-                                class="button-sm text-white bg-purple-500 hover:bg-purple-400">
+                                class="text-white bg-purple-500 button-sm hover:bg-purple-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -235,7 +246,7 @@
 
                         @if ($stolen)
                             <a href="{{ route('civilian.vehicle.stolen', ['vehicle' => $vehicle->id, 'civilian' => $civilian->id]) }}"
-                                class="button-sm text-white bg-orange-500 hover:bg-orange-400">
+                                class="text-white bg-orange-500 button-sm hover:bg-orange-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -252,7 +263,9 @@
                                 onsubmit="return confirm('Are you sure you wish to delete this vehicle? This can\'t be undone!');">
                                 @csrf
                                 @method('DELETE')
-                                <x-delete-button></x-delete-button>
+                                <button class="delete-button-sm">
+                                    <x-delete-button></x-delete-button>
+                                </button>
                             </form>
                         @endif
 
@@ -270,16 +283,17 @@
 
     <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
         <div class="flex justify-between py-2 border-b-2">
-            <h2 class="text-2xl text-white">Weapons</h2>
+            <h2 class="text-2xl text-white">
+                Weapons
+                <span class="text-base">{{ $civilian->weapons->count() }}/{{ $current_civilian_level->firearm_limit }}
+                    used</span>
+            </h2>
             <div class="flex">
-                <a href="{{ route('civilian.weapon.create', $civilian->id) }}"
-                    class="inline-block px-1 py-1 text-white bg-green-500 rounded-lg hover:bg-green-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </a>
+                @if ($current_civilian_level->firearm_limit > $civilian->weapons->count())
+                    <a href="{{ route('civilian.weapon.create', $civilian->id) }}" class="new-button-sm">
+                        <x-new-button></x-new-button>
+                    </a>
+                @endif
             </div>
         </div>
         <div class="flex flex-wrap -mx-4">
@@ -293,8 +307,9 @@
                                 onsubmit="return confirm('Are you sure you wish to delete this weapon? This can\'t be undone!');">
                                 @csrf
                                 @method('DELETE')
-                                <x-delete-button></x-delete-button>
-
+                                <button class="delete-button-sm">
+                                    <x-delete-button></x-delete-button>
+                                </button>
                             </form>
                             <p class=""><span class="font-bold">{{ $weapon->model }}:</span>
                                 {{ $weapon->serial_number }}

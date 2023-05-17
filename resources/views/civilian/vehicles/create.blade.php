@@ -12,7 +12,7 @@
                         Plate
                     </label>
                     <input type="text" placeholder="ABC 123" name="plate" value="{{ old('plate') }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('plate')" class="mt-2" />
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         Make and Model
                     </label>
                     <input type="text" placeholder="Ford F150" name="model" value="{{ old('model') }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('model')" class="mt-2" />
                 </div>
             </div>
@@ -34,7 +34,7 @@
                         Color
                     </label>
                     <input type="text" placeholder="Black" name="color" value="{{ old('color') }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('color')" class="mt-2" />
                 </div>
             </div>
@@ -45,16 +45,15 @@
                         Status
                     </label>
                     <div class="relative">
-                        <select name="vehicle_status"
-                            class="cursor-pointer border-form-stroke text-body-color focus:border-primary active:border-primary w-full appearance-none rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition">
+                        <select name="vehicle_status" class="select-input">
                             <option value="">Choose one</option>
-                            <option value="1" {{ old('vehicle_status') == 'Valid' ? 'selected' : '' }}>Valid</option>
-                            <option value="2" {{ old('vehicle_status') == 'Stolen' ? 'selected' : '' }}>Stolen</option>
-                            <option value="3" {{ old('vehicle_status') == 'Impounded' ? 'selected' : '' }}>Impounded
+                            <option value="1" {{ old('vehicle_status') == 1 ? 'selected' : '' }}>Valid</option>
+                            <option value="2" {{ old('vehicle_status') == 2 ? 'selected' : '' }}>Stolen</option>
+                            <option value="3" {{ old('vehicle_status') == 3 ? 'selected' : '' }}>Impounded
                             </option>
-                            <option value="4" {{ old('vehicle_status') == 'Booted' ? 'selected' : '' }}> Booted
+                            <option value="4" {{ old('vehicle_status') == 4 ? 'selected' : '' }}>Booted
                             </option>
-                            <option value="5" {{ old('vehicle_status') == 'Expired' ? 'selected' : '' }}>Expired
+                            <option value="5" {{ old('vehicle_status') == 5 ? 'selected' : '' }}>Expired
                             </option>
                         </select>
                         <span
@@ -76,14 +75,14 @@
             </div>
 
 
-            <div class="w-full px-4 md:w-1/2 lg:w-1/3">
-                <div class="mb-6">
-                    <input type="Submit" value="Create" class="secondary-button-md" />
+            <div class="w-full px-4">
+                <div class="mb-6 space-y-3">
+                    <button class="inline-block w-full mr-5 md:w-1/4 new-button-md">Create</button>
+                    <a href="{{ route('civilian.civilians.show', $civilian->id) }}"
+                        class="w-full mr-5 md:w-1/4 delete-button-md">Cancel</a>
                 </div>
             </div>
         </form>
-
-        <a href="{{ route('civilian.civilians.show', $civilian->id) }}" class="delete-button-md">Cancel</a>
 
     </div>
 @endsection

@@ -13,13 +13,25 @@ use Illuminate\Http\Request;
 class VehicleController extends Controller
 {
 
-    public function create(Civilian $civilian): View
+    public function create(Civilian $civilian)
     {
+        $current_civilian_level = auth()->user()->civilian_level;
+
+        if ($current_civilian_level->vehicle_limit <= $civilian->vehicles->count()) {
+            return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'You have reached your max vehicles.', 'level' => 'error']]);
+        }
+
         return view('civilian.vehicles.create', compact('civilian'));
     }
 
     public function store(VehicleCreateRequest $request, Civilian $civilian): RedirectResponse
     {
+        $current_civilian_level = auth()->user()->civilian_level;
+
+        if ($current_civilian_level->vehicle_limit <= $civilian->vehicles->count()) {
+            return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'You have reached your max vehicles.', 'level' => 'error']]);
+        }
+
         $input = $request->validated();
         $input['civilian_id'] = $civilian->id;
         $input['registration_expire'] = date("Y-m-d", strtotime("+30 Days"));

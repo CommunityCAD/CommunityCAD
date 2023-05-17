@@ -14,11 +14,24 @@ class WeaponController extends Controller
 
     public function create(Civilian $civilian): View
     {
+        $current_civilian_level = auth()->user()->civilian_level;
+
+        if ($current_civilian_level->firearm_limit <= $civilian->weapons->count()) {
+            return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'You have reached your max weapons.', 'level' => 'error']]);
+        }
+
         return view('civilian.weapons.create', compact('civilian'));
     }
 
     public function store(Request $request, Civilian $civilian): RedirectResponse
     {
+
+        $current_civilian_level = auth()->user()->civilian_level;
+
+        if ($current_civilian_level->firearm_limit <= $civilian->weapons->count()) {
+            return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'You have reached your max weapons.', 'level' => 'error']]);
+        }
+
         $input = $request->validate([
             'model' => 'required',
         ]);

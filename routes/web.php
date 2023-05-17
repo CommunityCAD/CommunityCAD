@@ -19,11 +19,7 @@ use App\Http\Controllers\Admin\User\UserStatusController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Cad\CallController;
 use App\Http\Controllers\Cad\PageController;
-use App\Http\Controllers\Civilian\CivilianController;
-use App\Http\Controllers\Civilian\LicenseController;
-use App\Http\Controllers\Civilian\MedicalRecordController;
-use App\Http\Controllers\Civilian\VehicleController;
-use App\Http\Controllers\Civilian\WeaponController;
+
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
 use App\Models\Admin\User\UserNotes;
@@ -67,19 +63,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
-        Route::resource('civilians', CivilianController::class);
-
-        Route::get('/civilians/{civilian}/license/{license}/renew', [LicenseController::class, 'renew'])->name('license.renew');
-        Route::resource('civilians/{civilian}/license', LicenseController::class);
-
-        Route::resource('civilians/{civilian}/medical_record', MedicalRecordController::class);
-
-        Route::resource('civilians/{civilian}/weapon', WeaponController::class);
-
-
-        Route::get('/civilians/{civilian}/vehicle/{vehicle}/renew', [VehicleController::class, 'renew'])->name('vehicle.renew');
-        Route::get('/civilians/{civilian}/vehicle/{vehicle}/stolen', [VehicleController::class, 'stolen'])->name('vehicle.stolen');
-        Route::resource('civilians/{civilian}/vehicle', VehicleController::class);
+        require __DIR__ . '/civilian.php';
     });
 
     Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {

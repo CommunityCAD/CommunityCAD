@@ -14,8 +14,7 @@
                         Type
                     </label>
                     <div class="relative">
-                        <select name="name"
-                            class="cursor-pointer border-form-stroke text-body-color focus:border-primary active:border-primary w-full appearance-none rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition">
+                        <select name="name" class="select-input">
                             <option value="">Choose one</option>
                             <option value="Allergy" {{ old('name') == 'Allergy' ? 'selected' : '' }}>Allergy</option>
                             <option value="Blood Type" {{ old('name') == 'Blood Type' ? 'selected' : '' }}>Blood Type
@@ -27,9 +26,6 @@
                                 Conditions</option>
                             <option value="Other" {{ old('name') == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
-                        <span
-                            class="border-body-color absolute right-4 top-1/2 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2">
-                        </span>
                     </div>
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 
@@ -42,7 +38,7 @@
                         Value
                     </label>
                     <input type="text" placeholder="Peanuts" name="value" value="{{ old('value') }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('value')" class="mt-2" />
                 </div>
             </div>
@@ -51,14 +47,14 @@
                 <p></p>
             </div>
 
-            <div class="w-full px-4 md:w-1/2 lg:w-1/3">
-                <div class="mb-6">
-                    <input type="Submit" value="Create" class="secondary-button-md" />
+            <div class="w-full px-4">
+                <div class="mb-6 space-y-3">
+                    <button class="inline-block w-full mr-5 md:w-1/4 new-button-md">Create</button>
+                    <a href="{{ route('civilian.civilians.show', $civilian->id) }}"
+                        class="w-full mr-5 md:w-1/4 delete-button-md">Cancel</a>
                 </div>
             </div>
         </form>
-
-        <a href="{{ route('civilian.civilians.show', $civilian->id) }}" class="delete-button-md">Cancel</a>
 
     </div>
 @endsection

@@ -10,12 +10,10 @@
             <div class="w-full px-4">
                 <div class="mb-6">
                     <label for="picture" class="block mb-3 text-base font-medium text-white">
-                        Image URL <span class="text-gray-400">(optional)</span> <a href="#"
-                            class="text-gray-400 underline">How to upload picture</a>
+                        Image URL <span class="text-gray-400">(optional)</span>
                     </label>
                     <input type="text" placeholder="https://cdn.discordapp.com/..." name="picture"
-                        value="{{ $civilian->picture }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        value="{{ $civilian->picture }}" class="text-input" />
                     <x-input-error :messages="$errors->get('picture')" class="mt-2" />
                 </div>
             </div>
@@ -26,7 +24,7 @@
                         Occupation <span class="text-gray-400">(optional)</span>
                     </label>
                     <input type="text" placeholder="Farmer" name="occupation" value="{{ $civilian->occupation }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
 
                 </div>
@@ -38,7 +36,7 @@
                         Postal
                     </label>
                     <input type="text" placeholder="123" name="postal" value="{{ $civilian->postal }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('postal')" class="mt-2" />
 
                 </div>
@@ -50,7 +48,7 @@
                         Street
                     </label>
                     <input type="text" placeholder="Route 68" name="street" value="{{ $civilian->street }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('street')" class="mt-2" />
 
                 </div>
@@ -62,28 +60,25 @@
                         City
                     </label>
                     <input type="text" placeholder="Sandy Shores" name="city" value="{{ $civilian->city }}"
-                        class="border-form-stroke focus:border-blue-400 focus:border-2 w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition" />
+                        class="text-input" />
                     <x-input-error :messages="$errors->get('city')" class="mt-2" />
 
                 </div>
             </div>
 
-            <div class="w-full px-4 md:w-1/2 lg:w-1/3">
-                <div class="mb-6">
-                    <input type="Submit" value="Save"
-                        class="inline-block px-4 py-2 text-white rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-600" />
+            <div class="w-full px-4">
+                <div class="mb-6 space-y-3">
+                    <button class="inline-block w-full mr-5 md:w-1/4 new-button-md">Create</button>
+                    <a href="{{ route('civilian.civilians.index') }}"
+                        class="w-full mr-5 md:w-1/4 delete-button-md">Cancel</a>
+                    @if (!empty(get_setting('postal_map_link')))
+                        <a href="{{ get_setting('postal_map_link') }}" target="_blank"
+                            class="w-full md:w-1/4 secondary-button-md">
+                            Link to postal map
+                        </a>
+                    @endif
                 </div>
             </div>
         </form>
-
-        <a href="{{ route('civilian.civilians.show', $civilian->id) }}"
-            class="inline-block px-4 py-2 text-white bg-red-700 rounded-lg cursor-pointer hover:bg-red-600">Cancel</a>
-
-        @if (!is_null(get_setting('postal_map_link')))
-            <a href="{{ get_setting('postal_map_link') }}" target="_blank"
-                class="inline-block px-4 py-2 text-white rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-600">Link
-                to postal map</a>
-        @endif
-
     </div>
 @endsection
