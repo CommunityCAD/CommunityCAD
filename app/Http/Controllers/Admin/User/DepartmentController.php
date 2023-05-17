@@ -27,7 +27,6 @@ class DepartmentController extends Controller
     {
         abort_if(Gate::denies('user_departments_access'), 403);
 
-
         $departments = Department::all(['name', 'id']);
         $user_departments = UserDepartment::where('user_id', auth()->user()->id)->with('department')->get();
 
@@ -53,6 +52,8 @@ class DepartmentController extends Controller
 
     public function store(UserDepartmentStoreRequest $request, User $user)
     {
+        abort_if(Gate::denies('user_departments_access'), 403);
+
         $input = $request->validated();
         $input['user_id'] = $user->id;
         UserDepartment::create($input);
@@ -69,11 +70,15 @@ class DepartmentController extends Controller
 
     public function edit(User $user, UserDepartment $department)
     {
+        abort_if(Gate::denies('user_departments_access'), 403);
+
         return view('admin.users.departments.edit', compact('user', 'department'));
     }
 
     public function update(UserDepartmentUpdateRequest $request, User $user, UserDepartment $department)
     {
+        abort_if(Gate::denies('user_departments_access'), 403);
+
         $input = $request->validated();
         $department->update($input);
 
@@ -85,5 +90,13 @@ class DepartmentController extends Controller
         ]);
 
         return redirect()->route('admin.users.departments.index', $user->id)->with('alerts', [['message' => 'Department updated.', 'level' => 'success']]);
+    }
+
+    public function destroy(User $user, UserDepartment $department)
+    {
+        abort_if(Gate::denies('user_departments_access'), 403);
+
+        $department->delete();
+        return redirect()->route('admin.users.departments.index', $user->id)->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);
     }
 }

@@ -25,7 +25,7 @@ class NotesController extends Controller
         $input['receiver_id'] = $user->id;
 
         UserNotes::create($input);
-        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Note added.', 'level' => 'success']]);;
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Note added.', 'level' => 'success']]);
     }
 
     public function destroy(User $user, UserNotes $userNotes): RedirectResponse
@@ -33,6 +33,6 @@ class NotesController extends Controller
         abort_if(Gate::denies('user_manage_notes'), 403);
 
         $userNotes->delete();
-        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Note deleted.', 'level' => 'success']]);;
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Note deleted.', 'level' => 'success']]);
     }
 }

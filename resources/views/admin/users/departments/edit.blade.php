@@ -11,6 +11,15 @@
     </nav>
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
         <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+            <form action="{{ route('admin.users.departments.destroy', [$user->id, $department->id]) }}" method="POST"
+                class="text-right"
+                onsubmit="return confirm('Are you sure you wish to delete this department? This can\'t be undone!');">
+                @csrf
+                @method('DELETE')
+                <button class="delete-button-md">
+                    <x-delete-button></x-delete-button>
+                </button>
+            </form>
             <form action="{{ route('admin.users.departments.update', [$user->id, $department->id]) }}" method="POST"
                 class="flex flex-wrap -mx-4">
                 @csrf

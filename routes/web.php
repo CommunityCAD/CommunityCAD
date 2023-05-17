@@ -111,6 +111,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
             'store' => 'users.departments.store',
             'edit' => 'users.departments.edit',
             'update' => 'users.departments.update',
+            'destroy' => 'users.departments.destroy',
         ]);
 
         Route::resource('/users', UserController::class);
