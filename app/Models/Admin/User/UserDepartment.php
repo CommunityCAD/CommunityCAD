@@ -13,6 +13,8 @@ class UserDepartment extends Model
 
     public $guarded = [];
 
+    protected $with = ['department'];
+
     public function user()
     {
         return $this->hasOne(User::class);

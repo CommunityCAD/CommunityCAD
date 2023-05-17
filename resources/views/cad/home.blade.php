@@ -60,9 +60,10 @@
                     <ul class="ml-8 list-disc">
                         <li>Calls: <a href="{{ route('cad.cad') }}" class="text-sm underline">{{ $call_count }} active</a>
                         </li>
-                        <li>Unit: <a href="#" class="text-sm underline">1K-1 - OFFDT</a></li>
+                        <li>Unit: <a href="#" class="text-sm underline">{{ $active_unit->badge_number }} -
+                                {{ $active_unit->status }}</a></li>
                         <li>Zone: <a href="#" class="text-sm underline">Sandy Shores AOP</a></li>
-                        <li>My Active Call: <a href="#" class="text-sm underline">I45868</a></li>
+                        <li>My Active Call: <a href="#" class="text-sm underline">{{ $active_unit->call_id }}</a></li>
                     </ul>
 
                     <p class="mt-3 text-lg font-semibold">Reports</p>

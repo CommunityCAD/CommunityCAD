@@ -26,26 +26,7 @@
 
             </main>
             <main class="overflow-scroll h-2/5">
-                <table class="w-full border border-collapse table-auto border-slate-400">
-                    <tr>
-                        <th class="border border-slate-400">Unit #</th>
-                        <th class="border border-slate-400">Status</th>
-                        <th class="border border-slate-400">Time</th>
-                        <th class="border border-slate-400">Call #</th>
-                        <th class="border border-slate-400">Agency</th>
-                        <th class="border border-slate-400">Description</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td class="border border-slate-400">1K-1</td>
-                        <td class="border border-slate-400">AVAIL</td>
-                        <td class="border border-slate-400">1.9m</td>
-                        <td class="border border-slate-400"></td>
-                        <td class="border border-slate-400">BCSO</td>
-                        <td>incid#=228;status=Completed Call;disp=CLO</td>
-                        <td></td>
-                    </tr>
-                </table>
+                <livewire:cad.leo.active-units-table>
             </main>
         </div>
     </div>
