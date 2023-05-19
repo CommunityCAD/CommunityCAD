@@ -21,15 +21,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::table('civilian_statuses')->insert(['status' => 'Alive']);
-        DB::table('civilian_statuses')->insert(['status' => 'Wanted']);
-        DB::table('civilian_statuses')->insert(['status' => 'Jailed']);
-        DB::table('civilian_statuses')->insert(['status' => 'Dead']);
-        DB::table('civilian_statuses')->insert(['status' => 'Hospitalized']);
-        DB::table('civilian_statuses')->insert(['status' => 'Pending Deleteion']);
-        DB::table('civilian_statuses')->insert(['status' => 'Deleted']);
-    }
-
     /**
      * Reverse the migrations.
      *

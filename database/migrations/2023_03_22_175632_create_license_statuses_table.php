@@ -20,12 +20,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        DB::table('license_statuses')->insert(['status' => 'Valid']);
-        DB::table('license_statuses')->insert(['status' => 'Expired']);
-        DB::table('license_statuses')->insert(['status' => 'Suspended']);
-        DB::table('license_statuses')->insert(['status' => 'Revoked']);
-        DB::table('license_statuses')->insert(['status' => 'Pending Approval']);
     }
 
     /**

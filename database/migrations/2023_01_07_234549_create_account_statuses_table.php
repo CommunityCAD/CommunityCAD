@@ -20,13 +20,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        DB::table('account_statuses')->insert(['name' => 'User']); // 1
-        DB::table('account_statuses')->insert(['name' => 'Applicant']); // 2
-        DB::table('account_statuses')->insert(['name' => 'Member']); // 3
-        DB::table('account_statuses')->insert(['name' => 'Suspended/LOA']); // 4
-        DB::table('account_statuses')->insert(['name' => 'Temporary Ban']); // 5
-        DB::table('account_statuses')->insert(['name' => 'Permanent Ban']); // 6
     }
 
     /**

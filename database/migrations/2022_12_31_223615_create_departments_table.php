@@ -24,13 +24,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        DB::table('departments')->insert(['name' => 'Blane County Sheriff\'s Office', 'is_open_external' => 1, 'is_open_internal' => 1]);
-        DB::table('departments')->insert(['name' => 'Los Santos Police Department', 'is_open_external' => 1, 'is_open_internal' => 1]);
-        DB::table('departments')->insert(['name' => 'San Andreas Highway Patrol', 'is_open_external' => 1, 'is_open_internal' => 1]);
-        DB::table('departments')->insert(['name' => 'Civilian Operations', 'is_open_external' => 1, 'is_open_internal' => 1]);
-        DB::table('departments')->insert(['name' => 'San Andreas Communications Department', 'is_open_external' => 1, 'is_open_internal' => 1]);
-        DB::table('departments')->insert(['name' => 'San Andreas Fire Rescue', 'is_open_external' => 1, 'is_open_internal' => 1]);
     }
 
     /**

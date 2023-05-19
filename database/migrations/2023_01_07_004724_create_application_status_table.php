@@ -20,14 +20,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        DB::table('application_statuses')->insert(['name' => 'Pending Review']); // 1
-        DB::table('application_statuses')->insert(['name' => 'Pending Admin Review']); // 2
-        DB::table('application_statuses')->insert(['name' => 'Pending Interview']); // 3
-        DB::table('application_statuses')->insert(['name' => 'Approved']); // 4
-        DB::table('application_statuses')->insert(['name' => 'Declined']); // 5
-        DB::table('application_statuses')->insert(['name' => 'Withdrown']); // 6
-
     }
 
     /**
