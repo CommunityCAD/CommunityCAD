@@ -102,8 +102,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public function civilian_level()
-    {
-        return $this->hasOne(CivilianLevel::class, 'id', 'civilian_level_id');
-    }
+    // public function civilian_level()
+    // {
+    //     return $this->hasOne(CivilianLevel::class, 'id', 'civilian_level_id');
+    // }
 }
