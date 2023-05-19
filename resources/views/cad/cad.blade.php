@@ -1,7 +1,7 @@
 @extends('layouts.cad')
 
 @section('content')
-    <div class="flex flex-col h-screen">
+    <div class="flex flex-col">
         <div class="flex items-center justify-around p-1 space-x-3 text-white rounded cursor-default">
             <p class="text-sm font-semibold">
                 Officer {{ auth()->user()->officer_name ? auth()->user()->officer_name : auth()->user()->discord_name }}
@@ -16,18 +16,6 @@
                 <span class="mx-3">Connected to live_database_prod</span>
             </p>
         </div>
-        <div class="h-full p-4 mt-5 text-white rounded cursor-default">
-            <main class="h-3/5">
-                <div class="float-right mb-3">
-                    <a href="{{ route('cad.call.create') }}" class="new-button-sm">New Call</a>
-                </div>
-
-                <livewire:cad.leo.leo-cad-table>
-
-            </main>
-            <main class="overflow-scroll h-2/5">
-                <livewire:cad.leo.active-units-table>
-            </main>
-        </div>
+        <livewire:cad.leo.leo-cad>
     </div>
 @endsection

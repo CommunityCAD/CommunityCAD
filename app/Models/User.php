@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Application');
     }
 
+    public function active_unit()
+    {
+        return $this->hasOne('App\Models\Cad\ActiveUnit');
+    }
+
     public function histories()
     {
         return $this->hasMany('App\Models\History');

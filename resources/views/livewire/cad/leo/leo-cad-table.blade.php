@@ -1,5 +1,5 @@
 <div wire:poll.5s>
-    <table class="w-full border border-collapse table-auto border-slate-400 uppercase">
+    <table class="w-full uppercase border border-collapse table-auto border-slate-400">
         <tr class="text-lg font-bold">
             <th class="p-1 border border-slate-400">Call #</th>
             <th class="p-1 border border-slate-400">Nature</th>
@@ -16,27 +16,27 @@
                     case 'OPEN':
                         $text_color = 'text-green-500';
                         break;
-
+                
                     case 'HOLD':
                         $text_color = 'text-gray-500';
                         break;
-
+                
                     case 'DISP':
                         $text_color = 'text-yellow-500';
                         break;
-
+                
                     case 'INRUTE':
                         $text_color = 'text-yellow-500';
                         break;
-
+                
                     case 'ARRV':
                         $text_color = 'text-orange-500';
                         break;
-
+                
                     case 'CLO':
                         $text_color = 'text-red-500';
                         break;
-
+                
                     default:
                         $text_color = 'text-red-500';
                         break;

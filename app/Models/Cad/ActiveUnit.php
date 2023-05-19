@@ -26,4 +26,10 @@ class ActiveUnit extends Model
 
         return $age;
     }
+    public function getNiceCallsAttribute()
+    {
+        $calls = json_decode($this->calls);
+
+        return $calls->data;
+    }
 }

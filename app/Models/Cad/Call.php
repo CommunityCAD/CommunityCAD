@@ -16,7 +16,6 @@ class Call extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'units' => 'array',
     ];
 
     protected $with = ['user', 'civilian'];
@@ -60,5 +59,12 @@ class Call extends Model
                 # code...
                 break;
         }
+    }
+
+    public function getNiceUnitsAttribute()
+    {
+        $units = json_decode($this->units);
+
+        return $units->data;
     }
 }
