@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('initials');
+            $table->string('initials')->nullable();
             $table->boolean('is_open_external');
             $table->boolean('is_open_internal');
 
