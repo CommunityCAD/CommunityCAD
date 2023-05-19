@@ -20,6 +20,8 @@ class CivilianController extends Controller
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
         $current_civilian_level = auth()->user()->civilian_level;
 
+        dd($current_civilian_level);
+
         return view('civilian.civilians.index', compact('civilians', 'current_civilian_level'));
     }
 
