@@ -28,7 +28,7 @@ class CivilianController extends Controller
     public function create()
     {
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
-        $current_civilian_level = auth()->user()->civilian_level;
+        $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
 
         if ($current_civilian_level->civilian_limit <= $civilians->count()) {
             return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
@@ -39,7 +39,7 @@ class CivilianController extends Controller
     public function store(CivilianStoreRequest $request): RedirectResponse
     {
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
-        $current_civilian_level = auth()->user()->civilian_level;
+        $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
 
         if ($current_civilian_level->civilian_limit <= $civilians->count()) {
             return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
@@ -61,7 +61,7 @@ class CivilianController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $current_civilian_level = auth()->user()->civilian_level;
+        $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
 
         return view('civilian.civilians.show', compact('civilian', 'current_civilian_level'));
     }

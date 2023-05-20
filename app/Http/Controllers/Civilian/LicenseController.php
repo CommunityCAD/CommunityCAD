@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Civilian;
 
 use App\Http\Controllers\Controller;
 use App\Models\Civilian;
+use App\Models\CivilianLevel;
 use App\Models\License;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,9 @@ class LicenseController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $allowed = auth()->user()->civilian_level->license_types_allowed['data'];
+        $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
+
+        $allowed = $current_civilian_level->license_types_allowed['data'];
         $license_types = DB::table('license_types')->get();
         $owned_licenses = [];
         $authorized_licenses = [];
