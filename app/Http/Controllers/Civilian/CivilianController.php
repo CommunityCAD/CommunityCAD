@@ -18,9 +18,9 @@ class CivilianController extends Controller
     public function index(): View
     {
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
-        $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
+        $current_civilian_level = CivilianLevel::where('id', 1)->get()->first();
 
-        dd($current_civilian_level);
+        dd(auth()->user()->civilian_level_id);
 
         return view('civilian.civilians.index', compact('civilians', 'current_civilian_level'));
     }
