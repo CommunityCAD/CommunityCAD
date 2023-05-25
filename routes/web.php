@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Applications\ApproveInterviewController;
 use App\Http\Controllers\Admin\Applications\DenyApplicationController;
 use App\Http\Controllers\Admin\Applications\DenyInterviewController;
 use App\Http\Controllers\Admin\Applications\FlagApplicationController;
+use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\DepartmentController as UserDepartmentController;
@@ -80,6 +81,8 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::get('/', [AdminPageController::class, 'index'])->name('index');
 
+
+
         Route::get('application/status/{status?}', [AdminApplicationController::class, 'index'])->name('application.index');
 
         Route::get('/application/approve_application/{application}', ApproveApplicationController::class)->name('application.approve_application');
@@ -126,9 +129,11 @@ Route::middleware(['auth', 'member.check'])->group(function () {
             'destroy' => 'users.departments.destroy',
         ]);
 
-        Route::resource('/users', UserController::class);
+        Route::resource('users', UserController::class);
 
-        Route::resource('/announcement', AnnouncementController::class)->except('index');
+        Route::resource('announcement', AnnouncementController::class)->except('index');
+
+        Route::resource('department', AdminDepartmentController::class)->except('show');
     });
 });
 

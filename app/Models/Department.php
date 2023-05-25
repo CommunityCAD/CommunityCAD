@@ -10,6 +10,8 @@ class Department extends Model
 {
     use HasFactory, softDeletes;
 
+    protected $guarded = [];
+
     public function getRouteKeyName()
     {
         return "slug";

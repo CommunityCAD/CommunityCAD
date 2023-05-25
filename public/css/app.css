@@ -1400,6 +1400,9 @@ video {
 .\!w-full {
   width: 100% !important;
 }
+.w-3\/12 {
+  width: 25%;
+}
 .min-w-full {
   min-width: 100%;
 }
