@@ -13,7 +13,7 @@ class Sidebar extends Component
     {
 
         $expire = Carbon::now()->addHours(24);
-        $departments = Department::get(['name', 'slug', 'id']);
+        $departments = Department::get(['name', 'slug', 'id', 'logo']);
         return view('livewire.portal.sidebar', compact('departments'));
     }
 }
