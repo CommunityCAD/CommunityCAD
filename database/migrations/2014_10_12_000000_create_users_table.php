@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->id('id');
             $table->string('discord_name');
+            $table->string('discord_username');
             $table->string('discriminator');
             $table->text('avatar');
 
@@ -40,7 +41,7 @@ return new class extends Migration
             $table->dateTime('last_login')->nullable();
             $table->boolean('is_protected_user')->default(0);
             $table->boolean('is_super_user')->default(0);
-            $table->unsignedBigInteger('civilian_level')->default(1);
+            $table->unsignedBigInteger('civilian_level_id')->default(1);
 
             $table->rememberToken();
             $table->softDeletes();
