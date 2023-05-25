@@ -1,4 +1,4 @@
-@extends('layouts.portal')
+@extends('layouts.admin')
 
 @section('content')
     <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">

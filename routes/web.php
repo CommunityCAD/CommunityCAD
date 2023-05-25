@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\CadTableUpdate;
+use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\Applications\ApplicationController as AdminApplicationController;
 use App\Http\Controllers\Admin\Applications\ApproveApplicationController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Cad\PageController;
 
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
+use App\Http\Controllers\Staff\StaffPageController;
 use App\Models\Admin\User\UserNotes;
 use Illuminate\Support\Facades\Route;
 
@@ -70,7 +72,14 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         require __DIR__ . '/civilian.php';
     });
 
+    Route::middleware(['auth'])->name('staff.')->prefix('staff')->group(function () {
+        Route::get('/', [StaffPageController::class, 'index'])->name('index');
+    });
+
     Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
+
+        Route::get('/', [AdminPageController::class, 'index'])->name('index');
+
         Route::get('application/status/{status?}', [AdminApplicationController::class, 'index'])->name('application.index');
 
         Route::get('/application/approve_application/{application}', ApproveApplicationController::class)->name('application.approve_application');

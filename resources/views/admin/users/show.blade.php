@@ -1,55 +1,55 @@
-@extends('layouts.portal')
+@extends('layouts.admin')
 
 @section('content')
-    <div x-data="{ noteModal: false, accommodationModal: false, daModal: false, communityRankModal: false, rolesModal: false }" class="text-white">
-        <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
-            <div class="">
-                <p class="text-lg dark:text-white">User Profile | {{ $user->discord }}</p>
+    <div x-data="{ noteModal: false, accommodationModal: false, daModal: false, communityRankModal: false, rolesModal: false }">
+        <header class="w-full my-3">
+            <h1 class="text-2xl font-bold">Viewing Member {{ $user->discord }}</h1>
+            <p class="text-sm"></p>
+        </header>
+
+        @can('is_super_user')
+            <div class="admin-card !w-full">
+                <div class="grid gap-2 text-sm md:grid-cols-2">
+                    <div class="flex">
+                        <p class="px-2 font-bold">Discord Name:</p>
+                        <p class="px-2">{{ $user->discord }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Real Name</p>
+                        <p class="px-2">{{ $user->real_name }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Email</p>
+                        <p class="px-2">{{ $user->email }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Steam Hex</p>
+                        <p class="px-2">{{ $user->steam_hex }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Steam ID</p>
+                        <p class="px-2">{{ $user->steam_id }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Discord ID</p>
+                        <p class="px-2">{{ $user->id }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Birthday</p>
+                        <p class="px-2">{{ $user->birthday->format('M d, Y') }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Age</p>
+                        <p class="px-2">{{ $user->age }}</p>
+                    </div>
+                </div>
             </div>
+        @endcan
 
-            @livewire('breadcrumbs', ['paths' => [['href' => route('admin.users.index'), 'text' => 'View All Members']]])
-        </nav>
 
-        <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
-            <div class="grid space-y-1 text-sm md:grid-cols-2">
-                <div class="flex">
-                    <p class="px-2 font-bold">Discord Name:</p>
-                    <p class="px-2">{{ $user->discord }}</p>
-                </div>
-                <div class="flex">
-                    <p class="px-2 font-bold">Real Name</p>
-                    <p class="px-2">{{ $user->real_name }}</p>
-                </div>
-                <div class="flex">
-                    <p class="px-2 font-bold">Email</p>
-                    <p class="px-2">{{ $user->email }}</p>
-                </div>
-                <div class="flex">
-                    <p class="px-2 font-bold">Steam Hex</p>
-                    <p class="px-2">{{ $user->steam_hex }}</p>
-                </div>
-                <div class="flex">
-                    <p class="px-2 font-bold">Steam ID</p>
-                    <p class="px-2">{{ $user->steam_id }}</p>
-                </div>
-                <div class="flex">
-                    <p class="px-2 font-bold">Discord ID</p>
-                    <p class="px-2">{{ $user->id }}</p>
-                </div>
-                <div class="flex">
-                    <p class="px-2 font-bold">Birthday</p>
-                    <p class="px-2">{{ $user->birthday->format('M d, Y') }}</p>
-                </div>
-                <div class="flex">
-                    <p class="px-2 font-bold">Age</p>
-                    <p class="px-2">{{ $user->age }}</p>
-                </div>
-            </div>
-        </div>
+        <div class="grid grid-cols-1 gap-3 pt-5 pb-5 md:grid-cols-2">
 
-        <div class="grid grid-cols-1 gap-4 pt-5 pb-5 md:grid-cols-2 lg:grid-cols-3">
-
-            <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
+            <div class="admin-card">
                 <div class="text-center">
                     <img src="{{ $user->avatar }}" alt="" class="w-32 h-32 mx-auto rounded-full">
                     <h2 class="text-xl font-semibold">{{ $user->discord }}</h2>
@@ -199,7 +199,7 @@
                                         d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
                                 </svg>
                             </a>
-                            <div class="bg-black text-white p-2 absolute z-50 w-56 rounded-lg" x-show="open_tip"
+                            <div class="absolute z-50 w-56 p-2 text-white bg-black rounded-lg" x-show="open_tip"
                                 @click.outside="open_tip = false">
                                 This is set in the cad config file. See docs for help.
                             </div>
@@ -210,7 +210,7 @@
 
             </div>
 
-            <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
+            <div class="admin-card">
                 <h2 class="mb-4 text-xl font-semibold underline">Quick Admin Options</h2>
 
                 <div class="grid grid-cols-1 gap-4 text-sm xl:grid-cols-2">
@@ -222,7 +222,7 @@
                 </div>
             </div>
 
-            <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
+            <div class="admin-card">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Notes <span class="ml-3 text-sm">(Last 5)</span></h2>
                     @can('user_manage_notes')
@@ -234,8 +234,8 @@
 
                 <div class="">
                     @foreach ($notes as $note)
-                        <div class="px-3 py-1 m-4 bg-gray-600 border-l-4 cursor-default border-cyan-600 rounded-2xl hover:bg-gray-500"
-                            x-data="{ open: true }" @click.away="open = false">
+                        <div class="admin-pill cursor-pointer border-l-4 border-cyan-600" x-data="{ open: true }"
+                            @click.away="open = false">
 
                             <div class="flex items-center justify-between">
                                 <p class="text-white select-none" @click="open = !open">
@@ -267,7 +267,7 @@
                 </div>
             </div>
 
-            <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
+            <div class="admin-card">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Accommodations <span class="ml-3 text-sm">(Last 5)</span></h2>
                     @can('user_manage_accommodations')
@@ -279,8 +279,8 @@
                 <div class="">
 
                     @foreach ($accommodations as $accommodation)
-                        <div class="px-3 py-1 m-4 bg-gray-600 border-l-4 border-green-600 cursor-default rounded-2xl hover:bg-gray-500"
-                            x-data="{ open: true }" @click.away="open = false">
+                        <div class="admin-pill border-l-4 border-green-600 cursor-pointer" x-data="{ open: true }"
+                            @click.away="open = false">
 
                             <div class="flex items-center justify-between">
                                 <p class="text-white select-none" @click="open = !open">
@@ -312,7 +312,7 @@
                 </div>
             </div>
 
-            <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
+            <div class="admin-card">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Disciplinary Actions <span class="ml-3 text-sm">(Last 5)</span>
                     </h2>
@@ -326,8 +326,8 @@
 
                 <div class="">
                     @foreach ($das as $da)
-                        <div class="px-3 py-1 m-4 bg-gray-600 border-l-4 border-red-600 cursor-default rounded-2xl hover:bg-gray-500"
-                            x-data="{ open: true }" @click.away="open = false">
+                        <div class="admin-pill border-l-4 border-red-600 cursor-pointer" x-data="{ open: true }"
+                            @click.away="open = false">
 
                             <div class="flex items-center justify-between">
                                 <p class="text-white select-none" @click="open = !open">From:
@@ -361,7 +361,7 @@
 
             </div>
 
-            <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
+            <div class="admin-card">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">User History <span class="ml-3 text-sm">(Last 5)</span>
                     </h2>
@@ -370,8 +370,7 @@
                 <div class="">
                     <p>Shows the last 5 actions. View complete history here.</p>
                     @foreach ($histories as $history)
-                        <div
-                            class="px-3 py-1 m-4 bg-gray-600 border-l-4 border-blue-600 cursor-default rounded-2xl hover:bg-gray-500">
+                        <div class="admin-pill border-l-4 border-blue-600 cursor-default">
                             <p class="text-white">Actioned by: {{ $history->user->discord }}
                                 <span
                                     class="block -mt-1 text-xs tracking-widest">{{ $history->created_at->format('m/d/Y H:i:s') }}</span>
@@ -389,7 +388,7 @@
             <div x-show="noteModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="noteModal = false"
-                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                         Add New Note
                     </h3>
@@ -416,7 +415,7 @@
             <div x-show="accommodationModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="accommodationModal = false"
-                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                         Add New Accommodation
                     </h3>
@@ -442,7 +441,7 @@
             <div x-show="daModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="daModal = false"
-                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                         Add New Disciplinary Actions
                     </h3>
@@ -472,7 +471,7 @@
         <div x-show="communityRankModal" x-transition
             class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
             <div @click.outside="communityRankModal = false"
-                class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                 <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                     Edit Community Rank
                 </h3>
@@ -485,7 +484,7 @@
                         <option value="4">Department Head</option>
                         <option value="5">Head Admin</option>
                     </select>
-                    <div class="flex flex-wrap -mx-3 mt-3">
+                    <div class="flex flex-wrap mt-3 -mx-3">
                         <div class="w-1/2 px-3">
                             <button class="w-full edit-button-md">Save</button>
                         </div>
@@ -503,7 +502,7 @@
             <div x-show="rolesModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="rolesModal = false"
-                    class="w-full max-w-[570px] rounded-[20px] bg-[#124559] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                    class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                         Edit Roles
                     </h3>
@@ -517,32 +516,29 @@
                                 @if ($user->roles->contains($role->id))
                                     <label for="{{ $role->id }}" class="flex items-center cursor-pointer">
                                         <div class="relative">
-                                            <input type="checkbox" class="checkbox hidden" name="roles[]"
+                                            <input type="checkbox" class="hidden checkbox" name="roles[]"
                                                 id="{{ $role->id }}" value="{{ $role->id }}" checked>
-                                            <div
-                                                class="block border-[1px] dark:border-white border-gray-900 w-14 h-8 rounded-full">
+                                            <div class="block border-[1px] border-white w-14 h-8 rounded-full">
                                             </div>
                                             <div
-                                                class="dot absolute left-1 top-1 dark:bg-white bg-gray-800 w-6 h-6 rounded-full transition">
+                                                class="absolute w-6 h-6 transition bg-gray-800 rounded-full dot left-1 top-1 dark:bg-white">
                                             </div>
                                         </div>
-                                        <div class="ml-3 dark:text-white text-gray-900 font-medium">
+                                        <div class="ml-3 font-medium text-gray-900text-white">
                                             {{ $role->title }}
                                         </div>
                                     </label>
                                 @else
                                     <label for="{{ $role->id }}" class="flex items-center cursor-pointer">
                                         <div class="relative">
-                                            <input type="checkbox" class="checkbox hidden" name="roles[]"
+                                            <input type="checkbox" class="hidden checkbox" name="roles[]"
                                                 id="{{ $role->id }}" value="{{ $role->id }}">
-                                            <div
-                                                class="block border-[1px] dark:border-white border-gray-900 w-14 h-8 rounded-full">
+                                            <div class="block border-[1px] border-white w-14 h-8 rounded-full">
                                             </div>
-                                            <div
-                                                class="dot absolute left-1 top-1 dark:bg-white bg-gray-800 w-6 h-6 rounded-full transition">
+                                            <div class="absolute w-6 h-6 transition  rounded-full dot left-1 top-1 bg-white">
                                             </div>
                                         </div>
-                                        <div class="ml-3 dark:text-white text-gray-900 font-medium">
+                                        <div class="ml-3 font-medium text-white">
                                             {{ $role->title }}
                                         </div>
                                     </label>
@@ -551,7 +547,7 @@
 
                         </div>
 
-                        <button class="edit-button-md w-1/2 mt-5">Save</button>
+                        <button class="w-1/2 mt-5 edit-button-md">Save</button>
                     </form>
                 </div>
             </div>

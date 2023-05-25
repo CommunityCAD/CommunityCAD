@@ -1,4 +1,4 @@
-@extends('layouts.portal')
+@extends('layouts.admin')
 
 @section('content')
     <div x-data="" class="text-white">

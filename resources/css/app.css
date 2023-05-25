@@ -5,6 +5,7 @@
 @layer components {
     @import "_buttons.css";
     @import "_forms.css";
+    @import "_admin.css";
 }
 
 @layer base {
@@ -18,12 +19,7 @@
 }
 
 .sidebar-link {
-    @apply flex
-    items-center
-    text-sm
-    font-medium
-    text-slate-200 hover:text-[#aec3b0]
-    transition duration-150 ease-in-out;
+    @apply flex items-center text-sm font-medium text-slate-200 hover:text-[#aec3b0] transition duration-150 ease-in-out;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
