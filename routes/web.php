@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Applications\ApproveInterviewController;
 use App\Http\Controllers\Admin\Applications\DenyApplicationController;
 use App\Http\Controllers\Admin\Applications\DenyInterviewController;
 use App\Http\Controllers\Admin\Applications\FlagApplicationController;
+use App\Http\Controllers\Admin\CadSettingsController;
 use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -134,6 +135,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::resource('announcement', AnnouncementController::class)->except('index');
 
         Route::resource('department', AdminDepartmentController::class)->except('show');
+        Route::resource('cad_setting', CadSettingsController::class)->only('index', 'edit', 'update');
     });
 });
 

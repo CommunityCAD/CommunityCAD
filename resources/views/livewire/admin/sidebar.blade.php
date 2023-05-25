@@ -73,8 +73,8 @@
 
             @can('settings_access')
                 <li class="relative px-6 py-3">
-                    <a class="flex items-center @if (request()->is('admin/roles/*') || request()->is('admin/roles')) !text-base !text-purple-500 @endif"
-                        href="{{ route('admin.roles.index') }}">
+                    <a class="flex items-center @if (request()->is('admin/cad_settings/*') || request()->is('admin/cad_settings')) !text-base !text-purple-500 @endif"
+                        href="{{ route('admin.cad_setting.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round"
