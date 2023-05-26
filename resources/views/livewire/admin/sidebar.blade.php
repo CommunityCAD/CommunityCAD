@@ -56,8 +56,7 @@
                     </a>
                 </li>
             @endcan
-
-            @can('departments_access')
+            @can('department_access')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('admin/department/*') || request()->is('admin/department')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.department.index') }}">
@@ -67,6 +66,50 @@
                                 d="M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z" />
                         </svg>
                         <span class="ml-4">Manage Departments</span>
+                    </a>
+                </li>
+            @endcan
+
+            @can('civilian_level_access')
+                <li class="relative px-6 py-3">
+                    <a class="flex items-center @if (request()->is('') || request()->is('')) !text-base !text-purple-500 @endif"
+                        href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+
+                        <span class="ml-4">Manage Civilian Levels</span>
+                    </a>
+                </li>
+            @endcan
+
+            @can('civilian_level_access')
+                <li class="relative px-6 py-3">
+                    <a class="flex items-center @if (request()->is('') || request()->is('')) !text-base !text-purple-500 @endif"
+                        href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
+                        </svg>
+
+                        <span class="ml-4">Manage DAs Levels</span>
+                    </a>
+                </li>
+            @endcan
+
+            @can('civilian_level_access')
+                <li class="relative px-6 py-3">
+                    <a class="flex items-center @if (request()->is('') || request()->is('')) !text-base !text-purple-500 @endif"
+                        href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+                        </svg>
+                        <span class="ml-4">Manage License Types</span>
                     </a>
                 </li>
             @endcan
