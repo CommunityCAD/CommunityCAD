@@ -10,15 +10,16 @@
             <div class="admin-pill">
                 <a href="{{ route('admin.cad_setting.edit', $setting->id) }}">
                     <div class="flex items-center justify-between ml-3 text-white">
-                        <span class="">{{ $setting->name }}</span>
-                        <span class="p-3">
-                            {{ $setting->value }}
-                        </span>
+                        <div class="">
+                            <p class="font-bold">{{ $setting->name }}</p>
+                            <p class="p-3">
+                                {{ $setting->value }}
+                            </p>
+                        </div>
                         <span class="">
                             <button class="edit-button-sm">
                                 <x-edit-button></x-edit-button>
                             </button>
-
                         </span>
                     </div>
                 </a>
