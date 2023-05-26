@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('license_statuses', function (Blueprint $table) {
             $table->id();
             $table->text('status');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

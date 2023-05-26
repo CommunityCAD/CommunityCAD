@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('user_notes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('receiver_id')->references('id')->on('users')->onDelete('cascade')->nullable();
-            $table->bigInteger('giver_id')->references('id')->on('users')->onDelete('cascade')->nullable();
+            $table->bigInteger('receiver_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('giver_id')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->text('note');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

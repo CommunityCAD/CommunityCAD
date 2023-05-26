@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('model');
             $table->string('color');
             $table->date('registration_expire');
-            $table->unsignedBigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
+            $table->bigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->unsignedBigInteger('vehicle_status')->default(1);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

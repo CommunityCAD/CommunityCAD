@@ -19,11 +19,9 @@ return new class extends Migration
             $table->integer('civilian_limit');
             $table->integer('firearm_limit');
             $table->integer('vehicle_limit');
-
             $table->json('license_types_allowed');
-
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

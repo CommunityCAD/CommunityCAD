@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('civilians', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->bigInteger('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('first_name');
             $table->string('last_name');
@@ -33,8 +33,8 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->integer('active_persona')->default(0);
 
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

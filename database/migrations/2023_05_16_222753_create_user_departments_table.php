@@ -17,10 +17,12 @@ return new class extends Migration
     {
         Schema::create('user_departments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Department::class);
+            $table->bigInteger('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('department_id')->references('id')->on('departments')->onDelete('cascade');
+
             $table->string('badge_number')->nullable();
             $table->string('rank')->nullable();
+            $table->integer('rank_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

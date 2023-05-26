@@ -42,10 +42,11 @@ return new class extends Migration
             $table->boolean('is_protected_user')->default(0);
             $table->boolean('is_super_user')->default(0);
             $table->unsignedBigInteger('civilian_level_id')->default(1);
+            $table->dateTime('member_join_date')->nullable();
 
             $table->rememberToken();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

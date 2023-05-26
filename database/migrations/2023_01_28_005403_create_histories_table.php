@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('subject_type');
             $table->unsignedBigInteger('subject_id');
-            $table->unsignedBigInteger('user_id');
+            $table->bigInteger('user_id')->references('id')->on('users');
             $table->string('description');
             $table->json('properties')->nullable();
 
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

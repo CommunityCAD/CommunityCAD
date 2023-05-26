@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
-            $table->integer('type');
+            $table->bigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
+            $table->bigInteger('license_type_id')->references('id')->on('license_type')->onDelete('cascade');
             $table->date('expires_on');
             $table->integer('license_status')->default(1);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

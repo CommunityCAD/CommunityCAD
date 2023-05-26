@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('weapons', function (Blueprint $table) {
             $table->id();
             $table->string('model');
+            $table->string('type')->nullable();
             $table->string('serial_number');
-            $table->unsignedBigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
-            $table->softDeletes();
+            $table->bigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

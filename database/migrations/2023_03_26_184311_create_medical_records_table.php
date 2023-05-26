@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
+            $table->bigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->string('name');
             $table->string('value');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -22,15 +22,16 @@ return new class extends Migration
             $table->integer('priority');
             $table->integer('type');
             $table->string('status');
-            $table->bigInteger('lead_user_id')->references('id')->on('users')->onDelete('cascade')->nullable();
-            $table->json('units')->nullable();
-            $table->json('names')->nullable();
+            $table->bigInteger('lead_user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+
+            $table->longText('units')->nullable();
+            $table->longText('names')->nullable();
 
             $table->string('source');
-            $table->unsignedBigInteger('rp_civilian_id')->references('id')->on('civilians')->onDelete('cascade')->nullable();
+            $table->unsignedBigInteger('rp_civilian_id')->nullable()->references('id')->on('civilians')->onDelete('cascade');
 
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

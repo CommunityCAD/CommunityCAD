@@ -20,11 +20,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('text');
-            $table->foreignIdFor(User::class, 'poster_id');
-            $table->foreignIdFor(Department::class, 'department_id');
-
-            $table->softDeletes();
+            $table->bigInteger('poster_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

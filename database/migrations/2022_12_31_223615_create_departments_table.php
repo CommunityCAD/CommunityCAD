@@ -20,9 +20,11 @@ return new class extends Migration
             $table->string('initials')->nullable();
             $table->boolean('is_open_external');
             $table->boolean('is_open_internal');
+            $table->string('slug');
+            $table->string('logo')->nullable();
 
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

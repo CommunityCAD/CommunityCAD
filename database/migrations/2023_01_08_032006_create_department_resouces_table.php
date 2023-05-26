@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('department_resources', function (Blueprint $table) {
             $table->id();
-            $table->integer('department_id')->references('id')->on('departments');
+            $table->bigInteger('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('link');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

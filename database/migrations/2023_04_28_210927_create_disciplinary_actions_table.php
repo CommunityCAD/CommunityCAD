@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('disciplinary_actions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('receiver_id')->references('id')->on('users')->onDelete('cascade')->nullable();
-            $table->bigInteger('giver_id')->references('id')->on('users')->onDelete('cascade')->nullable();
-            $table->text('disciplinary_action');
+            $table->bigInteger('receiver_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('giver_id')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('disciplinary_action_type_id')->references('id')->on('disciplinary_action_types');
-
-            $table->softDeletes();
+            $table->text('disciplinary_action');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

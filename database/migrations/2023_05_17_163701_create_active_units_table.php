@@ -16,15 +16,13 @@ return new class extends Migration
     {
         Schema::create('active_units', function (Blueprint $table) {
             $table->id();
-
+            $table->bigInteger('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('badge_number');
             $table->string('status');
             $table->string('agency');
             $table->string('subdivision')->nullable();
-            $table->integer('call_id')->nullable();
+            $table->longText('calls')->nullable();
             $table->text('description')->nullable();
-            $table->foreignIdFor(User::class);
-
             $table->timestamps();
             $table->softDeletes();
         });
