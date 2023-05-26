@@ -11,28 +11,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping data for table fivemcad.account_statuses: ~6 rows (approximately)
-/*!40000 ALTER TABLE `account_statuses` DISABLE KEYS */;
-INSERT INTO `account_statuses` (`id`, `name`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(1, 'User', NULL, NULL, NULL),
-	(2, 'Applicant', NULL, NULL, NULL),
-	(3, 'Member', NULL, NULL, NULL),
-	(4, 'Suspended/LOA', NULL, NULL, NULL),
-	(5, 'Temporary Ban', NULL, NULL, NULL),
-	(6, 'Permanent Ban', NULL, NULL, NULL);
-/*!40000 ALTER TABLE `account_statuses` ENABLE KEYS */;
-
--- Dumping data for table fivemcad.application_statuses: ~6 rows (approximately)
-/*!40000 ALTER TABLE `application_statuses` DISABLE KEYS */;
-INSERT INTO `application_statuses` (`id`, `name`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(1, 'Pending Review', NULL, NULL, NULL),
-	(2, 'Pending Admin Review', NULL, NULL, NULL),
-	(3, 'Pending Interview', NULL, NULL, NULL),
-	(4, 'Approved', NULL, NULL, NULL),
-	(5, 'Declined', NULL, NULL, NULL),
-	(6, 'Withdrawn', NULL, NULL, NULL);
-/*!40000 ALTER TABLE `application_statuses` ENABLE KEYS */;
-
 -- Dumping data for table fivemcad.civilian_statuses: ~7 rows (approximately)
 /*!40000 ALTER TABLE `civilian_statuses` DISABLE KEYS */;
 INSERT INTO `civilian_statuses` (`id`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
