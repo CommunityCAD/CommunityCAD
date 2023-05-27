@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('user_departments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreignIdFor(Department::class);
             $table->foreign('department_id')->references('id')->on('departments');

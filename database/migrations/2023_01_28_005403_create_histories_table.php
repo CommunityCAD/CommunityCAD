@@ -18,8 +18,8 @@ return new class extends Migration
             $table->id();
             $table->string('subject_type');
             $table->unsignedBigInteger('subject_id');
-            $table->foreignIdFor(User::class);
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('description');
             $table->json('properties')->nullable();
 
