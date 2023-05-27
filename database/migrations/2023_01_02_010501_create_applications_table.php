@@ -18,7 +18,7 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->bigInteger('user_id')->unsigned();
             $table->foreignIdFor(Department::class);
 
             $table->integer('status')->default(1);
