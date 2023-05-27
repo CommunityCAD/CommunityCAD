@@ -18,8 +18,8 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'user_id');
-            $table->foreignIdFor(Department::class, 'department_id');
+            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Department::class);
 
             $table->integer('status')->default(1);
             $table->text('why_join_department');
@@ -39,7 +39,7 @@ return new class extends Migration
         });
 
         Schema::table('applications', function ($table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments');
         });
 
