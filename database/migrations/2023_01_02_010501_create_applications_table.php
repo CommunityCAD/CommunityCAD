@@ -34,12 +34,11 @@ return new class extends Migration
 
             $table->softDeletes();
             $table->timestamps();
-
-            $table->index('user_id');
         });
 
         Schema::table('applications', function ($table) {
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->index('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments');
         });
 
