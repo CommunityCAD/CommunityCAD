@@ -37,7 +37,6 @@ return new class extends Migration
         });
 
         Schema::table('applications', function ($table) {
-            $table->index('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments');
         });
