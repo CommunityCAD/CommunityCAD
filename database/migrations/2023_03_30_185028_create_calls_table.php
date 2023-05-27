@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,13 +23,15 @@ return new class extends Migration
             $table->integer('priority');
             $table->integer('type');
             $table->string('status');
-            $table->bigInteger('lead_user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->foreignIdFor(User::class);
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->longText('units')->nullable();
             $table->longText('names')->nullable();
 
             $table->string('source');
-            $table->unsignedBigInteger('rp_civilian_id')->nullable()->references('id')->on('civilians')->onDelete('cascade');
+            $table->foreignIdFor(Civilian::class)->nullable();
+            $table->foreign('civilian_id')->references('id')->on('civilians');
 
             $table->timestamps();
             $table->softDeletes();

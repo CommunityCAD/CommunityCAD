@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Civilian;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,8 @@ return new class extends Migration
             $table->string('model');
             $table->string('type')->nullable();
             $table->string('serial_number');
-            $table->bigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
+            $table->foreignIdFor(Civilian::class);
+            $table->foreign('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

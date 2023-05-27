@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Department;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +18,11 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('department_id')->references('id')->on('departments');
+            $table->foreignIdFor(User::class);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignIdFor(Department::class);
+            $table->foreign('department_id')->references('id')->on('departments');
+
             $table->integer('status')->default(1);
             $table->text('why_join_department');
             $table->text('experience_department');

@@ -17,13 +17,13 @@ return new class extends Migration
         Schema::create('department_resources', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Department::class);
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('link');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }
 

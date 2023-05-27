@@ -17,8 +17,10 @@ return new class extends Migration
     {
         Schema::create('user_departments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreignIdFor(User::class);
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignIdFor(Department::class);
+            $table->foreign('department_id')->references('id')->on('departments');
 
             $table->string('badge_number')->nullable();
             $table->string('rank')->nullable();

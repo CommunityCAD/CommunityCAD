@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Civilian;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,8 @@ return new class extends Migration
             $table->string('model');
             $table->string('color');
             $table->date('registration_expire');
-            $table->bigInteger('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
+            $table->foreignIdFor(Civilian::class);
+            $table->foreign('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->unsignedBigInteger('vehicle_status')->default(1);
             $table->timestamps();
             $table->softDeletes();

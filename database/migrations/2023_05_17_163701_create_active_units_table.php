@@ -16,7 +16,10 @@ return new class extends Migration
     {
         Schema::create('active_units', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignIdFor(User::class);
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignIdFor(Department::class)->nullable();
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->string('badge_number');
             $table->string('status');
             $table->string('agency');
