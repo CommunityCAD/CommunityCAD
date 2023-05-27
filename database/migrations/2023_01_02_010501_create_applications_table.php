@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->foreignIdFor(Department::class, 'department_id');
-            $table->foreign('department_id')->references('id')->on('departments');
+
 
             $table->integer('status')->default(1);
             $table->text('why_join_department');
@@ -39,6 +39,11 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('user_id');
+        });
+
+        Schema::table('applications', function ($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments');
         });
 
         DB::statement("ALTER TABLE applications AUTO_INCREMENT = 3824;");
