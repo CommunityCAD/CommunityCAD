@@ -20,7 +20,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreignIdFor(Department::class);
-
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->integer('status')->default(1);
             $table->text('why_join_department');
             $table->text('experience_department');
@@ -34,11 +35,6 @@ return new class extends Migration
 
             $table->softDeletes();
             $table->timestamps();
-        });
-
-        Schema::table('applications', function ($table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('department_id')->references('id')->on('departments');
         });
 
         DB::statement("ALTER TABLE applications AUTO_INCREMENT = 3824;");
