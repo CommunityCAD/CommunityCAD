@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
 
             $table->id('id');
-            $table->string('discord_name');
-            $table->string('discord_username');
-            $table->string('discriminator');
+            $table->string('discord_name')->nullable();
+            $table->string('discord_username')->nullable();
+            $table->string('discriminator')->nullable();
             $table->text('avatar');
 
             $table->string('steam_hex')->nullable();
