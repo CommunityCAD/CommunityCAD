@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('color');
             $table->date('registration_expire');
-            $table->foreignIdFor(Civilian::class);
+            $table->bigInteger('civilian_id')->unsigned();
             $table->foreign('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->unsignedBigInteger('vehicle_status')->default(1);
             $table->timestamps();

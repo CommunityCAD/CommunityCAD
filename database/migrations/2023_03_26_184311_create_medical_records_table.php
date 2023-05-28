@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Civilian::class);
+            $table->bigInteger('civilian_id')->unsigned();
             $table->foreign('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->string('name');
             $table->string('value');

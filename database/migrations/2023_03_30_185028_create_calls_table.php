@@ -30,7 +30,7 @@ return new class extends Migration
             $table->longText('names')->nullable();
 
             $table->string('source');
-            $table->foreignIdFor(Civilian::class)->nullable();
+            $table->bigInteger('civilian_id')->unsigned();
             $table->foreign('civilian_id')->references('id')->on('civilians');
 
             $table->timestamps();

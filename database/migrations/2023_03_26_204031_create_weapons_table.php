@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('type')->nullable();
             $table->string('serial_number');
-            $table->foreignIdFor(Civilian::class);
+            $table->bigInteger('civilian_id')->unsigned();
             $table->foreign('civilian_id')->references('id')->on('civilians')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
