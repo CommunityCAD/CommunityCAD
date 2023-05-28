@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('displinary_action_types', function (Blueprint $table) {
+        Schema::create('disciplinary_action_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('displinary_action_types');
+        Schema::dropIfExists('disciplinary_action_types');
     }
 };

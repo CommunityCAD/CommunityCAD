@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('giver_id')->unsigned();
             $table->foreign('giver_id')->references('id')->on('users');
 
-            $table->bigInteger('disciplinary_action_type_id');
+            $table->bigInteger('disciplinary_action_type_id')->unsigned();
             $table->foreign('disciplinary_action_type_id')->references('id')->on('disciplinary_action_types');
 
             $table->text('disciplinary_action');
