@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('user_accommodations', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'receiver_id');
+            $table->bigInteger('receiver_id')->unsigned();
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignIdFor(User::class, 'giver_id');
+            $table->bigInteger('giver_id')->unsigned();
             $table->foreign('giver_id')->references('id')->on('users');
             $table->text('accommodation');
             $table->timestamps();
