@@ -7,19 +7,19 @@
                     $stroke_color = 'stroke-green-700';
                     $text_color = 'text-green-700';
                     break;
-
+            
                 case 'error':
                     $bg_color = 'bg-red-200';
                     $stroke_color = 'stroke-red-700';
                     $text_color = 'text-red-700';
                     break;
-
+            
                 case 'warning':
                     $bg_color = 'bg-amber-200';
                     $stroke_color = 'stroke-amber-700';
                     $text_color = 'text-amber-700';
                     break;
-
+            
                 default:
                     $bg_color = 'bg-blue-200';
                     $stroke_color = 'stroke-blue-700';
@@ -29,7 +29,7 @@
         @endphp
 
         <div {{ $attributes->merge(['class' => "w-screen max-w-lg $bg_color mx-auto mt-6 p-2"]) }} role="alert"
-            x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 2000)" x-transition:leave.duration.800ms>
+            x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition:leave.duration.800ms>
             <div class="flex space-x-2 cursor-pointer" @click="show=false">
                 <svg class="w-6 h-6 {{ $stroke_color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">

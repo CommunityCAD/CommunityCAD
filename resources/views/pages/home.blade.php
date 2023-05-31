@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <main class="max-w-md w-full mx-auto bg-[#124559] text-white mt-16 rounded-xl p-4">
+    <main class="max-w-2xl w-full mx-auto bg-[#124559] text-white mt-16 rounded-xl p-4">
         @auth
             <div class="space-y-3">
                 <p class="flex text-2xl">Welcome back, {{ auth()->user()->discord_name }}!</p>
@@ -10,39 +10,43 @@
 
                 @if (auth()->user()->account_status === 1)
                     @if (is_null(auth()->user()->reapply))
-                        <div class="flex">
-                            <a class="inline-flex items-center px-4 py-2 transition-colors duration-150 rounded-md bg-[#598392] hover:opacity-75 hover:text-slate-200"
-                                href="{{ route('application.create') }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="w-4 h-4 mr-1">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
-                                </svg>
-                                <span>New Application</span>
-                            </a>
-                        </div>
+                        @if (get_setting('members_must_apply') == 'true')
+                            <div class="flex">
+                                <a class="inline-flex items-center px-4 py-2 transition-colors duration-150 rounded-md bg-[#598392] hover:opacity-75 hover:text-slate-200"
+                                    href="{{ route('application.create') }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor" class="w-4 h-4 mr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                                    </svg>
+                                    <span>New Application</span>
+                                </a>
+                            </div>
+                        @endif
                     @else
-                        @if (auth()->user()->reapply)
-                            @if (auth()->user()->reapply_date > now())
-                                <p class="">You can not reapply until
-                                    {{ auth()->user()->reapply_date->format('m/d/Y') }}. View your last application to see
-                                    why it was denied.</p>
+                        @if (get_setting('members_must_apply') == 'true')
+                            @if (auth()->user()->reapply)
+                                @if (auth()->user()->reapply_date > now())
+                                    <p class="">You can not reapply until
+                                        {{ auth()->user()->reapply_date->format('m/d/Y') }}. View your last application to see
+                                        why it was denied.</p>
+                                @else
+                                    <div class="flex">
+                                        <a class="inline-flex items-center px-4 py-2 transition-colors duration-150 rounded-md bg-[#598392] hover:opacity-75 hover:text-slate-200"
+                                            href="{{ route('application.create') }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                                            </svg>
+                                            <span>New Application</span>
+                                        </a>
+                                    </div>
+                                @endif
                             @else
-                                <div class="flex">
-                                    <a class="inline-flex items-center px-4 py-2 transition-colors duration-150 rounded-md bg-[#598392] hover:opacity-75 hover:text-slate-200"
-                                        href="{{ route('application.create') }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
-                                        </svg>
-                                        <span>New Application</span>
-                                    </a>
-                                </div>
+                                <p class="">You can not reapply. View your last application to see
+                                    why it was denied.</p>
                             @endif
-                        @else
-                            <p class="">You can not reapply. View your last application to see
-                                why it was denied.</p>
                         @endif
                     @endif
                 @endif

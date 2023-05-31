@@ -28,7 +28,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-[#eff6e0] dark:bg-[#01161e]">
+<body class="bg-[#01161e]">
 
     @include('inc.public.navbar')
 

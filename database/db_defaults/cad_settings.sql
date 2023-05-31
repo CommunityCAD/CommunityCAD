@@ -16,7 +16,7 @@
 INSERT INTO `cad_settings` (`id`, `name`, `value`, `type`, `deleted_at`, `created_at`, `updated_at`) VALUES
 	(1, 'community_logo', 'https://gages.space/images/logo.png', 'text', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
 	(2, 'community_name', 'Community CAD', 'text', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(3, 'minnimum_age', '14', 'number', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
+	(3, 'minimum_age', '14', 'number', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
 	(4, 'days_until_inactive', '14', 'number', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
 	(5, 'days_until_reapply', '7', 'number', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
 	(6, 'postal_map_link', NULL, 'text', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),

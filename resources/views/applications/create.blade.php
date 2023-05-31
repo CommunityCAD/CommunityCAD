@@ -8,8 +8,6 @@
             <div class="text-white">
                 <form action="{{ route('application.store') }}" method="POST">
                     @csrf
-
-
                     <div class="w-full">
                         <label for="department_id" class="block mt-3 text-black-500">What department are you applying
                             for?</label>
@@ -114,23 +112,19 @@
                         class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70">
                         Submit Application
                     </button>
-
                 </form>
 
                 <h3 class="my-4 text-lg text-center">Application Terms</h3>
                 <div class="space-y-4">
                     @if (get_setting('minimum_age') > 0)
                         <p>You are at least {{ get_setting('minimum_age') }} years of age at the time of
-                            submitting this application
+                            submitting this application.
                         </p>
                     @endif
 
-                    {!! get_setting('application_terms') !!}
+                    <p>{!! str_replace('/nl', '<br><br>', get_setting('application_terms')) !!}</p>
                 </div>
-
-
             </div>
         </div>
-
     </div>
 @endsection

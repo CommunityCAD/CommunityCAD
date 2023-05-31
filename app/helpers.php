@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 if (!function_exists('get_setting')) {
     function get_setting($setting, $default = "")
     {
-        $cad_settings = Cache::remember('cad_settings', 60, function () {
+        $cad_settings = Cache::remember('cad_settings', 1, function () {
             return DB::table('cad_settings')->get(['name', 'value'])->pluck('value', 'name')->toArray();
         });
 

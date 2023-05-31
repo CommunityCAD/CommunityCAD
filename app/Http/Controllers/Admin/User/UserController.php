@@ -47,7 +47,7 @@ class UserController extends Controller
         $accommodations = UserAccommodation::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
         $roles = Role::all(['title', 'id']);
         $user->load('roles');
-        $da_types = DB::table('displinary_action_types')->get(['id', 'name'])->pluck('name', 'id')->toArray();
+        $da_types = DB::table('disciplinary_action_types')->get(['id', 'name'])->pluck('name', 'id')->toArray();
         $das = DisciplinaryAction::where('receiver_id', $user->id)->with('giver_user')->orderBy('created_at', 'desc')->take(5)->get();
 
         return view('admin.users.show', compact('user', 'histories', 'notes', 'accommodations', 'da_types', 'das', 'roles'));
