@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('discord_name')->nullable();
             $table->string('discord_username')->nullable();
             $table->string('discriminator')->nullable();
-            $table->text('avatar');
+            $table->text('avatar')->nullable();
 
             $table->string('steam_hex')->nullable();
             $table->bigInteger('steam_id')->nullable();

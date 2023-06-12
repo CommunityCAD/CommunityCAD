@@ -14,7 +14,13 @@ class AuthController extends Controller
     {
         $discordUser = Socialite::driver('discord')->user();
 
+
+
+        // dd($discordUser);
+
         $user = $this->findOrNewUser($discordUser);
+
+        // dd(session());
 
         if (!$user) {
             return redirect()->route('account.create');
@@ -32,22 +38,59 @@ class AuthController extends Controller
     {
         $user = User::where('id', $discordUser->getId())->first();
 
-        if (!is_null($user)) {
-            $user->update([
+
+
+        if ($discordUser->user['discriminator'] == 0) {
+
+            if (is_null($discordUser->avatar)) {
+                $avatar = "https://ui-avatars.com/api/?name=" . urlencode($discordUser->user['global_name']);
+            } else {
+                $avatar = $discordUser->avatar;
+            }
+
+            if (!is_null($user)) {
+                $user->update([
+                    'discord_name' => $discordUser->user['global_name'],
+                    'discriminator' => $discordUser->user['discriminator'],
+                    'discord_username' => $discordUser->user['username'],
+                    'avatar' => $avatar,
+                ]);
+                return $user;
+            }
+
+            session([
+                'id' => $discordUser->getId(),
+                'discord_name' => $discordUser->user['global_name'],
+                'discriminator' => $discordUser->user['discriminator'],
+                'discord_username' => $discordUser->user['username'],
+                'avatar' => $avatar,
+            ]);
+
+            return false;
+        } else {
+            if (is_null($discordUser->avatar)) {
+                $avatar = "https://ui-avatars.com/api/?name=" . urlencode($discordUser->user['username']);
+            } else {
+                $avatar = $discordUser->avatar;
+            }
+
+            if (!is_null($user)) {
+                $user->update([
+                    'discord_name' => $discordUser->user['username'],
+                    'discriminator' => $discordUser->user['discriminator'],
+                    'avatar' => $avatar,
+                ]);
+                return $user;
+            }
+
+            session([
+                'id' => $discordUser->getId(),
                 'discord_name' => $discordUser->user['username'],
                 'discriminator' => $discordUser->user['discriminator'],
-                'avatar' => $discordUser->avatar,
+                'avatar' => $avatar,
             ]);
-            return $user;
+
+            return false;
         }
-
-        session([
-            'id' => $discordUser->getId(),
-            'discord_name' => $discordUser->user['username'],
-            'discriminator' => $discordUser->user['discriminator'],
-            'avatar' => $discordUser->avatar,
-        ]);
-
-        return false;
     }
 }
