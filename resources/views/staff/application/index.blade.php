@@ -2,7 +2,7 @@
 
 @section('content')
     <header class="w-full my-3">
-        <h1 class="text-2xl font-bold text-white">All Applications</h1>
+        <h1 class="text-2xl font-bold text-white">{{ $page_title }}</h1>
         <p class="text-sm text-white"></p>
     </header>
 

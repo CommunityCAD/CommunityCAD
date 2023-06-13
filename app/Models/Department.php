@@ -19,6 +19,6 @@ class Department extends Model
 
     public function departmentResource()
     {
-        return $this->hasMany('App\Models\departmentResource');
+        return $this->hasMany('App\Models\DepartmentResource');
     }
 }
