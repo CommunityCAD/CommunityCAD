@@ -27,7 +27,7 @@ class License extends Model
 
     public function license_type()
     {
-        return $this->hasOne(LicenseType::class, 'id', 'type');
+        return $this->hasOne(LicenseType::class, 'id', 'license_type_id');
     }
 
     public function getStatusNameAttribute()

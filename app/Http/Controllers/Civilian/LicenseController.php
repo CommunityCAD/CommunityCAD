@@ -54,7 +54,7 @@ class LicenseController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $input['type'] = $request->type;
+        $input['license_type_id'] = $request->license_type_id;
         $input['civilian_id'] = $civilian->id;
         $input['expires_on'] = date('Y-m-d', strtotime('+30 Days'));
         $input['license_status'] = $request->status;

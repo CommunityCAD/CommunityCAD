@@ -12,7 +12,7 @@
                         Type
                     </label>
                     <div class="relative">
-                        <select name="type" class="select-input">
+                        <select name="license_type_id" class="select-input">
                             <option value="">Choose one</option>
                             @foreach ($available_licenses as $name => $id)
                                 <option value="{{ $id }}">{{ $name }}</option>
