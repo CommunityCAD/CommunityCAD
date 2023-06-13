@@ -7,8 +7,6 @@ use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -62,6 +60,7 @@ class RoleController extends Controller
     public function destroy(Role $role): RedirectResponse
     {
         $role->delete();
+
         return redirect()->route('admin.roles.index')->with('alerts', [['message' => 'Role Deleted.', 'level' => 'success']]);
     }
 }

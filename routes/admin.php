@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\CadSettingController;
 use App\Http\Controllers\Admin\CivilianLevelController;
 use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
 use App\Http\Controllers\Admin\LicenseTypeController;
-use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\DepartmentController as UserDepartmentController;
 use App\Http\Controllers\Admin\User\NotesController;

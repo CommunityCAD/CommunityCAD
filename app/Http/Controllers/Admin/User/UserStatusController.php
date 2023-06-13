@@ -7,7 +7,6 @@ use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 
 class UserStatusController extends Controller
 {
@@ -26,7 +25,7 @@ class UserStatusController extends Controller
             'subject_type' => 'user',
             'subject_id' => $user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Account status forced updated to: (' . $request->account_status . ').',
+            'description' => 'Account status forced updated to: ('.$request->account_status.').',
         ]);
 
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Status Updated.', 'level' => 'success']]);
@@ -34,7 +33,7 @@ class UserStatusController extends Controller
 
     public function super_user(Request $request, User $user)
     {
-        $user->update(['is_super_user' => !$user->is_super_user]);
+        $user->update(['is_super_user' => ! $user->is_super_user]);
 
         $status = 'No';
         if ($user->is_super_user) {
@@ -45,7 +44,7 @@ class UserStatusController extends Controller
             'subject_type' => 'user',
             'subject_id' => $user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Super user status updated to: (' . $status . ').',
+            'description' => 'Super user status updated to: ('.$status.').',
         ]);
 
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Super User Status Updated.', 'level' => 'success']]);
@@ -53,7 +52,7 @@ class UserStatusController extends Controller
 
     public function protected_user(Request $request, User $user)
     {
-        $user->update(['is_protected_user' => !$user->is_protected_user]);
+        $user->update(['is_protected_user' => ! $user->is_protected_user]);
 
         $status = 'No';
         if ($user->is_protected_user) {
@@ -64,7 +63,7 @@ class UserStatusController extends Controller
             'subject_type' => 'user',
             'subject_id' => $user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Protected user status updated to: (' . $status . ').',
+            'description' => 'Protected user status updated to: ('.$status.').',
         ]);
 
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Protected User Status Updated.', 'level' => 'success']]);
