@@ -13,7 +13,6 @@ use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserDisciplinaryActionController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
-use App\Models\DisciplinaryActionType;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/roles', RoleController::class);
