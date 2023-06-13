@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\History;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class DenyApplicationController extends Controller
@@ -33,7 +32,7 @@ class DenyApplicationController extends Controller
             'subject_type' => 'application',
             'subject_id' => $application->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Application Denied. Reason: ' . $request->denied_reason,
+            'description' => 'Application Denied. Reason: '.$request->denied_reason,
         ]);
 
         $application->user->update([
@@ -47,9 +46,9 @@ class DenyApplicationController extends Controller
             'subject_type' => 'user',
             'subject_id' => $application->user->id,
             'user_id' => auth()->user()->id,
-            'description' => "Application {{$application->id}} Denied Reason: " . $request->denied_reason,
+            'description' => "Application {{$application->id}} Denied Reason: ".$request->denied_reason,
         ]);
 
-        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Application (' . $application->id . ') Denied.', 'level' => 'success']]);
+        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Application ('.$application->id.') Denied.', 'level' => 'success']]);
     }
 }

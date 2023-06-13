@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Staff\Applications;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\History;
-use Illuminate\Support\Facades\Gate;
 
 class ApproveApplicationController extends Controller
 {
