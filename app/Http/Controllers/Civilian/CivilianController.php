@@ -46,6 +46,7 @@ class CivilianController extends Controller
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+        $data['id'] = rand(100000000, 999999999);
 
         if ($this->name_check($data['first_name'], $data['last_name'])) {
             return redirect()->route('civilian.civilians.create')
