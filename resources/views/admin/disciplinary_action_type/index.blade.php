@@ -3,7 +3,8 @@
 @section('content')
     <header class="w-full my-3">
         <h1 class="text-2xl font-bold text-white">Manage Disciplinary Action Types</h1>
-        <p class="text-sm text-white"></p>
+        <p class="text-sm text-white">These are the types of Disciplinary actions your members can get. Default order is
+            alphabetically.</p>
     </header>
 
     <div class="admin-card">
