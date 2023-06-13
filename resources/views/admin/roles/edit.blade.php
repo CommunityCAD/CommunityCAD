@@ -6,16 +6,14 @@
         <p class="text-sm text-white"></p>
     </header>
     <div class="admin-card">
-        @can('role_delete')
-            <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" class="text-right"
-                onsubmit="return confirm('Are you sure you wish to delete this role? This can\'t be undone!');">
-                @csrf
-                @method('DELETE')
-                <button class="delete-button-md">
-                    <x-delete-button></x-delete-button>
-                </button>
-            </form>
-        @endcan
+        <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" class="text-right"
+            onsubmit="return confirm('Are you sure you wish to delete this role? This can\'t be undone!');">
+            @csrf
+            @method('DELETE')
+            <button class="delete-button-md">
+                <x-delete-button></x-delete-button>
+            </button>
+        </form>
 
         <form action="{{ route('admin.roles.update', $role->id) }}" method="POST">
             @csrf

@@ -13,8 +13,6 @@ class UserStatusController extends Controller
 {
     public function edit(User $user)
     {
-        abort_if(Gate::denies('user_edit_status'), 403);
-
         $statuses = DB::table('account_statuses')->get(['id', 'name'])->pluck('name', 'id')->toArray();
 
         return view('admin.users.status.edit', compact('statuses', 'user'));
@@ -22,15 +20,13 @@ class UserStatusController extends Controller
 
     public function update(Request $request, User $user)
     {
-        abort_if(Gate::denies('user_edit_status'), 403);
-
         $user->update(['account_status' => $request->account_status]);
 
         History::create([
             'subject_type' => 'user',
             'subject_id' => $user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Account status forced updated to: ('.$request->account_status.').',
+            'description' => 'Account status forced updated to: (' . $request->account_status . ').',
         ]);
 
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Status Updated.', 'level' => 'success']]);
@@ -38,10 +34,7 @@ class UserStatusController extends Controller
 
     public function super_user(Request $request, User $user)
     {
-
-        abort_if(Gate::denies('is_super_user') || Gate::denies('is_owner_user'), 403);
-
-        $user->update(['is_super_user' => ! $user->is_super_user]);
+        $user->update(['is_super_user' => !$user->is_super_user]);
 
         $status = 'No';
         if ($user->is_super_user) {
@@ -52,7 +45,7 @@ class UserStatusController extends Controller
             'subject_type' => 'user',
             'subject_id' => $user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Super user status updated to: ('.$status.').',
+            'description' => 'Super user status updated to: (' . $status . ').',
         ]);
 
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Super User Status Updated.', 'level' => 'success']]);
@@ -60,9 +53,7 @@ class UserStatusController extends Controller
 
     public function protected_user(Request $request, User $user)
     {
-        abort_if(Gate::denies('is_super_user') || Gate::denies('is_owner_user'), 403);
-
-        $user->update(['is_protected_user' => ! $user->is_protected_user]);
+        $user->update(['is_protected_user' => !$user->is_protected_user]);
 
         $status = 'No';
         if ($user->is_protected_user) {
@@ -73,7 +64,7 @@ class UserStatusController extends Controller
             'subject_type' => 'user',
             'subject_id' => $user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Protected user status updated to: ('.$status.').',
+            'description' => 'Protected user status updated to: (' . $status . ').',
         ]);
 
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Protected User Status Updated.', 'level' => 'success']]);

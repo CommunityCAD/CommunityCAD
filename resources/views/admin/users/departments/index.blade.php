@@ -13,11 +13,9 @@
         <div class="w-full bg-[#124559] p-3 sm:mr-2 rounded-xl">
             <div class="flex items-center justify-between">
                 <h2 class="mb-4 text-xl font-semibold">Departments</h2>
-                @can('user_manage_departments')
-                    <a href="{{ route('admin.users.departments.create', $user->id) }}" class="new-button-sm">
-                        <x-new-button></x-new-button>
-                    </a>
-                @endcan
+                <a href="{{ route('admin.users.departments.create', $user->id) }}" class="new-button-sm">
+                    <x-new-button></x-new-button>
+                </a>
             </div>
             <div class="grid grid-cols-1 gap-5 mt-5 lg:grid-cols-2">
                 @foreach ($user_departments as $user_department)
@@ -45,8 +43,5 @@
                 @endforeach
             </div>
         </div>
-
-
-
     </div>
 @endsection

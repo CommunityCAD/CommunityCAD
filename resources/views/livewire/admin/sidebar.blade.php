@@ -43,7 +43,7 @@
                     </a>
                 </li>
             @endcan
-            @can('role_access')
+            @can('role_manage')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('admin/roles/*') || request()->is('admin/roles')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.roles.index') }}">
@@ -56,7 +56,7 @@
                     </a>
                 </li>
             @endcan
-            @can('department_access')
+            @can('department_manage')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('admin/department/*') || request()->is('admin/department')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.department.index') }}">
@@ -70,7 +70,7 @@
                 </li>
             @endcan
 
-            @can('civilian_level_access')
+            @can('civilian_level_manage')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('admin/civilian_level/*') || request()->is('admin/civilian_level')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.civilian_level.index') }}">
@@ -85,7 +85,7 @@
                 </li>
             @endcan
 
-            @can('civilian_level_access')
+            @can('disciplinary_action_type_manage')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('admin/disciplinary_action_type/*') || request()->is('admin/disciplinary_action_type')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.disciplinary_action_type.index') }}">
@@ -100,7 +100,7 @@
                 </li>
             @endcan
 
-            @can('civilian_level_access')
+            @can('license_type_manage')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('admin/license_type/*') || request()->is('admin/license_type')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.license_type.index') }}">
@@ -114,7 +114,7 @@
                 </li>
             @endcan
 
-            @can('settings_access')
+            @can('cad_settings')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('admin/cad_setting/*') || request()->is('admin/cad_setting')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.cad_setting.index') }}">

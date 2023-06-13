@@ -9,11 +9,9 @@
     <div class="admin-card">
         <div class="flex items-center justify-end mb-3">
             <div class="">
-                @can('department_create')
-                    <a href="{{ route('admin.department.create') }}" class="new-button-sm">
-                        <x-new-button></x-new-button>
-                    </a>
-                @endcan
+                <a href="{{ route('admin.department.create') }}" class="new-button-sm">
+                    <x-new-button></x-new-button>
+                </a>
             </div>
         </div>
         @foreach ($departments as $department)

@@ -12,7 +12,7 @@ class CivilianLevelRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('civilian_level_access');
+        return Gate::allows('civilian_level_manage');
     }
 
     /**

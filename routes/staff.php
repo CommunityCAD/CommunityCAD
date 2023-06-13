@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Staff\Applications\ApplicationController;
 use App\Http\Controllers\Staff\Applications\ApproveApplicationController;
 use App\Http\Controllers\Staff\Applications\ApproveInterviewController;
@@ -23,3 +24,5 @@ Route::put('/application/deny_interview/{application}', [DenyInterviewController
 
 Route::get('application/status/{status?}', [ApplicationController::class, 'index'])->name('application.index')->middleware('can:application_access');
 Route::get('application/{application}', [ApplicationController::class, 'show'])->name('application.show')->middleware('can:application_access');
+
+Route::resource('announcement', AnnouncementController::class)->except('index');

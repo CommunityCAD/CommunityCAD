@@ -60,7 +60,7 @@
                     <li class="py-3">
                         <p class="flex items-center justify-between">
                             <span>User status</span>
-                            @can('user_edit_status')
+                            @can('user_edit_user_status')
                                 <a href="{{ route('admin.users.status.edit', $user->id) }}" class="edit-button-sm">
                                     <x-edit-button></x-edit-button>
                                 </a>
@@ -121,7 +121,7 @@
                     <li class="py-3">
                         <p class="flex items-center justify-between">
                             <span>Roles</span>
-                            @can('user_edit_roles')
+                            @can('user_manage_user_roles')
                                 @if ($user->account_status == 3)
                                     <a @click="rolesModal = true" class="edit-button-sm">
                                         <x-edit-button></x-edit-button>
@@ -226,7 +226,7 @@
             <div class="admin-card">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Notes <span class="ml-3 text-sm">(Last 5)</span></h2>
-                    @can('user_manage_notes')
+                    @can('user_manage_user_notes')
                         <a href="#" class="new-button-sm" @click="noteModal = true">
                             <x-new-button></x-new-button>
                         </a>
@@ -245,7 +245,7 @@
                                     <span
                                         class="block -mt-1 text-xs tracking-widest">{{ $note->created_at->format('m/d/Y H:i') }}</span>
                                 </p>
-                                @can('user_manage_notes')
+                                @can('user_manage_user_notes')
                                     <form
                                         action="{{ route('admin.users.notes.destroy', ['userNotes' => $note->id, 'user' => $user->id]) }}"
                                         method="POST"
@@ -271,7 +271,7 @@
             <div class="admin-card">
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Accommodations <span class="ml-3 text-sm">(Last 5)</span></h2>
-                    @can('user_manage_accommodations')
+                    @can('user_manage_user_accommodations')
                         <a href="#" class="new-button-sm" @click="accommodationModal = true">
                             <x-new-button></x-new-button>
                         </a>
@@ -289,7 +289,7 @@
                                     <span
                                         class="block -mt-1 text-xs tracking-widest">{{ $accommodation->created_at->format('m/d/Y H:i') }}</span>
                                 </p>
-                                @can('user_manage_accommodations')
+                                @can('user_manage_user_accommodations')
                                     <form
                                         action="{{ route('admin.users.accommodation.destroy', ['userAccommodation' => $accommodation->id, 'user' => $user->id]) }}"
                                         method="POST"
@@ -317,7 +317,7 @@
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Disciplinary Actions <span class="ml-3 text-sm">(Last 5)</span>
                     </h2>
-                    @can('user_manage_disciplinary_actions')
+                    @can('user_manage_user_disciplinary_actions')
                         <a href="#" class="new-button-sm" @click="daModal = true">
                             <x-new-button></x-new-button>
                         </a>
@@ -338,7 +338,7 @@
                                         | Level: {{ $da_types[$da->disciplinary_action_type_id] }}
                                     </span>
                                 </p>
-                                @can('user_manage_disciplinary_actions')
+                                @can('user_manage_user_disciplinary_actions')
                                     <form
                                         action="{{ route('admin.users.da.destroy', ['disciplinaryAction' => $da->id, 'user' => $user->id]) }}"
                                         method="POST"
@@ -385,7 +385,7 @@
             </div>
         </div>
 
-        @can('user_manage_notes')
+        @can('user_manage_user_notes')
             <div x-show="noteModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="noteModal = false"
@@ -412,7 +412,7 @@
             </div>
         @endcan
 
-        @can('user_manage_accommodations')
+        @can('user_manage_user_accommodations')
             <div x-show="accommodationModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="accommodationModal = false"
@@ -438,7 +438,7 @@
             </div>
         @endcan
 
-        @can('user_manage_disciplinary_actions')
+        @can('user_manage_user_disciplinary_actions')
             <div x-show="daModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="daModal = false"
@@ -499,7 +499,7 @@
             </div>
         </div>
 
-        @can('user_edit_roles')
+        @can('user_manage_user_roles')
             <div x-show="rolesModal" x-transition
                 class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
                 <div @click.outside="rolesModal = false"
