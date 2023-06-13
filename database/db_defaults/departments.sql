@@ -15,11 +15,11 @@
 /*!40000 ALTER TABLE `departments` DISABLE KEYS */;
 INSERT INTO `departments` (`id`, `name`, `is_open_external`, `is_open_internal`, `deleted_at`, `created_at`, `updated_at`, `initials`, `slug`, `logo`) VALUES
 	(1, 'Blane County Sheriffs Office', 1, 1, NULL, '2023-05-19 17:34:13', '2023-05-19 17:34:13', 'BCSO', 'blane-county-sheriffs-office', 'https://static.wikia.nocookie.net/rde/images/e/e1/Lore-friendly-bcso_logo.png'),
-	(2, 'Los Santos Police Department', 1, 1, NULL, '2023-05-19 17:34:14', '2023-05-19 17:34:14', 'LSPD', 'los-santos-police-department', 'https://static.wikia.nocookie.net/alterlifepolicedepartement/images/5/51/R_%281%29.png/revision/latest?cb=20220111090530'),
-	(3, 'San Andreas Highway Patrol', 1, 1, NULL, '2023-05-19 17:34:16', '2023-05-19 17:34:16', 'SAHP', 'san-andreas-highway-patrol', 'https://static.wikia.nocookie.net/alterlifepolicedepartement/images/b/b5/SAHP_logo.png/revision/latest/scale-to-width-down/391?cb=20220111081438'),
+	(2, 'Los Santos Police Department', 1, 1, NULL, '2023-05-19 17:34:14', '2023-05-19 17:34:14', 'LSPD', 'los-santos-police-department', 'https://static.wikia.nocookie.net/alterlifepolicedepartement/images/5/51/R_%281%29.png'),
+	(3, 'San Andreas Highway Patrol', 1, 1, NULL, '2023-05-19 17:34:16', '2023-05-19 17:34:16', 'SAHP', 'san-andreas-highway-patrol', 'https://static.wikia.nocookie.net/alterlifepolicedepartement/images/b/b5/SAHP_logo.png'),
 	(4, 'Civilian Operations', 1, 1, NULL, '2023-05-19 17:34:17', '2023-05-19 17:34:17', 'CIV', 'civilian-operations', 'https://content.invisioncic.com/y305077/monthly_2021_03/RCiv_Logo.png.62e84cd49d883db8492dc588c771b8bd.png'),
-	(5, 'Communications', 1, 1, NULL, '2023-05-19 17:34:18', '2023-05-19 17:34:18', 'DISP', 'communications', 'https://static.wikia.nocookie.net/ultimate-roleplay/images/c/cb/LCPD-GTA4-logo.png/revision/latest/scale-to-width-down/250?cb=20190929223229'),
-	(6, 'San Andreas Fire Rescue', 1, 1, NULL, '2023-05-19 17:34:19', '2023-05-19 17:34:19', 'SAFR', 'san-andreas-fire-rescue', 'https://www.evolutionrp.org/wp-content/uploads/2022/02/safr.png');
+	(5, 'Communications', 1, 1, NULL, '2023-05-19 17:34:18', '2023-05-19 17:34:18', 'DISP', 'communications', 'https://static.wikia.nocookie.net/ultimate-roleplay/images/c/cb/LCPD-GTA4-logo.png'),
+	(6, 'San Andreas Fire Rescue', 1, 1, NULL, '2023-05-19 17:34:19', '2023-05-19 17:34:19', 'SAFR', 'san-andreas-fire-rescue', 'https://pbs.twimg.com/media/ExIVjYwWYAgKROe.png');
 /*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
