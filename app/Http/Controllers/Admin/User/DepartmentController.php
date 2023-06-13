@@ -16,7 +16,7 @@ class DepartmentController extends Controller
     public function index(User $user)
     {
         abort_if(Gate::denies('user_departments_access'), 403);
-        $user_departments = UserDepartment::where('user_id', auth()->user()->id)->with('department')->get();
+        $user_departments = UserDepartment::where('user_id', $user->id)->with('department')->get();
 
         return view('admin.users.departments.index', compact('user', 'user_departments'));
     }
@@ -26,7 +26,7 @@ class DepartmentController extends Controller
         abort_if(Gate::denies('user_departments_access'), 403);
 
         $departments = Department::all(['name', 'id']);
-        $user_departments = UserDepartment::where('user_id', auth()->user()->id)->with('department')->get();
+        $user_departments = UserDepartment::where('user_id', $user->id)->with('department')->get();
 
         $member_departments = [];
         $all_departments = [];

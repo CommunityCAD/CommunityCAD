@@ -67,17 +67,10 @@
                                 <p class="-mt-1 text-xs">{{ $user->status_name }} | Head Admin</p>
                             </div>
                         </div>
-                        <div class="flex mx-3 my-2">
+                        <div class="mx-3 my-2">
                             @can('user_edit')
                                 <a href="{{ route('admin.users.show', $user->id) }}" class="mr-3 edit-button-md">View</a>
                             @endcan
-                            @if ($user->account_status === 3)
-                                @can('user_departments_access')
-                                    <a href="{{ route('admin.users.departments.index', $user->id) }}"
-                                        class="new-button-md">Departments</a>
-                                @endcan
-                            @endif
-
                         </div>
                     </div>
                     <div class="space-y-3">

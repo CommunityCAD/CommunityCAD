@@ -19,21 +19,22 @@
                         <p class="px-2">{{ $user->real_name }}</p>
                     </div>
                     <div class="flex">
-                        <p class="px-2 font-bold">Email</p>
-                        <p class="px-2">{{ $user->email }}</p>
+                        <p class="px-2 font-bold">Discord Username</p>
+                        <p class="px-2">{{ $user->discord_username }}</p>
                     </div>
                     <div class="flex">
                         <p class="px-2 font-bold">Steam Hex</p>
                         <p class="px-2">{{ $user->steam_hex }}</p>
                     </div>
                     <div class="flex">
-                        <p class="px-2 font-bold">Steam ID</p>
-                        <p class="px-2">{{ $user->steam_id }}</p>
-                    </div>
-                    <div class="flex">
                         <p class="px-2 font-bold">Discord ID</p>
                         <p class="px-2">{{ $user->id }}</p>
                     </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Steam ID</p>
+                        <p class="px-2">{{ $user->steam_id }}</p>
+                    </div>
+
                     <div class="flex">
                         <p class="px-2 font-bold">Birthday</p>
                         <p class="px-2">{{ $user->birthday->format('M d, Y') }}</p>
