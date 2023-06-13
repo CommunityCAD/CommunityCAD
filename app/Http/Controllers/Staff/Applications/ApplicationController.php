@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Applications;
+namespace App\Http\Controllers\Staff\Applications;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
@@ -51,7 +51,7 @@ class ApplicationController extends Controller
             }
         }
 
-        return view('admin.applications.index', compact('applications', 'page_title'));
+        return view('staff.application.index', compact('applications', 'page_title'));
     }
 
     public function show(Application $application): View
@@ -64,6 +64,6 @@ class ApplicationController extends Controller
 
         $histories = History::where('subject_type', 'application')->where('subject_id', $application->id)->orderBy('created_at', 'desc')->get();
 
-        return view('admin.applications.show', compact('application', 'histories'));
+        return view('staff.application.show', compact('application', 'histories'));
     }
 }

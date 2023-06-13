@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Applications;
+namespace App\Http\Controllers\Staff\Applications;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
@@ -23,6 +23,6 @@ class ApproveApplicationController extends Controller
 
         $application->update(['status' => 3]);
 
-        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application Approved.', 'level' => 'success']]);
+        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Application Approved.', 'level' => 'success']]);
     }
 }

@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\Applications\ApplicationController as AdminApplicationController;
-use App\Http\Controllers\Admin\Applications\ApproveApplicationController;
-use App\Http\Controllers\Admin\Applications\ApproveInterviewController;
-use App\Http\Controllers\Admin\Applications\DenyApplicationController;
-use App\Http\Controllers\Admin\Applications\DenyInterviewController;
-use App\Http\Controllers\Admin\Applications\FlagApplicationController;
+use App\Http\Controllers\Staff\Applications\ApplicationController;
+use App\Http\Controllers\Staff\Applications\ApproveApplicationController;
+use App\Http\Controllers\Staff\Applications\ApproveInterviewController;
+use App\Http\Controllers\Staff\Applications\DenyApplicationController;
+use App\Http\Controllers\Staff\Applications\DenyInterviewController;
+use App\Http\Controllers\Staff\Applications\FlagApplicationController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('application/status/{status?}', [AdminApplicationController::class, 'index'])->name('application.index');
 
 Route::get('/application/approve_application/{application}', ApproveApplicationController::class)->name('application.approve_application');
 
@@ -23,4 +22,5 @@ Route::put('/application/flag_application/{application}', [FlagApplicationContro
 Route::get('/application/deny_interview/{application}', [DenyInterviewController::class, 'edit'])->name('application.deny_interview.edit');
 Route::put('/application/deny_interview/{application}', [DenyInterviewController::class, 'store'])->name('application.deny_interview.store');
 
-Route::get('application/{application}', [AdminApplicationController::class, 'show'])->name('application.show');
+Route::get('application/status/{status?}', [ApplicationController::class, 'index'])->name('application.index');
+Route::get('application/{application}', [ApplicationController::class, 'show'])->name('application.show');

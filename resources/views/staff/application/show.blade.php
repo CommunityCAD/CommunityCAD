@@ -1,20 +1,15 @@
-@extends('layouts.portal')
+@extends('layouts.staff')
 
 @section('content')
-    <nav class="flex justify-between mb-4 border-b border-gray-700" aria-label="Breadcrumb">
-        <div class="">
-            <p class="text-lg dark:text-white">Show Application {{ $application->id }} |
-                {{ $application->user->discord_name }}#{{ $application->user->discriminator }}</p>
-        </div>
-
-        @livewire('breadcrumbs', ['paths' => [['href' => route('admin.application.index', 1), 'text' => 'View Applications']]])
-
-    </nav>
+    <header class="w-full my-3">
+        <h1 class="text-2xl font-bold text-white">View Application for {{ $application->user->discord }}</h1>
+        <p class="text-sm text-white"></p>
+    </header>
 
     <div class="flex flex-col items-center pt-5 pb-5 sm:justify-center">
         <h2 class="text-2xl font-bold dark:text-gray-200">User Information Application</h2>
 
-        <div class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+        <div class="card">
             <div class="">
                 <div class="grid text-sm md:grid-cols-2">
                     <div class="grid grid-cols-2">
@@ -28,20 +23,20 @@
                         <div class="px-4 py-2">{{ $application->user->real_name }}</div>
                     </div>
                     <div class="grid grid-cols-2">
-                        <div class="px-4 py-2 font-bold">Email</div>
-                        <div class="px-4 py-2">{{ $application->user->email }}</div>
+                        <p class="px-4 py-2 font-bold">Discord Username</p>
+                        <p class="px-4 py-2">{{ $application->user->discord_username }}</p>
                     </div>
                     <div class="grid grid-cols-2">
                         <div class="px-4 py-2 font-bold">Steam Hex</div>
                         <div class="px-4 py-2">{{ $application->user->steam_hex }}</div>
                     </div>
                     <div class="grid grid-cols-2">
-                        <div class="px-4 py-2 font-bold">Steam ID</div>
-                        <div class="px-4 py-2">{{ $application->user->steam_id }}</div>
-                    </div>
-                    <div class="grid grid-cols-2">
                         <div class="px-4 py-2 font-bold">Discord ID</div>
                         <div class="px-4 py-2">{{ $application->user->id }}</div>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <div class="px-4 py-2 font-bold">Steam ID</div>
+                        <div class="px-4 py-2">{{ $application->user->steam_id }}</div>
                     </div>
                     <div class="grid grid-cols-2">
                         <div class="px-4 py-2 font-bold">Birthday</div>
@@ -57,8 +52,7 @@
 
         <h2 class="text-2xl font-bold dark:text-gray-200">Application Meta Data</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+        <div class="card">
             <div class="">
                 <div class="grid text-sm md:grid-cols-2">
                     <div class="grid grid-cols-2">
@@ -76,7 +70,7 @@
                     </div>
                     <div class="grid grid-cols-2">
                         @php
-                            $flag = '';
+                            $flag = "<span class='text-green-600'>None</span>";
                             if ($application->user->age < get_setting('minimum_age')) {
                                 $flag .= "<span class='text-red-600'>{Under Age}</span>";
                             }
@@ -91,8 +85,7 @@
 
         <h2 class="text-2xl font-bold dark:text-gray-200">Community Application</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+        <div class="card">
             <div class="">
                 <div class="w-full">
                     <label for="department_id" class="block mt-3 font-bold">What department are you applying
@@ -186,44 +179,42 @@
 
         <h2 class="text-2xl font-bold dark:text-gray-200">Application Options</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+        <div class="card">
             <div class="">
                 <div class="space-y-4">
                     @can('application_action')
                         @switch($application->status)
                             @case(1)
-                                <a class="block px-4 py-2 m-3 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-600"
-                                    href="{{ route('admin.application.approve_application', $application->id) }}">
+                                <a class="new-button-md" href="{{ route('staff.application.approve_application', $application->id) }}">
                                     Approve Application
                                 </a>
-                                <a class="block px-4 py-2 m-3 font-bold text-white bg-red-500 rounded cursor-pointer hover:bg-red-600"
-                                    href="{{ route('admin.application.deny_application.edit', $application->id) }}">
+                                <a class="delete-button-md"
+                                    href="{{ route('staff.application.deny_application.edit', $application->id) }}">
                                     Deny Application
                                 </a>
-                                <a class="block px-4 py-2 m-3 font-bold text-white bg-yellow-500 rounded cursor-pointer hover:bg-yellow-600"
-                                    href="{{ route('admin.application.flag_application.edit', $application->id) }}">
+                                <a class="bg-yellow-600 button-md hover:bg-yellow-500"
+                                    href="{{ route('staff.application.flag_application.edit', $application->id) }}">
                                     Flag Application
                                 </a>
                             @break
 
                             @case(3)
-                                <a class="block px-4 py-2 m-3 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-600"
-                                    href="{{ route('admin.application.approve_interview', $application->id) }}">Approve
+                                <a class="new-button-md"
+                                    href="{{ route('staff.application.approve_interview', $application->id) }}">Approve
                                     Interview</a>
-                                <a class="block px-4 py-2 m-3 font-bold text-white bg-red-500 rounded cursor-pointer hover:bg-red-600"
-                                    href="{{ route('admin.application.deny_interview.edit', $application->id) }}">Deny
+                                <a class="delete-button-md"
+                                    href="{{ route('staff.application.deny_interview.edit', $application->id) }}">Deny
                                     Interview</a>
                             @break
 
                             @case(2)
                                 <p>Please review below to see why this application was flagged.</p>
-                                <a class="block px-4 py-2 m-3 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-600"
-                                    href="{{ route('admin.application.approve_application', $application->id) }}">
+                                <a class="new-button-md"
+                                    href="{{ route('staff.application.approve_application', $application->id) }}">
                                     Approve Application
                                 </a>
-                                <a class="block px-4 py-2 m-3 font-bold text-white bg-red-500 rounded cursor-pointer hover:bg-red-600"
-                                    href="{{ route('admin.application.deny_application.edit', $application->id) }}">
+                                <a class="delete-button-md"
+                                    href="{{ route('staff.application.deny_application.edit', $application->id) }}">
                                     Deny Application
                                 </a>
                             @break
@@ -241,8 +232,7 @@
         </div>
         <h2 class="text-2xl font-bold dark:text-gray-200">Application Comments</h2>
 
-        <div
-            class="w-full px-6 py-8 mt-6 mb-6 overflow-hidden shadow-md bg-[#124559] sm:max-w-4xl sm:rounded-lg text-white">
+        <div class="card">
             <div class="">
                 @foreach ($histories as $history)
                     <div class="p-3 my-2 border-2 border-gray-900">

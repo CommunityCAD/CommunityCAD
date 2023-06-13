@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Applications;
+namespace App\Http\Controllers\Staff\Applications;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
@@ -15,7 +15,7 @@ class FlagApplicationController extends Controller
     {
         abort_unless(Gate::allows('application_action'), 403);
 
-        return view('admin.applications.flag_application', compact('application'));
+        return view('staff.application.flag_application', compact('application'));
     }
 
     public function store(Request $request, Application $application)
@@ -34,11 +34,11 @@ class FlagApplicationController extends Controller
             'subject_type' => 'application',
             'subject_id' => $application->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Application Flagged. Reason: '.$request->reason,
+            'description' => 'Application Flagged. Reason: ' . $request->reason,
         ]);
 
         $application->update(['status' => 2]);
 
-        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application ('.$application->id.') Flagged.', 'level' => 'success']]);
+        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Application (' . $application->id . ') Flagged.', 'level' => 'success']]);
     }
 }
