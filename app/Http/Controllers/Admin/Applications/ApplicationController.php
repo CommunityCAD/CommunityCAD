@@ -6,13 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\History;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class ApplicationController extends Controller
 {
-
     public function index($status = 0): View
     {
 
@@ -28,28 +25,28 @@ class ApplicationController extends Controller
 
         if ($status == 0) {
             $applications = Application::orderBy('status', 'asc')->get();
-            $page_title = "All Applications";
+            $page_title = 'All Applications';
         } else {
             $applications = Application::where('status', $status)->orderBy('created_at', 'desc')->get();
 
             switch ($status) {
                 case 1:
-                    $page_title = "Pending Review Applications";
+                    $page_title = 'Pending Review Applications';
                     break;
                 case 2:
-                    $page_title = "Pending Admin Review Applications";
+                    $page_title = 'Pending Admin Review Applications';
                     break;
                 case 3:
-                    $page_title = "Pending Interview Applications";
+                    $page_title = 'Pending Interview Applications';
                     break;
                 case 4:
-                    $page_title = "Approved Applications";
+                    $page_title = 'Approved Applications';
                     break;
                 case 5:
-                    $page_title = "Denied Applications";
+                    $page_title = 'Denied Applications';
                     break;
                 case 6:
-                    $page_title = "Withdrawn Applications";
+                    $page_title = 'Withdrawn Applications';
                     break;
             }
         }

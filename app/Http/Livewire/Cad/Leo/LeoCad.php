@@ -9,12 +9,13 @@ use Livewire\Component;
 class LeoCad extends Component
 {
     public $active_units;
+
     public $calls;
 
     public function render()
     {
         $this->active_units = ActiveUnit::get();
-        $this->calls = Call::where('status', "!=", "CLO")->orderBy('priority', 'desc')->get(['id', 'nature', 'location', 'city', 'priority', 'status', 'updated_at', 'units']);
+        $this->calls = Call::where('status', '!=', 'CLO')->orderBy('priority', 'desc')->get(['id', 'nature', 'location', 'city', 'priority', 'status', 'updated_at', 'units']);
 
         return view('livewire.cad.leo.leo-cad');
     }
@@ -65,7 +66,6 @@ class LeoCad extends Component
             }
         }
     }
-
 
     private function update_units_for_call(ActiveUnit $activeUnit, Call $call, $action)
     {

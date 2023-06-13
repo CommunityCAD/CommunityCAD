@@ -3,11 +3,19 @@
 namespace App\Http\Livewire;
 
 use App\Models\role;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
+use Illuminate\Support\Carbon;
+use PowerComponents\LivewirePowerGrid\Button;
+use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Exportable;
+use PowerComponents\LivewirePowerGrid\Footer;
+use PowerComponents\LivewirePowerGrid\Header;
+use PowerComponents\LivewirePowerGrid\PowerGrid;
+use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
+use PowerComponents\LivewirePowerGrid\Rules\Rule;
+use PowerComponents\LivewirePowerGrid\Rules\RuleActions;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
-use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
 final class AdminRolesTable extends PowerGridComponent
 {
@@ -44,10 +52,10 @@ final class AdminRolesTable extends PowerGridComponent
     */
 
     /**
-    * PowerGrid datasource.
-    *
-    * @return Builder<\App\Models\role>
-    */
+     * PowerGrid datasource.
+     *
+     * @return Builder<\App\Models\role>
+     */
     public function datasource(): Builder
     {
         return role::query();
@@ -88,7 +96,7 @@ final class AdminRolesTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('title')
 
-           /** Example of custom column using a closure **/
+            /** Example of custom column using a closure **/
             ->addColumn('title_lower', function (role $model) {
                 return strtolower(e($model->title));
             })
@@ -106,7 +114,7 @@ final class AdminRolesTable extends PowerGridComponent
     |
     */
 
-     /**
+    /**
      * PowerGrid Columns.
      *
      * @return array<int, Column>
@@ -132,8 +140,7 @@ final class AdminRolesTable extends PowerGridComponent
                 ->sortable()
                 ->makeInputDatePicker(),
 
-        ]
-;
+        ];
     }
 
     /*

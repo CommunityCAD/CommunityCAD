@@ -13,6 +13,7 @@ class ActiveUnitController extends Controller
     public function store(Request $request): RedirectResponse
     {
         ActiveUnit::create($request->validated());
+
         return redirect()->route('activeUnits.index')->with('success', 'Message');
     }
 
@@ -29,12 +30,14 @@ class ActiveUnitController extends Controller
     public function update(Request $request, ActiveUnit $activeUnit): RedirectResponse
     {
         $activeUnit->update($request->validated());
+
         return redirect()->route('activeUnits.index')->with('success', 'Message');
     }
 
     public function destroy(ActiveUnit $activeUnit): RedirectResponse
     {
         $activeUnit->delete();
+
         return redirect()->route('activeUnits.index')->with('success', 'Message');
     }
 }

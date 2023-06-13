@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\User\UserDepartment;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
-use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -21,7 +20,7 @@ class PageController extends Controller
     public function home()
     {
         // will have bolos and other important info
-        $call_count = Call::where('status', "!=", "CLO")->count();
+        $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
         return view('cad.home', compact('call_count', 'active_unit'));

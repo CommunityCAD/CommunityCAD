@@ -7,15 +7,14 @@ use App\Http\Requests\Admin\DepartmentRequest;
 use App\Models\Department;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
-
     public function index(): View
     {
         $departments = Department::all();
+
         return view('admin.departments.index', compact('departments'));
     }
 
@@ -34,6 +33,7 @@ class DepartmentController extends Controller
         }
 
         Department::create($input);
+
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department created.', 'level' => 'success']]);
     }
 
@@ -53,19 +53,21 @@ class DepartmentController extends Controller
             }
         }
 
-        if (!isset($input['is_open_external'])) {
+        if (! isset($input['is_open_external'])) {
             $input['is_open_external'] = 0;
         }
-        if (!isset($input['is_open_internal'])) {
+        if (! isset($input['is_open_internal'])) {
             $input['is_open_internal'] = 0;
         }
         $department->update($input);
+
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department updated.', 'level' => 'success']]);
     }
 
     public function destroy(Department $department): RedirectResponse
     {
         $department->delete();
+
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Cad\Leo;
 
-use App\Models\Cad\Call;
 use Livewire\Component;
 
 class LeoCadTable extends Component

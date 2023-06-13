@@ -25,7 +25,7 @@ class DenyApplicationController extends Controller
         $validator = Validator::make($request->all(), [
             'reapply' => 'required',
             'reapply_date' => 'required|date',
-            'denied_reason' => 'required'
+            'denied_reason' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -37,9 +37,8 @@ class DenyApplicationController extends Controller
             'subject_type' => 'application',
             'subject_id' => $application->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Application Denied. Reason: ' . $request->denied_reason,
+            'description' => 'Application Denied. Reason: '.$request->denied_reason,
         ]);
-
 
         $application->user->update([
             'account_status' => 1,
@@ -52,9 +51,9 @@ class DenyApplicationController extends Controller
             'subject_type' => 'user',
             'subject_id' => $application->user->id,
             'user_id' => auth()->user()->id,
-            'description' => "Application {{$application->id}} Denied Reason: " . $request->denied_reason,
+            'description' => "Application {{$application->id}} Denied Reason: ".$request->denied_reason,
         ]);
 
-        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application (' . $application->id . ') Denied.', 'level' => 'success']]);
+        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application ('.$application->id.') Denied.', 'level' => 'success']]);
     }
 }

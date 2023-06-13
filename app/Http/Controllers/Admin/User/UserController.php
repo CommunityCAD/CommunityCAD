@@ -10,20 +10,18 @@ use App\Models\History;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-
     public function index(): View
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $users = User::where('account_status', 3)->get();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -32,13 +30,13 @@ class UserController extends Controller
 
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        if (!in_array(auth()->user()->id, config('cad.owner_ids'))) {
-            if ($user->is_protected_user && !auth()->user()->is_super_user) {
-                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a protected user. You can not edit them.', 'level' => 'error']]);
+        if (! in_array(auth()->user()->id, config('cad.owner_ids'))) {
+            if ($user->is_protected_user && ! auth()->user()->is_super_user) {
+                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord.' is a protected user. You can not edit them.', 'level' => 'error']]);
             }
 
-            if ($user->is_super_user && !auth()->user()->is_super_user) {
-                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord . ' is a super user. You can not edit them.', 'level' => 'error']]);
+            if ($user->is_super_user && ! auth()->user()->is_super_user) {
+                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord.' is a super user. You can not edit them.', 'level' => 'error']]);
             }
         }
 

@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 
 class CadSettingController extends Controller
 {
-
     public function index(): View
     {
         $settings = CadSetting::all();
+
         return view('admin.cad_settings.index', compact('settings'));
     }
 
@@ -25,6 +25,7 @@ class CadSettingController extends Controller
     public function update(Request $request, CadSetting $cadSetting): RedirectResponse
     {
         $cadSetting->update(['value' => $request->value]);
+
         return redirect()->route('admin.cad_setting.index')->with('alerts', [['message' => 'Setting Updated.', 'level' => 'success']]);
     }
 }

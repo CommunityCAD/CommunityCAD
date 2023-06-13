@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\CadSettingController;
 use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -11,8 +12,6 @@ use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserDisciplinaryActionController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
-use App\Http\Controllers\Admin\AnnouncementController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/roles', RoleController::class);

@@ -6,10 +6,7 @@ use App\Http\Controllers\Admin\Applications\ApproveInterviewController;
 use App\Http\Controllers\Admin\Applications\DenyApplicationController;
 use App\Http\Controllers\Admin\Applications\DenyInterviewController;
 use App\Http\Controllers\Admin\Applications\FlagApplicationController;
-
 use Illuminate\Support\Facades\Route;
-
-
 
 Route::get('application/status/{status?}', [AdminApplicationController::class, 'index'])->name('application.index');
 

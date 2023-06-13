@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\User\DisciplinaryAction;
 use App\Models\User;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -25,6 +24,7 @@ class UserDisciplinaryActionController extends Controller
         $input['receiver_id'] = $user->id;
 
         DisciplinaryAction::create($input);
+
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Disciplinary action added.', 'level' => 'success']]);
     }
 
@@ -33,6 +33,7 @@ class UserDisciplinaryActionController extends Controller
         abort_if(Gate::denies('user_manage_disciplinary_actions'), 403);
 
         $disciplinaryAction->delete();
+
         return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Disciplinary action deleted.', 'level' => 'success']]);
     }
 }

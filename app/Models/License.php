@@ -30,24 +30,23 @@ class License extends Model
         return $this->hasOne(LicenseType::class, 'id', 'type');
     }
 
-
     public function getStatusNameAttribute()
     {
         switch ($this->license_status) {
             case 1:
-                return "Valid";
+                return 'Valid';
                 break;
             case 2:
-                return "Expired";
+                return 'Expired';
                 break;
             case 3:
-                return "Suspended";
+                return 'Suspended';
                 break;
             case 4:
-                return "Revoked";
+                return 'Revoked';
                 break;
             case 5:
-                return "Temporary Ban";
+                return 'Temporary Ban';
                 break;
         }
     }

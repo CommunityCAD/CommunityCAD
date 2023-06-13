@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin\Applications;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\History;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ApproveApplicationController extends Controller
@@ -20,7 +18,7 @@ class ApproveApplicationController extends Controller
             'subject_type' => 'application',
             'subject_id' => $application->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Application Approved.'
+            'description' => 'Application Approved.',
         ]);
 
         $application->update(['status' => 3]);

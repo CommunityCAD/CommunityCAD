@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Admin\Applications;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\History;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Validator;
 
 class ApproveInterviewController extends Controller
 {
@@ -22,7 +19,7 @@ class ApproveInterviewController extends Controller
             'subject_type' => 'application',
             'subject_id' => $application->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Interview Approved.'
+            'description' => 'Interview Approved.',
         ]);
 
         $application->user->update([
@@ -37,9 +34,9 @@ class ApproveInterviewController extends Controller
             'subject_type' => 'user',
             'subject_id' => $application->user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Interview (' . $application->id . ') Approved. User populated into system.'
+            'description' => 'Interview ('.$application->id.') Approved. User populated into system.',
         ]);
 
-        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Interview (' . $application->id . ') Approved.', 'level' => 'success'], ['message' => 'User populated into system.', 'level' => 'success']]);
+        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Interview ('.$application->id.') Approved.', 'level' => 'success'], ['message' => 'User populated into system.', 'level' => 'success']]);
     }
 }

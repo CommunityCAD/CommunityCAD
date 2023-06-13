@@ -1,13 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Civilian\LicenseController;
 use App\Http\Controllers\Civilian\MedicalRecordController;
 use App\Http\Controllers\Civilian\VehicleController;
 use App\Http\Controllers\Civilian\WeaponController;
-
-
+use Illuminate\Support\Facades\Route;
 
 Route::get('/civilians/{civilian}/license/{license}/renew', [LicenseController::class, 'renew'])->name('license.renew');
 Route::resource('civilians/{civilian}/license', LicenseController::class)->only(['create', 'store', 'destroy']);

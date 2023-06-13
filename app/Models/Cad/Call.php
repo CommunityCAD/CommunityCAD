@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Call extends Model
 {
     use HasFactory, softDeletes;
+
     protected $guarded = [];
+
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -44,19 +46,19 @@ class Call extends Model
     {
         switch ($this->type) {
             case 1:
-                return "Police Department";
+                return 'Police Department';
                 break;
 
             case 2:
-                return "Fire Department";
+                return 'Fire Department';
                 break;
 
             case 3:
-                return "EMS";
+                return 'EMS';
                 break;
 
             default:
-                # code...
+                // code...
                 break;
         }
     }

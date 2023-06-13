@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -48,15 +46,16 @@ class User extends Authenticatable
 
     public static function dec2hex($number)
     {
-        $hexvalues = array(
+        $hexvalues = [
             '0', '1', '2', '3', '4', '5', '6', '7',
-            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-        );
+            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+        ];
         $hexval = '';
         while ($number != '0') {
-            $hexval = $hexvalues[bcmod($number, '16', 0)] . $hexval;
+            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
             $number = bcdiv($number, '16', 0);
         }
+
         return $hexval;
     }
 
@@ -70,29 +69,29 @@ class User extends Authenticatable
 
     public function getDiscordAttribute()
     {
-        return $this->discord_name . '#' . $this->discriminator;
+        return $this->discord_name.'#'.$this->discriminator;
     }
 
     public function getStatusNameAttribute()
     {
         switch ($this->account_status) {
             case 1:
-                return "User";
+                return 'User';
                 break;
             case 2:
-                return "Applicant";
+                return 'Applicant';
                 break;
             case 3:
-                return "Member";
+                return 'Member';
                 break;
             case 4:
-                return "Suspended/LOA";
+                return 'Suspended/LOA';
                 break;
             case 5:
-                return "Temporary Ban";
+                return 'Temporary Ban';
                 break;
             case 6:
-                return "Permanent Ban";
+                return 'Permanent Ban';
                 break;
         }
     }

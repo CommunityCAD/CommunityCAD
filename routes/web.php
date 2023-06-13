@@ -1,19 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminPageController;
-
-
-
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Cad\AddUnitController;
 use App\Http\Controllers\Cad\CallController;
 use App\Http\Controllers\Cad\PageController;
-
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
 use App\Http\Controllers\Staff\StaffPageController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -54,23 +49,20 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
-        require __DIR__ . '/civilian.php';
+        require __DIR__.'/civilian.php';
     });
 
     Route::middleware(['auth'])->name('staff.')->prefix('staff')->group(function () {
 
         Route::get('/', [StaffPageController::class, 'index'])->name('index');
-        require __DIR__ . '/staff.php';
+        require __DIR__.'/staff.php';
     });
 
     Route::middleware(['auth', 'can:admin_access'])->name('admin.')->prefix('admin')->group(function () {
 
         Route::get('/', [AdminPageController::class, 'index'])->name('index');
-        require __DIR__ . '/admin.php';
+        require __DIR__.'/admin.php';
     });
 });
 
-
-
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

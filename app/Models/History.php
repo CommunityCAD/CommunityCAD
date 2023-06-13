@@ -11,6 +11,7 @@ class History extends Model
     use HasFactory, softDeletes;
 
     protected $guarded = [];
+
     protected $with = ['user'];
 
     protected $casts = [

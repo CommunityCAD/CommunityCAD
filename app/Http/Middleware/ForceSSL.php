@@ -6,19 +6,18 @@ use Closure;
 
 class ForceSSL
 {
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @param  \Closure $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next)
-	{
-		if (!$request->secure()) {
-			return redirect()->secure($request->getRequestUri());
-		}
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if (! $request->secure()) {
+            return redirect()->secure($request->getRequestUri());
+        }
 
-		return $next($request);
-	}
+        return $next($request);
+    }
 }

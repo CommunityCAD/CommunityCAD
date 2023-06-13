@@ -6,12 +6,10 @@ use App\Http\Requests\AccountCreateRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('guest')->only(['create', 'store']);
@@ -27,7 +25,7 @@ class AccountController extends Controller
         $data = $request->validated();
 
         if (get_setting('force_steam_link')) {
-            if (!session()->has('steam_id')) {
+            if (! session()->has('steam_id')) {
                 return redirect()->route('account.create')->with('alerts', [['message' => 'You must link your steam account. Form has been reset.', 'level' => 'error']]);
             }
         }

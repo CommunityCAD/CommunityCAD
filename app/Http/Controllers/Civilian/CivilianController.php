@@ -9,12 +9,10 @@ use App\Models\Civilian;
 use App\Models\CivilianLevel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CivilianController extends Controller
 {
-
     public function index(): View
     {
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
@@ -33,6 +31,7 @@ class CivilianController extends Controller
         if ($current_civilian_level->civilian_limit <= $civilians->count()) {
             return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
         }
+
         return view('civilian.civilians.create');
     }
 
@@ -54,6 +53,7 @@ class CivilianController extends Controller
                 ->withInput($request->input());
         }
         Civilian::create($data);
+
         return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Created', 'level' => 'success']]);
     }
 
@@ -78,6 +78,7 @@ class CivilianController extends Controller
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
         $civilian->update($request->validated());
+
         return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'Civilian Updated.', 'level' => 'success']]);
     }
 
@@ -86,6 +87,7 @@ class CivilianController extends Controller
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
         $civilian->delete();
+
         return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Deceased', 'level' => 'success']]);
     }
 
@@ -96,6 +98,7 @@ class CivilianController extends Controller
         if ($results == 0) {
             return false;
         }
+
         return true;
     }
 }

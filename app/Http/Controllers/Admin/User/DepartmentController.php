@@ -9,8 +9,6 @@ use App\Models\Admin\User\UserDepartment;
 use App\Models\Department;
 use App\Models\History;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class DepartmentController extends Controller
@@ -97,6 +95,7 @@ class DepartmentController extends Controller
         abort_if(Gate::denies('user_departments_access'), 403);
 
         $department->delete();
+
         return redirect()->route('admin.users.departments.index', $user->id)->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);
     }
 }

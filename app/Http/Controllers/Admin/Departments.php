@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 
 class Departments extends Controller
 {
-
     public function index(): View
     {
         $departments = Department::all();
+
         return view('departments.index', compact('departments'));
     }
 
@@ -25,6 +25,7 @@ class Departments extends Controller
     public function store(Request $request): RedirectResponse
     {
         Department::create($request->validated());
+
         return redirect()->route('departments.index')->with('success', 'Message');
     }
 
@@ -41,12 +42,14 @@ class Departments extends Controller
     public function update(Request $request, Department $department): RedirectResponse
     {
         $department->update($request->validated());
+
         return redirect()->route('departments.index')->with('success', 'Message');
     }
 
     public function destroy(Department $department): RedirectResponse
     {
         $department->delete();
+
         return redirect()->route('departments.index')->with('success', 'Message');
     }
 }

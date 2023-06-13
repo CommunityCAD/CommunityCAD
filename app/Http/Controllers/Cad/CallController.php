@@ -11,10 +11,10 @@ use Illuminate\Http\Request;
 
 class CallController extends Controller
 {
-
     public function index(): View
     {
         $calls = Call::all();
+
         return view('cad.calls.index', compact('calls'));
     }
 
@@ -27,6 +27,7 @@ class CallController extends Controller
     {
         $input = $request->validated();
         $call = Call::create($input);
+
         return redirect()->route('cad.cad');
     }
 
@@ -43,12 +44,14 @@ class CallController extends Controller
     public function update(Request $request, Call $call): RedirectResponse
     {
         $call->update($request->validated());
+
         return redirect()->route('calls.index')->with('success', 'Message');
     }
 
     public function destroy(Call $call): RedirectResponse
     {
         $call->delete();
+
         return redirect()->route('calls.index')->with('success', 'Message');
     }
 }

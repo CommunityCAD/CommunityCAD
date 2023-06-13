@@ -23,7 +23,7 @@ class FlagApplicationController extends Controller
         abort_unless(Gate::allows('application_action'), 403);
 
         $validator = Validator::make($request->all(), [
-            'reason' => 'required'
+            'reason' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -34,11 +34,11 @@ class FlagApplicationController extends Controller
             'subject_type' => 'application',
             'subject_id' => $application->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Application Flagged. Reason: ' . $request->reason,
+            'description' => 'Application Flagged. Reason: '.$request->reason,
         ]);
 
         $application->update(['status' => 2]);
 
-        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application (' . $application->id . ') Flagged.', 'level' => 'success']]);
+        return redirect()->route('admin.application.index', 1)->with('alerts', [['message' => 'Application ('.$application->id.') Flagged.', 'level' => 'success']]);
     }
 }

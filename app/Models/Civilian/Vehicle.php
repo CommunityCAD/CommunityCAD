@@ -19,7 +19,6 @@ class Vehicle extends Model
         'vehicle_status',
     ];
 
-
     protected $casts = [
         'registration_expire' => 'date',
     ];
@@ -28,16 +27,16 @@ class Vehicle extends Model
     {
         switch ($this->vehicle_status) {
             case 1:
-                return "Valid";
+                return 'Valid';
                 break;
             case 3:
-                return "Impounded";
+                return 'Impounded';
                 break;
             case 4:
-                return "Booted";
+                return 'Booted';
                 break;
             case 2:
-                return "Stolen";
+                return 'Stolen';
                 break;
         }
     }

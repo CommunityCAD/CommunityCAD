@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\History;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
 class UserRoleController extends Controller
@@ -29,9 +27,9 @@ class UserRoleController extends Controller
             'subject_type' => 'user',
             'subject_id' => $user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Roles updated from: (' . $old_roles . ') to: (' . $new_roles . ').',
+            'description' => 'Roles updated from: ('.$old_roles.') to: ('.$new_roles.').',
         ]);
 
-        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Roles Updated.', 'level' => 'success']]);;
+        return redirect()->route('admin.users.show', $user->id)->with('alerts', [['message' => 'Roles Updated.', 'level' => 'success']]);
     }
 }

@@ -12,6 +12,7 @@ class ActiveUnit extends Model
     use HasFactory, softDeletes;
 
     protected $guarded = [];
+
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -26,6 +27,7 @@ class ActiveUnit extends Model
 
         return $age;
     }
+
     public function getNiceCallsAttribute()
     {
         $calls = json_decode($this->calls);

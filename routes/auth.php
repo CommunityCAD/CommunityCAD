@@ -7,7 +7,6 @@ use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
-
 Route::get('login/discord', function () {
     return Socialite::driver('discord')->redirect();
 })->name('auth.discord')->middleware('guest');
