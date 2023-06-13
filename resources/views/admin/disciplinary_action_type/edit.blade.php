@@ -36,7 +36,7 @@
             </div>
 
             <div class="mt-4">
-                <button class="inline-block w-1/3 mr-5 new-button-md">Create</button>
+                <button class="inline-block w-1/3 mr-5 edit-button-md">Save</button>
                 <a href="{{ route('admin.disciplinary_action_type.index') }}" class="w-1/3 delete-button-md">Cancel</a>
             </div>
         </form>

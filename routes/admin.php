@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\CadSettingController;
+use App\Http\Controllers\Admin\CivilianLevelController;
 use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
 use App\Http\Controllers\Admin\LicenseTypeController;
@@ -46,10 +47,9 @@ Route::resource('/user/{user}/departments', UserDepartmentController::class, ['n
 ]);
 
 Route::resource('users', UserController::class);
-
 Route::resource('announcement', AnnouncementController::class)->except('index');
-
 Route::resource('department', AdminDepartmentController::class)->except('show');
 Route::resource('cad_setting', CadSettingController::class)->only('index', 'edit', 'update');
 Route::resource('disciplinary_action_type', DisciplinaryActionTypeController::class)->except('show');
 Route::resource('license_type', LicenseTypeController::class)->except('show');
+Route::resource('civilian_level', CivilianLevelController::class)->except('show');

@@ -10,6 +10,8 @@ class CivilianLevel extends Model
 {
     use HasFactory, softDeletes;
 
+    protected $guarded = [];
+
     protected $casts = [
         'license_types_allowed' => 'array',
     ];

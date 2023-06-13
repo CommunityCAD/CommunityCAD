@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('civilian_levels', function (Blueprint $table) {
             $table->id();
-            $table->string('level_description');
+            $table->string('name');
             $table->integer('civilian_limit');
             $table->integer('firearm_limit');
             $table->integer('vehicle_limit');
-            $table->json('license_types_allowed');
+            $table->json('license_types_allowed')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
