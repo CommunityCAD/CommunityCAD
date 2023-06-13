@@ -34,9 +34,9 @@ class ApproveInterviewController extends Controller
             'subject_type' => 'user',
             'subject_id' => $application->user->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Interview (' . $application->id . ') Approved. User populated into system.',
+            'description' => 'Interview ('.$application->id.') Approved. User populated into system.',
         ]);
 
-        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Interview (' . $application->id . ') Approved.', 'level' => 'success'], ['message' => 'User populated into system.', 'level' => 'success']]);
+        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Interview ('.$application->id.') Approved.', 'level' => 'success'], ['message' => 'User populated into system.', 'level' => 'success']]);
     }
 }

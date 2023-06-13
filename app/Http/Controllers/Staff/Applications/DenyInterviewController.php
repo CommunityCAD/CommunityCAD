@@ -37,7 +37,7 @@ class DenyInterviewController extends Controller
             'subject_type' => 'application',
             'subject_id' => $application->id,
             'user_id' => auth()->user()->id,
-            'description' => 'Interview Denied. Reason: ' . $request->denied_reason,
+            'description' => 'Interview Denied. Reason: '.$request->denied_reason,
         ]);
 
         $application->user->update([
@@ -51,9 +51,9 @@ class DenyInterviewController extends Controller
             'subject_type' => 'user',
             'subject_id' => $application->user->id,
             'user_id' => auth()->user()->id,
-            'description' => "Interview ({$application->id}) Denied Reason: " . $request->denied_reason,
+            'description' => "Interview ({$application->id}) Denied Reason: ".$request->denied_reason,
         ]);
 
-        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Interview (' . $application->id . ') Denied.', 'level' => 'success']]);
+        return redirect()->route('staff.application.index', 1)->with('alerts', [['message' => 'Interview ('.$application->id.') Denied.', 'level' => 'success']]);
     }
 }

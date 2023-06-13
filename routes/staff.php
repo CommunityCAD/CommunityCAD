@@ -8,7 +8,6 @@ use App\Http\Controllers\Staff\Applications\DenyInterviewController;
 use App\Http\Controllers\Staff\Applications\FlagApplicationController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/application/approve_application/{application}', ApproveApplicationController::class)->name('application.approve_application');
 
 Route::get('/application/approve_interview/{application}', ApproveInterviewController::class)->name('application.approve_interview');
