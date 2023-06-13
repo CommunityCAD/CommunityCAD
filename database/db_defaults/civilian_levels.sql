@@ -13,7 +13,7 @@
 
 -- Dumping data for table fivemcad.civilian_levels: ~0 rows (approximately)
 /*!40000 ALTER TABLE `civilian_levels` DISABLE KEYS */;
-INSERT INTO `civilian_levels` (`id`, `level_description`, `civilian_limit`, `firearm_limit`, `vehicle_limit`, `license_types_allowed`, `deleted_at`, `created_at`, `updated_at`) VALUES
+INSERT INTO `civilian_levels` (`id`, `name`, `civilian_limit`, `firearm_limit`, `vehicle_limit`, `license_types_allowed`, `deleted_at`, `created_at`, `updated_at`) VALUES
 	(1, 'LEO Default', 1, 1, 2, '{"data": ["dl_license", "cdl_license"]}', NULL, '2023-02-11 00:07:53', '2023-02-11 00:07:54');
 /*!40000 ALTER TABLE `civilian_levels` ENABLE KEYS */;
 
