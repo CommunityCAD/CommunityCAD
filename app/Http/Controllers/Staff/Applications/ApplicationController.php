@@ -12,11 +12,8 @@ class ApplicationController extends Controller
 {
     public function index($status = 0): View
     {
-
-        abort_unless(Gate::allows('application_access'), 403);
-
         if ($status == 2) {
-            abort_unless(Gate::allows('application_admin_review'), 403);
+            abort_unless(Gate::allows('application_staff_review'), 403);
         }
 
         if ($status > 7) {
@@ -34,7 +31,7 @@ class ApplicationController extends Controller
                     $page_title = 'Pending Review Applications';
                     break;
                 case 2:
-                    $page_title = 'Pending Admin Review Applications';
+                    $page_title = 'Pending Staff Review Applications';
                     break;
                 case 3:
                     $page_title = 'Pending Interview Applications';
@@ -56,8 +53,6 @@ class ApplicationController extends Controller
 
     public function show(Application $application): View
     {
-        abort_unless(Gate::allows('application_access'), 403);
-
         if ($application->status == 2) {
             abort_unless(Gate::allows('application_admin_review'), 403);
         }

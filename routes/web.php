@@ -49,20 +49,20 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
-        require __DIR__.'/civilian.php';
+        require __DIR__ . '/civilian.php';
     });
 
-    Route::middleware(['auth'])->name('staff.')->prefix('staff')->group(function () {
+    Route::middleware(['auth', 'can:staff_access'])->name('staff.')->prefix('staff')->group(function () {
 
         Route::get('/', [StaffPageController::class, 'index'])->name('index');
-        require __DIR__.'/staff.php';
+        require __DIR__ . '/staff.php';
     });
 
     Route::middleware(['auth', 'can:admin_access'])->name('admin.')->prefix('admin')->group(function () {
 
         Route::get('/', [AdminPageController::class, 'index'])->name('index');
-        require __DIR__.'/admin.php';
+        require __DIR__ . '/admin.php';
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

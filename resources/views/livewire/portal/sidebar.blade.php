@@ -133,30 +133,21 @@
             @endforeach
             <hr>
 
-            <li class="relative px-6 py-3">
-                @if (request()->is(''))
-                    <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
-                        aria-hidden="true"></span>
-                    <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
-                        aria-hidden="true"></span>
-                @endif
-                <a class="sidebar-link @if (request()->is('')) sidebar-link-active @endif" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
-                    </svg>
-                    <span class="ml-4">Supervisor</span>
-                </a>
-            </li>
+            @can('supervisor_access')
+                <li class="relative px-6 py-3">
+                    <a class="sidebar-link @if (request()->is('')) sidebar-link-active @endif" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
+                        </svg>
+                        <span class="ml-4">Supervisor</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('staff_access')
                 <li class="relative px-6 py-3">
-                    @if (request()->is('staff/'))
-                        <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
-                            aria-hidden="true"></span>
-                        <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
-                            aria-hidden="true"></span>
-                    @endif
                     <a class="sidebar-link @if (request()->is('staff/')) sidebar-link-active @endif"
                         href="{{ route('staff.index') }}">
                         <span class="inline-flex items-center">
@@ -173,12 +164,6 @@
             @endcan
             @can('admin_access')
                 <li class="relative px-6 py-3">
-                    @if (request()->is('portal/admin/*'))
-                        <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
-                            aria-hidden="true"></span>
-                        <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
-                            aria-hidden="true"></span>
-                    @endif
                     <a class="sidebar-link @if (request()->is('portal/admin/*')) sidebar-link-active @endif"
                         href="{{ route('admin.index') }}">
                         <span class="inline-flex items-center">
@@ -190,62 +175,6 @@
                             <span class="ml-4">Admin</span>
                         </span>
                     </a>
-                </li>
-                <li class="relative px-6 py-3" x-data="{ open: false }">
-                    @if (request()->is('admin/*'))
-                        <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
-                            aria-hidden="true"></span>
-                        <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
-                            aria-hidden="true"></span>
-                    @endif
-                    <a class="sidebar-link !justify-between @if (request()->is('admin/*')) sidebar-link-active @endif"
-                        href="#" @click="open = !open">
-                        <span class="inline-flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" class="w-4 h-4" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-shield">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                            <span class="ml-4">Staff & Admin</span>
-                        </span>
-                        <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <ul x-transition:enter="transition-all ease-in-out duration-200" x-show="open"
-                        x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
-                        x-transition:leave="transition-all ease-in-out duration-200"
-                        x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                        class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium rounded-md shadow-inner text-gray-200 bg-[#01161e]"
-                        aria-label="submenu" @click.away="open = false">
-                        @can('announcements_access')
-                            <li class="px-2 py-1 transition-colors duration-150 ">
-                                <a class="w-full hover:text-gray-400" href="#">Announcements</a>
-                            </li>
-                        @endcan
-                        @can('application_access')
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 @if (request()->is('admin/application/*')) sidebar-link-active @endif">
-                                <a class="w-full hover:text-gray-400"
-                                    href="#">Applications</a>
-                            </li>
-                        @endcan
-                        @can('user_access')
-                            <li class="px-2 py-1 transition-colors duration-150">
-                                <a class="w-full hover:text-gray-400" href="{{ route('admin.users.index') }}">Manage
-                                    Members</a>
-                            </li>
-                        @endcan
-                        @can('role_access')
-                            <li
-                                class="px-2 py-1 transition-colors duration-150  @if (request()->is('admin/roles/*')) sidebar-link-active @endif">
-                                <a class="w-full hover:text-gray-400" href="{{ route('admin.roles.index') }}">Roles</a>
-                            </li>
-                        @endcan
-
-                    </ul>
                 </li>
             @endcan
 

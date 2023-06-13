@@ -11,9 +11,6 @@ class ApproveApplicationController extends Controller
 {
     public function __invoke(Application $application)
     {
-
-        abort_unless(Gate::allows('application_action'), 403);
-
         History::create([
             'subject_type' => 'application',
             'subject_id' => $application->id,
