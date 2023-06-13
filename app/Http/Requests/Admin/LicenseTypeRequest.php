@@ -5,14 +5,14 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class DisciplinaryActionTypeRequest extends FormRequest
+class LicenseTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Gate::allows('disciplinary_action_type_manage');
+        return Gate::allows('license_type_manage');
     }
 
     /**
@@ -24,7 +24,7 @@ class DisciplinaryActionTypeRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'sometimes',
+            'prefix' => 'sometimes',
         ];
     }
 }

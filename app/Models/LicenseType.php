@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class LicenseType extends Model
 {
     use HasFactory, softDeletes;
+
+    protected $guarded = [];
 }
