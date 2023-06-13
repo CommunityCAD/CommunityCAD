@@ -1,24 +1,19 @@
 @extends('layouts.portal')
 @section('content')
-    <nav class="flex justify-between mb-4 border-b" aria-label="Breadcrumb">
-        <div class="">
-            <p class="text-lg text-white">{{ $department->name }} Home Page</p>
-        </div>
-
-        @livewire('breadcrumbs', ['paths' => []])
-
-    </nav>
+    <header class="w-full my-3">
+        <h1 class="text-2xl font-bold text-white">{{ $department->name }}</h1>
+        <p class="text-sm text-white"></p>
+    </header>
 
     <div class="w-full">
         <img src="{{ $department->logo }}" alt="" class="mx-auto max-w-72 max-h-96">
     </div>
 
-    <div class="my-4 space-y-4 md:flex md:justify-between md:space-y-0 md:space-x-4">
-        <div
-            class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-red-500">
+    <div class="md:flex md:justify-between">
+        <div class="flex items-center justify-between border-red-500 md:mr-2 card">
             <div class="">
-                <p class="text-sm text-red-500">Total Members</p>
-                <p class="text-2xl">15/150</p>
+                <p class="text-sm text-red-500">Department Members</p>
+                <p class="text-2xl">34</p>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
@@ -31,11 +26,10 @@
             </div>
         </div>
 
-        <div
-            class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-yellow-600">
+        <div class="flex items-center justify-between border-yellow-600 card md:mx-2">
             <div class="">
                 <p class="text-sm text-yellow-600">Total Play Time</p>
-                <p class="text-2xl">5:25</p>
+                <p class="text-2xl">15:56</p>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
@@ -46,11 +40,10 @@
             </div>
         </div>
 
-        <div
-            class="dark:bg-[#124559] px-3 py-2 rounded-lg w-full md:w-1/3 flex justify-between text-white border-l-8 border-teal-400">
+        <div class="flex items-center justify-between border-teal-400 card md:ml-2">
             <div class="">
                 <p class="text-sm text-teal-400">Online Members or Active</p>
-                <p class="text-2xl">13/15</p>
+                <p class="text-2xl">1/1</p>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
@@ -62,7 +55,7 @@
         </div>
     </div>
 
-    <div class="my-4 dark:bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-purple-500">
+    <div class="border-purple-500 card">
         <div class="flex justify-between">
             <p class="text-purple-600">Announcements</p>
             <div>
@@ -153,7 +146,7 @@
         </div>
     </div>
 
-    <div class="my-4 dark:bg-[#124559] px-3 py-2 rounded-lg w-full text-white border-l-8 border-green-500">
+    <div class="my-4 border-green-500 card">
         <div class="flex justify-between">
             <p class="text-green-600">Department Resources</p>
             <div>
@@ -168,16 +161,19 @@
             </div>
         </div>
         <div class="">
-            <ul>
+            <ul class="space-y-3">
                 <li>
-                    <a href="#">{{ $department->name }} Roster</a>
+                    <a href="#" class="hover:underline">{{ $department->name }} Roster</a>
+                    <p class="ml-4 text-sm"> > List of all active {{ $department->name }} members.</p>
                 </li>
                 <li>
-                    <a href="#">Department Something else</a>
+                    <a href="#" class="hover:underline">Department Something else</a>
+                    <p class="ml-4 text-sm"> > Some other document for this department.</p>
                 </li>
                 @foreach ($department->departmentResource as $resource)
                     <li>
-                        <a href="{{ $resource->link }}" target="_BLANK">{{ $resource->name }}</a>
+                        <a class="hover:underline" href="{{ $resource->link }}" target="_BLANK">{{ $resource->name }}</a>
+                        <p class="ml-4 text-sm"> > {{ $resource->description }}</p>
                     </li>
                 @endforeach
             </ul>

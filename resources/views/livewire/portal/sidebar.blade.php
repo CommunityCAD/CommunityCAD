@@ -229,7 +229,7 @@
                             <li
                                 class="px-2 py-1 transition-colors duration-150 @if (request()->is('admin/application/*')) sidebar-link-active @endif">
                                 <a class="w-full hover:text-gray-400"
-                                    href="{{ route('admin.application.index', 1) }}">Applications</a>
+                                    href="#">Applications</a>
                             </li>
                         @endcan
                         @can('user_access')

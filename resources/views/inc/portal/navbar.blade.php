@@ -1,6 +1,5 @@
 <header class="z-10 py-4 shadow-md bg-[#124559]">
-    <div
-        class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 md:justify-end dark:text-purple-300">
+    <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-300 md:justify-end">
         <!-- Mobile hamburger -->
         <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
             @click="sideMenu = !sideMenu" aria-label="Menu">
@@ -24,37 +23,41 @@
                     </svg>
                     <!-- Notification badge -->
                     <span aria-hidden="true"
-                        class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"></span>
+                        class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-gray-800 rounded-full"></span>
                 </button>
                 <div x-show="open" @click.away="open = false" @keydown.escape="open = false">
                     <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
-                        class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                        class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-300 bg-gray-700 border border-gray-700 rounded-md shadow-md"
                         aria-label="submenu">
                         <li class="flex">
-                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-800 hover:text-gray-200"
                                 href="#">
                                 <span>New Applications</span>
                                 <span
-                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
+                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
                                     13
                                 </span>
                             </a>
                         </li>
                         <li class="flex">
-                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-800 hover:text-gray-200"
                                 href="#">
-                                <span>User Reports</span>
+                                <span>New Applications</span>
                                 <span
-                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                                    2
+                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                                    13
                                 </span>
                             </a>
                         </li>
                         <li class="flex">
-                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-800 hover:text-gray-200"
                                 href="#">
-                                <span>Admin Actions</span>
+                                <span>New Applications</span>
+                                <span
+                                    class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                                    13
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -64,31 +67,25 @@
 
             <li class="relative" x-data="{ open: false }">
                 <button class="relative align-middle rounded-md" @click="open = !open" @keydown.escape="open = false"
-                    aria-label="Notifications" aria-haspopup="true">
+                    aria-label="Profile" aria-haspopup="true">
                     <x-discord-link></x-discord-link>
                 </button>
                 <div x-show="open" @click.away="open = false" @keydown.escape="open = false">
                     <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
-                        class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                        class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-300 bg-gray-700 border border-gray-700 rounded-md shadow-md"
                         aria-label="submenu">
                         <li class="flex">
-                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-800 hover:text-gray-200"
                                 href="#">
                                 Settings
                             </a>
                         </li>
                         <li class="flex">
-                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-800 hover:text-gray-200"
                                 href="#">
                                 Logout
                             </a>
-                        </li>
-                        <li class="flex">
-                            <x-simple-theme-switch
-                                class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
-                                <span>Change Theme</span>
-                            </x-simple-theme-switch>
                         </li>
                     </ul>
                 </div>

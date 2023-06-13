@@ -16,29 +16,18 @@
 
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
 
-    <script>
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
-                '(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
-
     @livewireStyles
 </head>
 
-<body class="bg-[#eff6e0] dark:bg-[#01161e]" x-data="{ sideMenu: false }">
+<body class="bg-[#101825] text-white" x-data="{ sideMenu: false }">
     <div class="flex h-screen" :class="{ 'overflow-hidden': sideMenu }">
         @include('inc.portal.sidebar')
         <div class="flex flex-col flex-1">
             @include('inc.portal.navbar')
             <main class="h-full pb-16 overflow-y-auto">
-                <!-- Remove everything INSIDE this div to a really blank page -->
                 <div class="container px-6 py-3">
                     @yield('content')
                 </div>
-
             </main>
         </div>
     </div>
@@ -50,27 +39,6 @@
             </div>
         </div>
     @endif
-
-    <script>
-        (function() {
-            const darkToggle = document.querySelector('#simple-theme-toggle');
-
-            darkToggle.addEventListener('click', (event) => {
-                event.preventDefault();
-                document.documentElement.classList.toggle('dark');
-                updateLocalStorage();
-            })
-        })();
-
-        function updateLocalStorage() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
-                    '(prefers-color-scheme: dark)').matches)) {
-                localStorage.theme = 'light';
-            } else {
-                localStorage.theme = 'dark'
-            }
-        }
-    </script>
 
     @livewireScripts
 
