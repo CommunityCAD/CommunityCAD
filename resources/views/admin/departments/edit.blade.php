@@ -3,7 +3,8 @@
 @section('content')
     <header class="w-full my-3">
         <h1 class="text-2xl font-bold text-white">Edit Department {{ $department->name }}</h1>
-        <p class="text-sm text-white">Be careful editing department names. Everyone already in this department will be
+        <p class="text-sm text-white">Be careful editing department names and deleteing all togeather. Everyone already in
+            this department will be
             grandfathered in to the new one. ie if you change this from PD to SO. Then all the PD members and documents will
             become SO.</p>
     </header>

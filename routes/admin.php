@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\CadSettingController;
 use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
+use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\DepartmentController as UserDepartmentController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\User\UserDisciplinaryActionController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Admin\User\UserStatusController;
+use App\Models\DisciplinaryActionType;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/roles', RoleController::class);
@@ -49,3 +51,4 @@ Route::resource('announcement', AnnouncementController::class)->except('index');
 
 Route::resource('department', AdminDepartmentController::class)->except('show');
 Route::resource('cad_setting', CadSettingController::class)->only('index', 'edit', 'update');
+Route::resource('disciplinary_action_type', DisciplinaryActionTypeController::class)->except('show');
