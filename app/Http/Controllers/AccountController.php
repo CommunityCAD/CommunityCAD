@@ -47,7 +47,6 @@ class AccountController extends Controller
 
         $user = User::create($data);
 
-        // dd($user);
         Auth::logout();
 
         $request->session()->forget([
