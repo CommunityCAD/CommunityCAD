@@ -41,12 +41,13 @@ class AccountController extends Controller
             $data['steam_name'] = session('steam_username');
         }
 
-        $user = User::create($data);
-
-        if (in_array($user->id, config('cad.owner_ids'))) {
-            $user->update(['account_status' => 3]);
+        if (in_array($data['id'], config('cad.owner_ids'))) {
+            $data['account_status'] = 3;
         }
 
+        $user = User::create($data);
+
+        // dd($user);
         Auth::logout();
 
         $request->session()->forget([
