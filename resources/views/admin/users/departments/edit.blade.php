@@ -67,7 +67,7 @@
                         <button class="w-full new-button-md">Create</button>
                     </div>
                     <div class="w-1/3 px-3">
-                        <a href="{{ route('admin.users.departments.index', $user->id) }}" class="w-full delete-button-md">
+                        <a href="{{ url()->previous() }}" class="w-full delete-button-md">
                             Cancel
                         </a>
                     </div>

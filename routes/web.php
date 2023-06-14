@@ -23,23 +23,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'pages.home')->name('home');
 
-// Route::get('/event', function () {
-//     event(new CadTableUpdate());
-// });
-
 Route::middleware(['auth'])->group(function () {
     Route::resource('application', ApplicationController::class);
 });
+
 Route::middleware(['auth', 'member.check'])->group(function () {
     Route::name('portal.')->prefix('portal')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+        Route::get('department/{department}/roster', [DepartmentController::class, 'roster_index'], ['department' => 'department'])->name('department.roster.index');
         Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
     });
 
     Route::name('cad.')->prefix('cad')->group(function () {
         Route::get('landing', [PageController::class, 'landing'])->name('landing');
-        Route::post('/add_unit', AddUnitController::class)->name('add_unit');
+        Route::post('add_unit', AddUnitController::class)->name('add_unit');
 
         Route::get('home', [PageController::class, 'home'])->name('home');
         Route::get('cad', [PageController::class, 'cad'])->name('cad');
@@ -49,18 +47,18 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
-        require __DIR__.'/civilian.php';
+        require __DIR__ . '/civilian.php';
     });
 
     Route::middleware(['auth', 'can:staff_access'])->name('staff.')->prefix('staff')->group(function () {
         Route::get('/', [StaffPageController::class, 'index'])->name('index');
-        require __DIR__.'/staff.php';
+        require __DIR__ . '/staff.php';
     });
 
     Route::middleware(['auth', 'can:admin_access'])->name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [AdminPageController::class, 'index'])->name('index');
-        require __DIR__.'/admin.php';
+        require __DIR__ . '/admin.php';
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

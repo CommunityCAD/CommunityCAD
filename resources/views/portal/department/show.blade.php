@@ -123,7 +123,8 @@
         <div class="">
             <ul class="space-y-3">
                 <li>
-                    <a href="#" class="hover:underline">{{ $department->name }} Roster</a>
+                    <a href="{{ route('portal.department.roster.index', $department->slug) }}"
+                        class="hover:underline">{{ $department->name }} Roster</a>
                     <p class="ml-4 text-sm"> > List of all active {{ $department->name }} members.</p>
                 </li>
                 <li>
