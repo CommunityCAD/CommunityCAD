@@ -78,7 +78,7 @@
             </li>
             <hr>
 
-            <li class="relative px-6 py-3">
+            {{-- <li class="relative px-6 py-3">
                 @if (request()->is(''))
                     <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
                         aria-hidden="true"></span>
@@ -110,7 +110,8 @@
                     </svg>
                     <span class="ml-4">Development</span>
                 </a>
-            </li>
+            </li> --}}
+
             @foreach ($departments as $department)
                 <li class="relative px-6 py-3">
                     @if (request()->is('portal/department/' . $department->slug . '*'))
@@ -162,6 +163,7 @@
                     </a>
                 </li>
             @endcan
+
             @can('admin_access')
                 <li class="relative px-6 py-3">
                     <a class="sidebar-link @if (request()->is('portal/admin/*')) sidebar-link-active @endif"
@@ -177,51 +179,6 @@
                     </a>
                 </li>
             @endcan
-
-
-
-
-
-            {{-- <li class="relative px-6 py-3" x-data="{ open: false }">
-            @if (false)
-                <span class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"
-                    aria-hidden="true"></span>
-                <span class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"
-                    aria-hidden="true"></span>
-            @endif
-            <a class="sidebar-link !justify-between @if (false) !text-white @endif"
-                href="#" @click="open = !open">
-                <span class="inline-flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
-                    </svg>
-
-
-                    <span class="ml-4">Internal Affairs</span>
-                </span>
-                <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </a>
-            <ul x-transition:enter="transition-all ease-in-out duration-200" x-show="open"
-                x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
-                x-transition:leave="transition-all ease-in-out duration-200"
-                x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-[#01161e]"
-                aria-label="submenu" @click.away="open = false">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                    <a class="w-full" href="#">Profile</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                    <a class="w-full" href="#">Settings</a>
-                </li>
-            </ul>
-        </li> --}}
-
         </ul>
     </div>
 

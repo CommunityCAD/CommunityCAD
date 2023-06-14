@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="mx-3 my-2">
-                            @can('user_edit')
+                            @can('user_access')
                                 <a href="{{ route('admin.users.show', $user->id) }}" class="mr-3 edit-button-md">View</a>
                             @endcan
                         </div>

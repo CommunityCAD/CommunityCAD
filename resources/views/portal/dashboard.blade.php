@@ -26,7 +26,7 @@
         <div class="flex items-center justify-between border-yellow-600 card md:mx-2">
             <div class="">
                 <p class="text-sm text-yellow-600">Total Play Time</p>
-                <p class="text-2xl">15:56</p>
+                <p class="text-2xl">Coming Soon!</p>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
@@ -108,7 +108,7 @@
             @endforeach
         </div>
     </div>
-
+    {{--
     <div class="my-4 border-green-600 card">
         <div class="flex justify-between">
             <div class="flex items-center space-x-2 text-green-600">
@@ -125,5 +125,5 @@
                 <x-new-button></x-new-button>
             </a>
         </div>
-    </div>
+    </div> --}}
 @endsection
