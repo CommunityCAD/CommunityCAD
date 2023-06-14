@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('text');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreignIdFor(Department::class);
+            $table->foreignIdFor(Department::class)->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
 
             $table->timestamps();

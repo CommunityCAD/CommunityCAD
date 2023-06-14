@@ -13,7 +13,7 @@ class DepartmentController extends Controller
 {
     public function index(): View
     {
-        $departments = Department::all();
+        $departments = Department::where('id', '>', 0)->get(['name', 'slug', 'id', 'logo']);
 
         return view('admin.departments.index', compact('departments'));
     }

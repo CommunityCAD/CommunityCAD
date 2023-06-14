@@ -59,72 +59,53 @@
                     <path
                         d="M16.881 4.346A23.112 23.112 0 018.25 6H7.5a5.25 5.25 0 00-.88 10.427 21.593 21.593 0 001.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 01-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0018 11.25c0-2.413-.393-4.735-1.119-6.904zM18.26 3.74a23.22 23.22 0 011.24 7.51 23.22 23.22 0 01-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 101.409.516 24.555 24.555 0 001.415-6.43 2.992 2.992 0 00.836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 00-1.415-6.43.75.75 0 10-1.409.516c.059.16.116.321.17.483z" />
                 </svg>
-                <p class="">Announcements</p>
+                <p class="">Community Announcements</p>
             </div>
-            <a href="{{ route('staff.announcement.create') }}" class="new-button-sm">
-                <x-new-button></x-new-button>
-            </a>
+            @can('announcement_manage')
+                <a href="{{ route('staff.announcement.create') }}" class="new-button-sm">
+                    <x-new-button></x-new-button>
+                </a>
+            @endcan
+
         </div>
         <div class="">
-            <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
-                <div class="flex justify-between">
-                    <div class="flex">
-                        <div>
-                            <p class="text-lg text-white">Title</p>
-                            <p class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                                laborum.</p>
+            @foreach ($announcements as $announcement)
+                <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
+                    <div class="flex justify-between">
+                        <div class="flex">
+                            @if ($announcement->department_id != 0)
+                                <img src="{{ $announcement->department->logo }}" class="w-10 h-10"
+                                    alt="{{ $announcement->department->initials }}">
+                            @else
+                                <img src="{{ get_setting('community_logo') }}" class="w-10 h-10"
+                                    alt="{{ $announcement->department->initials }}">
+                            @endif
+                            <div class="ml-3">
+                                <p class="text-lg text-white">{{ $announcement->title }}</p>
+                                <p class="text-gray-400">{{ $announcement->text }}</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            @can('announcement_manage')
+                                <a href="{{ route('staff.announcement.edit', $announcement->id) }}" class="edit-button-sm">
+                                    <x-edit-button></x-edit-button>
+                                </a>
+                                <form class="delete-button-sm"
+                                    action="{{ route('staff.announcement.destroy', $announcement->id) }}" method="POST"
+                                    onsubmit="return confirm('Are you sure you wish to delete this announcement? This can\'t be undone!');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="">
+                                        <x-delete-button></x-delete-button>
+                                    </button>
+                                </form>
+                            @endcan
                         </div>
                     </div>
-                    <div class="space-y-6">
-                        <a href="" class="edit-button-sm">
-                            <x-edit-button></x-edit-button>
-                        </a>
-                        <form class="delete-button-sm" action="" method="POST"
-                            onsubmit="return confirm('Are you sure you wish to delete this announcement? This can\'t be undone!');">
-                            @csrf
-                            @method('DELETE')
-                            <button class="">
-                                <x-delete-button></x-delete-button>
-                            </button>
-                        </form>
-                    </div>
+                    <p class="text-right text-gray-400">Posted by: {{ $announcement->user->discord }} at
+                        {{ $announcement->created_at->format('m/d/Y H:i') }}</p>
                 </div>
-                <p class="text-right text-gray-400">Posted by: Ron S at 1/7/2023 15:00</p>
-            </div>
-
-            <div class="p-3 my-2 border-b-2 border-purple-900 announcement">
-                <div class="flex justify-between">
-                    <div class="flex">
-                        <div>
-                            <p class="text-lg text-white">Title</p>
-                            <p class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                                laborum.</p>
-                        </div>
-                    </div>
-                    <div class="space-y-6">
-                        <a href="" class="edit-button-sm">
-                            <x-edit-button></x-edit-button>
-                        </a>
-                        <form class="delete-button-sm" action="" method="POST"
-                            onsubmit="return confirm('Are you sure you wish to delete this announcement? This can\'t be undone!');">
-                            @csrf
-                            @method('DELETE')
-                            <button class="">
-                                <x-delete-button></x-delete-button>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <p class="text-right text-gray-400">Posted by: Ron S at 1/7/2023 15:00</p>
-            </div>
+            @endforeach
         </div>
     </div>
 

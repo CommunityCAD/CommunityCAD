@@ -21,4 +21,9 @@ class Department extends Model
     {
         return $this->hasMany('App\Models\DepartmentResource');
     }
+
+    public function announcements()
+    {
+        return $this->hasMany('App\Models\Announcement')->latest()->take(5);
+    }
 }
