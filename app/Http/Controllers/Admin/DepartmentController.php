@@ -7,13 +7,16 @@ use App\Http\Requests\Admin\DepartmentRequest;
 use App\Models\Department;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
     public function index(): View
     {
-        $departments = Department::where('id', '>', 0)->get(['name', 'slug', 'id', 'logo']);
+        $departments = Cache::get('departments', function () {
+            return Department::where('id', '>', 0)->get();
+        });
 
         return view('admin.departments.index', compact('departments'));
     }
@@ -34,6 +37,8 @@ class DepartmentController extends Controller
 
         Department::create($input);
 
+        $this->refreshcache();
+
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department created.', 'level' => 'success']]);
     }
 
@@ -53,13 +58,15 @@ class DepartmentController extends Controller
             }
         }
 
-        if (! isset($input['is_open_external'])) {
+        if (!isset($input['is_open_external'])) {
             $input['is_open_external'] = 0;
         }
-        if (! isset($input['is_open_internal'])) {
+        if (!isset($input['is_open_internal'])) {
             $input['is_open_internal'] = 0;
         }
         $department->update($input);
+
+        $this->refreshcache();
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department updated.', 'level' => 'success']]);
     }
@@ -69,5 +76,14 @@ class DepartmentController extends Controller
         $department->delete();
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);
+    }
+
+    protected function refreshcache()
+    {
+        $departments = Department::where('id', '>', 0)->get();
+
+        Cache::forget('departments');
+        Cache::forever('departments', $departments);
+        return true;
     }
 }

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\CadSettingController;
 use App\Http\Controllers\Admin\CivilianLevelController;
-use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
 use App\Http\Controllers\Admin\LicenseTypeController;
 use App\Http\Controllers\Admin\RoleController;
@@ -45,7 +45,7 @@ Route::resource('/user/{user}/departments', UserDepartmentController::class, ['n
 Route::resource('users', UserController::class)->middleware('can:user_access');
 
 // Setting Pages
-Route::resource('department', AdminDepartmentController::class)->except('show')->middleware('can:department_manage');
+Route::resource('department', DepartmentController::class)->except('show')->middleware('can:department_manage');
 Route::resource('cad_setting', CadSettingController::class)->only('index', 'edit', 'update')->middleware('can:cad_settings');
 Route::resource('disciplinary_action_type', DisciplinaryActionTypeController::class)->except('show')->middleware('can:disciplinary_action_type_manage');
 Route::resource('license_type', LicenseTypeController::class)->except('show')->middleware('can:license_type_manage');
