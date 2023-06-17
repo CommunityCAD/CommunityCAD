@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\User\UserDepartment;
+use App\Models\UserDepartment;
 use App\Models\Department;
 use Illuminate\Contracts\View\View;
 

@@ -7,6 +7,8 @@ use App\Http\Controllers\Staff\Applications\ApproveInterviewController;
 use App\Http\Controllers\Staff\Applications\DenyApplicationController;
 use App\Http\Controllers\Staff\Applications\DenyInterviewController;
 use App\Http\Controllers\Staff\Applications\FlagApplicationController;
+use App\Http\Controllers\Staff\StaffPageController;
+use App\Http\Controllers\Staff\UserDepartmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/application/approve_application/{application}', ApproveApplicationController::class)->name('application.approve_application')->middleware('can:application_action');
@@ -26,3 +28,14 @@ Route::get('application/status/{status?}', [ApplicationController::class, 'index
 Route::get('application/{application}', [ApplicationController::class, 'show'])->name('application.show')->middleware('can:application_access');
 
 Route::resource('announcement', AnnouncementController::class)->except('')->middleware('can:announcement_manage');
+
+Route::get('/user/search', [StaffPageController::class, 'user_search'])->name('user_search.index')->middleware('can:user_departments_manage');
+
+Route::resource('user.user_department', UserDepartmentController::class)->except('show')->names([
+    'index' => 'user_department.index',
+    'create' => 'user_department.create',
+    'store' => 'user_department.store',
+    'edit' => 'user_department.edit',
+    'update' => 'user_department.update',
+    'destroy' => 'user_department.destroy',
+]);

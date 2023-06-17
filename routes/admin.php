@@ -33,14 +33,7 @@ Route::delete('/user/{user}/accommodation/{userAccommodation}', [UserAccommodati
 Route::post('/user/{user}/da', [UserDisciplinaryActionController::class, 'store'])->name('users.da.store')->middleware('can:user_manage_user_disciplinary_actions');
 Route::delete('/user/{user}/da/{disciplinaryAction}', [UserDisciplinaryActionController::class, 'destroy'])->name('users.da.destroy')->middleware('can:user_manage_user_disciplinary_actions');
 
-Route::resource('/user/{user}/departments', UserDepartmentController::class, ['name' => 'users'])->names([
-    'index' => 'users.departments.index',
-    'create' => 'users.departments.create',
-    'store' => 'users.departments.store',
-    'edit' => 'users.departments.edit',
-    'update' => 'users.departments.update',
-    'destroy' => 'users.departments.destroy',
-]);
+
 
 Route::resource('users', UserController::class)->middleware('can:user_access');
 

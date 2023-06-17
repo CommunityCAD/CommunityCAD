@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\User\UserDepartment;
+use App\Models\UserDepartment;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
 

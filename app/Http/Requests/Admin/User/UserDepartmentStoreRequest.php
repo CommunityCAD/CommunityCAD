@@ -12,7 +12,7 @@ class UserDepartmentStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('user_departments_access');
+        return Gate::allows('user_departments_manage');
     }
 
     /**
