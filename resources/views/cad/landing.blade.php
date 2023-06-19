@@ -1,7 +1,7 @@
 @extends('layouts.cad')
 
 @section('content')
-    <section x-data="{ modalOpen: false }">
+    <section x-data="{ modalOpen: true }">
         <div x-show="modalOpen" x-transition
             class="fixed top-0 left-0 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
             <div class="w-full max-w-[570px] rounded-[20px] bg-gray-400 py-10 px-6 md:py-[40px] md:px-[50px]">

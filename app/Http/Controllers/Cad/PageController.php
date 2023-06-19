@@ -14,6 +14,8 @@ class PageController extends Controller
         // will control if officer is on duty. if not ask department/sub division etc. If so redirect to home
         $user_departments = UserDepartment::where('user_id', auth()->user()->id)->get();
 
+        $
+
         return view('cad.landing', compact('user_departments'));
     }
 
