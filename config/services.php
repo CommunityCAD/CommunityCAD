@@ -36,10 +36,7 @@ return [
         'client_secret' => env('STEAM_CLIENT_SECRET'),
         'redirect' => env('STEAM_REDIRECT_URI'),
         'allowed_hosts' => [
-            'fivemcad.test',
-            'demo.communitycad.app',
-            'bcrp.communitycad.app',
-            'syrp.communitycad.app',
+            env('STEAM_ALLOWED_HOSTS'),
         ],
     ],
 
