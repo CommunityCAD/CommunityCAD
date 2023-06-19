@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
 use App\Http\Controllers\Admin\LicenseTypeController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\User\DepartmentController as UserDepartmentController;
 use App\Http\Controllers\Admin\User\NotesController;
 use App\Http\Controllers\Admin\User\UserAccommodationController;
 use App\Http\Controllers\Admin\User\UserController;
@@ -32,8 +31,6 @@ Route::delete('/user/{user}/accommodation/{userAccommodation}', [UserAccommodati
 
 Route::post('/user/{user}/da', [UserDisciplinaryActionController::class, 'store'])->name('users.da.store')->middleware('can:user_manage_user_disciplinary_actions');
 Route::delete('/user/{user}/da/{disciplinaryAction}', [UserDisciplinaryActionController::class, 'destroy'])->name('users.da.destroy')->middleware('can:user_manage_user_disciplinary_actions');
-
-
 
 Route::resource('users', UserController::class)->middleware('can:user_access');
 

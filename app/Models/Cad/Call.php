@@ -45,7 +45,7 @@ class Call extends Model
     public function getTypeNameAttribute()
     {
         switch ($this->type) {
-            case "1":
+            case '1':
                 return 'LEO';
                 break;
 

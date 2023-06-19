@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserDepartment;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
+use App\Models\UserDepartment;
 
 class PageController extends Controller
 {
@@ -28,7 +28,7 @@ class PageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (!$active_unit) {
+        if (! $active_unit) {
             return redirect()->route('cad.landing');
         }
 

@@ -29,7 +29,7 @@ return new class extends Migration
             $table->longText('names')->nullable();
 
             $table->string('source');
-            $table->bigInteger('civilian_id')->unsigned()->nullable();;
+            $table->bigInteger('civilian_id')->unsigned()->nullable();
             $table->foreign('civilian_id')->references('id')->on('civilians');
 
             $table->timestamps();

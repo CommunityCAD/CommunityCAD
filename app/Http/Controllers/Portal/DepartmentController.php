@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserDepartment;
 use App\Models\Department;
+use App\Models\UserDepartment;
 use Illuminate\Contracts\View\View;
 
 class DepartmentController extends Controller

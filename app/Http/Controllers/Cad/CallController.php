@@ -26,7 +26,7 @@ class CallController extends Controller
     public function store(CallStoreRequest $request): RedirectResponse
     {
         $input = $request->validated();
-        $input['units'] = "{\"data\":[]}";
+        $input['units'] = '{"data":[]}';
         $call = Call::create($input);
 
         return redirect()->route('cad.cad');

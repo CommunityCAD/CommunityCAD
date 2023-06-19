@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserDepartment;
 use App\Models\Cad\ActiveUnit;
+use App\Models\UserDepartment;
 use Illuminate\Http\Request;
 
 class AddUnitController extends Controller
@@ -32,7 +32,7 @@ class AddUnitController extends Controller
         $input['user_id'] = auth()->user()->id;
         $input['department_id'] = $active_department->department->id;
 
-        $input['calls'] = "{\"data\":[]}";
+        $input['calls'] = '{"data":[]}';
 
         ActiveUnit::create($input);
 

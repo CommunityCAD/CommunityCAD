@@ -63,7 +63,12 @@
                         <li>Unit: <a href="#" class="text-sm underline">{{ $active_unit->badge_number }} -
                                 {{ $active_unit->status }}</a></li>
                         <li>Zone: <a href="#" class="text-sm underline">Sandy Shores AOP</a></li>
-                        <li>My Active Call: <a href="#" class="text-sm underline">{{ $active_unit->call_id }}</a></li>
+                        <li>My Active Call:
+                            @foreach ($active_unit->nice_calls as $call)
+                                <a href="{{ route('cad.call.show', $call) }}"
+                                    class="text-sm underline">{{ str_pad($call, 5, 0, STR_PAD_LEFT) }},</a>
+                            @endforeach
+                        </li>
                     </ul>
 
                     <p class="mt-3 text-lg font-semibold">Reports</p>

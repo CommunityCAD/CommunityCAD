@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\UserDepartment;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserDepartmentStoreRequest;
 use App\Http\Requests\Admin\User\UserDepartmentUpdateRequest;
 use App\Models\Department;
 use App\Models\History;
 use App\Models\User;
+use App\Models\UserDepartment;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class UserDepartmentController extends Controller
 {
-
     public function index(User $user): View
     {
         $user_departments = UserDepartment::where('user_id', $user->id)->with('department')->get();
@@ -72,12 +70,14 @@ class UserDepartmentController extends Controller
     public function update(UserDepartmentUpdateRequest $request, User $user, UserDepartment $user_department): RedirectResponse
     {
         $user_department->update($request->validated());
+
         return redirect()->route('staff.user_department.index', $user->id)->with('alerts', [['message' => 'Department updated.', 'level' => 'success']]);
     }
 
     public function destroy(User $user, UserDepartment $user_department): RedirectResponse
     {
         $user_department->delete();
+
         return redirect()->route('staff.user_department.index', $user->id)->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);
     }
 }

@@ -71,7 +71,7 @@ class LeoCad extends Component
                 $new_call_units = json_encode(collect($new_call_units));
                 $call->update(['units' => $new_call_units]);
 
-                $activeUnit->update(['status' => "AVL"]);
+                $activeUnit->update(['status' => 'AVL']);
             }
         }
     }

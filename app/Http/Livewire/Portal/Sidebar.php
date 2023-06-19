@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Portal;
 use App\Models\Department;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Sidebar extends Component
