@@ -39,6 +39,7 @@ return [
             'fivemcad.test',
             'demo.communitycad.app',
             'bcrp.communitycad.app',
+            'syrp.communitycad.app',
         ],
     ],
 
