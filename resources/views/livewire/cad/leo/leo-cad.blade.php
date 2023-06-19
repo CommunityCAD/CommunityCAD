@@ -29,9 +29,10 @@
 
             </div>
 
-            <table class="w-full uppercase border border-collapse table-auto border-slate-400 mt-4">
+            <table class="w-full mt-4 uppercase border border-collapse table-auto border-slate-400">
                 <tr class="text-lg font-bold">
                     <th class="p-1 border border-slate-400">Call #</th>
+                    <th class="p-1 border border-slate-400">Type</th>
                     <th class="p-1 border border-slate-400">Nature</th>
                     <th class="p-1 border border-slate-400">Location</th>
                     <th class="p-1 border border-slate-400">City</th>
@@ -41,41 +42,11 @@
                     <th class="p-1 border border-slate-400">Units</th>
                 </tr>
                 @foreach ($calls as $call)
-                    @php
-                        switch ($call->status) {
-                            case 'OPN':
-                                $text_color = 'text-green-500';
-                                break;
-                        
-                            case 'HLD':
-                                $text_color = 'text-gray-500';
-                                break;
-                        
-                            case 'DISP':
-                                $text_color = 'text-yellow-500';
-                                break;
-                        
-                            case 'INRUTE':
-                                $text_color = 'text-yellow-500';
-                                break;
-                        
-                            case 'ARRV':
-                                $text_color = 'text-orange-500';
-                                break;
-                        
-                            case 'CLO':
-                                $text_color = 'text-red-500';
-                                break;
-                        
-                            default:
-                                $text_color = 'text-red-500';
-                                break;
-                        }
-                    @endphp
-                    <tr class="{{ $text_color }}">
+                    <tr class="{{ $call->display_status_text_color }}">
                         <td class="p-1 border border-slate-400"><a href="{{ route('cad.call.show', $call->id) }}"
-                                class="hover:underline">{{ $call->id }}</a>
+                                class="hover:underline">{{ str_pad($call->id, 5, 0, STR_PAD_LEFT) }}</a>
                         </td>
+                        <td class="p-1 border border-slate-400">{{ $call->type_name }}</td>
                         <td class="p-1 border border-slate-400">{{ $call->nature }}</td>
                         <td class="p-1 border border-slate-400">{{ $call->location }}</td>
                         <td class="p-1 border border-slate-400">{{ $call->city }}</td>
@@ -199,43 +170,16 @@
             </div>
             <table class="w-full border border-collapse table-auto border-slate-400">
                 <tr>
+                    <th class="border border-slate-400">Agency</th>
                     <th class="border border-slate-400">Unit #</th>
                     <th class="border border-slate-400">Status</th>
                     <th class="border border-slate-400">Time</th>
                     <th class="w-1/4 border border-slate-400">Call #</th>
-                    <th class="border border-slate-400">Agency</th>
                     <th class="border border-slate-400">Description</th>
                 </tr>
                 @foreach ($active_units as $active_unit)
-                    @php
-                        switch ($active_unit->status) {
-                            case 'OFFDTY':
-                                $text_color = 'text-red-600';
-                                break;
-                        
-                            case 'BRK':
-                                $text_color = 'text-red-600';
-                                break;
-                        
-                            case 'AVL':
-                                $text_color = 'text-green-600';
-                                break;
-                        
-                            case 'ONSCN':
-                                $text_color = 'text-yellow-600';
-                                break;
-                        
-                            case 'ENRUTE':
-                                $text_color = 'text-yellow-600';
-                                break;
-                        
-                            default:
-                                $text_color = 'text-white';
-                                break;
-                        }
-                    @endphp
-
-                    <tr class="{{ $text_color }}">
+                    <tr class="{{ $active_unit->display_status_text_color }}">
+                        <td class="p-1 border border-slate-400">{{ $active_unit->agency }}</td>
                         <td class="p-1 border border-slate-400">{{ $active_unit->badge_number }}</td>
                         <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                             <div class="flex justify-between">
@@ -270,7 +214,7 @@
                                 <div class="">
                                     @foreach ($active_unit->nice_calls as $call)
                                         <a href="{{ route('cad.call.show', $call) }}">
-                                            {{ $call }},
+                                            {{ str_pad($call, 5, 0, STR_PAD_LEFT) }},
                                         </a>
                                     @endforeach
                                 </div>
@@ -297,7 +241,6 @@
                                 @endforeach
                             </div>
                         </td>
-                        <td class="p-1 border border-slate-400">{{ $active_unit->agency }}</td>
                         <td class="p-1 border border-slate-400">{{ $active_unit->description }}</td>
                     </tr>
                 @endforeach

@@ -15,7 +15,7 @@ class LeoCad extends Component
     public function render()
     {
         $this->active_units = ActiveUnit::get();
-        $this->calls = Call::where('status', '!=', 'CLO')->orderBy('priority', 'desc')->get(['id', 'nature', 'location', 'city', 'priority', 'status', 'updated_at', 'units']);
+        $this->calls = Call::where('status', '!=', 'CLO')->orderBy('priority', 'desc')->get(['id', 'nature', 'location', 'city', 'priority', 'status', 'updated_at', 'units', 'type']);
 
         return view('livewire.cad.leo.leo-cad');
     }

@@ -34,4 +34,29 @@ class ActiveUnit extends Model
 
         return $calls->data;
     }
+
+    public function getDisplayStatusTextColorAttribute()
+    {
+        switch ($this->status) {
+            case 'AVL':
+                return 'text-green-500';
+                break;
+
+            case 'BRK':
+                return 'text-gray-500';
+                break;
+
+            case 'ENRUTE':
+                return 'text-yellow-500';
+                break;
+
+            case 'ONSCN':
+                return 'text-orange-500';
+                break;
+
+            default:
+                return 'text-red-500';
+                break;
+        }
+    }
 }

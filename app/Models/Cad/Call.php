@@ -45,12 +45,12 @@ class Call extends Model
     public function getTypeNameAttribute()
     {
         switch ($this->type) {
-            case 1:
-                return 'Police Department';
+            case "1":
+                return 'LEO';
                 break;
 
             case 2:
-                return 'Fire Department';
+                return 'FD';
                 break;
 
             case 3:
@@ -58,7 +58,40 @@ class Call extends Model
                 break;
 
             default:
-                // code...
+                return 'UKN';
+                break;
+        }
+    }
+
+    public function getDisplayStatusTextColorAttribute()
+    {
+        switch ($this->status) {
+            case 'OPN':
+                return 'text-green-500';
+                break;
+
+            case 'HLD':
+                return 'text-gray-500';
+                break;
+
+            case 'DISP':
+                return 'text-yellow-500';
+                break;
+
+            case 'ENRUTE':
+                return 'text-yellow-500';
+                break;
+
+            case 'ONSCN':
+                return 'text-orange-500';
+                break;
+
+            case 'CLO':
+                return 'text-red-500';
+                break;
+
+            default:
+                return 'text-red-500';
                 break;
         }
     }
