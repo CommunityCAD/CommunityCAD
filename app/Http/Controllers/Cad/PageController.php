@@ -11,10 +11,13 @@ class PageController extends Controller
 {
     public function landing()
     {
-        // will control if officer is on duty. if not ask department/sub division etc. If so redirect to home
         $user_departments = UserDepartment::where('user_id', auth()->user()->id)->get();
 
-        $
+        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get();
+
+        if ($active_unit->count() > 0) {
+            return redirect()->route('cad.home');
+        }
 
         return view('cad.landing', compact('user_departments'));
     }
@@ -25,11 +28,21 @@ class PageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
+        if (!$active_unit) {
+            return redirect()->route('cad.landing');
+        }
+
         return view('cad.home', compact('call_count', 'active_unit'));
     }
 
     public function cad()
     {
+        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get();
+
+        if ($active_unit->count() == 0) {
+            return redirect()->route('cad.landing');
+        }
+
         return view('cad.cad');
     }
 

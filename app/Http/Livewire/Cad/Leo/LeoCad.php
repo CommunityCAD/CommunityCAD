@@ -28,6 +28,11 @@ class LeoCad extends Component
     public function set_call_status(Call $call, $status)
     {
         $call->update(['status' => $status]);
+
+        foreach ($call->nice_units as $unit) {
+            $unit = ActiveUnit::where('badge_number', $unit)->get()->first();
+            $unit->update(['status' => $status]);
+        }
     }
 
     public function set_call_priority(Call $call, $status)
@@ -56,6 +61,8 @@ class LeoCad extends Component
                 $new_call_units['data'] = array_values($call_units);
                 $new_call_units = json_encode(collect($new_call_units));
                 $call->update(['units' => $new_call_units]);
+
+                $activeUnit->update(['status' => $call->status]);
             }
         } else {
             if (($key = array_search($activeUnit->badge_number, $call_units)) !== false) {
@@ -63,6 +70,8 @@ class LeoCad extends Component
                 $new_call_units['data'] = array_values($call_units);
                 $new_call_units = json_encode(collect($new_call_units));
                 $call->update(['units' => $new_call_units]);
+
+                $activeUnit->update(['status' => "AVL"]);
             }
         }
     }

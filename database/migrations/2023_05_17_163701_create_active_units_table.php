@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('agency');
             $table->string('subdivision')->nullable();
-            $table->longText('calls')->nullable();
+            $table->longText('calls');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

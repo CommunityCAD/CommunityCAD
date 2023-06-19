@@ -10,34 +10,34 @@ use Illuminate\Http\Request;
 
 class ActiveUnitController extends Controller
 {
-    public function store(Request $request): RedirectResponse
-    {
-        ActiveUnit::create($request->validated());
+    // public function store(Request $request): RedirectResponse
+    // {
+    //     ActiveUnit::create($request->validated());
 
-        return redirect()->route('activeUnits.index')->with('success', 'Message');
-    }
+    //     return redirect()->route('activeUnits.index')->with('success', 'Message');
+    // }
 
-    public function show(ActiveUnit $activeUnit): View
-    {
-        return view('activeUnits.show', compact('activeUnits'));
-    }
+    // public function show(ActiveUnit $activeUnit): View
+    // {
+    //     return view('activeUnits.show', compact('activeUnits'));
+    // }
 
-    public function edit(ActiveUnit $activeUnit): View
-    {
-        return view('activeUnits.edit', compact('activeUnits'));
-    }
+    // public function edit(ActiveUnit $activeUnit): View
+    // {
+    //     return view('activeUnits.edit', compact('activeUnits'));
+    // }
 
-    public function update(Request $request, ActiveUnit $activeUnit): RedirectResponse
-    {
-        $activeUnit->update($request->validated());
+    // public function update(Request $request, ActiveUnit $activeUnit): RedirectResponse
+    // {
+    //     $activeUnit->update($request->validated());
 
-        return redirect()->route('activeUnits.index')->with('success', 'Message');
-    }
+    //     return redirect()->route('activeUnits.index')->with('success', 'Message');
+    // }
 
-    public function destroy(ActiveUnit $activeUnit): RedirectResponse
-    {
-        $activeUnit->delete();
+    // public function destroy(ActiveUnit $activeUnit): RedirectResponse
+    // {
+    //     $activeUnit->delete();
 
-        return redirect()->route('activeUnits.index')->with('success', 'Message');
-    }
+    //     return redirect()->route('activeUnits.index')->with('success', 'Message');
+    // }
 }
