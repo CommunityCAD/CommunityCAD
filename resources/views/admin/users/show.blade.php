@@ -47,12 +47,11 @@
             </div>
         @endcan
 
-
         <div class="grid grid-cols-1 gap-3 pt-5 pb-5 md:grid-cols-2">
 
             <div class="admin-card">
                 <div class="text-center">
-                    <img src="{{ $user->avatar }}" alt="" class="w-32 h-32 mx-auto rounded-full">
+                    <img alt="" class="w-32 h-32 mx-auto rounded-full" src="{{ $user->avatar }}">
                     <h2 class="text-xl font-semibold">{{ $user->discord }}</h2>
                     <p class="mt-3 text-sm">Head Admin</p>
                 </div>
@@ -61,7 +60,7 @@
                         <p class="flex items-center justify-between">
                             <span>User status</span>
                             @can('user_edit_user_status')
-                                <a href="{{ route('admin.users.status.edit', $user->id) }}" class="edit-button-sm">
+                                <a class="edit-button-sm" href="{{ route('admin.users.status.edit', $user->id) }}">
                                     <x-edit-button></x-edit-button>
                                 </a>
                             @endcan
@@ -147,8 +146,8 @@
 
                         @can('is_super_user')
                             @if ($user->account_status == 3)
-                                <form action="{{ route('admin.users.protected_user.update', $user->id) }}" method="POST"
-                                    class="block">
+                                <form action="{{ route('admin.users.protected_user.update', $user->id) }}" class="block"
+                                    method="POST">
                                     @csrf
                                     @method('PUT')
 
@@ -171,8 +170,8 @@
 
                         @can('is_super_user')
                             @if ($user->account_status == 3)
-                                <form action="{{ route('admin.users.super_user.update', $user->id) }}" method="POST"
-                                    class="block">
+                                <form action="{{ route('admin.users.super_user.update', $user->id) }}" class="block"
+                                    method="POST">
                                     @csrf
                                     @method('PUT')
 
@@ -193,21 +192,21 @@
                             @endif
                         </p>
                         <div class="relative inline-block">
-                            <a href="#" @click="open_tip = true">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                            <a @click="open_tip = true" href="#">
+                                <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </a>
-                            <div class="absolute z-50 w-56 p-2 text-white bg-black rounded-lg" x-show="open_tip"
-                                @click.outside="open_tip = false">
+                            <div @click.outside="open_tip = false"
+                                class="absolute z-50 w-56 p-2 text-white bg-black rounded-lg" x-show="open_tip">
                                 This is set in the cad config file. See docs for help.
                             </div>
                         </div>
                     </li>
                 </ul>
-
 
             </div>
 
@@ -215,11 +214,11 @@
                 <h2 class="mb-4 text-xl font-semibold underline">Quick Admin Options</h2>
 
                 <div class="grid grid-cols-1 gap-4 text-sm xl:grid-cols-2">
-                    <a href="#" class="secondary-button-md">Suspend/LOA User</a>
-                    <a href="#" class="delete-button-md">Ban User</a>
-                    <a href="#" class="secondary-button-md" @click="communityRankModal = true">Community Rank</a>
-                    <a href="{{ route('admin.users.departments.index', $user->id) }}"
-                        class="secondary-button-md">Departments</a>
+                    <a class="secondary-button-md" href="#">Suspend/LOA User</a>
+                    <a class="delete-button-md" href="#">Ban User</a>
+                    <a @click="communityRankModal = true" class="secondary-button-md" href="#">Community Rank</a>
+                    <a class="secondary-button-md"
+                        href="{{ route('staff.user_department.index', $user->id) }}">Departments</a>
                 </div>
             </div>
 
@@ -227,7 +226,7 @@
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Notes <span class="ml-3 text-sm">(Last 5)</span></h2>
                     @can('user_manage_user_notes')
-                        <a href="#" class="new-button-sm" @click="noteModal = true">
+                        <a @click="noteModal = true" class="new-button-sm" href="#">
                             <x-new-button></x-new-button>
                         </a>
                     @endcan
@@ -235,11 +234,11 @@
 
                 <div class="">
                     @foreach ($notes as $note)
-                        <div class="admin-pill cursor-pointer border-l-4 border-cyan-600" x-data="{ open: true }"
-                            @click.away="open = false">
+                        <div @click.away="open = false" class="admin-pill cursor-pointer border-l-4 border-cyan-600"
+                            x-data="{ open: true }">
 
                             <div class="flex items-center justify-between">
-                                <p class="text-white select-none" @click="open = !open">
+                                <p @click="open = !open" class="text-white select-none">
                                     From:
                                     {{ $note->giver_user->discord }}
                                     <span
@@ -272,7 +271,7 @@
                 <div class="flex items-center justify-between">
                     <h2 class="mb-4 text-xl font-semibold">Accommodations <span class="ml-3 text-sm">(Last 5)</span></h2>
                     @can('user_manage_user_accommodations')
-                        <a href="#" class="new-button-sm" @click="accommodationModal = true">
+                        <a @click="accommodationModal = true" class="new-button-sm" href="#">
                             <x-new-button></x-new-button>
                         </a>
                     @endcan
@@ -280,11 +279,11 @@
                 <div class="">
 
                     @foreach ($accommodations as $accommodation)
-                        <div class="admin-pill border-l-4 border-green-600 cursor-pointer" x-data="{ open: true }"
-                            @click.away="open = false">
+                        <div @click.away="open = false" class="admin-pill border-l-4 border-green-600 cursor-pointer"
+                            x-data="{ open: true }">
 
                             <div class="flex items-center justify-between">
-                                <p class="text-white select-none" @click="open = !open">
+                                <p @click="open = !open" class="text-white select-none">
                                     From: {{ $accommodation->giver_user->discord }}
                                     <span
                                         class="block -mt-1 text-xs tracking-widest">{{ $accommodation->created_at->format('m/d/Y H:i') }}</span>
@@ -318,7 +317,7 @@
                     <h2 class="mb-4 text-xl font-semibold">Disciplinary Actions <span class="ml-3 text-sm">(Last 5)</span>
                     </h2>
                     @can('user_manage_user_disciplinary_actions')
-                        <a href="#" class="new-button-sm" @click="daModal = true">
+                        <a @click="daModal = true" class="new-button-sm" href="#">
                             <x-new-button></x-new-button>
                         </a>
                     @endcan
@@ -327,11 +326,11 @@
 
                 <div class="">
                     @foreach ($das as $da)
-                        <div class="admin-pill border-l-4 border-red-600 cursor-pointer" x-data="{ open: true }"
-                            @click.away="open = false">
+                        <div @click.away="open = false" class="admin-pill border-l-4 border-red-600 cursor-pointer"
+                            x-data="{ open: true }">
 
                             <div class="flex items-center justify-between">
-                                <p class="text-white select-none" @click="open = !open">From:
+                                <p @click="open = !open" class="text-white select-none">From:
                                     {{ $da->giver_user->discord }}
                                     <span class="block -mt-1 text-xs tracking-widest">
                                         {{ $da->created_at->format('m/d/Y H:i') }}
@@ -386,8 +385,8 @@
         </div>
 
         @can('user_manage_user_notes')
-            <div x-show="noteModal" x-transition
-                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+            <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+                x-show="noteModal" x-transition>
                 <div @click.outside="noteModal = false"
                     class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
@@ -396,7 +395,7 @@
                     <form action="{{ route('admin.users.notes.store', $user->id) }}" method="POST">
                         @csrf
 
-                        <textarea type="text" name="note" class="textarea-input" required>{{ old('note') }}</textarea>
+                        <textarea class="textarea-input" name="note" required type="text">{{ old('note') }}</textarea>
                         <div class="flex flex-wrap -mx-3">
                             <div class="w-1/2 px-3">
                                 <button class="w-full edit-button-md">Save</button>
@@ -413,8 +412,8 @@
         @endcan
 
         @can('user_manage_user_accommodations')
-            <div x-show="accommodationModal" x-transition
-                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+            <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+                x-show="accommodationModal" x-transition>
                 <div @click.outside="accommodationModal = false"
                     class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
@@ -422,7 +421,7 @@
                     </h3>
                     <form action="{{ route('admin.users.accommodation.store', $user->id) }}" method="POST">
                         @csrf
-                        <textarea type="text" name="accommodation" class="textarea-input" required>{{ old('accommodation') }}</textarea>
+                        <textarea class="textarea-input" name="accommodation" required type="text">{{ old('accommodation') }}</textarea>
                         <div class="flex flex-wrap -mx-3">
                             <div class="w-1/2 px-3">
                                 <button class="w-full edit-button-md">Save</button>
@@ -439,8 +438,8 @@
         @endcan
 
         @can('user_manage_user_disciplinary_actions')
-            <div x-show="daModal" x-transition
-                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+            <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+                x-show="daModal" x-transition>
                 <div @click.outside="daModal = false"
                     class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
@@ -448,12 +447,12 @@
                     </h3>
                     <form action="{{ route('admin.users.da.store', $user->id) }}" method="POST">
                         @csrf
-                        <select name="disciplinary_action_type_id" class="select-input" required>
+                        <select class="select-input" name="disciplinary_action_type_id" required>
                             @foreach ($da_types as $da_type_id => $da_type_name)
                                 <option value="{{ $da_type_id }}">{{ $da_type_name }}</option>
                             @endforeach
                         </select>
-                        <textarea type="text" name="disciplinary_action" class="textarea-input" required>{{ old('disciplinary_action') }}</textarea>
+                        <textarea class="textarea-input" name="disciplinary_action" required type="text">{{ old('disciplinary_action') }}</textarea>
                         <div class="flex flex-wrap -mx-3">
                             <div class="w-1/2 px-3">
                                 <button class="w-full edit-button-md">Save</button>
@@ -469,8 +468,8 @@
             </div>
         @endcan
 
-        <div x-show="communityRankModal" x-transition
-            class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+        <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+            x-show="communityRankModal" x-transition>
             <div @click.outside="communityRankModal = false"
                 class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                 <h3 class="pb-2 text-xl font-bold sm:text-2xl">
@@ -478,7 +477,7 @@
                 </h3>
                 <p>Community rank has no impact on roles or permissions. This is only to help identify members.</p>
                 <form action="" method="POST">
-                    <select name="community_rank" class="select-input" required>
+                    <select class="select-input" name="community_rank" required>
                         <option value="1">Member</option>
                         <option value="2">Moderator</option>
                         <option value="3">Admin</option>
@@ -500,8 +499,8 @@
         </div>
 
         @can('user_manage_user_roles')
-            <div x-show="rolesModal" x-transition
-                class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+            <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+                x-show="rolesModal" x-transition>
                 <div @click.outside="rolesModal = false"
                     class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
                     <h3 class="pb-2 text-xl font-bold sm:text-2xl">
@@ -515,10 +514,10 @@
 
                             @foreach ($roles as $role)
                                 @if ($user->roles->contains($role->id))
-                                    <label for="{{ $role->id }}" class="flex items-center cursor-pointer">
+                                    <label class="flex items-center cursor-pointer" for="{{ $role->id }}">
                                         <div class="relative">
-                                            <input type="checkbox" class="hidden checkbox" name="roles[]"
-                                                id="{{ $role->id }}" value="{{ $role->id }}" checked>
+                                            <input checked class="hidden checkbox" id="{{ $role->id }}" name="roles[]"
+                                                type="checkbox" value="{{ $role->id }}">
                                             <div class="block border-[1px] border-white w-14 h-8 rounded-full">
                                             </div>
                                             <div
@@ -530,10 +529,10 @@
                                         </div>
                                     </label>
                                 @else
-                                    <label for="{{ $role->id }}" class="flex items-center cursor-pointer">
+                                    <label class="flex items-center cursor-pointer" for="{{ $role->id }}">
                                         <div class="relative">
-                                            <input type="checkbox" class="hidden checkbox" name="roles[]"
-                                                id="{{ $role->id }}" value="{{ $role->id }}">
+                                            <input class="hidden checkbox" id="{{ $role->id }}" name="roles[]"
+                                                type="checkbox" value="{{ $role->id }}">
                                             <div class="block border-[1px] border-white w-14 h-8 rounded-full">
                                             </div>
                                             <div class="absolute w-6 h-6 transition  rounded-full dot left-1 top-1 bg-white">

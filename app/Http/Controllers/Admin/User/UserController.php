@@ -26,6 +26,8 @@ class UserController extends Controller
     public function show(User $user): mixed
     {
 
+        // dd(config('cad.owner_ids'));
+
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if (!in_array(auth()->user()->id, config('cad.owner_ids'))) {
