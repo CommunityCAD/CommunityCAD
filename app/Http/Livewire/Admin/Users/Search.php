@@ -13,18 +13,16 @@ class Search extends Component
 
     public function render()
     {
-        if (! empty($this->search)) {
+        if (!empty($this->search)) {
             if ($this->status_id == 0) {
-                $users = User::where('discord_name', 'like', '%'.$this->search.'%')->get();
+                $users = User::where('discord_name', 'like', '%' . $this->search . '%')->get();
             } else {
-                $users = User::where('discord_name', 'like', '%'.$this->search.'%')->where('account_status', $this->status_id)->get();
+                $users = User::where('discord_name', 'like', '%' . $this->search . '%')->where('account_status', $this->status_id)->get();
             }
         } else {
             $users = User::where('account_status', $this->status_id)->get();
             if ($this->status_id == 0) {
                 $users = User::orderBy('discord_name', 'asc')->get();
-            } else {
-                $users = User::where('account_status', $this->status_id)->get();
             }
         }
 
