@@ -28,7 +28,7 @@ class PageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (! $active_unit) {
+        if (!$active_unit) {
             return redirect()->route('cad.landing');
         }
 
@@ -37,9 +37,9 @@ class PageController extends Controller
 
     public function cad()
     {
-        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get();
+        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->count();
 
-        if ($active_unit->count() == 0) {
+        if ($active_unit == 0) {
             return redirect()->route('cad.landing');
         }
 

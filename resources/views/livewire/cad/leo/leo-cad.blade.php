@@ -6,25 +6,27 @@
             <div class="flex justify-between">
                 @if (false)
                     <p class="flex text-green-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M14.25 9.75v-4.5m0 4.5h4.5m-4.5 0l6-6m-3 18c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z" />
+                        <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M14.25 9.75v-4.5m0 4.5h4.5m-4.5 0l6-6m-3 18c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z"
+                                stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <span class="ml-4">Dispatch Online</span>
                     </p>
-                    <a href="{{ route('cad.call.create') }}" class="new-button-md">New Call</a>
+                    <a class="new-button-md" href="{{ route('cad.call.create') }}">New Call</a>
                 @else
                     <p class="flex text-red-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 3.75L18 6m0 0l2.25 2.25M18 6l2.25-2.25M18 6l-2.25 2.25m1.5 13.5c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z" />
+                        <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15.75 3.75L18 6m0 0l2.25 2.25M18 6l2.25-2.25M18 6l-2.25 2.25m1.5 13.5c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z"
+                                stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                         <span class="ml-4">Dispatch Offline</span>
                     </p>
-                    <a href="{{ route('cad.call.create') }}" class="new-button-md">New Call</a>
+                    <a class="new-button-md" href="{{ route('cad.call.create') }}">New Call</a>
                 @endif
 
             </div>
@@ -43,8 +45,8 @@
                 </tr>
                 @foreach ($calls as $call)
                     <tr class="{{ $call->display_status_text_color }}">
-                        <td class="p-1 border border-slate-400"><a href="{{ route('cad.call.show', $call->id) }}"
-                                class="hover:underline">{{ str_pad($call->id, 5, 0, STR_PAD_LEFT) }}</a>
+                        <td class="p-1 border border-slate-400"><a class="hover:underline"
+                                href="{{ route('cad.call.show', $call->id) }}">{{ str_pad($call->id, 5, 0, STR_PAD_LEFT) }}</a>
                         </td>
                         <td class="p-1 border border-slate-400">{{ $call->type_name }}</td>
                         <td class="p-1 border border-slate-400">{{ $call->nature }}</td>
@@ -54,60 +56,54 @@
                             <div class="flex justify-between">
                                 <span>{{ $call->priority }}</span>
                                 <a @click="statusOpen = !statusOpen" class="underline cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                            stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </a>
                             </div>
-                            <div class="absolute right-0 z-50 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
-                                x-show="statusOpen" @click.outside="statusOpen = false">
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_priority({{ $call->id }}, '1')"
-                                    class="block hover:bg-gray-500">1</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_priority({{ $call->id }}, '2')"
-                                    class="block hover:bg-gray-500">2</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_priority({{ $call->id }}, '3')"
-                                    class="block hover:bg-gray-500">3</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_priority({{ $call->id }}, '4')"
-                                    class="block hover:bg-gray-500">4</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_priority({{ $call->id }}, '5')"
-                                    class="block hover:bg-gray-500">5</a>
+                            <div @click.outside="statusOpen = false"
+                                class="absolute right-0 z-50 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
+                                x-show="statusOpen">
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_priority({{ $call->id }}, '1')">1</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_priority({{ $call->id }}, '2')">2</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_priority({{ $call->id }}, '3')">3</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_priority({{ $call->id }}, '4')">4</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_priority({{ $call->id }}, '5')">5</a>
                             </div>
                         </td>
                         <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                             <div class="flex justify-between">
                                 <span>{{ $call->status }}</span>
                                 <a @click="statusOpen = !statusOpen" class="underline cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                            stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </a>
                             </div>
-                            <div class="absolute right-0 z-50 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
-                                x-show="statusOpen" @click.outside="statusOpen = false">
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_status({{ $call->id }}, 'OPN')"
-                                    class="block hover:bg-gray-500">OPN</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_status({{ $call->id }}, 'HLD')"
-                                    class="block hover:bg-gray-500">HLD</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_status({{ $call->id }}, 'DISP')"
-                                    class="block hover:bg-gray-500">DISP</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_status({{ $call->id }}, 'ENRUTE')"
-                                    class="block hover:bg-gray-500">ENRUTE</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_call_status({{ $call->id }}, 'ARRV')"
-                                    class="block hover:bg-gray-500">ARRV</a>
+                            <div @click.outside="statusOpen = false"
+                                class="absolute right-0 z-50 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
+                                x-show="statusOpen">
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_status({{ $call->id }}, 'OPN')">OPN</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_status({{ $call->id }}, 'HLD')">HLD</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_status({{ $call->id }}, 'DISP')">DISP</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_status({{ $call->id }}, 'ENRUTE')">ENRUTE</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_call_status({{ $call->id }}, 'ARRV')">ARRV</a>
                             </div>
                         </td>
                         <td class="p-1 border border-slate-400">{{ $call->time }}m</td>
@@ -119,24 +115,24 @@
                                     @endforeach
                                 </span>
                                 <a @click="unitsOpen = !unitsOpen" class="underline cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                            stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </a>
                             </div>
-                            <div class="absolute right-0 z-50 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
-                                x-show="unitsOpen" @click.outside="unitsOpen = false">
+                            <div @click.outside="unitsOpen = false"
+                                class="absolute right-0 z-50 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
+                                x-show="unitsOpen">
                                 @foreach ($active_units as $unit)
                                     @if (in_array($unit->badge_number, $call->nice_units))
-                                        <a href="#" @click="unitsOpen = false"
-                                            wire:click="remove_unit_from_call({{ $unit->id }}, {{ $call->id }})"
-                                            class="block bg-gray-500">{{ $unit->badge_number }}</a>
+                                        <a @click="unitsOpen = false" class="block bg-gray-500" href="#"
+                                            wire:click="remove_unit_from_call({{ $unit->id }}, {{ $call->id }})">{{ $unit->badge_number }}</a>
                                     @else
-                                        <a href="#" @click="unitsOpen = false"
-                                            wire:click="add_unit_to_call({{ $unit->id }}, {{ $call->id }})"
-                                            class="block hover:bg-gray-500">{{ $unit->badge_number }}</a>
+                                        <a @click="unitsOpen = false" class="block hover:bg-gray-500" href="#"
+                                            wire:click="add_unit_to_call({{ $unit->id }}, {{ $call->id }})">{{ $unit->badge_number }}</a>
                                     @endif
                                 @endforeach
                             </div>
@@ -150,22 +146,21 @@
             <div class="flex justify-around mb-3 space-x-3">
 
                 @if (auth()->user()->active_unit->status == 'OFFDTY')
-                    <a href="{{ route('cad.call.create') }}" class="new-button-md">ON DUTY</a>
+                    <a class="new-button-md" href="{{ route('cad.call.create') }}">ON DUTY</a>
                 @else
-                    <a href="#" wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')"
-                        class="new-button-md">AVAILABLE</a>
+                    <a class="new-button-md" href="#"
+                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">AVAILABLE</a>
 
-                    <a href="#" wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ENRUTE')"
-                        class="bg-yellow-600 hover:bg-yellow-500 button-md">EN
+                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
+                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ENRUTE')">EN
                         ROUTE</a>
-                    <a href="#" wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ONSCN')"
-                        class="bg-yellow-600 hover:bg-yellow-500 button-md">ON
+                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
+                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ONSCN')">ON
                         SCENE</a>
-                    <a href="#" wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')"
-                        class="delete-button-md">BREAK</a>
-                    <a href="{{ route('cad.call.create') }}" class="delete-button-md">OFF DUTY</a>
+                    <a class="delete-button-md" href="#"
+                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">BREAK</a>
+                    <a class="delete-button-md" href="{{ route('cad.offduty.edit') }}">OFF DUTY</a>
                 @endif
-
 
             </div>
             <table class="w-full border border-collapse table-auto border-slate-400">
@@ -185,27 +180,25 @@
                             <div class="flex justify-between">
                                 <span>{{ $active_unit->status }}</span>
                                 <a @click="statusOpen = !statusOpen" class="underline cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                            stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </a>
                             </div>
-                            <div class="absolute right-0 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
-                                x-show="statusOpen" @click.outside="statusOpen = false">
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_status({{ $active_unit->id }}, 'AVL')"
-                                    class="block hover:bg-gray-500">Available</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_status({{ $active_unit->id }}, 'ENRUTE')"
-                                    class="block hover:bg-gray-500">En-route</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_status({{ $active_unit->id }}, 'ONSCN')"
-                                    class="block hover:bg-gray-500">On-Scene</a>
-                                <a href="#" @click="statusOpen = false"
-                                    wire:click="set_status({{ $active_unit->id }}, 'BRK')"
-                                    class="block hover:bg-gray-500">Break</a>
+                            <div @click.outside="statusOpen = false"
+                                class="absolute right-0 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
+                                x-show="statusOpen">
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_status({{ $active_unit->id }}, 'AVL')">Available</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_status({{ $active_unit->id }}, 'ENRUTE')">En-route</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_status({{ $active_unit->id }}, 'ONSCN')">On-Scene</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_status({{ $active_unit->id }}, 'BRK')">Break</a>
                             </div>
                         </td>
                         <td class="p-1 border border-slate-400">{{ $active_unit->time }}m</td>
@@ -219,24 +212,26 @@
                                     @endforeach
                                 </div>
                                 <a @click="callsOpen = !callsOpen" class="underline cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                            stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </a>
                             </div>
-                            <div class="absolute right-0 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
-                                x-show="callsOpen" @click.outside="callsOpen = false">
+                            <div @click.outside="callsOpen = false"
+                                class="absolute right-0 w-32 p-3 space-y-3 text-white bg-gray-800 rounded"
+                                x-show="callsOpen">
                                 @foreach ($calls as $call)
                                     @if (in_array($unit->badge_number, $call->nice_units))
-                                        <a href="#" @click="callsOpen = false"
-                                            wire:click="remove_unit_from_call({{ $unit->id }}, {{ $call->id }})"
-                                            class="block bg-gray-500">Remove From Call {{ $call->id }}</a>
+                                        <a @click="callsOpen = false" class="block bg-gray-500" href="#"
+                                            wire:click="remove_unit_from_call({{ $unit->id }}, {{ $call->id }})">Remove
+                                            From Call {{ $call->id }}</a>
                                     @else
-                                        <a href="#" @click="callsOpen = false"
-                                            wire:click="add_unit_to_call({{ $unit->id }}, {{ $call->id }})"
-                                            class="block hover:bg-gray-500">Add To Call {{ $call->id }}</a>
+                                        <a @click="callsOpen = false" class="block hover:bg-gray-500" href="#"
+                                            wire:click="add_unit_to_call({{ $unit->id }}, {{ $call->id }})">Add
+                                            To Call {{ $call->id }}</a>
                                     @endif
                                 @endforeach
                             </div>
