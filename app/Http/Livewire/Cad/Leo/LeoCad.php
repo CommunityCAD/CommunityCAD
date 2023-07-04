@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Cad\Leo;
 
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
+use App\Models\CallLog;
 use Livewire\Component;
 
 class LeoCad extends Component
@@ -44,12 +45,22 @@ class LeoCad extends Component
     {
         $this->update_call_with_units($activeUnit, $call, 'delete');
         $this->update_units_for_call($activeUnit, $call, 'delete');
+        CallLog::create([
+            'from' => 'SYSTEM',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
+            'call_id' => $call->id,
+        ]);
     }
 
     public function add_unit_to_call(ActiveUnit $activeUnit, Call $call)
     {
         $this->update_call_with_units($activeUnit, $call, 'add');
         $this->update_units_for_call($activeUnit, $call, 'add');
+        CallLog::create([
+            'from' => 'SYSTEM',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been added to call.',
+            'call_id' => $call->id,
+        ]);
     }
 
     private function update_call_with_units(ActiveUnit $activeUnit, Call $call, $action)
