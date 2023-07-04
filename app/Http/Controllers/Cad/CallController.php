@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cad;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\CallStoreRequest;
 use App\Models\Cad\Call;
+use App\Models\CallLog;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,7 +35,8 @@ class CallController extends Controller
 
     public function show(Call $call): View
     {
-        return view('cad.calls.show', compact('call'));
+        $call_logs = CallLog::where('call_id',  $call->id)->get();
+        return view('cad.calls.show', compact('call', 'call_logs'));
     }
 
     public function edit(Call $call): View

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Cad\AddUnitController;
 use App\Http\Controllers\Cad\CallController;
+use App\Http\Controllers\Cad\CallLogController;
 use App\Http\Controllers\Cad\OffDutyController;
 use App\Http\Controllers\Cad\PageController;
 use App\Http\Controllers\Portal\DashboardController;
@@ -48,6 +49,8 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::get('offduty', [OffDutyController::class, 'edit'])->name('offduty.edit');
         Route::post('offduty', [OffDutyController::class, 'update'])->name('offduty.update');
+
+        Route::post('call/{call}/update_call_log', [CallLogController::class, 'store'])->name('call_log.store');
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {

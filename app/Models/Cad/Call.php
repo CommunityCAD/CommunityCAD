@@ -2,6 +2,7 @@
 
 namespace App\Models\Cad;
 
+use App\Models\CallLog;
 use App\Models\Civilian;
 use App\Models\User;
 use Carbon\Carbon;
@@ -20,16 +21,21 @@ class Call extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected $with = ['user', 'civilian'];
+    protected $with = ['user', 'civilian', 'call_log'];
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'lead_user_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function civilian()
     {
-        return $this->hasOne(Civilian::class, 'id', 'rp_civilian_id');
+        return $this->hasOne(Civilian::class, 'id', 'civilian_id');
+    }
+
+    public function call_log()
+    {
+        return $this->hasMany(CallLog::class);
     }
 
     public function getTimeAttribute()

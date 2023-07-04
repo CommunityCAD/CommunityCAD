@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cad_reports', function (Blueprint $table) {
+        Schema::create('call_logs', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('call_id')->unsigned();
+            $table->foreign('call_id')->references('id')->on('calls');
 
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('from');
+            $table->text('text');
 
-            $table->string('type');
-            $table->text('report');
-
-
-            $table->$table->timestamps();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cad_reports');
+        Schema::dropIfExists('call_log');
     }
 };
