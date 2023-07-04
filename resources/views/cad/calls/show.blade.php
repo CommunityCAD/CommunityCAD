@@ -38,7 +38,7 @@
 
             <div class="flex">
                 <div class="flex items-center w-1/5">
-                    <span class="mr-2 text-lg">Status:</span>
+                    <span class="mr-2 text-lg">STAT:</span>
                     <p class="w-full px-1 py-1 text-lg font-bold border-2 border-white">{{ $call->status }}</p>
                 </div>
                 <div class="flex items-center w-1/5 ml-3">
@@ -49,23 +49,48 @@
                     <span class="mr-2 text-lg">Type:</span>
                     <p class="w-full px-1 py-1 text-lg font-bold border-2 border-white">{{ $call->type_name }}</p>
                 </div>
-                <div class="flex items-center w-1/5 ml-3">
-                    <span class="mr-2 text-lg">Lead:</span>
-                    <p class="w-full px-1 py-1 text-lg font-bold border-2 border-white">
-                        {{ $call->user_id != null ? $call->user->officer_name_check : 'None' }}</p>
-                </div>
-                <div class="flex items-center w-1/5 ml-3">
+                {{-- <div class="w-1/5 ml-3 relative" x-data="{ unitsOpen: false }">
+                    <div class="flex items-center w-full">
+                        <span class="mr-2 text-lg">Lead:</span>
+                        <div class="flex justify-between w-full px-1 full py-1 text-lg font-bold border-2 border-white">
+                            <p class="">
+                                {{ $call->user_id != null ? $call->user->officer_name_check : 'None' }}</p>
+                            <a @click="unitsOpen = !unitsOpen" class="underline cursor-pointer">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div @click.outside="unitsOpen = false"
+                        class="absolute right-0 z-50 w-64 p-3 space-y-3 text-white bg-gray-800 rounded" x-show="unitsOpen">
+                        @foreach ($active_units as $unit)
+                            @if (in_array($unit->badge_number, $call->nice_units))
+                                <a @click="unitsOpen = false" class="block bg-gray-500" href="#"
+                                    wire:click="update_lead({{ $unit->id }}, {{ $call->id }})">Make
+                                    {{ $unit->badge_number }} Lead</a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div> --}}
+                <div class="flex items-center w-2/5 ml-3">
                     <span class="mr-2 text-lg">RP:</span>
                     <p class="w-full px-1 py-1 text-lg font-bold border-2 border-white">
                         {{ $call->civilian_id != null ? $call->civilian->first_name . ' ' . $call->civilian->last_name : 'None' }}
                     </p>
                     <a class="ml-3" href="#">
-                        <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                        @if (!is_null($call->civilian_id))
+                            <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        @endif
+
                     </a>
                 </div>
             </div>
