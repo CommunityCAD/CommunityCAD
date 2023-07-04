@@ -8,11 +8,12 @@ use Livewire\Component;
 class CallLog extends Component
 {
     public $call_logs;
+
     public $call;
 
     public function mount()
     {
-        $this->call_logs = ModelsCallLog::where('call_id',  $this->call)->get();
+        $this->call_logs = ModelsCallLog::where('call_id', $this->call)->get();
     }
 
     public function render()

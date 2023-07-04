@@ -47,7 +47,7 @@ class LeoCad extends Component
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
+            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
             'call_id' => $call->id,
         ]);
     }
@@ -58,7 +58,7 @@ class LeoCad extends Component
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been added to call.',
+            'text' => 'Unit '.$activeUnit->badge_number.' has been added to call.',
             'call_id' => $call->id,
         ]);
     }

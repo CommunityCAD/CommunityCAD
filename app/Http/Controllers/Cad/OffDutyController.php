@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class OffDutyController extends Controller
 {
-
     public function edit()
     {
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
@@ -17,7 +16,6 @@ class OffDutyController extends Controller
 
         return view('cad.offduty.edit');
     }
-
 
     public function update(Request $request)
     {

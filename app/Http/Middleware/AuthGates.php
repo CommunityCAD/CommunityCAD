@@ -13,7 +13,7 @@ class AuthGates
     {
         $user = auth()->user();
 
-        if (!$user) {
+        if (! $user) {
             return $next($request);
         }
 
@@ -36,6 +36,7 @@ class AuthGates
             if (in_array($user->id, config('cad.owner_ids'))) {
                 return true;
             }
+
             return $user->is_super_user;
         });
 
@@ -43,6 +44,7 @@ class AuthGates
             if (in_array($user->id, config('cad.owner_ids'))) {
                 return true;
             }
+
             return $user->is_protected_user;
         });
 

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\CallStoreRequest;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
-use App\Models\CallLog;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,6 +36,7 @@ class CallController extends Controller
     public function show(Call $call): View
     {
         $active_units = ActiveUnit::get();
+
         return view('cad.calls.show', compact('call', 'active_units'));
     }
 

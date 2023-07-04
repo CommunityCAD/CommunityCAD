@@ -52,7 +52,7 @@ class User extends Authenticatable
         ];
         $hexval = '';
         while ($number != '0') {
-            $hexval = $hexvalues[bcmod($number, '16', 0)] . $hexval;
+            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
             $number = bcdiv($number, '16', 0);
         }
 
@@ -69,7 +69,7 @@ class User extends Authenticatable
 
     public function getDiscordAttribute()
     {
-        return $this->discord_name . '#' . $this->discriminator;
+        return $this->discord_name.'#'.$this->discriminator;
     }
 
     public function getOfficerNameCheckAttribute()
