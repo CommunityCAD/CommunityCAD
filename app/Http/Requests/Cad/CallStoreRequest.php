@@ -30,7 +30,7 @@ class CallStoreRequest extends FormRequest
             'source' => 'required',
             'type' => 'required|numeric',
             'narrative' => 'required',
-            'rp_civilian_id' => 'sometimes|numeric',
+            'civilian_id' => 'sometimes|numeric|nullable',
         ];
     }
 }
