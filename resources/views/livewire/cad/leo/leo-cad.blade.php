@@ -104,6 +104,8 @@
                                     wire:click="set_call_status({{ $call->id }}, 'ENRUTE')">ENRUTE</a>
                                 <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
                                     wire:click="set_call_status({{ $call->id }}, 'ARRV')">ARRV</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="close_call({{ $call->id }})">CLO</a>
                             </div>
                         </td>
                         <td class="p-1 border border-slate-400">{{ $call->time }}m</td>
