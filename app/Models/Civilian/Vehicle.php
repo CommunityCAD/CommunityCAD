@@ -2,6 +2,7 @@
 
 namespace App\Models\Civilian;
 
+use App\Models\Civilian;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,6 +23,11 @@ class Vehicle extends Model
     protected $casts = [
         'registration_expire' => 'date',
     ];
+
+    public function civilian()
+    {
+        return $this->belongsTo(Civilian::class);
+    }
 
     public function getStatusNameAttribute()
     {
