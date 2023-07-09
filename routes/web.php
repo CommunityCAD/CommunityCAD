@@ -47,14 +47,19 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('name', [PageController::class, 'name'])->name('name');
         Route::get('vehicle', [PageController::class, 'vehicle'])->name('vehicle');
 
-        Route::get('offduty', [OffDutyController::class, 'edit'])->name('offduty.edit');
-        Route::post('offduty', [OffDutyController::class, 'update'])->name('offduty.update');
+        Route::get('offduty', [OffDutyController::class, 'create'])->name('offduty.create');
+        Route::post('offduty', [OffDutyController::class, 'store'])->name('offduty.store');
 
         Route::post('call/{call}/update_call_log', [CallLogController::class, 'store'])->name('call_log.store');
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
         require __DIR__.'/civilian.php';
+    });
+
+    Route::middleware(['auth', 'can:supervisor_access'])->name('supervisor.')->prefix('supervisor')->group(function () {
+        Route::get('/', [StaffPageController::class, 'index'])->name('index');
+        require __DIR__.'/supervisor.php';
     });
 
     Route::middleware(['auth', 'can:staff_access'])->name('staff.')->prefix('staff')->group(function () {

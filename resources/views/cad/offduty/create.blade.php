@@ -17,14 +17,14 @@
                 <span class="mx-3">Connected to live_database_prod</span>
             </p>
         </div>
-        <form action="{{ route('cad.offduty.update') }}" method="POST">
+        <form action="{{ route('cad.offduty.store') }}" method="POST">
             @csrf
             <div class="w-3/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
                 <div class="flex">
                     <div class="w-3/5">
                         <label class="block mr-2 text-lg">Name:</label>
                         <input class="text-input" readonly type="text"
-                            value="Officer {{ auth()->user()->officer_name ? auth()->user()->officer_name : auth()->user()->discord_name }}">
+                            value="Officer {{ auth()->user()->officer_name_check }}">
                     </div>
                     <div class="w-1/5 ml-3">
                         <label class="block mr-2 text-lg">Date:</label>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <button class="edit-button-md">Save</button>
+                <button class="edit-button-md">Submit</button>
 
             </div>
         </form>
