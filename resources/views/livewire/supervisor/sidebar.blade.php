@@ -1,7 +1,7 @@
 <div>
     <div class="py-4 text-gray-200">
         <a class="ml-6 text-lg font-bold" href="{{ route('portal.dashboard') }}">
-            Staff Area
+            Admin Area
         </a>
         <ul class="mt-6 text-sm font-medium text-slate-200">
             <li class="relative px-6 py-3">
@@ -64,46 +64,19 @@
                 </li>
             @endcan
             <hr>
-            @can('application_access')
+
+            @can('cad_settings')
                 <li class="relative px-6 py-3">
-                    <a class="flex items-center @if (request()->is('staff/application/*') || request()->is('staff/application')) text-lg text-purple-500 @endif"
-                        href="{{ route('staff.application.index', 1) }}">
+                    <a class="flex items-center @if (request()->is('supervisor/reports/*') || request()->is('supervisor/reports')) !text-base !text-purple-500 @endif"
+                        href="{{ route('supervisor.reports.index') }}">
                         <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <span class="ml-4">Applications</span>
-                    </a>
-                </li>
-            @endcan
-
-            @can('announcement_manage')
-                <li class="relative px-6 py-3">
-                    <a class="flex items-center @if (request()->is('staff/announcement/*') || request()->is('staff/announcement')) text-lg text-purple-500 @endif"
-                        href="{{ route('staff.announcement.index') }}">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16.881 4.346A23.112 23.112 0 018.25 6H7.5a5.25 5.25 0 00-.88 10.427 21.593 21.593 0 001.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 01-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0018 11.25c0-2.413-.393-4.735-1.119-6.904zM18.26 3.74a23.22 23.22 0 011.24 7.51 23.22 23.22 0 01-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 101.409.516 24.555 24.555 0 001.415-6.43 2.992 2.992 0 00.836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 00-1.415-6.43.75.75 0 10-1.409.516c.059.16.116.321.17.483z" />
-                        </svg>
-                        <span class="ml-4">Announcements</span>
-                    </a>
-                </li>
-            @endcan
-
-            @can('user_departments_manage')
-                <li class="relative px-6 py-3">
-                    <a class="flex items-center @if (request()->is('staff/user_department/*') || request()->is('staff/user_department')) text-lg text-purple-500 @endif"
-                        href="{{ route('staff.user_search.index') }}">
-                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
-                        <span class="ml-4">User Departments</span>
+                        <span class="ml-4">Reports</span>
                     </a>
                 </li>
             @endcan

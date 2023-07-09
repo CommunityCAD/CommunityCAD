@@ -10,6 +10,7 @@ use App\Http\Controllers\Cad\PageController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
 use App\Http\Controllers\Staff\StaffPageController;
+use App\Http\Controllers\Supervisor\SupervisorPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +59,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::middleware(['auth', 'can:supervisor_access'])->name('supervisor.')->prefix('supervisor')->group(function () {
-        Route::get('/', [StaffPageController::class, 'index'])->name('index');
+        Route::get('/', [SupervisorPageController::class, 'index'])->name('index');
         require __DIR__.'/supervisor.php';
     });
 
