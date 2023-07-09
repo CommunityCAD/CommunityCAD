@@ -148,7 +148,8 @@
             <div class="flex justify-around mb-3 space-x-3">
 
                 @if (auth()->user()->active_unit->status == 'OFFDTY')
-                    <a class="new-button-md" href="{{ route('cad.call.create') }}">ON DUTY</a>
+                    <a class="new-button-md" href="#"
+                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">ON DUTY</a>
                 @else
                     <a class="new-button-md" href="#"
                         wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">AVAILABLE</a>
