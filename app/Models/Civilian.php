@@ -31,14 +31,35 @@ class Civilian extends Model
         return implode('-', str_split($this->id, 3));
     }
 
+    public function getStatusNameAttribute()
+    {
+        switch ($this->status) {
+            case 1:
+                return 'Alive';
+                break;
+            case 2:
+                return 'Wanted';
+                break;
+            case 3:
+                return 'Jailed';
+                break;
+            case 4:
+                return 'Dead';
+                break;
+            case 5:
+                return 'Hospitalized';
+                break;
+        }
+    }
+
     public function getNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function getAddressAttribute()
     {
-        return $this->postal.' '.$this->street.' '.$this->city;
+        return $this->postal . ' ' . $this->street . ' ' . $this->city;
     }
 
     public function getAgeAttribute()

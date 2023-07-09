@@ -11,13 +11,13 @@
             </div>
 
             @if ($current_civilian_level->civilian_limit > $civilians->count())
-                <a href="{{ route('civilian.civilians.create') }}" class="new-button-sm">
+                <a class="new-button-sm" href="{{ route('civilian.civilians.create') }}">
                     <x-new-button></x-new-button>
                 </a>
             @endif
         </div>
         <div class="space-x-4 space-y-4">
-            <a href="#" class="secondary-button-md">Create 911 Call</a>
+            {{-- <a href="#" class="secondary-button-md">Create 911 Call</a> --}}
         </div>
 
         <div class="grid grid-cols-1 mt-5 sm:grid-cols-2">
@@ -51,7 +51,7 @@
                 @endphp
                 <div
                     class="px-3 py-1 m-4 bg-gray-600 cursor-pointer rounded-2xl hover:bg-gray-500 border-l-4 {{ $border_color }}">
-                    <a href="{{ route('civilian.civilians.show', $civilian->id) }}" class="flex">
+                    <a class="flex" href="{{ route('civilian.civilians.show', $civilian->id) }}">
                         <div class="h-16 p-2">
                             @if (!is_null($civilian->picture))
                                 <img class="block h-full" src="{{ $civilian->picture }}">
@@ -61,7 +61,7 @@
                             @endif
                         </div>
                         <div class="ml-3 text-white">
-                            <p>{{ $civilian->first_name }} {{ $civilian->last_name }}</p>
+                            <p>{{ $civilian->first_name }} {{ $civilian->last_name }} - {{ $civilian->status_name }}</p>
                             <p>{{ $civilian->date_of_birth->format('m/d/Y') }} ({{ $civilian->age }})</p>
                             <p>SSN: {{ $civilian->s_n_n }}</p>
                         </div>
