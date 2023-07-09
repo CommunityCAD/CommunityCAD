@@ -18,8 +18,6 @@ class CivilianController extends Controller
         $civilians = Civilian::where('user_id', auth()->user()->id)->get();
         $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
 
-        // dd();
-
         return view('civilian.civilians.index', compact('civilians', 'current_civilian_level'));
     }
 
@@ -87,7 +85,7 @@ class CivilianController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $civilian->delete();
+        $civilian->update(['status' => 4]);
 
         return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Deceased', 'level' => 'success']]);
     }
