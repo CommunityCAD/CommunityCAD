@@ -12,7 +12,7 @@ class ReportController extends Controller
 {
     public function index(): View
     {
-        $reports = Report::orderBy('created_at', 'asc')->get();
+        $reports = Report::orderBy('created_at', 'desc')->get();
 
         return view('supervisor.reports.index', compact('reports'));
     }

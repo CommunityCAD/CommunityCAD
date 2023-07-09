@@ -1,7 +1,7 @@
 <div>
     <div class="py-4 text-gray-200">
         <a class="ml-6 text-lg font-bold" href="{{ route('portal.dashboard') }}">
-            Admin Area
+            Supervisor Area
         </a>
         <ul class="mt-6 text-sm font-medium text-slate-200">
             <li class="relative px-6 py-3">
