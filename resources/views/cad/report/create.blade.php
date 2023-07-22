@@ -1,9 +1,9 @@
-@extends('layouts.cad')
+@extends('layouts.cad_reports')
 
 @section('content')
     <div class="">
         <div class="max-w-3xl mx-auto">
-            <a class="secondary-button-md" href="{{ route('cad.report.index') }}">Back</a>
+            <a class="delete-button-md" href="#" onclick="window.close();">Exit Without Saving</a>
         </div>
         <div class="bg-yellow-100 max-w-3xl rounded-lg mx-auto p-4 mt-5">
             <form action="{{ route('cad.report.store') }}" id="mdeditor" method="POST">
@@ -17,7 +17,7 @@
                                 <option value="">Choose one</option>
                                 @foreach ($calls as $call)
                                     <option @selected(isset($_GET['call']) && $call->id == $_GET['call']) @selected(old('call_id') == $call->id)
-                                        value="{{ $call->id }}">{{ $call->id }}
+                                        value="{{ $call->id }}">{{ $call->status }}: {{ $call->id }}
                                         ({{ $call->nature }})
                                     </option>
                                 @endforeach

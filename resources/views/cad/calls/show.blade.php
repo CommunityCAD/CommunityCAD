@@ -168,14 +168,24 @@
                     <div class="p-6 text-base leading-relaxed" style="display: none" x-show="openTab === 3">
                         <div class="flex justify-between">
 
-                            <ul>
-                                <li><a class="underline" href="#">Ron Swanson Incident Report</a></li>
-                                <li><a class="underline" href="#">Jane Doe Statement</a></li>
+                            <ul class="space-y-2">
+                                @forelse ($call->reports as $report)
+                                    <li class="underline">
+                                        <a href="#"
+                                            onclick="openExternalWindow('{{ route('cad.report.show', $report->id) }}')">
+                                            Report: {{ $report->id }}
+                                            | {{ $report->title }} | Created By: {{ $report->user->officer_name_check }}
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li>No Reports Linked To This Call.</li>
+                                @endforelse
                             </ul>
 
                             <div class="">
-                                <a class="new-button-sm"
-                                    href="{{ route('cad.report.create') }}?call={{ $call->id }}">New Report</a>
+                                <a class="new-button-sm" href="#"
+                                    onclick="openExternalWindow('{{ route('cad.report.create') }}?call={{ $call->id }}')">New
+                                    Report</a>
                             </div>
                         </div>
                     </div>
@@ -189,4 +199,14 @@
 
         </div>
     </div>
+    <script>
+        function openExternalWindow(url) {
+            return window.open(
+                url,
+                "_blank",
+                "height=800,width=900,scrollbars=no,status=yes",
+                true
+            );
+        }
+    </script>
 @endsection

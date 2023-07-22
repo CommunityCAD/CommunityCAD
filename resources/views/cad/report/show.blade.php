@@ -1,9 +1,9 @@
-@extends('layouts.cad')
+@extends('layouts.cad_reports')
 
 @section('content')
     <div class="">
         <div class="max-w-3xl mx-auto">
-            <a class="secondary-button-md" href="{{ route('cad.report.index') }}">Back</a>
+            <a class="delete-button-md" href="#" onclick="window.close();">Close</a>
             @if (auth()->user()->id == $report->user_id)
                 <a class="edit-button-md" href="{{ route('cad.report.edit', $report->id) }}">Edit</a>
             @endif

@@ -1,13 +1,14 @@
-@extends('layouts.cad')
+@extends('layouts.cad_reports')
 
 @section('content')
     <div class="">
         <div class="max-w-3xl mx-auto">
-            <a class="secondary-button-md" href="{{ route('cad.report.index') }}">Back</a>
+            <a class="delete-button-md" href="#" onclick="window.close();">Exit Without Saving</a>
         </div>
         <div class="bg-yellow-100 max-w-3xl rounded-lg mx-auto p-4 mt-5">
-            <form action="{{ route('cad.report.store') }}" id="mdeditor" method="POST">
+            <form action="{{ route('cad.report.update', $report->id) }}" id="mdeditor" method="POST">
                 @csrf
+                @method('PUT')
                 <h1 class="text-black text-8xl text-center underline">POLICE REPORT</h1>
 
                 <div class="my-5 text-2xl">

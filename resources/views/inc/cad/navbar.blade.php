@@ -20,7 +20,7 @@
                 <p>Home</p>
             </a>
 
-            <a class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/report')) bg-[#598392] @endif"
+            {{-- <a class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/report')) bg-[#598392] @endif"
                 href="{{ route('cad.report.index') }}">
                 <svg class="w-6 h-6 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <p>Reports</p>
-            </a>
+            </a> --}}
             {{--
             <a href="#" class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/home')) bg-[#598392] @endif">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

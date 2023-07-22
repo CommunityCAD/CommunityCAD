@@ -4,6 +4,7 @@ namespace App\Models\Cad;
 
 use App\Models\CallLog;
 use App\Models\Civilian;
+use App\Models\Report;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +37,11 @@ class Call extends Model
     public function call_log()
     {
         return $this->hasMany(CallLog::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 
     public function getTimeAttribute()

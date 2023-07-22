@@ -26,7 +26,11 @@
 
                         <span class="ml-4">Dispatch Offline</span>
                     </p>
-                    <a class="new-button-md" href="{{ route('cad.call.create') }}">New Call</a>
+                    <div>
+                        <a class="new-button-md" href="#"
+                            onclick="openExternalWindow('{{ route('cad.report.create') }}')">New Report</a>
+                        <a class="new-button-md" href="{{ route('cad.call.create') }}">New Call</a>
+                    </div>
                 @endif
 
             </div>
