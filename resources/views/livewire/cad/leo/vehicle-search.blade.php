@@ -57,7 +57,7 @@
                             {{ $vehicle_return->model }}</p>
                         @php
                             $status = $vehicle->status_name;
-                            if ($vehicle->expires_on < date('Y-m-d')) {
+                            if ($vehicle->registration_expire < date('Y-m-d')) {
                                 $status = 'Expired';
                             }
                         @endphp
