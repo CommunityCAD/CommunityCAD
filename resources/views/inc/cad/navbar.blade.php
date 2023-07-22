@@ -20,8 +20,8 @@
                 <p>Home</p>
             </a>
 
-            <a class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/reports/*')) bg-[#598392] @endif"
-                href="#">
+            <a class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/report')) bg-[#598392] @endif"
+                href="{{ route('cad.report.index') }}">
                 <svg class="w-6 h-6 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path

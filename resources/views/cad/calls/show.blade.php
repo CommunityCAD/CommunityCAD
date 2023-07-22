@@ -174,7 +174,8 @@
                             </ul>
 
                             <div class="">
-                                <a class="new-button-sm" href="#">New Report</a>
+                                <a class="new-button-sm"
+                                    href="{{ route('cad.report.create') }}?call={{ $call->id }}">New Report</a>
                             </div>
                         </div>
                     </div>

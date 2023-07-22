@@ -17,6 +17,6 @@
                 <span class="mx-3">Connected to live_database_prod</span>
             </p>
         </div>
-        <livewire:cad.leo.leo-cad />
+        <livewire:cad.leo.report-search>
     </div>
 @endsection

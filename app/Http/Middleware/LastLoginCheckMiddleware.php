@@ -19,9 +19,11 @@ class LastLoginCheckMiddleware
         if ($request->user()) {
             if ($request->user()->last_login < Carbon::now()->subDays(get_setting('days_until_inactive'))) {
                 auth()->logout();
+
                 return redirect('/')->with('alerts', [['message' => 'Session expired.', 'level' => 'error']]);
             }
         }
+
         return $next($request);
     }
 }

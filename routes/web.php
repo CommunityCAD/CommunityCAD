@@ -7,6 +7,7 @@ use App\Http\Controllers\Cad\CallController;
 use App\Http\Controllers\Cad\CallLogController;
 use App\Http\Controllers\Cad\OffDutyController;
 use App\Http\Controllers\Cad\PageController;
+use App\Http\Controllers\Cad\ReportController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
 use App\Http\Controllers\Staff\StaffPageController;
@@ -50,6 +51,8 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::get('offduty', [OffDutyController::class, 'create'])->name('offduty.create');
         Route::post('offduty', [OffDutyController::class, 'store'])->name('offduty.store');
+
+        Route::resource('report', ReportController::class);
 
         Route::post('call/{call}/update_call_log', [CallLogController::class, 'store'])->name('call_log.store');
     });

@@ -22,4 +22,9 @@ class Report extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function report_type()
+    {
+        return $this->belongsTo(ReportType::class);
+    }
 }

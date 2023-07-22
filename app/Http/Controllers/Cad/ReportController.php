@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cad\Call;
 use App\Models\Report;
+use App\Models\ReportType;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,42 +17,63 @@ class ReportController extends Controller
     {
         $reports = Report::all();
 
-        return view('reports.index', compact('reports'));
+        return view('cad.report.index', compact('reports'));
     }
 
     public function create(): View
     {
-        return view('reports.create');
+        $report_types = ReportType::all();
+        $calls = Call::where('updated_at', '>', Carbon::now()->subDays(5)->format('Y-m-d 00:00:00'))->get();
+
+        return view('cad.report.create', compact('report_types', 'calls'));
     }
 
     public function store(Request $request): RedirectResponse
     {
-        Report::create($request->validated());
+        $validated = $request->validate([
+            'mdcontent' => 'required',
+            'title' => 'required',
+            'call_id' => 'numeric|nullable',
+            'report_type_id' => 'required|numeric',
+        ]);
 
-        return redirect()->route('reports.index')->with('success', 'Message');
+        $data = $validated;
+        $data['text'] = $data['mdcontent'];
+        unset($data['mdcontent']);
+        $data['user_id'] = auth()->user()->id;
+        $report = Report::create($data);
+
+        return redirect()->route('cad.report.show', $report->id);
     }
 
     public function show(Report $report): View
     {
-        return view('reports.show', compact('reports'));
+        return view('cad.report.show', compact('report'));
     }
 
     public function edit(Report $report): View
     {
-        return view('reports.edit', compact('reports'));
+        $report_types = ReportType::all();
+        $calls = Call::where('updated_at', '>', Carbon::now()->subDays(5)->format('Y-m-d 00:00:00'))->get();
+
+        return view('cad.report.edit', compact('report', 'report_types', 'calls'));
     }
 
     public function update(Request $request, Report $report): RedirectResponse
     {
-        $report->update($request->validated());
+        $validated = $request->validate([
+            'mdcontent' => 'required',
+            'title' => 'required',
+            'call_id' => 'numeric|nullable',
+            'report_type_id' => 'required|numeric',
+        ]);
 
-        return redirect()->route('reports.index')->with('success', 'Message');
-    }
+        $data = $validated;
+        $data['text'] = $data['mdcontent'];
+        unset($data['mdcontent']);
 
-    public function destroy(Report $report): RedirectResponse
-    {
-        $report->delete();
+        $report->update($data);
 
-        return redirect()->route('reports.index')->with('success', 'Message');
+        return redirect()->route('cad.report.show', $report->id);
     }
 }
