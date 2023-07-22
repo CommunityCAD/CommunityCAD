@@ -20,7 +20,7 @@ class AuthController extends Controller
             exit();
         }
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         $user->touch('last_login');
 
