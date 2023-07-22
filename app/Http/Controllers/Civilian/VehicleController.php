@@ -68,4 +68,22 @@ class VehicleController extends Controller
 
         return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle Reported As Stolen.', 'level' => 'success']]);
     }
+
+    public function found(Civilian $civilian, Vehicle $vehicle)
+    {
+        abort_if(auth()->user()->id != $civilian->user_id, 403);
+
+        $vehicle->update(['vehicle_status' => 1]);
+
+        return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle Reported As Found. Im glad you found it!', 'level' => 'success']]);
+    }
+
+    public function expire(Civilian $civilian, Vehicle $vehicle)
+    {
+        abort_if(auth()->user()->id != $civilian->user_id, 403);
+
+        $vehicle->update(['registration_expire' => date('Y-m-d', strtotime('-30 days'))]);
+
+        return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle reported as expired. Hope you know what you are doing.', 'level' => 'success']]);
+    }
 }

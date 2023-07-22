@@ -15,5 +15,7 @@ Route::resource('civilians/{civilian}/weapon', WeaponController::class)->only(['
 Route::resource('civilians', CivilianController::class);
 
 Route::get('/civilians/{civilian}/vehicle/{vehicle}/renew', [VehicleController::class, 'renew'])->name('vehicle.renew');
+Route::get('/civilians/{civilian}/vehicle/{vehicle}/found', [VehicleController::class, 'found'])->name('vehicle.found');
+Route::get('/civilians/{civilian}/vehicle/{vehicle}/expire', [VehicleController::class, 'expire'])->name('vehicle.expire');
 Route::get('/civilians/{civilian}/vehicle/{vehicle}/stolen', [VehicleController::class, 'stolen'])->name('vehicle.stolen');
 Route::resource('civilians/{civilian}/vehicle', VehicleController::class)->only(['create', 'store', 'destroy']);
