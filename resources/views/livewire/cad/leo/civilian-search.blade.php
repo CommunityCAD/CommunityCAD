@@ -97,13 +97,13 @@
                         <p class="text-lg font-bold">Vehicles</p>
                         @foreach ($civilian_return->vehicles as $vehicle)
                             @php
-                                $status = $vehicle->status_name;
-                                if ($vehicle->expires_on < date('Y-m-d')) {
-                                    $status = 'Expired';
+                                $v_status = $vehicle->status_name;
+                                if ($vehicle->registration_expire < date('Y-m-d')) {
+                                    $v_status = 'Expired';
                                 }
                             @endphp
                             <p>({{ $vehicle->plate }}) {{ $vehicle->make }} {{ $vehicle->color }} -
-                                {{ $status }}</p>
+                                {{ $v_status }}</p>
                         @endforeach
                     </div>
                 </div>
