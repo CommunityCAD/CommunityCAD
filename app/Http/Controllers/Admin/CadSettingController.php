@@ -28,7 +28,7 @@ class CadSettingController extends Controller
     {
         $cadSetting->update(['value' => $request->value]);
 
-        $cad_settings = DB::table('cad_settings')->get(['name', 'value'])->pluck('value', 'name')->toArray();
+        $cad_settings = DB::table('cad_settings')->get(['name', 'value', 'type']);
 
         Cache::forget('cad_settings');
         Cache::forever('cad_settings', $cad_settings);
