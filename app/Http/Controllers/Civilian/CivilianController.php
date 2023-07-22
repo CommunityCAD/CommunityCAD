@@ -46,10 +46,12 @@ class CivilianController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['id'] = rand(100000000, 999999999);
 
-        if ($this->name_check($data['first_name'], $data['last_name'])) {
-            return redirect()->route('civilian.civilians.create')
-                ->with('alerts', [['message' => 'That name is already in use. Choose a diffrent name.', 'level' => 'error']])
-                ->withInput($request->input());
+        if (! get_setting('allow_same_name_civilians')) {
+            if ($this->name_check($data['first_name'], $data['last_name'])) {
+                return redirect()->route('civilian.civilians.create')
+                    ->with('alerts', [['message' => 'That name is already in use. Choose a diffrent name.', 'level' => 'error']])
+                    ->withInput($request->input());
+            }
         }
         Civilian::create($data);
 
@@ -85,7 +87,23 @@ class CivilianController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $civilian->update(['status' => 4]);
+        foreach ($civilian->vehicles as $vehicle) {
+            $vehicle->delete();
+        }
+
+        foreach ($civilian->licenses as $license) {
+            $license->delete();
+        }
+
+        foreach ($civilian->medical_records as $record) {
+            $record->delete();
+        }
+
+        foreach ($civilian->weapons as $weapon) {
+            $weapon->delete();
+        }
+
+        $civilian->delete();
 
         return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Deceased', 'level' => 'success']]);
     }
