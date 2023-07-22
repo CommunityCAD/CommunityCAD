@@ -102,8 +102,9 @@
                                     $v_status = 'Expired';
                                 }
                             @endphp
-                            <p>({{ $vehicle->plate }}) {{ $vehicle->make }} {{ $vehicle->color }} -
-                                {{ $v_status }}</p>
+                            <p><a href="{{ route('cad.vehicle') }}?plate={{ $vehicle->plate }}">({{ $vehicle->plate }})
+                                    {{ $vehicle->make }} {{ $vehicle->color }} -
+                                    {{ $v_status }}</a></p>
                         @endforeach
                     </div>
                 </div>

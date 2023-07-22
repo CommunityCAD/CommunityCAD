@@ -28,7 +28,7 @@
                     wire:click='show_return("{{ $vehicle->id }}")'>{{ $vehicle->plate }} {{ $vehicle->model }}
                     {{ $vehicle->color }}<br>RO: {{ $vehicle->civilian->name }} ({{ $vehicle->civilian->s_n_n }})</a>
             @empty
-                <p>No search ran</p>
+                <p>No results</p>
             @endforelse
         </div>
 
@@ -47,7 +47,8 @@
                             <span id="ro_name">{{ $vehicle_return->civilian->name }}</span>
                         </p>
                         <p><span class="text-gray-300 font-bold underline">RO SSN:</span>
-                            <span id="ro_name">{{ $vehicle_return->civilian->id }}</span>
+                            <a href="{{ route('cad.name') }}?ssn={{ $vehicle_return->civilian->id }}"
+                                id="ro_name">{{ $vehicle_return->civilian->id }}</a>
                         </p>
 
                         <p><span class="text-gray-300 font-bold underline">Plate:</span>
@@ -56,8 +57,8 @@
                         <p><span class="text-gray-300 font-bold underline">Model:</span>
                             {{ $vehicle_return->model }}</p>
                         @php
-                            $status = $vehicle->status_name;
-                            if ($vehicle->registration_expire < date('Y-m-d')) {
+                            $status = $vehicle_return->status_name;
+                            if ($vehicle_return->registration_expire < date('Y-m-d')) {
                                 $status = 'Expired';
                             }
                         @endphp
