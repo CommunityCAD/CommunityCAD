@@ -24,8 +24,6 @@ if (!function_exists('get_setting')) {
             }
         }
 
-        dd($settings);
-
         if (!isset($cad_settings[$setting])) {
             return $default;
         }
