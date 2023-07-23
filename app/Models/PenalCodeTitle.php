@@ -17,7 +17,8 @@ class PenalCodeTitle extends Model
     public function penal_code_codes()
     {
         $penal_codes = Cache::remember('penal_codes', '2', function () {
-            return DB::table('penal_codes')->where('deleted_at', '=', null)->get();
+            // return DB::table('penal_codes')->where('deleted_at', '=', null)->get();
+            return PenalCode::get();
         });
 
         return $penal_codes->where('penal_code_title_id', $this->id);

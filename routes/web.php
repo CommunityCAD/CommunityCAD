@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'member.check'])->group(function () {
     Route::name('portal.')->prefix('portal')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('penalcode', [DashboardController::class, 'penalcode'])->name('penalcode');
 
         Route::get('department/{department}/roster', [DepartmentController::class, 'roster_index'], ['department' => 'department'])->name('department.roster.index');
         Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');

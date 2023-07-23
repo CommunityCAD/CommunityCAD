@@ -1959,6 +1959,9 @@ video {
 .grid {
   display: grid;
 }
+.list-item {
+  display: list-item;
+}
 .hidden {
   display: none;
 }
@@ -2250,6 +2253,9 @@ video {
 }
 .list-disc {
   list-style-type: disc;
+}
+.list-decimal {
+  list-style-type: decimal;
 }
 .appearance-none {
   -webkit-appearance: none;
@@ -2975,6 +2981,9 @@ video {
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pb-3 {
+  padding-bottom: 0.75rem;
 }
 .text-left {
   text-align: left;
