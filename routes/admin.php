@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\CivilianLevelController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
 use App\Http\Controllers\Admin\LicenseTypeController;
+use App\Http\Controllers\Admin\PenalCode\PenalCodeClassController;
+use App\Http\Controllers\Admin\PenalCode\PenalCodeController;
+use App\Http\Controllers\Admin\PenalCode\PenalCodeTitleController;
 use App\Http\Controllers\Admin\ReportTypeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\NotesController;
@@ -42,3 +45,9 @@ Route::resource('disciplinary_action_type', DisciplinaryActionTypeController::cl
 Route::resource('license_type', LicenseTypeController::class)->except('show')->middleware('can:license_type_manage');
 Route::resource('report_type', ReportTypeController::class)->except('show')->middleware('can:report_type_manage');
 Route::resource('civilian_level', CivilianLevelController::class)->except('show')->middleware('can:civilian_level_manage');
+
+Route::middleware(['can:penal_code_manage'])->name('penalcode.')->prefix('penalcode')->group(function () {
+    Route::resource('title', PenalCodeTitleController::class)->except('show')->middleware('can:penal_code_manage');
+    Route::resource('class', PenalCodeClassController::class)->except('show')->middleware('can:penal_code_manage');
+    Route::resource('code', PenalCodeController::class)->except('show')->middleware('can:penal_code_manage');
+});

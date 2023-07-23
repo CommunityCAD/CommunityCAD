@@ -151,11 +151,11 @@ final class AdminRolesTable extends PowerGridComponent
     |
     */
 
-     /**
-     * PowerGrid role Action Buttons.
-     *
-     * @return array<int, Button>
-     */
+    /**
+    * PowerGrid role Action Buttons.
+    *
+    * @return array<int, Button>
+    */
 
     /*
     public function actions(): array
@@ -181,11 +181,11 @@ final class AdminRolesTable extends PowerGridComponent
     |
     */
 
-     /**
-     * PowerGrid role Action Rules.
-     *
-     * @return array<int, RuleActions>
-     */
+    /**
+    * PowerGrid role Action Rules.
+    *
+    * @return array<int, RuleActions>
+    */
 
     /*
     public function actionRules(): array
