@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CivilianLevelController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
 use App\Http\Controllers\Admin\LicenseTypeController;
+use App\Http\Controllers\Admin\ReportTypeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\NotesController;
 use App\Http\Controllers\Admin\User\UserAccommodationController;
@@ -39,4 +40,5 @@ Route::resource('department', DepartmentController::class)->except('show')->midd
 Route::resource('cad_setting', CadSettingController::class)->only('index', 'edit', 'update')->middleware('can:cad_settings');
 Route::resource('disciplinary_action_type', DisciplinaryActionTypeController::class)->except('show')->middleware('can:disciplinary_action_type_manage');
 Route::resource('license_type', LicenseTypeController::class)->except('show')->middleware('can:license_type_manage');
+Route::resource('report_type', ReportTypeController::class)->except('show')->middleware('can:report_type_manage');
 Route::resource('civilian_level', CivilianLevelController::class)->except('show')->middleware('can:civilian_level_manage');

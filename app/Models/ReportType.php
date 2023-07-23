@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ReportType extends Model
 {
     use HasFactory, softDeletes;
+
+    protected $guarded = [];
 }
