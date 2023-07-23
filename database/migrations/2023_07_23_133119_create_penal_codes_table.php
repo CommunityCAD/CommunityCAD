@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('section')->nullable();
             $table->text('notes')->nullable();
 
-            $table->bigInteger('clasification')->unsigned();
+            $table->bigInteger('penal_code_class_id')->unsigned();
             $table->foreign('penal_code_class_id')->references('id')->on('penal_code_classes');
 
             $table->integer('fine')->default(0);
