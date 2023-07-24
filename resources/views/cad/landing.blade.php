@@ -2,8 +2,8 @@
 
 @section('content')
     <section x-data="{ modalOpen: true }">
-        <div x-show="modalOpen" x-transition
-            class="fixed top-0 left-0 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+        <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+            x-show="modalOpen" x-transition>
             <div class="w-full max-w-[570px] rounded-[20px] bg-gray-400 py-10 px-6 md:py-[40px] md:px-[50px]">
                 <h3 class="pb-2 text-xl font-bold text-center sm:text-2xl">
                     System Use Notification
@@ -23,12 +23,12 @@
                 </p>
                 <div class="flex flex-wrap -mx-3 text-center">
                     <div class="w-1/2 px-3">
-                        <a href="#" @click="modalOpen = false" class="secondary-button-md">
+                        <a @click="modalOpen = false" class="secondary-button-md" href="#">
                             Accept and Continue
                         </a>
                     </div>
                     <div class="w-1/2 px-3">
-                        <a href="{{ route('portal.dashboard') }}" class="delete-button-md">
+                        <a class="delete-button-md" href="{{ route('portal.dashboard') }}">
                             Decline and Exit
                         </a>
                     </div>
@@ -36,9 +36,9 @@
             </div>
         </div>
 
-        @if ($user_departments->count() == 0)
-            <div x-transition
-                class="fixed top-0 left-0 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+        @if (empty($available_departments))
+            <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+                x-transition>
                 <div class="w-full max-w-[570px] rounded-[20px] bg-gray-400 py-10 px-6 md:py-[40px] md:px-[50px]">
                     <h3 class="pb-2 text-xl font-bold text-center sm:text-2xl">
                         System Use Notification
@@ -48,7 +48,7 @@
                     </p>
                     <div class="flex flex-wrap -mx-3 text-center">
                         <div class="w-1/2 px-3">
-                            <a href="{{ route('portal.dashboard') }}" class="delete-button-md">
+                            <a class="delete-button-md" href="{{ route('portal.dashboard') }}">
                                 Exit
                             </a>
                         </div>
@@ -66,14 +66,14 @@
             </header>
 
             <main class="my-5">
-                <form action="{{ route('cad.add_unit') }}" method="POST" class="w-1/3 mx-auto space-y-3">
+                <form action="{{ route('cad.add_unit') }}" class="w-1/3 mx-auto space-y-3" method="POST">
                     @csrf
 
                     <div class="w-full">
                         <label class="block mr-2 text-lg">Patrol Department:</label>
-                        <select name="user_department"
-                            class="w-full px-1 py-1 text-lg font-bold text-black border-2 border-white">
-                            @foreach ($user_departments as $department)
+                        <select class="w-full px-1 py-1 text-lg font-bold text-black border-2 border-white"
+                            name="user_department">
+                            @foreach ($available_departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->department->name }}
                                     ({{ $department->badge_number }})
                                     - {{ $department->rank }}</option>

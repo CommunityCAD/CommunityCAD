@@ -12,6 +12,13 @@ class PageController extends Controller
     public function landing()
     {
         $user_departments = UserDepartment::where('user_id', auth()->user()->id)->get();
+        $available_departments = [];
+
+        foreach ($user_departments as $department) {
+            if ($department->department->type == 1) {
+                $available_departments[] = $department;
+            }
+        }
 
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get();
 
@@ -19,7 +26,7 @@ class PageController extends Controller
             return redirect()->route('cad.home');
         }
 
-        return view('cad.landing', compact('user_departments'));
+        return view('cad.landing', compact('available_departments'));
     }
 
     public function home()
@@ -28,7 +35,7 @@ class PageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (! $active_unit) {
+        if (!$active_unit) {
             return redirect()->route('cad.landing');
         }
 
