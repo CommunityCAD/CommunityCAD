@@ -28,6 +28,7 @@ class DepartmentRequest extends FormRequest
             'logo' => 'url',
             'is_open_external' => '',
             'is_open_internal' => '',
+            'type' => 'required|numeric',
         ];
     }
 }

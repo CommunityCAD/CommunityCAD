@@ -7,35 +7,49 @@
     </header>
     <div class="admin-card">
 
-        <form action="{{ route('admin.department.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('admin.department.store') }}" class="space-y-4" method="POST">
             @csrf
 
             <div>
-                <label for="name" class="block text-black-500">Name</label>
-                <input type="text" name="name" value="{{ old('name') }}" required autofocus
-                    class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
+                <label class="block text-black-500" for="name">Name</label>
+                <input autofocus class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="name"
+                    required type="text" value="{{ old('name') }}" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <div>
-                <label for="initials" class="block text-black-500">Initials</label>
-                <input type="text" name="initials" value="{{ old('initials') }}" required autofocus
-                    class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
+                <label class="block text-black-500" for="type">Type</label>
+                <select id="type" name="type">
+                    <option value="">Choose one</option>
+                    <option value="1">Law Enforcement</option>
+                    <option value="2">Dispatch</option>
+                    <option value="3">Civilian</option>
+                    <option value="4">Fire/EMS</option>
+                    <option value="5">Other In-game</option>
+                    <option value="6">Out of Game</option>
+                </select>
+                <x-input-error :messages="$errors->get('type')" class="mt-2" />
+            </div>
+
+            <div>
+                <label class="block text-black-500" for="initials">Initials</label>
+                <input autofocus class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="initials"
+                    required type="text" value="{{ old('initials') }}" />
                 <x-input-error :messages="$errors->get('initials')" class="mt-2" />
             </div>
 
             <div>
-                <label for="logo" class="block text-black-500">Logo</label>
-                <input type="url" name="logo" value="{{ old('logo') }}" required autofocus
-                    class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
+                <label class="block text-black-500" for="logo">Logo</label>
+                <input autofocus class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="logo"
+                    required type="url" value="{{ old('logo') }}" />
                 <x-input-error :messages="$errors->get('logo')" class="mt-2" />
             </div>
 
             <div class="justify-between space-y-4 md:flex md:space-y-0">
 
-                <label for="is_open_external" class="flex items-center cursor-pointer">
+                <label class="flex items-center cursor-pointer" for="is_open_external">
                     <div class="relative">
-                        <input type="checkbox" class="hidden checkbox" name="is_open_external" id="is_open_external"
+                        <input class="hidden checkbox" id="is_open_external" name="is_open_external" type="checkbox"
                             value="1">
                         <div class="block border-[1px] border-white w-14 h-8 rounded-full">
                         </div>
@@ -48,9 +62,9 @@
                     </div>
                 </label>
 
-                <label for="is_open_internal" class="flex items-center cursor-pointer">
+                <label class="flex items-center cursor-pointer" for="is_open_internal">
                     <div class="relative">
-                        <input type="checkbox" class="hidden checkbox" name="is_open_internal" id="is_open_internal"
+                        <input class="hidden checkbox" id="is_open_internal" name="is_open_internal" type="checkbox"
                             value="1">
                         <div class="block border-[1px] border-white w-14 h-8 rounded-full">
                         </div>
@@ -63,12 +77,11 @@
                     </div>
                 </label>
 
-
             </div>
 
             <div class="mt-4">
                 <button class="inline-block w-1/3 mr-5 new-button-md">Create</button>
-                <a href="{{ route('admin.department.index') }}" class="w-1/3 delete-button-md">Cancel</a>
+                <a class="w-1/3 delete-button-md" href="{{ route('admin.department.index') }}">Cancel</a>
             </div>
         </form>
     </div>
