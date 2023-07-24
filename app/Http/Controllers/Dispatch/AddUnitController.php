@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cad;
+namespace App\Http\Controllers\Dispatch;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
@@ -23,7 +23,7 @@ class AddUnitController extends Controller
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->count();
 
         if ($active_unit > 0) {
-            return redirect()->route('cad.home');
+            return redirect()->route('dispatch.home');
         }
 
         $input['badge_number'] = $active_department->badge_number;
@@ -37,6 +37,6 @@ class AddUnitController extends Controller
 
         ActiveUnit::create($input);
 
-        return redirect()->route('cad.home');
+        return redirect()->route('dispatch.home');
     }
 }

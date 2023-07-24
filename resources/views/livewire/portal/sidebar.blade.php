@@ -36,13 +36,14 @@
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
-                            d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"
+                            d="M10.5 19.5h3m-6.75 2.25h10.5a2.25 2.25 0 002.25-2.25v-15a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 4.5v15a2.25 2.25 0 002.25 2.25z"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
+
                     <span class="ml-4">LEO MDT</span>
                 </a>
             </li>
-            {{-- <li class="relative px-6 py-3">
+            <li class="relative px-6 py-3">
                 @if (request()->is('civilian/*'))
                     <span aria-hidden="true"
                         class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
@@ -50,7 +51,7 @@
                         class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
                 @endif
                 <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif"
-                    href="{{ route('civilian.civilians.index') }}">
+                    href="{{ route('dispatch.landing') }}">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -59,7 +60,45 @@
                     </svg>
                     <span class="ml-4">Dispatch Center</span>
                 </a>
-            </li> --}}
+            </li>
+            <li class="relative px-6 py-3">
+                @if (request()->is('civilian/*'))
+                    <span aria-hidden="true"
+                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
+                    <span aria-hidden="true"
+                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
+                @endif
+                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif" href="#">
+                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <span class="ml-4">Courthouse</span>
+                </a>
+            </li>
+
+            <li class="relative px-6 py-3">
+                @if (request()->is('civilian/*'))
+                    <span aria-hidden="true"
+                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
+                    <span aria-hidden="true"
+                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
+                @endif
+                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif" href="#">
+                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <span class="ml-4">Reports</span>
+                </a>
+            </li>
+
             <li class="relative px-6 py-3">
                 @if (request()->is('civilian/*'))
                     <span aria-hidden="true"
@@ -138,8 +177,8 @@
             <li class="relative px-6 py-3">
                 <a class="sidebar-link @if (request()->is('portal/penalcode')) sidebar-link-active @endif"
                     href="{{ route('portal.penalcode') }}">
-                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
                             stroke-linecap="round" stroke-linejoin="round" />
@@ -154,8 +193,8 @@
                 <li class="relative px-6 py-3">
                     <a class="sidebar-link @if (request()->is('supervisor/')) sidebar-link-active @endif"
                         href="{{ route('supervisor.index') }}">
-                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
