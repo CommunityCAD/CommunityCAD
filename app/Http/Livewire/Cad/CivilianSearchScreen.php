@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Cad\Leo;
+namespace App\Http\Livewire\Cad;
 
 use App\Models\Civilian;
 use Livewire\Component;
 
-class CivilianSearch extends Component
+class CivilianSearchScreen extends Component
 {
     public $search_name = '';
 
@@ -29,7 +29,7 @@ class CivilianSearch extends Component
             $this->civilians = Civilian::where('id', '333')->get();
         }
 
-        return view('livewire.cad.leo.civilian-search');
+        return view('livewire.cad.civilian-search-screen');
     }
 
     public function show_return(Civilian $civilian)

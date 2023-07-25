@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cad;
+namespace App\Http\Controllers\Cad\Mdt;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;

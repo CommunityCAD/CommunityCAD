@@ -1,24 +1,45 @@
 <?php
 
-namespace App\Http\Livewire\Cad\Leo;
+namespace App\Http\Livewire\Cad;
 
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
 use App\Models\CallLog;
 use Livewire\Component;
 
-class LeoCad extends Component
+class MdtCadScreen extends Component
 {
     public $active_units;
 
     public $calls;
 
+    public $active_dispatch = 'OFF';
+
     public function render()
     {
-        $this->active_units = ActiveUnit::get();
-        $this->calls = Call::where('status', '!=', 'CLO')->orderBy('priority', 'desc')->get(['id', 'nature', 'location', 'city', 'priority', 'status', 'updated_at', 'units', 'type']);
+        $this->active_units = ActiveUnit::where('department_type', '!=', 2)->orderBy('department_type', 'asc')->get();
+        $this->calls = Call::where('status', '!=', 'CLO')->orderBy('priority', 'desc')->get();
+        $active_dispatcher = ActiveUnit::where('department_type', 2)->orderBy('created_at')->get()->first();
 
-        return view('livewire.cad.leo.leo-cad');
+        if ($active_dispatcher) {
+            switch ($active_dispatcher->status) {
+                case 'AVL':
+                    $this->active_dispatch = 'AVL';
+                    break;
+                case 'CALL':
+                    $this->active_dispatch = 'BUSY';
+                    break;
+                case 'BRK':
+                    $this->active_dispatch = 'BUSY';
+                    break;
+
+                default:
+                    $this->active_dispatch = 'OFF';
+                    break;
+            }
+        }
+
+        return view('livewire.cad.mdt-cad-screen');
     }
 
     public function set_status(ActiveUnit $activeUnit, $status)
@@ -50,6 +71,8 @@ class LeoCad extends Component
             'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
             'call_id' => $call->id,
         ]);
+
+        $call->touch();
     }
 
     public function add_unit_to_call(ActiveUnit $activeUnit, Call $call)
@@ -61,6 +84,8 @@ class LeoCad extends Component
             'text' => 'Unit '.$activeUnit->badge_number.' has been added to call.',
             'call_id' => $call->id,
         ]);
+
+        $call->touch();
     }
 
     public function close_call(Call $call)

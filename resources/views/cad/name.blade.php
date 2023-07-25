@@ -1,5 +1,5 @@
 @extends('layouts.cad')
 
 @section('content')
-    <livewire:cad.leo.civilian-search />
+    <livewire:cad.civilian-search-screen />
 @endsection

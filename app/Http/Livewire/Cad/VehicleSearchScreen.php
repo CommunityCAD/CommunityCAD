@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Cad\Leo;
+namespace App\Http\Livewire\Cad;
 
 use App\Models\Civilian\Vehicle;
 use Livewire\Component;
 
-class VehicleSearch extends Component
+class VehicleSearchScreen extends Component
 {
     public $search_plate = '';
 
@@ -23,7 +23,7 @@ class VehicleSearch extends Component
             $this->vehicles = Vehicle::where('plate', '333')->get();
         }
         // dd($this->vehicles);
-        return view('livewire.cad.leo.vehicle-search');
+        return view('livewire.cad.vehicle-search-screen');
     }
 
     public function show_return(Vehicle $vehicle)

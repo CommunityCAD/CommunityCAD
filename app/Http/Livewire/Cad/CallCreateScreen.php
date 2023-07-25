@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Cad\Leo;
+namespace App\Http\Livewire\Cad;
 
 use App\Models\Civilian;
 use Livewire\Component;
 
-class CallCivilianSearch extends Component
+class CallCreateScreen extends Component
 {
     public $civilian_search = '';
 
@@ -15,14 +15,6 @@ class CallCivilianSearch extends Component
 
     public $civilian_id = '';
 
-    public function fill_rp_name($civilian_id, $civilian_name)
-    {
-        $this->civilian_name = $civilian_name;
-        $this->civilian_id = $civilian_id;
-        $this->civilian_search = '';
-        // $this->render();
-    }
-
     public function render()
     {
         if (! empty($this->civilian_search)) {
@@ -31,6 +23,13 @@ class CallCivilianSearch extends Component
             $this->civilians = Civilian::where('id', $this->civilian_search)->get();
         }
 
-        return view('livewire.cad.leo.call-civilian-search');
+        return view('livewire.cad.call-create-screen');
+    }
+
+    public function fill_rp_name($civilian_id, $civilian_name)
+    {
+        $this->civilian_name = $civilian_name;
+        $this->civilian_id = $civilian_id;
+        $this->civilian_search = '';
     }
 }

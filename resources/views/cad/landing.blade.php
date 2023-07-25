@@ -1,4 +1,4 @@
-@extends('layouts.cad')
+@extends('layouts.cad.cad_simple')
 
 @section('content')
     <section x-data="{ modalOpen: true }">
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="w-full">
-                        <button class="new-button-md">Access CAD</button>
+                        <button class="new-button-md">Access System</button>
                     </div>
                 </form>
             </main>

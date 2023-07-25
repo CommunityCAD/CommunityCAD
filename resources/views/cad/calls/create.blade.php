@@ -19,7 +19,7 @@
         </div>
         <div class="p-4 mt-5 space-y-3 text-white rounded cursor-default">
 
-            <livewire:cad.leo.call-civilian-search />
+            <livewire:cad.call-create-screen />
 
         </div>
     </div>

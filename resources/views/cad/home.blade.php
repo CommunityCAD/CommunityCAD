@@ -5,7 +5,7 @@
         <header>
             <div class="flex justify-between">
                 <h1 class="text-2xl font-semibold">Welcome Officer
-                    {{ auth()->user()->officer_name ? auth()->user()->officer_name : auth()->user()->discord_name }}</h1>
+                    {{ auth()->user()->officer_name_check }}</h1>
                 <p class="flex">
                     <svg class="w-6 h-6 text-green-600" fill="none" stroke-width="1.5" stroke="currentColor"
                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,7 @@
                     <p class="mt-3 text-lg font-semibold">System</p>
                     <ul class="ml-8 list-disc">
                         <li>Username: <span
-                                class="text-sm">{{ strtolower(auth()->user()->officer_name ? auth()->user()->officer_name : auth()->user()->discord_name) }}</span>
+                                class="text-sm">{{ str_replace(' ', '_', strtolower(auth()->user()->officer_name_check)) }}</span>
                         </li>
                         <li>Server: <span class="text-sm">live_database_prod</span></li>
                         <li>Version: <span class="text-sm">2023.3.29.1856</span></li>
@@ -44,7 +44,8 @@
                 <div class="w-1/2">
                     <p class="text-lg font-semibold">CAD</p>
                     <ul class="ml-8 list-disc">
-                        <li>Calls: <a class="text-sm underline" href="{{ route('cad.cad') }}">{{ $call_count }} active</a>
+                        <li>Calls: <a class="text-sm underline" href="{{ route('cad.cad') }}">{{ $call_count }}
+                                active</a>
                         </li>
                         <li>Unit: <a class="text-sm underline" href="#">{{ $active_unit->badge_number }} -
                                 {{ $active_unit->status }}</a></li>

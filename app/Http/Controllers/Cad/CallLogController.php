@@ -23,6 +23,8 @@ class CallLogController extends Controller
 
         CallLog::create($validated);
 
+        $call->touch();
+
         return redirect()->route('cad.call.show', $call->id)->with('success', 'Message');
     }
 }

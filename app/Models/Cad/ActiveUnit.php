@@ -2,6 +2,7 @@
 
 namespace App\Models\Cad;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,11 @@ class ActiveUnit extends Model
         $calls = json_decode($this->calls);
 
         return $calls->data;
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function getDisplayStatusTextColorAttribute()

@@ -20,26 +20,6 @@
                 <p>Home</p>
             </a>
 
-            {{-- <a class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/report')) bg-[#598392] @endif"
-                href="{{ route('cad.report.index') }}">
-                <svg class="w-6 h-6 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <p>Reports</p>
-            </a> --}}
-            {{--
-            <a href="#" class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/home')) bg-[#598392] @endif">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6 mx-auto">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                </svg>
-                <p>Map</p>
-            </a> --}}
-
             <a class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is(['cad/cad/*', 'cad/cad'])) bg-[#598392] @endif"
                 href="{{ route('cad.cad') }}">
                 <svg class="w-6 h-6 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"

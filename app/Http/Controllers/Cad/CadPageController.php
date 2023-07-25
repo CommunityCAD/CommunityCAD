@@ -7,7 +7,7 @@ use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
 use App\Models\UserDepartment;
 
-class PageController extends Controller
+class CadPageController extends Controller
 {
     public function landing()
     {
@@ -15,7 +15,7 @@ class PageController extends Controller
         $available_departments = [];
 
         foreach ($user_departments as $department) {
-            if ($department->department->type == 1) {
+            if ($department->department->type == 1 | $department->department->type == 2) {
                 $available_departments[] = $department;
             }
         }
@@ -23,7 +23,13 @@ class PageController extends Controller
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get();
 
         if ($active_unit->count() > 0) {
-            return redirect()->route('cad.home');
+            if ($active_unit->department_type == 1) {
+                return redirect()->route('cad.mdt.home');
+            } elseif ($active_unit->department_type == 2) {
+                return redirect()->route('cad.disptach.home');
+            } else {
+                return abort(404, 'Department type is not set correctly.');
+            }
         }
 
         return view('cad.landing', compact('available_departments'));
@@ -31,11 +37,11 @@ class PageController extends Controller
 
     public function home()
     {
-        // will have bolos and other important info
+
         $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (!$active_unit) {
+        if (! $active_unit) {
             return redirect()->route('cad.landing');
         }
 
@@ -51,11 +57,6 @@ class PageController extends Controller
         }
 
         return view('cad.cad');
-    }
-
-    public function incident()
-    {
-        return view('cad.incident');
     }
 
     public function name()

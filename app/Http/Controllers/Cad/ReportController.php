@@ -23,7 +23,7 @@ class ReportController extends Controller
     public function create(): View
     {
         $report_types = ReportType::all();
-        $calls = Call::where('updated_at', '>', Carbon::now()->subDays(5)->format('Y-m-d 00:00:00'))->get();
+        $calls = Call::where('updated_at', '>', Carbon::now()->subDays(30)->format('Y-m-d 00:00:00'))->get();
 
         return view('cad.report.create', compact('report_types', 'calls'));
     }
@@ -54,7 +54,7 @@ class ReportController extends Controller
     public function edit(Report $report): View
     {
         $report_types = ReportType::all();
-        $calls = Call::where('updated_at', '>', Carbon::now()->subDays(5)->format('Y-m-d 00:00:00'))->get();
+        $calls = Call::where('updated_at', '>', Carbon::now()->subDays(30)->format('Y-m-d 00:00:00'))->get();
 
         return view('cad.report.edit', compact('report', 'report_types', 'calls'));
     }
