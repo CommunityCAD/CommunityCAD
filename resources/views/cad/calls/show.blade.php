@@ -269,6 +269,9 @@
                     <a class="new-button-sm" href="#"
                         onclick="openExternalWindow('{{ route('cad.report.create') }}?call={{ $call->id }}')">New
                         Person</a>
+                    <a class="secondary-button-sm" href="{{ route('cad.cad') }}">Back To CAD</a>
+                    <a class="edit-button-sm" href="{{ route('cad.call.show', $call->id) }}" target="_blank">new
+                        tab</a>
                 </div>
                 <div class="w-full mb-14" x-data="{
                     openTab: 1,
