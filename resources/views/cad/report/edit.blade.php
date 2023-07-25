@@ -9,7 +9,7 @@
             <form action="{{ route('cad.report.update', $report->id) }}" id="mdeditor" method="POST">
                 @csrf
                 @method('PUT')
-                <h1 class="text-black text-8xl text-center underline">POLICE REPORT</h1>
+                {{-- <h1 class="text-black text-8xl text-center underline">POLICE REPORT</h1> --}}
 
                 <div class="my-5 text-2xl">
                     <div class="">

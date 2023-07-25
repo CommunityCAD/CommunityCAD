@@ -8,7 +8,7 @@
         <div class="bg-yellow-100 max-w-3xl rounded-lg mx-auto p-4 mt-5">
             <form action="{{ route('cad.report.store') }}" id="mdeditor" method="POST">
                 @csrf
-                <h1 class="text-black text-8xl text-center underline">POLICE REPORT</h1>
+                {{-- <h1 class="text-black text-8xl text-center underline">POLICE REPORT</h1> --}}
 
                 <div class="my-5 text-2xl">
                     <div class="">
