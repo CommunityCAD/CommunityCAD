@@ -24,14 +24,13 @@ class AddUnitController extends Controller
 
         if ($active_unit) {
             if ($active_unit->department_type == 1) {
-                return redirect()->route('cad.mdt.home');
+                return redirect()->route('cad.home');
             } elseif ($active_unit->department_type == 2) {
                 $active_dispatcher = ActiveUnit::where('department_type', 2)->orderBy('created_at')->get()->first();
                 if ($active_dispatcher->id != $active_unit->id) {
-                    return redirect()->route('cad.dispatch.home')->with('alerts', [['message' => 'You are not the primary dispatcher.', 'level' => 'error']]);
+                    return redirect()->route('cad.home')->with('alerts', [['message' => 'You are not the primary dispatcher.', 'level' => 'error']]);
                 }
-
-                return redirect()->route('cad.dispatch.home')->with('alerts', [['message' => 'You are the primary dispatcher.', 'level' => 'success']]);
+                return redirect()->route('cad.home')->with('alerts', [['message' => 'You are the primary dispatcher.', 'level' => 'success']]);
             } else {
                 return abort(404, 'Department type is not set correctly.');
             }
@@ -49,14 +48,14 @@ class AddUnitController extends Controller
         $new_active_unit = ActiveUnit::create($input);
 
         if ($new_active_unit->department_type == 1) {
-            return redirect()->route('cad.mdt.home');
+            return redirect()->route('cad.home');
         } elseif ($new_active_unit->department_type == 2) {
             $active_dispatcher = ActiveUnit::where('department_type', 2)->orderBy('created_at')->get()->first();
-            if ($active_dispatcher->id != $active_unit->id) {
-                return redirect()->route('cad.dispatch.home')->with('alerts', [['message' => 'You are not the primary dispatcher.', 'level' => 'error']]);
+            if ($active_dispatcher->id != $new_active_unit->user_id) {
+                return redirect()->route('cad.home')->with('alerts', [['message' => 'You are not the primary dispatcher.', 'level' => 'error']]);
             }
 
-            return redirect()->route('cad.dispatch.home')->with('alerts', [['message' => 'You are the primary dispatcher.', 'level' => 'success']]);
+            return redirect()->route('cad.home')->with('alerts', [['message' => 'You are the primary dispatcher.', 'level' => 'success']]);
         } else {
             return abort(404, 'Department type is not set correctly.');
         }

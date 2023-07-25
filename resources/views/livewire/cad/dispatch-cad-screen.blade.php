@@ -1,5 +1,6 @@
 <div class="p-4 mt-5 text-white rounded cursor-default" wire:poll.5s>
     <main class="">
+
         <div class="flex justify-between">
             @if ($active_dispatch == 'AVL')
                 <div class="text-green-600">
@@ -14,7 +15,27 @@
                     </div>
                     <p>{{ $active_dispatcher->user->officer_name_check }} ({{ $active_dispatcher->badge_number }}) is
                         Primary</p>
+                    <p>{{ $active_dispatcher->user->officer_name_check }} ({{ $active_dispatcher->badge_number }})
+                        Status: {{ $active_dispatcher->status }}</p>
                 </div>
+                @if (auth()->user()->active_unit->status != 'OFFDTY')
+                    @if (auth()->user()->id == $active_dispatcher->user_id)
+                        <div>
+                            <p>You are the Primary Dispatcher.</p>
+                            <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                        </div>
+                    @else
+                        <div>
+                            <p>You are a Secondary Dispatcher.</p>
+                            <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                        </div>
+                    @endif
+                @else
+                    <div>
+                        <p>You must go on duty.</p>
+                        <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                    </div>
+                @endif
             @elseif ($active_dispatch == 'BUSY')
                 <div class="text-yellow-600">
                     <div class="flex">
@@ -28,7 +49,27 @@
                     </div>
                     <p>{{ $active_dispatcher->user->officer_name_check }} ({{ $active_dispatcher->badge_number }}) is
                         Primary</p>
+                    <p>{{ $active_dispatcher->user->officer_name_check }} ({{ $active_dispatcher->badge_number }})
+                        Status: {{ $active_dispatcher->status }}</p>
                 </div>
+                @if (auth()->user()->active_unit->status != 'OFFDTY')
+                    @if (auth()->user()->id == $active_dispatcher->user_id)
+                        <div>
+                            <p>You are the Primary Dispatcher.</p>
+                            <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                        </div>
+                    @else
+                        <div>
+                            <p>You are a Secondary Dispatcher.</p>
+                            <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                        </div>
+                    @endif
+                @else
+                    <div>
+                        <p>You must go on duty.</p>
+                        <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                    </div>
+                @endif
             @else
                 <div class="text-red-600">
                     <div class="flex">
@@ -42,6 +83,24 @@
                     </div>
                     <p></p>
                 </div>
+                @if (auth()->user()->active_unit->status != 'OFFDTY')
+                    @if (auth()->user()->id == $active_dispatcher->user_id)
+                        <div>
+                            <p>You are the Primary Dispatcher.</p>
+                            <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                        </div>
+                    @else
+                        <div>
+                            <p>You are a Secondary Dispatcher.</p>
+                            <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                        </div>
+                    @endif
+                @else
+                    <div>
+                        <p>You must go on duty.</p>
+                        <p>Current Status: {{ auth()->user()->active_unit->status }}</p>
+                    </div>
+                @endif
             @endif
             <div>
                 <a class="new-button-md" href="#"
@@ -171,16 +230,15 @@
                 @if (auth()->user()->active_unit->status == 'OFFDTY')
                     <a class="new-button-md" href="#"
                         wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">ON DUTY</a>
+                    <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY REPORT</a>
                 @else
-                    <a class="new-button-md" href="#"
+                    <a class="new-button-md @if (auth()->user()->active_unit->status == 'AVL') !bg-green-400 @endif" href="#"
                         wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">AVAILABLE</a>
-                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ENRUTE')">EN
-                        ROUTE</a>
-                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ONSCN')">ON
-                        SCENE</a>
-                    <a class="delete-button-md" href="#"
+                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md @if (auth()->user()->active_unit->status == 'CALL') !bg-yellow-500 @endif"
+                        href="#" wire:click="set_status({{ auth()->user()->active_unit->id }}, 'CALL')">On
+                        Call</a>
+                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md @if (auth()->user()->active_unit->status == 'BRK') !bg-yellow-500 @endif"
+                        href="#"
                         wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">BREAK</a>
                     <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY</a>
                 @endif

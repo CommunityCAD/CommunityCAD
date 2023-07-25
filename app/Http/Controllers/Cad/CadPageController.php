@@ -20,13 +20,13 @@ class CadPageController extends Controller
             }
         }
 
-        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get();
+        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if ($active_unit->count() > 0) {
+        if ($active_unit) {
             if ($active_unit->department_type == 1) {
-                return redirect()->route('cad.mdt.home');
+                return redirect()->route('cad.home');
             } elseif ($active_unit->department_type == 2) {
-                return redirect()->route('cad.disptach.home');
+                return redirect()->route('cad.home');
             } else {
                 return abort(404, 'Department type is not set correctly.');
             }
@@ -41,7 +41,7 @@ class CadPageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (! $active_unit) {
+        if (!$active_unit) {
             return redirect()->route('cad.landing');
         }
 
@@ -50,22 +50,32 @@ class CadPageController extends Controller
 
     public function cad()
     {
+        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
+
+        if (!$active_unit) {
+            return redirect()->route('cad.landing');
+        }
+
+        return view('cad.cad', compact('active_unit'));
+    }
+
+    public function name()
+    {
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->count();
 
         if ($active_unit == 0) {
             return redirect()->route('cad.landing');
         }
-
-        return view('cad.cad');
-    }
-
-    public function name()
-    {
         return view('cad.name');
     }
 
     public function vehicle()
     {
+        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->count();
+
+        if ($active_unit == 0) {
+            return redirect()->route('cad.landing');
+        }
         return view('cad.vehicle');
     }
 }

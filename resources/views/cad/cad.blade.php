@@ -17,6 +17,14 @@
                 <span class="mx-3">Connected to live_database_prod</span>
             </p>
         </div>
-        @livewire('cad.mdt-cad-screen')
+        @if ($active_unit)
+            @if ($active_unit->department_type == 1)
+                @livewire('cad.mdt-cad-screen')
+            @elseif ($active_unit->department_type == 2)
+                @livewire('cad.dispatch-cad-screen')
+            @else
+                hahaha
+            @endif
+        @endif
     </div>
 @endsection
