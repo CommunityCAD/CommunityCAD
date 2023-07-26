@@ -123,7 +123,16 @@
                         @endforeach
                     </div>
                 </div>
+                <hr>
+                <div>
+                    <a class="new-button-sm" href="#"
+                        onclick="openExternalWindow('{{ route('cad.ticket.create', $civilian->id) }}')">New
+                        Ticket</a>
+                    <a class="new-button-sm" href="#">New Warning</a>
+                    <a class="new-button-sm" href="#">New Arrest Report</a>
+                </div>
             @endif
+
         </div>
     </div>
 </div>
