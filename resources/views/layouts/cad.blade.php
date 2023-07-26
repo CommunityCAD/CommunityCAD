@@ -31,7 +31,7 @@
     @livewireStyles
 </head>
 
-<body class="font-mono antialiased bg-black" onload="startTime()">
+<body class="font-mono antialiased bg-black uppercase" onload="startTime()">
 
     <div class="">
         @include('inc.cad.navbar')

@@ -23,26 +23,6 @@
                 </a>
             </li>
             <hr>
-
-            <li class="relative px-6 py-3">
-                @if (request()->is('cad/mdt/*'))
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
-                @endif
-                <a class="sidebar-link @if (request()->is('cad/*')) sidebar-link-active @endif"
-                    href="{{ route('cad.landing') }}">
-                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10.5 19.5h3m-6.75 2.25h10.5a2.25 2.25 0 002.25-2.25v-15a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 4.5v15a2.25 2.25 0 002.25 2.25z"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-
-                    <span class="ml-4">LEO MDT</span>
-                </a>
-            </li>
             <li class="relative px-6 py-3">
                 @if (request()->is('civilian/*'))
                     <span aria-hidden="true"
@@ -58,7 +38,7 @@
                             d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="ml-4">Dispatch Center</span>
+                    <span class="ml-4">CAD System</span>
                 </a>
             </li>
             <li class="relative px-6 py-3">

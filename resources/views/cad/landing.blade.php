@@ -1,4 +1,4 @@
-@extends('layouts.cad.cad_simple')
+@extends('layouts.cad_simple')
 
 @section('content')
     <section x-data="{ modalOpen: true }">
@@ -57,7 +57,7 @@
             </div>
         @endif
 
-        <div class="container p-4 mx-auto bg-[#124559] text-white cursor-default rounded-2xl mt-5">
+        <div class="admin-card">
             <header>
                 <div class="text-center">
                     <h1 class="text-2xl font-semibold">
@@ -66,13 +66,12 @@
             </header>
 
             <main class="my-5">
-                <form action="{{ route('cad.add_unit') }}" class="w-1/3 mx-auto space-y-3" method="POST">
+                <form action="{{ route('cad.add_unit') }}" class="mx-auto space-y-3" method="POST">
                     @csrf
 
                     <div class="w-full">
                         <label class="block mr-2 text-lg">Patrol Department:</label>
-                        <select class="w-full px-1 py-1 text-lg font-bold text-black border-2 border-white"
-                            name="user_department">
+                        <select class="text-input" name="user_department">
                             @foreach ($available_departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->department->name }}
                                     ({{ $department->badge_number }})
@@ -82,7 +81,7 @@
                     </div>
 
                     <div class="w-full">
-                        <button class="new-button-md">Access System</button>
+                        <button class="new-button-md uppercase">Access System</button>
                     </div>
                 </form>
             </main>

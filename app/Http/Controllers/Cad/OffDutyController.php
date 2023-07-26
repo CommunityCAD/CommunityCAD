@@ -7,6 +7,7 @@ use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
 use App\Models\CallLog;
 use App\Models\Report;
+use App\Models\ReportType;
 use Illuminate\Http\Request;
 
 class OffDutyController extends Controller
@@ -15,6 +16,8 @@ class OffDutyController extends Controller
     {
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
         $calls = Call::where('status', '!=', 'CLO')->get();
+        $report_types = ReportType::all();
+
 
         foreach ($calls as $call) {
             if (in_array($active_unit->badge_number, $call->nice_units)) {
@@ -24,18 +27,21 @@ class OffDutyController extends Controller
 
         $active_unit->update(['status' => 'OFFDTY']);
 
-        return view('cad.offduty.create');
+        return view('cad.offduty.create', compact('report_types'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'text' => 'required',
+            'text' => '',
+            'mdcontent' => 'required',
+            'report_type_id' => 'required|numeric',
+            'title' => 'required',
         ]);
 
         $validated['user_id'] = auth()->user()->id;
-        $validated['title'] = 'End of Watch for ' . auth()->user()->officer_name_check . ' on ' . date('m/d/Y H:i');
-        $validated['report_type_id'] = 1;
+        $validated['text'] = $validated['mdcontent'];
+        unset($validated['mdcontent']);
 
         Report::create($validated);
 
