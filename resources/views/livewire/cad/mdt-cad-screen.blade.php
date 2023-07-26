@@ -167,22 +167,26 @@
     <main class="mt-12">
         <div>
             <div class="flex justify-around mb-3 space-x-3">
+                @if (auth()->user()->active_unit)
 
-                @if (auth()->user()->active_unit->status == 'OFFDTY')
-                    <a class="new-button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">ON DUTY</a>
-                @else
-                    <a class="new-button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">AVAILABLE</a>
-                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ENRUTE')">EN
-                        ROUTE</a>
-                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ONSCN')">ON
-                        SCENE</a>
-                    <a class="delete-button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">BREAK</a>
-                    <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY</a>
+                    @if (auth()->user()->active_unit->status == 'OFFDTY')
+                        <a class="new-button-md" href="#"
+                            wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">ON DUTY</a>
+                        <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY REPORT</a>
+                    @else
+                        <a class="new-button-md" href="#"
+                            wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">AVAILABLE</a>
+                        <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
+                            wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ENRUTE')">EN
+                            ROUTE</a>
+                        <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
+                            wire:click="set_status({{ auth()->user()->active_unit->id }}, 'ONSCN')">ON
+                            SCENE</a>
+                        <a class="delete-button-md" href="#"
+                            wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">BREAK</a>
+                        <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY</a>
+                    @endif
+
                 @endif
 
             </div>
@@ -266,4 +270,33 @@
             </table>
         </div>
     </main>
+    @if (!auth()->user()->active_unit)
+        <section x-data="{ modalOpen: true }">
+            <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 text-black bg-black bg-opacity-90"
+                x-show="modalOpen" x-transition>
+                <div class="w-full max-w-[570px] rounded-[20px] bg-gray-400 py-10 px-6 md:py-[40px] md:px-[50px]">
+                    <h3 class="pb-2 text-xl font-bold text-center sm:text-2xl">
+                        System Use Notification
+                    </h3>
+                    <p class="mb-5 leading-relaxed text-justify">
+                        You were forced off duty by a dispatcher. You must log out of the system and log back in to
+                        continue. This instance has been logged and a supervisor has been notified. You must contact you
+                        supervisor and let them know of this incident.
+                    </p>
+                    <p class="mb-5 leading-relaxed text-justify">
+                    </p>
+                    <p class="mb-5 leading-relaxed">
+                        Must be on desktop computer.
+                    </p>
+                    <div class="flex flex-wrap -mx-3 text-center">
+                        <div class="px-3">
+                            <a class="delete-button-md" href="{{ route('portal.dashboard') }}">
+                                Exit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 </div>

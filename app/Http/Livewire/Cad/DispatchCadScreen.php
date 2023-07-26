@@ -58,6 +58,21 @@ class DispatchCadScreen extends Component
         $this->reset();
     }
 
+    public function hard_offduty(ActiveUnit $activeUnit)
+    {
+        $calls = Call::where('status', '!=', 'CLO')->get();
+
+        foreach ($calls as $call) {
+            if (in_array($activeUnit->badge_number, $call->nice_units)) {
+                $this->remove_unit_from_call($activeUnit, $call);
+            }
+        }
+
+        $activeUnit->delete();
+
+        $this->reset();
+    }
+
     public function set_call_status(Call $call, $status)
     {
         $call->update(['status' => $status]);

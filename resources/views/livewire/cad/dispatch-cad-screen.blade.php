@@ -281,6 +281,10 @@
                                     wire:click="set_status({{ $active_unit->id }}, 'ONSCN')">On-Scene</a>
                                 <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
                                     wire:click="set_status({{ $active_unit->id }}, 'BRK')">Break</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="set_status({{ $active_unit->id }}, 'OFFDTY')">Soft Off Duty</a>
+                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
+                                    wire:click="hard_offduty({{ $active_unit->id }})">Hard Off Duty</a>
                             </div>
                         </td>
                         <td class="p-1 border border-slate-400">{{ $active_unit->time }}m</td>

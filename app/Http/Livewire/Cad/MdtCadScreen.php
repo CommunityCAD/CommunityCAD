@@ -14,15 +14,16 @@ class MdtCadScreen extends Component
     public $calls;
 
     public $active_dispatch = 'OFF';
+    public $active_dispatcher;
 
     public function render()
     {
         $this->active_units = ActiveUnit::where('department_type', '!=', 2)->orderBy('department_type', 'asc')->get();
         $this->calls = Call::where('status', '!=', 'CLO')->orderBy('priority', 'desc')->get();
-        $active_dispatcher = ActiveUnit::where('department_type', 2)->orderBy('created_at')->get()->first();
+        $this->active_dispatcher = ActiveUnit::where('department_type', 2)->orderBy('created_at')->get()->first();
 
-        if ($active_dispatcher) {
-            switch ($active_dispatcher->status) {
+        if ($this->active_dispatcher) {
+            switch ($this->active_dispatcher->status) {
                 case 'AVL':
                     $this->active_dispatch = 'AVL';
                     break;
@@ -68,7 +69,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
             'call_id' => $call->id,
         ]);
 
@@ -81,7 +82,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit '.$activeUnit->badge_number.' has been added to call.',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been added to call.',
             'call_id' => $call->id,
         ]);
 
@@ -104,7 +105,7 @@ class MdtCadScreen extends Component
         $call->update(['status' => 'CLO', 'units' => '{"data":[]}']);
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Call '.$call->id.' has been closed and units ('.implode(', ', $call_units).') removed from call.',
+            'text' => 'Call ' . $call->id . ' has been closed and units (' . implode(', ', $call_units) . ') removed from call.',
             'call_id' => $call->id,
         ]);
     }
