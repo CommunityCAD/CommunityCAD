@@ -234,11 +234,10 @@
                 @else
                     <a class="new-button-md @if (auth()->user()->active_unit->status == 'AVL') !bg-green-400 @endif" href="#"
                         wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">AVAILABLE</a>
-                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md @if (auth()->user()->active_unit->status == 'CALL') !bg-yellow-500 @endif"
-                        href="#" wire:click="set_status({{ auth()->user()->active_unit->id }}, 'CALL')">On
+                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
+                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'CALL')">
                         Call</a>
-                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md @if (auth()->user()->active_unit->status == 'BRK') !bg-yellow-500 @endif"
-                        href="#"
+                    <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
                         wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">BREAK</a>
                     <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY</a>
                 @endif
