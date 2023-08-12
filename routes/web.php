@@ -50,7 +50,16 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::resource('call', CallController::class);
         Route::resource('report', ReportController::class);
-        Route::resource('civilan/{civilian}/ticket', TicketController::class);
+
+        Route::get('civilan/{civilian}/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
+        Route::post('civilan/{civilian}/ticket', [TicketController::class, 'store'])->name('ticket.store');
+        Route::get('ticket/{ticket}/add_charges', [TicketController::class, 'add_charges'])->name('ticket.add_charges');
+        Route::post('ticket/{ticket}/add_charges', [TicketController::class, 'add_charges_store'])->name('ticket.add_charges_store');
+        Route::get('ticket/{ticket}/sign_ticket', [TicketController::class, 'sign_ticket'])->name('ticket.sign_ticket');
+        Route::get('ticket/{ticket}', [TicketController::class, 'show'])->name('ticket.show');
+
+
+
 
         Route::get('name', [CadPageController::class, 'name'])->name('name');
         Route::get('vehicle', [CadPageController::class, 'vehicle'])->name('vehicle');
