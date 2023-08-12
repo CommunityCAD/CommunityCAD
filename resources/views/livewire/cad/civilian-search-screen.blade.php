@@ -124,12 +124,43 @@
                     </div>
                 </div>
                 <hr>
+                <div class="flex flex-row">
+                    <div class="w-full">
+                        <p class="text-lg font-bold">Tickets/Warnings/Arrests</p>
+                        @foreach ($civilian_return->tickets as $ticket)
+                            @php
+                                if ($ticket->type_id == 1) {
+                                    $type = 'Warning';
+                                    $text_color = 'text-yellow-500';
+                                } elseif ($ticket->type_id == 2) {
+                                    $type = 'Ticket';
+                                    $text_color = 'text-orange-500';
+                                } elseif ($ticket->type_id == 3) {
+                                    $type = 'Arrest';
+                                    $text_color = 'text-red-500';
+                                }
+                            @endphp
+                            <a class="block {{ $text_color }}" href="#"
+                                onclick="openExternalWindow('{{ route('cad.ticket.show', $ticket->id) }}')">({{ $ticket->id }})
+                                {{ $type }} on {{ $ticket->offense_occured_at->format('m/d/Y H:i') }} at
+                                {{ $ticket->location_of_offense }} <span class="block ml-5">Offense(s)
+                                    @foreach ($ticket->charges as $charge)
+                                        @if (!$loop->last)
+                                            {{ $charge->penal_code->name }},
+                                        @else
+                                            {{ $charge->penal_code->name }}
+                                        @endif
+                                    @endforeach
+                                </span>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                <hr>
                 <div>
                     <a class="new-button-sm" href="#"
                         onclick="openExternalWindow('{{ route('cad.ticket.create', $civilian->id) }}')">New
-                        Ticket</a>
-                    <a class="new-button-sm" href="#">New Warning</a>
-                    <a class="new-button-sm" href="#">New Arrest Report</a>
+                        Warning/Ticket/Arrest</a>
                 </div>
             @endif
 
