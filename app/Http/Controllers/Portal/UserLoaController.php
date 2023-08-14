@@ -23,7 +23,7 @@ class UserLoaController extends Controller
         $input['user_id'] = auth()->user()->id;
 
         Loa::create($input);
-        return redirect()->route('portal.user.settings.index')->with('alerts', [['message' => 'Setting LOA request submitted.', 'level' => 'success']]);
+        return redirect()->route('portal.user.settings.index')->with('alerts', [['message' => 'LOA request submitted.', 'level' => 'success']]);
     }
 
     public function show(Loa $loa): View
@@ -37,6 +37,6 @@ class UserLoaController extends Controller
     public function destroy(Loa $loa): RedirectResponse
     {
         $loa->delete();
-        return redirect()->route('loas.index')->with('success', 'Message');
+        return redirect()->route('portal.user.settings.index')->with('alerts', [['message' => 'LOA request deleted.', 'level' => 'success']]);
     }
 }

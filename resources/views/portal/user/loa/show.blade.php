@@ -2,8 +2,8 @@
 
 @section('content')
     <header class="w-full my-3">
-        <h1 class="text-2xl font-bold text-white">User Settings</h1>
-        <p class="text-sm text-white"></p>
+        <h1 class="text-2xl font-bold text-white">User LOA Requests</h1>
+        <p class="text-sm text-white">You can submit a new request from the Settings Page.</p>
     </header>
 
     <div class="card">
@@ -16,7 +16,11 @@
             <p>LOA End Date: {{ $loa->end_date->format('m/d/Y') }}</p>
             <p>Reason: <br> {{ $loa->reason }}</p>
 
-            <button class="delete-button-md">Delete Request</button>
+            <form action="{{ route('portal.user.loa.destroy', $loa->id) }}" method="post">
+                @method('delete')
+                @csrf
+                <button class="delete-button-md">Delete Request</button>
+            </form>
         </div>
         <hr class="my-5">
         <div class="space-y-3">

@@ -44,6 +44,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::post('user/loa', [UserLoaController::class, 'store'])->name('user.loa.store');
         Route::get('user/loa/{loa}', [UserLoaController::class, 'show'])->name('user.loa.show');
+        Route::delete('user/loa/{loa}', [UserLoaController::class, 'destroy'])->name('user.loa.destroy');
 
 
 
