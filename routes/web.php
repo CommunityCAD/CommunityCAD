@@ -11,6 +11,8 @@ use App\Http\Controllers\Cad\ReportController;
 use App\Http\Controllers\Cad\TicketController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
+use App\Http\Controllers\Portal\UserLoaController;
+use App\Http\Controllers\Portal\UserSettingsController;
 use App\Http\Controllers\Staff\StaffPageController;
 use App\Http\Controllers\Supervisor\SupervisorPageController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +38,14 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     Route::name('portal.')->prefix('portal')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('penalcode', [DashboardController::class, 'penalcode'])->name('penalcode');
+
+        Route::get('user/settings', [UserSettingsController::class, 'index'])->name('user.settings.index');
+        Route::put('user/settings', [UserSettingsController::class, 'update'])->name('user.settings.update');
+
+        Route::post('user/loa', [UserLoaController::class, 'store'])->name('user.loa.store');
+        Route::get('user/loa/{loa}', [UserLoaController::class, 'show'])->name('user.loa.show');
+
+
 
         Route::get('department/{department}/roster', [DepartmentController::class, 'roster_index'], ['department' => 'department'])->name('department.roster.index');
         Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
