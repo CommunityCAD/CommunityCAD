@@ -92,6 +92,20 @@
                 </li>
             @endcan
 
+            @can('loa_manage')
+                <li class="relative px-6 py-3">
+                    <a class="flex items-center @if (request()->is('staff/loa/*') || request()->is('staff/loa')) text-lg text-purple-500 @endif"
+                        href="{{ route('staff.loa.index', 1) }}">
+                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.75 5.25v13.5m-7.5-13.5v13.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                        <span class="ml-4">LOA Requests</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('user_departments_manage')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('staff/user_department/*') || request()->is('staff/user_department')) text-lg text-purple-500 @endif"

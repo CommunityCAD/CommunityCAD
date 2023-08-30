@@ -7,6 +7,7 @@ use App\Http\Controllers\Staff\Applications\ApproveInterviewController;
 use App\Http\Controllers\Staff\Applications\DenyApplicationController;
 use App\Http\Controllers\Staff\Applications\DenyInterviewController;
 use App\Http\Controllers\Staff\Applications\FlagApplicationController;
+use App\Http\Controllers\Staff\LoaController;
 use App\Http\Controllers\Staff\StaffPageController;
 use App\Http\Controllers\Staff\UserDepartmentController;
 use Illuminate\Support\Facades\Route;
@@ -39,3 +40,8 @@ Route::resource('user.user_department', UserDepartmentController::class)->except
     'update' => 'user_department.update',
     'destroy' => 'user_department.destroy',
 ]);
+
+Route::get('loa/{status?}', [LoaController::class, 'index'])->name('loa.index')->middleware('can:loa_manage');
+Route::get('loa/view/{loa}', [LoaController::class, 'show'])->name('loa.show')->middleware('can:loa_manage');
+Route::get('loa/view/{loa}/approve', [LoaController::class, 'approve'])->name('loa.approve')->middleware('can:loa_manage');
+Route::get('loa/view/{loa}/deny', [LoaController::class, 'deny'])->name('loa.deny')->middleware('can:loa_manage');
