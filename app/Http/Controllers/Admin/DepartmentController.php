@@ -58,10 +58,10 @@ class DepartmentController extends Controller
             }
         }
 
-        if (! isset($input['is_open_external'])) {
+        if (!isset($input['is_open_external'])) {
             $input['is_open_external'] = 0;
         }
-        if (! isset($input['is_open_internal'])) {
+        if (!isset($input['is_open_internal'])) {
             $input['is_open_internal'] = 0;
         }
         $department->update($input);
@@ -80,7 +80,7 @@ class DepartmentController extends Controller
 
     protected function refreshcache()
     {
-        $departments = Department::where('id', '>', 0)->get();
+        $departments = Department::where('id', '>', 0)->where('deleted_at', '!=', 'null')->get();
 
         Cache::forget('departments');
         Cache::forever('departments', $departments);
