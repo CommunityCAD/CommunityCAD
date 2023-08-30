@@ -14,10 +14,10 @@ class PenalCodeController extends Controller
 {
     public function index(): View
     {
-        $codes = PenalCode::all();
+        // $codes = PenalCode::all();
         $titles = PenalCodeTitle::orderBy('number', 'asc')->get();
 
-        return view('admin.penalcode.code.index', compact('codes', 'titles'));
+        return view('admin.penalcode.code.index', compact('titles'));
     }
 
     public function create(): View
