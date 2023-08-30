@@ -12,6 +12,8 @@ class PenalCode extends Model
 
     protected $guarded = [];
 
+    protected $with = ['penal_code_class'];
+
     public function penal_code_title()
     {
         return $this->hasOne(PenalCodeTitle::class, 'id', 'penal_code_title_id');

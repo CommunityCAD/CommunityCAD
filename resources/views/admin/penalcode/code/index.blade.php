@@ -26,26 +26,6 @@
                 @endcan
             </div>
         </div>
-        @foreach ($codes as $code)
-            <div class="border-l-4 cursor-pointer admin-pill">
-                <a href="{{ route('admin.penalcode.code.edit', $code->id) }}">
-                    <div class="flex items-center justify-between ml-3 text-white">
-                        <div class="">
-                            <p class="">PC - {{ $code->penal_code_title->number }}({{ $code->number }}).
-                                {{ $code->name }} - {{ $code->penal_code_class->name }}</p>
-                        </div>
-                        <span class="">
-                            <button class="edit-button-sm">
-                                <x-edit-button></x-edit-button>
-                            </button>
-                        </span>
-                    </div>
-                </a>
-            </div>
-        @endforeach
-    </div>
-
-    <div class="admin-card">
         @foreach ($titles as $title)
             <h2>PC - {{ $title->number }} {{ $title->name }}</h2>
 
