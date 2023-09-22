@@ -14,7 +14,7 @@ class DepartmentController extends Controller
 {
     public function index(): View
     {
-        $departments = Cache::get('departments', function () {
+        $departments = Cache::remember('departments', 5, function () {
             return Department::where('id', '>', 0)->get();
         });
 
@@ -37,7 +37,7 @@ class DepartmentController extends Controller
 
         Department::create($input);
 
-        $this->refreshcache();
+        // $this->refreshcache();
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department created.', 'level' => 'success']]);
     }
@@ -66,7 +66,7 @@ class DepartmentController extends Controller
         }
         $department->update($input);
 
-        $this->refreshcache();
+        // $this->refreshcache();
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department updated.', 'level' => 'success']]);
     }
