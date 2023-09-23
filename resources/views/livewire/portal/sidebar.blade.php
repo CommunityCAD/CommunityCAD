@@ -42,13 +42,14 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
-                @if (request()->is('civilian/*'))
+                @if (request()->is('courthouse/*'))
                     <span aria-hidden="true"
                         class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
                     <span aria-hidden="true"
                         class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
                 @endif
-                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif" href="#">
+                <a class="sidebar-link @if (request()->is('courthouse/*')) sidebar-link-active @endif"
+                    href="{{ route('courthouse.home') }}">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
