@@ -105,7 +105,10 @@
             <div class="space-y-2">
                 <p class="flex text-2xl">{{ __('Welcome to') }} {{ get_setting('community_name') }}!</p>
                 <img alt="" class="mx-auto" src="{{ get_setting('community_logo') }}">
-                <p class="">{{ get_setting('community_intro') }} </p>
+
+                <div class="prose text-white">
+                    <p class="">{!! Str::markdown(get_setting('community_intro')) !!}</p>
+                </div>
 
                 <div class="flex w-full">
                     <a class="flex items-center mx-auto button-md bg-[#7289da] text-gray-800 hover:opacity-70"

@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'America/Chicago',
+    'timezone' => env('TIMEZONE', 'America/Chicago'),
 
     /*
     |--------------------------------------------------------------------------

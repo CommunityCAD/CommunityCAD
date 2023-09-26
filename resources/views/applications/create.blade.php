@@ -9,15 +9,15 @@
                 <form action="{{ route('application.store') }}" method="POST">
                     @csrf
                     <div class="w-full">
-                        <label for="department_id" class="block mt-3 text-black-500">What department are you applying
+                        <label class="block mt-3 text-black-500" for="department_id">What department are you applying
                             for?</label>
-                        <select name="department_id" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none"
-                            id="">
+                        <select class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" id=""
+                            name="department_id">
                             <option value="">-- Choose One --</option>
 
                             @foreach ($departments as $department)
-                                <option value="{{ $department->id }}"
-                                    {{ old('department_id') == $department->id ? 'selected="selected"' : '' }}>
+                                <option {{ old('department_id') == $department->id ? 'selected="selected"' : '' }}
+                                    value="{{ $department->id }}">
                                     {{ $department->name }}</option>
                             @endforeach
                         </select>
@@ -25,58 +25,58 @@
                     </div>
 
                     <div class="w-full">
-                        <label for="why_join_department" class="block mt-3 text-black-500">Why do you wish to join this
+                        <label class="block mt-3 text-black-500" for="why_join_department">Why do you wish to join this
                             department?</label>
-                        <textarea type="text" name="why_join_department"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('why_join_department') }}</textarea>
+                        <textarea class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="why_join_department"
+                            type="text">{{ old('why_join_department') }}</textarea>
                         <x-input-error :messages="$errors->get('why_join_department')" class="mt-2" />
                     </div>
 
                     <div class="w-full">
-                        <label for="experience_department" class="block mt-3 text-black-500">Do you have any experiences in
+                        <label class="block mt-3 text-black-500" for="experience_department">Do you have any experiences in
                             this
                             field?</label>
-                        <textarea type="text" name="experience_department"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('experience_department') }}</textarea>
+                        <textarea class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="experience_department"
+                            type="text">{{ old('experience_department') }}</textarea>
                         <x-input-error :messages="$errors->get('experience_department')" class="mt-2" />
                     </div>
 
                     <div class="w-full">
-                        <label for="department_duties" class="block mt-3 text-black-500">In your own words, what are the
+                        <label class="block mt-3 text-black-500" for="department_duties">In your own words, what are the
                             general
                             duties of the department?</label>
-                        <textarea type="text" name="department_duties"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('department_duties') }}</textarea>
+                        <textarea class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="department_duties"
+                            type="text">{{ old('department_duties') }}</textarea>
                         <x-input-error :messages="$errors->get('department_duties')" class="mt-2" />
                     </div>
 
                     <div class="w-full">
-                        <label for="scenario" class="block mt-3 text-black-500">Please create a detailed scenario (For
+                        <label class="block mt-3 text-black-500" for="scenario">Please create a detailed scenario (For
                             Example: 911 call, traffic stop, crime scene, etc.)</label>
-                        <textarea type="text" name="scenario" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('scenario') }}</textarea>
+                        <textarea class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="scenario" type="text">{{ old('scenario') }}</textarea>
                         <x-input-error :messages="$errors->get('scenario')" class="mt-2" />
                     </div>
 
                     <hr class="my-4">
 
                     <div class="w-full">
-                        <label for="about_you" class="block mt-3 text-black-500">Tell us about yourself</label>
-                        <textarea type="text" name="about_you" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('about_you') }}</textarea>
+                        <label class="block mt-3 text-black-500" for="about_you">Tell us about yourself</label>
+                        <textarea class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="about_you" type="text">{{ old('about_you') }}</textarea>
                         <x-input-error :messages="$errors->get('about_you')" class="mt-2" />
                     </div>
 
                     <div class="w-full">
-                        <label for="skills" class="block mt-3 text-black-500">Do you have any skills that can be useful in
+                        <label class="block mt-3 text-black-500" for="skills">Do you have any skills that can be useful in
                             your department and/or the community?</label>
-                        <textarea type="text" name="skills" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('skills') }}</textarea>
+                        <textarea class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="skills" type="text">{{ old('skills') }}</textarea>
                         <x-input-error :messages="$errors->get('skills')" class="mt-2" />
                     </div>
 
                     <div class="w-full">
-                        <label for="legal_copy" class="block mt-3 text-black-500">Do you have a working and legal copy of
+                        <label class="block mt-3 text-black-500" for="legal_copy">Do you have a working and legal copy of
                             GTA V on PC?</label>
-                        <select name="legal_copy" class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none"
-                            id="">
+                        <select class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" id=""
+                            name="legal_copy">
                             <option {{ old('legal_copy') == 0 ? 'selected="selected"' : '' }} value="0">No
                             </option>
                             <option {{ old('legal_copy') == 1 ? 'selected="selected"' : '' }} value="1">Yes
@@ -87,10 +87,10 @@
                     </div>
 
                     <div class="w-full">
-                        <label for="previous_member" class="block mt-3 text-black-500">Are you a previous member of
+                        <label class="block mt-3 text-black-500" for="previous_member">Are you a previous member of
                             {{ get_setting('community_name') }}?</label>
-                        <select name="previous_member"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" id="">
+                        <select class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" id=""
+                            name="previous_member">
                             <option {{ old('previous_member') == 0 ? 'selected="selected"' : '' }} value="0">No
                             </option>
                             <option {{ old('previous_member') == 1 ? 'selected="selected"' : '' }} value="1">Yes
@@ -101,15 +101,16 @@
                     </div>
 
                     <div class="w-full">
-                        <label for="why_join_community" class="block mt-3 text-black-500">Why do you want to be apart of
+                        <label class="block mt-3 text-black-500" for="why_join_community">Why do you want to be apart of
                             {{ get_setting('community_name') }}?</label>
-                        <textarea type="text" name="why_join_community"
-                            class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none">{{ old('why_join_community') }}</textarea>
+                        <textarea class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="why_join_community"
+                            type="text">{{ old('why_join_community') }}</textarea>
                         <x-input-error :messages="$errors->get('why_join_community')" class="mt-2" />
                     </div>
 
-                    <button type="submit"
-                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70">
+                    <button
+                        class="inline-flex items-center h-full px-4 py-2 mt-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-[#01161e] border border-transparent rounded-md hover:opacity-70"
+                        type="submit">
                         Submit Application
                     </button>
                 </form>
@@ -121,8 +122,9 @@
                             submitting this application.
                         </p>
                     @endif
-
-                    <p>{!! str_replace('/nl', '<br><br>', get_setting('application_terms')) !!}</p>
+                    <div class="prose prose-lg">
+                        <p class="">{!! Str::markdown(get_setting('application_terms')) !!}</p>
+                    </div>
                 </div>
             </div>
         </div>

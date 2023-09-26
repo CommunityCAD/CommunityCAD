@@ -28,11 +28,6 @@ class CadSettingController extends Controller
     {
         $cadSetting->update(['value' => $request->value]);
 
-        $cad_settings = DB::table('cad_settings')->get(['name', 'value', 'type']);
-
-        Cache::forget('cad_settings');
-        Cache::forever('cad_settings', $cad_settings);
-
         return redirect()->route('admin.cad_setting.index')->with('alerts', [['message' => 'Setting Updated.', 'level' => 'success']]);
     }
 }
