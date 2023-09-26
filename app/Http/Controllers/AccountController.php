@@ -25,7 +25,7 @@ class AccountController extends Controller
         $data = $request->validated();
 
         if (get_setting('force_steam_link')) {
-            if (! session()->has('steam_id')) {
+            if (!session()->has('steam_id')) {
                 return redirect()->route('account.create')->with('alerts', [['message' => 'You must link your steam account. Form has been reset.', 'level' => 'error']]);
             }
         }
@@ -46,6 +46,7 @@ class AccountController extends Controller
         }
 
         $user = User::create($data);
+        $user->touch('last_login');
 
         Auth::logout();
 
