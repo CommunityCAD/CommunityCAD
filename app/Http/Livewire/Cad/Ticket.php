@@ -2,23 +2,25 @@
 
 namespace App\Http\Livewire\Cad;
 
-use App\Models\Civilian;
 use App\Models\Civilian\Vehicle;
 use App\Models\License;
-use App\Models\PenalCode;
 use App\Models\PenalCodeTitle;
 use Livewire\Component;
 
 class Ticket extends Component
 {
     public $civilian;
+
     public $licenseId;
+
     public $chosen_license = false;
 
     public $vehicleId;
+
     public $chosen_vehicle = false;
 
     public $penal_code_title;
+
     public $charges = [];
 
     public function mount()
@@ -30,6 +32,7 @@ class Ticket extends Component
     {
         $this->chosen_license = License::where('id', $this->licenseId)->get()->first();
         $this->chosen_vehicle = Vehicle::where('id', $this->vehicleId)->get()->first();
+
         return view('livewire.cad.ticket');
     }
 

@@ -30,6 +30,7 @@ class AddUnitController extends Controller
                 if ($active_dispatcher->id != $active_unit->id) {
                     return redirect()->route('cad.home')->with('alerts', [['message' => 'You are not the primary dispatcher.', 'level' => 'error']]);
                 }
+
                 return redirect()->route('cad.home')->with('alerts', [['message' => 'You are the primary dispatcher.', 'level' => 'success']]);
             } else {
                 return abort(404, 'Department type is not set correctly.');

@@ -8,7 +8,6 @@ use App\Models\Charges;
 use App\Models\Civilian;
 use App\Models\Civilian\Vehicle;
 use App\Models\License;
-use App\Models\PenalCodeTitle;
 use App\Models\Ticket;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +15,6 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-
     public function show(Ticket $ticket): View
     {
         $totals = [
@@ -44,7 +42,7 @@ class TicketController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $data['civilian_id'] = $civilian->id;
-        $data['offense_occured_at'] = $data['date'] . ' ' . $data['time'] . ':00';
+        $data['offense_occured_at'] = $data['date'].' '.$data['time'].':00';
 
         unset($data['time'], $data['date']);
 
@@ -69,7 +67,6 @@ class TicketController extends Controller
         return redirect()->route('cad.ticket.add_charges', $ticket->id);
     }
 
-
     public function add_charges(Ticket $ticket): View
     {
         // dd($ticket->charges->penal_code_id);
@@ -93,6 +90,7 @@ class TicketController extends Controller
         $validated['ticket_id'] = $ticket->id;
 
         Charges::create($validated);
+
         return redirect()->route('cad.ticket.add_charges', $ticket->id);
     }
 

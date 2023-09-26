@@ -18,7 +18,6 @@ class OffDutyController extends Controller
         $calls = Call::where('status', '!=', 'CLO')->get();
         $report_types = ReportType::all();
 
-
         foreach ($calls as $call) {
             if (in_array($active_unit->badge_number, $call->nice_units)) {
                 $this->remove_unit_from_call($active_unit, $call);
@@ -57,7 +56,7 @@ class OffDutyController extends Controller
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
+            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
             'call_id' => $call->id,
         ]);
 

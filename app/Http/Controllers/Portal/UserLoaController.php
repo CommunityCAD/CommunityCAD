@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class UserLoaController extends Controller
 {
-
     public function store(Request $request): RedirectResponse
     {
         $input = $request->validate([
@@ -23,6 +22,7 @@ class UserLoaController extends Controller
         $input['user_id'] = auth()->user()->id;
 
         Loa::create($input);
+
         return redirect()->route('portal.user.settings.index')->with('alerts', [['message' => 'LOA request submitted.', 'level' => 'success']]);
     }
 
@@ -37,6 +37,7 @@ class UserLoaController extends Controller
     public function destroy(Loa $loa): RedirectResponse
     {
         $loa->delete();
+
         return redirect()->route('portal.user.settings.index')->with('alerts', [['message' => 'LOA request deleted.', 'level' => 'success']]);
     }
 }

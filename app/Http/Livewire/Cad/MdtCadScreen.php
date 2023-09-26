@@ -14,6 +14,7 @@ class MdtCadScreen extends Component
     public $calls;
 
     public $active_dispatch = 'OFF';
+
     public $active_dispatcher;
 
     public function render()
@@ -69,7 +70,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
+            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
             'call_id' => $call->id,
         ]);
 
@@ -82,7 +83,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been added to call.',
+            'text' => 'Unit '.$activeUnit->badge_number.' has been added to call.',
             'call_id' => $call->id,
         ]);
 
@@ -105,7 +106,7 @@ class MdtCadScreen extends Component
         $call->update(['status' => 'CLO', 'units' => '{"data":[]}']);
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Call ' . $call->id . ' has been closed and units (' . implode(', ', $call_units) . ') removed from call.',
+            'text' => 'Call '.$call->id.' has been closed and units ('.implode(', ', $call_units).') removed from call.',
             'call_id' => $call->id,
         ]);
     }

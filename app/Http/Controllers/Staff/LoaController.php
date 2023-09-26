@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\Loa;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class LoaController extends Controller
 {
-
     public function index($status = 0): View
     {
         $loas = Loa::all();
@@ -35,7 +32,6 @@ class LoaController extends Controller
                 break;
         }
 
-
         return view('staff.loa.index', compact('loas', 'page_title'));
     }
 
@@ -45,7 +41,6 @@ class LoaController extends Controller
 
         return view('staff.loa.show', compact('loa', 'histories'));
     }
-
 
     public function approve(Loa $loa)
     {

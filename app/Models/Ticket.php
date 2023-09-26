@@ -39,7 +39,6 @@ class Ticket extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-
     public function charges()
     {
         return $this->hasMany(Charges::class);

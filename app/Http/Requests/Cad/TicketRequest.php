@@ -30,7 +30,7 @@ class TicketRequest extends FormRequest
             'showed_id' => 'nullable',
             'location_of_offense' => 'required',
             'time' => 'required',
-            'date' => 'required'
+            'date' => 'required',
         ];
     }
 }

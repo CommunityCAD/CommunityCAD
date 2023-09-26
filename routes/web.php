@@ -46,8 +46,6 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('user/loa/{loa}', [UserLoaController::class, 'show'])->name('user.loa.show');
         Route::delete('user/loa/{loa}', [UserLoaController::class, 'destroy'])->name('user.loa.destroy');
 
-
-
         Route::get('department/{department}/roster', [DepartmentController::class, 'roster_index'], ['department' => 'department'])->name('department.roster.index');
         Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
     });
@@ -69,9 +67,6 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('ticket/{ticket}/sign_ticket', [TicketController::class, 'sign_ticket'])->name('ticket.sign_ticket');
         Route::get('ticket/{ticket}', [TicketController::class, 'show'])->name('ticket.show');
 
-
-
-
         Route::get('name', [CadPageController::class, 'name'])->name('name');
         Route::get('vehicle', [CadPageController::class, 'vehicle'])->name('vehicle');
 
@@ -81,27 +76,27 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
-        require __DIR__ . '/civilian.php';
+        require __DIR__.'/civilian.php';
     });
 
     Route::name('courthouse.')->prefix('courthouse')->group(function () {
-        require __DIR__ . '/courthouse.php';
+        require __DIR__.'/courthouse.php';
     });
 
     Route::middleware(['auth', 'can:supervisor_access'])->name('supervisor.')->prefix('supervisor')->group(function () {
         Route::get('/', [SupervisorPageController::class, 'index'])->name('index');
-        require __DIR__ . '/supervisor.php';
+        require __DIR__.'/supervisor.php';
     });
 
     Route::middleware(['auth', 'can:staff_access'])->name('staff.')->prefix('staff')->group(function () {
         Route::get('/', [StaffPageController::class, 'index'])->name('index');
-        require __DIR__ . '/staff.php';
+        require __DIR__.'/staff.php';
     });
 
     Route::middleware(['auth', 'can:admin_access'])->name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [AdminPageController::class, 'index'])->name('index');
-        require __DIR__ . '/admin.php';
+        require __DIR__.'/admin.php';
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

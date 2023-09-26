@@ -36,7 +36,6 @@ return new class extends Migration
             $table->timestamp('offense_occured_at');
             $table->string('location_of_offense');
 
-
             $table->timestamps();
             $table->softDeletes();
         });

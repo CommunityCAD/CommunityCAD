@@ -7,8 +7,6 @@ use App\Models\Admin\CadSetting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 class CadSettingController extends Controller
 {
