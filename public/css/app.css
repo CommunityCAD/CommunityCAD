@@ -1692,6 +1692,9 @@ video {
 .mb-14 {
   margin-bottom: 3.5rem;
 }
+.mb-16 {
+  margin-bottom: 4rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1787,9 +1790,6 @@ video {
 }
 .mt-\[-2px\] {
   margin-top: -2px;
-}
-.mb-16 {
-  margin-bottom: 4rem;
 }
 .block {
   display: block;
@@ -2001,14 +2001,8 @@ video {
 .w-screen {
   width: 100vw;
 }
-.w-40 {
-  width: 10rem;
-}
-.w-24 {
-  width: 6rem;
-}
-.w-16 {
-  width: 4rem;
+.w-28 {
+  width: 7rem;
 }
 .min-w-full {
   min-width: 100%;
@@ -2042,6 +2036,9 @@ video {
 }
 .max-w-xl {
   max-width: 36rem;
+}
+.max-w-xs {
+  max-width: 20rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -2217,15 +2214,15 @@ video {
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
-.space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
 .space-y-5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
+}
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
@@ -2240,6 +2237,17 @@ video {
 }
 .overflow-y-auto {
   overflow-y: auto;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+.text-clip {
+  text-overflow: clip;
 }
 .rounded {
   border-radius: 0.25rem;
@@ -2293,6 +2301,9 @@ video {
 }
 .border-\[1px\] {
   border-width: 1px;
+}
+.border-4 {
+  border-width: 4px;
 }
 .border-x {
   border-left-width: 1px;
@@ -2468,6 +2479,10 @@ video {
 .border-yellow-600 {
   --tw-border-opacity: 1;
   border-color: rgb(202 138 4 / var(--tw-border-opacity));
+}
+.border-\[\#273345\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(39 51 69 / var(--tw-border-opacity));
 }
 .border-b-black {
   --tw-border-opacity: 1;
@@ -4099,10 +4114,6 @@ video {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .lg\:justify-around {
-    justify-content: space-around;
-  }
-
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -4119,6 +4130,10 @@ video {
 
   .xl\:ml-3 {
     margin-left: 0.75rem;
+  }
+
+  .xl\:block {
+    display: block;
   }
 
   .xl\:grid-cols-2 {
