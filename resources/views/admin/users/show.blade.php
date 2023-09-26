@@ -59,11 +59,13 @@
                     <li class="py-3">
                         <p class="flex items-center justify-between">
                             <span>User status</span>
-                            @can('user_edit_user_status')
-                                <a class="edit-button-sm" href="{{ route('admin.users.status.edit', $user->id) }}">
-                                    <x-edit-button></x-edit-button>
-                                </a>
-                            @endcan
+                            @if (!in_array($user->id, config('cad.owner_ids')) || in_array(auth()->user()->id, config('cad.owner_ids')))
+                                @can('user_edit_user_status')
+                                    <a class="edit-button-sm" href="{{ route('admin.users.status.edit', $user->id) }}">
+                                        <x-edit-button></x-edit-button>
+                                    </a>
+                                @endcan
+                            @endif
                         </p>
                         @php
                             switch ($user->account_status) {
