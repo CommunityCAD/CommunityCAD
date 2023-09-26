@@ -84,6 +84,10 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         require __DIR__ . '/civilian.php';
     });
 
+    Route::name('courthouse.')->prefix('courthouse')->group(function () {
+        require __DIR__ . '/courthouse.php';
+    });
+
     Route::middleware(['auth', 'can:supervisor_access'])->name('supervisor.')->prefix('supervisor')->group(function () {
         Route::get('/', [SupervisorPageController::class, 'index'])->name('index');
         require __DIR__ . '/supervisor.php';

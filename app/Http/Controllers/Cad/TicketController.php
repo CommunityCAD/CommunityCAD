@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\TicketRequest;
 use App\Models\Charges;
 use App\Models\Civilian;
+use App\Models\Civilian\Vehicle;
+use App\Models\License;
 use App\Models\PenalCodeTitle;
 use App\Models\Ticket;
 use Illuminate\Contracts\View\View;
@@ -48,10 +50,14 @@ class TicketController extends Controller
 
         if (isset($data['license_was_suspended'])) {
             $data['license_was_suspended'] = true;
+            $license = License::where('id', $data['license_id']);
+            $license->update(['license_status' => 3]);
         }
 
         if (isset($data['vehicle_was_impounded'])) {
             $data['vehicle_was_impounded'] = true;
+            $vehicle = Vehicle::where('id', $data['vehicle_id']);
+            $vehicle->update(['vehicle_status' => 3]);
         }
 
         if (isset($data['showed_id'])) {
