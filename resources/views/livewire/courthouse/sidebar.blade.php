@@ -4,7 +4,7 @@
             <img alt="Court Logo" class="w-12"
                 src="https://static.wikia.nocookie.net/freedom-rp-fivem/images/0/0d/SASC.png">
             <div class="ml-3">
-                <p>San Andreas</p>
+                <p>{{ get_setting('state') }}</p>
                 <p>Judicial Center</p>
 
             </div>
