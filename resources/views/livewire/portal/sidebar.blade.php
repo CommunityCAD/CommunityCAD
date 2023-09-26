@@ -33,9 +33,9 @@
                     <span class="ml-4">CAD System</span>
                 </a>
             </li>
-            <li class="relative px-6 py-3">          
+            <li class="relative px-6 py-3">
                 <a class="flex items-center @if (request()->is('courthouse') or request()->is('courthouse/*')) !text-base !text-purple-500 @endif"
-                    href="#">
+                    href="{{ route('courthouse.home') }}">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -127,8 +127,8 @@
             <li class="relative px-6 py-3">
                 <a class="flex items-center @if (request()->is('portal/penalcode')) !text-base !text-purple-500 @endif"
                     href="{{ route('portal.penalcode') }}">
-                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
                             stroke-linecap="round" stroke-linejoin="round" />
@@ -143,8 +143,8 @@
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('supervisor/')) !text-base !text-purple-500 @endif"
                         href="{{ route('supervisor.index') }}">
-                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
