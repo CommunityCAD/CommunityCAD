@@ -1,17 +1,15 @@
 <div>
     <div class="py-4 text-gray-200">
-        <a class="ml-6 text-lg font-bold" href="{{ route('portal.dashboard') }}">
-            Member Portal
-        </a>
+        <div class="ml-6 text-lg font-bold flex items-center">
+            <img alt="Court Logo" class="w-12" src="{{ get_setting('community_logo') }}">
+            <div class="ml-3">
+                {{-- <p>{{ get_setting('community_name') }}</p> --}}
+                <p>Member Portal</p>
+            </div>
+        </div>
         <ul class="mt-6">
             <li class="relative px-6 py-3">
-                @if (request()->is('portal/dashboard'))
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
-                @endif
-                <a class="sidebar-link @if (request()->is('portal/dashboard')) sidebar-link-active @endif"
+                <a class="flex items-center @if (request()->is('portal/dashboard') or request()->is('portal/dashboard/*')) !text-base !text-purple-500 @endif"
                     href="{{ route('portal.dashboard') }}">
                     <svg aria-hidden="true" class="w-4 h-4" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,13 +22,7 @@
             </li>
             <hr>
             <li class="relative px-6 py-3">
-                @if (request()->is('civilian/*'))
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
-                @endif
-                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif"
+                <a class="flex items-center @if (request()->is('cad') or request()->is('cad/*')) !text-base !text-purple-500 @endif"
                     href="{{ route('cad.landing') }}">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -41,15 +33,9 @@
                     <span class="ml-4">CAD System</span>
                 </a>
             </li>
-            <li class="relative px-6 py-3">
-                @if (request()->is('courthouse/*'))
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
-                @endif
-                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif"
-                    href="{{ route('courthouse.home') }}">
+            <li class="relative px-6 py-3">          
+                <a class="flex items-center @if (request()->is('courthouse') or request()->is('courthouse/*')) !text-base !text-purple-500 @endif"
+                    href="#">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -62,13 +48,8 @@
             </li>
 
             <li class="relative px-6 py-3">
-                @if (request()->is('civilian/*'))
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
-                @endif
-                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif" href="#">
+                <a class="flex items-center @if (request()->is('reports') or request()->is('reports/*')) !text-base !text-purple-500 @endif"
+                    href="#">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -81,13 +62,7 @@
             </li>
 
             <li class="relative px-6 py-3">
-                @if (request()->is('civilian/*'))
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
-                    <span aria-hidden="true"
-                        class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
-                @endif
-                <a class="sidebar-link @if (request()->is('civilian/*')) sidebar-link-active @endif"
+                <a class="flex items-center @if (request()->is('civilian') or request()->is('civilian/*')) !text-base !text-purple-500 @endif"
                     href="{{ route('civilian.civilians.index') }}">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -137,13 +112,7 @@
 
             @foreach ($departments as $department)
                 <li class="relative px-6 py-3">
-                    @if (request()->is('portal/department/' . $department->slug . '*'))
-                        <span aria-hidden="true"
-                            class="absolute inset-y-0 left-0 w-1 bg-[#01161e] rounded-tr-xl rounded-br-xl"></span>
-                        <span aria-hidden="true"
-                            class="absolute inset-y-0 right-0 w-1 bg-[#01161e] rounded-tl-xl rounded-bl-xl"></span>
-                    @endif
-                    <a class="sidebar-link @if (request()->is('portal/department/' . $department->slug . '*')) sidebar-link-active @endif"
+                    <a class="flex items-center @if (request()->is('portal/department/' . $department->slug . '*')) !text-base !text-purple-500 @endif"
                         href="{{ route('portal.department.show', $department->slug) }}">
                         {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -156,7 +125,7 @@
                 </li>
             @endforeach
             <li class="relative px-6 py-3">
-                <a class="sidebar-link @if (request()->is('portal/penalcode')) sidebar-link-active @endif"
+                <a class="flex items-center @if (request()->is('portal/penalcode')) !text-base !text-purple-500 @endif"
                     href="{{ route('portal.penalcode') }}">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +141,7 @@
 
             @can('supervisor_access')
                 <li class="relative px-6 py-3">
-                    <a class="sidebar-link @if (request()->is('supervisor/')) sidebar-link-active @endif"
+                    <a class="flex items-center @if (request()->is('supervisor/')) !text-base !text-purple-500 @endif"
                         href="{{ route('supervisor.index') }}">
                         <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -186,7 +155,7 @@
 
             @can('staff_access')
                 <li class="relative px-6 py-3">
-                    <a class="sidebar-link @if (request()->is('staff/')) sidebar-link-active @endif"
+                    <a class="flex items-center @if (request()->is('staff/')) !text-base !text-purple-500 @endif"
                         href="{{ route('staff.index') }}">
                         <span class="inline-flex items-center">
                             <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
@@ -204,7 +173,7 @@
 
             @can('admin_access')
                 <li class="relative px-6 py-3">
-                    <a class="sidebar-link @if (request()->is('portal/admin/*')) sidebar-link-active @endif"
+                    <a class="flex items-center @if (request()->is('portal/admin/*')) !text-base !text-purple-500 @endif"
                         href="{{ route('admin.index') }}">
                         <span class="inline-flex items-center">
                             <svg class="w-4 h-4" class="feather feather-shield" fill="none" stroke-linecap="round"
