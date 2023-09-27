@@ -71,7 +71,7 @@
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
 
-                    <span class="ml-4">Civilian</span>
+                    <span class="ml-4">Civilian Portal</span>
                 </a>
             </li>
             <hr>
