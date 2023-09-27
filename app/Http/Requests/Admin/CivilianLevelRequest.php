@@ -27,7 +27,7 @@ class CivilianLevelRequest extends FormRequest
             'civilian_limit' => 'numeric|required',
             'vehicle_limit' => 'numeric|required',
             'firearm_limit' => 'numeric|required',
-            // 'license_types_allowed' => 'required|array',
+            'allowed_licenses' => 'required|array',
         ];
     }
 }

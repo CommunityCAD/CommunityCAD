@@ -1,8 +1,8 @@
 @extends('layouts.civilian')
 
 @section('content')
-    <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
-        <div class="flex justify-between py-2 border-b-2">
+    <div class="card">
+        <div class="lg:flex lg:justify-between py-2 border-b-2">
             <h2 class="text-2xl text-white">{{ $civilian->name }} (SSN: {{ $civilian->s_n_n }})</h2>
             <div class="flex space-x-2">
                 <a class="secondary-button-sm" href="{{ route('civilian.civilians.index') }}">
@@ -45,14 +45,17 @@
 
             <div class="w-full px-4 text-white md:w-1/2">
                 <p><span class="text-gray-300">Full Name:</span> {{ $civilian->name }}</p>
-                <p><span class="text-gray-300">Social Security Number:</span> {{ $civilian->s_n_n }}</p>
+                <p><span class="text-gray-300">Social Security Number:</span> {{ $civilian->id }}</p>
                 <p><span class="text-gray-300">Date of Birth:</span> {{ $civilian->date_of_birth->format('m/d/Y') }}
-                    ({{ $civilian->age }})
+                    (Age: {{ $civilian->age }})
                 </p>
                 <p><span class="text-gray-300">Gender:</span> {{ $civilian->gender }}</p>
                 <p><span class="text-gray-300">Race:</span> {{ $civilian->race }}</p>
-                <p><span class="text-gray-300">Weight:</span> {{ $civilian->weight }}lb</p>
-                <p><span class="text-gray-300">Height:</span> {{ $civilian->height }}</p>
+                <p><span class="text-gray-300">Weight:</span> {{ $civilian->weight }}lb
+                    ({{ round($civilian->weight / 2.205) }}kg)</p>
+                <p><span class="text-gray-300">Height:</span> {{ floor($civilian->height / 12) }}'
+                    {{ $civilian->height % 12 }}"
+                    ({{ round($civilian->height * 2.54) }}cm)</p>
                 <p><span class="text-gray-300">Address:</span> {{ $civilian->address }}</p>
                 <p><span class="text-gray-300">Occupation:</span> {{ $civilian->occupation }}</p>
 
@@ -60,7 +63,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto max-w-4xl mt-2  bg-[#124559] px-3 py-2 rounded-lg w-full">
+    <div class="card">
         <div class="flex justify-between py-2 border-b-2">
             <h2 class="text-2xl text-white">Licenses</h2>
             <div class="flex">
@@ -133,7 +136,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
+    <div class="card">
         <div class="flex justify-between py-2 border-b-2">
             <h2 class="text-2xl text-white">Medical Records</h2>
             <div class="flex">
@@ -169,7 +172,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
+    <div class="card">
         <div class="flex justify-between py-2 border-b-2">
             <h2 class="text-2xl text-white">
                 Vehicles
@@ -320,7 +323,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto max-w-4xl mt-2 bg-[#124559] px-3 py-2 rounded-lg w-full">
+    <div class="card">
         <div class="flex justify-between py-2 border-b-2">
             <h2 class="text-2xl text-white">
                 Weapons

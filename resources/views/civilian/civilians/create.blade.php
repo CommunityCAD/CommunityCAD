@@ -1,29 +1,29 @@
 @extends('layouts.civilian')
 
 @section('content')
-    <div class="container max-w-4xl p-4 mx-auto mt-2">
+    <div class="card">
         <h2 class="my-2 text-2xl text-white border-b-2">Create Civilian</h2>
-        <form action="{{ route('civilian.civilians.store') }}" method="POST" class="flex flex-wrap -mx-4">
+        <form action="{{ route('civilian.civilians.store') }}" class="flex flex-wrap -mx-4" method="POST">
             @csrf
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="first_name" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="first_name">
                         First Name
                     </label>
-                    <input type="text" placeholder="John" name="first_name" value="{{ old('first_name') }}"
-                        class="text-input" />
+                    <input class="text-input" name="first_name" placeholder="John" type="text"
+                        value="{{ old('first_name') }}" />
                     <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
                 </div>
             </div>
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="last_name" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="last_name">
                         Last Name
                     </label>
-                    <input type="text" placeholder="Doe" name="last_name" value="{{ old('last_name') }}"
-                        class="text-input" />
+                    <input class="text-input" name="last_name" placeholder="Doe" type="text"
+                        value="{{ old('last_name') }}" />
                     <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
 
                 </div>
@@ -31,11 +31,11 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="date_of_birth" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="date_of_birth">
                         Date of Birth
                     </label>
-                    <input type="date" placeholder="mm/dd/yyyy" name="date_of_birth" value="{{ old('date_of_birth') }}"
-                        class="text-input" />
+                    <input class="text-input" name="date_of_birth" placeholder="mm/dd/yyyy" type="date"
+                        value="{{ old('date_of_birth') }}" />
                     <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
 
                 </div>
@@ -43,29 +43,27 @@
 
             <div class="w-full px-4">
                 <div class="mb-6">
-                    <label for="picture" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="picture">
                         Image URL <span class="text-gray-400">(optional)</span>
                     </label>
-                    <input type="text" placeholder="https://cdn.discordapp.com/..." name="picture"
-                        value="{{ old('picture') }}" class="text-input" />
+                    <input class="text-input" name="picture" placeholder="https://cdn.discordapp.com/..." type="text"
+                        value="{{ old('picture') }}" />
                     <x-input-error :messages="$errors->get('picture')" class="mt-2" />
                 </div>
             </div>
 
-
-
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="gender" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="gender">
                         Gender
                     </label>
                     <div class="relative">
-                        <select name="gender" class="select-input">
+                        <select class="select-input" name="gender">
                             <option value="">Choose one</option>
-                            <option value="Male" {{ old('gender') == 'Male' ? 'selected="selected"' : '' }}>Male</option>
-                            <option value="Female" {{ old('gender') == 'Female' ? 'selected="selected"' : '' }}>Female
+                            <option {{ old('gender') == 'Male' ? 'selected="selected"' : '' }} value="Male">Male</option>
+                            <option {{ old('gender') == 'Female' ? 'selected="selected"' : '' }} value="Female">Female
                             </option>
-                            <option value="Other" {{ old('gender') == 'Other' ? 'selected="selected"' : '' }}>Other
+                            <option {{ old('gender') == 'Other' ? 'selected="selected"' : '' }} value="Other">Other
                             </option>
                         </select>
                         <span
@@ -79,16 +77,16 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="race" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="race">
                         Race
                     </label>
                     <div class="relative">
-                        <select name="race" class="select-input">
+                        <select class="select-input" name="race">
                             <option value="">Choose one</option>
-                            <option value="White" {{ old('race') == 'White' ? 'selected="selected"' : '' }}>White</option>
-                            <option value="Asian" {{ old('race') == 'Asian' ? 'selected="selected"' : '' }}>Asian</option>
-                            <option value="African American"
-                                {{ old('race') == 'African American' ? 'selected="selected"' : '' }}>African American
+                            <option {{ old('race') == 'White' ? 'selected="selected"' : '' }} value="White">White</option>
+                            <option {{ old('race') == 'Asian' ? 'selected="selected"' : '' }} value="Asian">Asian</option>
+                            <option {{ old('race') == 'African American' ? 'selected="selected"' : '' }}
+                                value="African American">African American
                             </option>
                         </select>
                         <span
@@ -103,11 +101,11 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="occupation" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="occupation">
                         Occupation <span class="text-gray-400">(optional)</span>
                     </label>
-                    <input type="text" placeholder="Farmer" name="occupation" value="{{ old('occupation') }}"
-                        class="text-input" />
+                    <input class="text-input" name="occupation" placeholder="Farmer" type="text"
+                        value="{{ old('occupation') }}" />
                     <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
 
                 </div>
@@ -115,36 +113,52 @@
 
             <div class="w-full px-4 md:w-1/2">
                 <div class="mb-6">
-                    <label for="height" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="height">
                         Height
                     </label>
-                    <input type="number" placeholder="512" name="height" value="{{ old('height') }}"
-                        class="text-input" />
+                    <select class="select-input" name="height">
+                        <?php
+                        for ($foot = 4; $foot <= 7; $foot++) {
+                            for ($inches = 0; $inches <= 11; $inches++) {
+                                $inch = $foot * 12 + $inches;
+                                $cm = round($inch * 2.54);
+                                if ($inches == 0) {
+                                    echo "<option value='$inch'> $foot' ($cm cm)</option>";
+                                } else {
+                                    echo "<option value='$inch'>$foot' $inches\" ($cm cm) </option>";
+                                }
+                            }
+                        }
+                        ?>
+                    </select>
                     <x-input-error :messages="$errors->get('height')" class="mt-2" />
-
                 </div>
-
             </div>
 
             <div class="w-full px-4 md:w-1/2">
                 <div class="mb-6">
-                    <label for="weight" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="weight">
                         Weight
                     </label>
-                    <input type="number" placeholder="250" name="weight" value="{{ old('weight') }}"
-                        class="text-input" />
+                    <select class="select-input" name="weight">
+                        <?php
+                        for ($weight = 90; $weight <= 450; $weight += 5) {
+                            $kg = round($weight / 2.205);
+                            echo "<option value='$weight'>$weight lb ($kg kg) </option>";
+                        }
+                        ?>
+                    </select>
                     <x-input-error :messages="$errors->get('weight')" class="mt-2" />
-
                 </div>
             </div>
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="postal" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="postal">
                         Postal
                     </label>
-                    <input type="text" placeholder="123" name="postal" value="{{ old('postal') }}"
-                        class="text-input" />
+                    <input class="text-input" name="postal" placeholder="123" type="text"
+                        value="{{ old('postal') }}" />
                     <x-input-error :messages="$errors->get('postal')" class="mt-2" />
 
                 </div>
@@ -152,11 +166,11 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="street" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="street">
                         Street
                     </label>
-                    <input type="text" placeholder="Route 68" name="street" value="{{ old('street') }}"
-                        class="text-input" />
+                    <input class="text-input" name="street" placeholder="Route 68" type="text"
+                        value="{{ old('street') }}" />
                     <x-input-error :messages="$errors->get('street')" class="mt-2" />
 
                 </div>
@@ -164,11 +178,11 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="city" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="city">
                         City
                     </label>
-                    <input type="text" placeholder="Sandy Shores" name="city" value="{{ old('city') }}"
-                        class="text-input" />
+                    <input class="text-input" name="city" placeholder="Sandy Shores" type="text"
+                        value="{{ old('city') }}" />
                     <x-input-error :messages="$errors->get('city')" class="mt-2" />
 
                 </div>
@@ -176,13 +190,12 @@
 
             <div class="w-full px-4">
                 <div class="mb-6 space-y-3">
-                    <button class="inline-block w-full mr-5 md:w-1/4 new-button-md">Create</button>
-                    <a href="{{ route('civilian.civilians.index') }}"
-                        class="w-full mr-5 md:w-1/4 delete-button-md">Cancel</a>
+                    <button class="inline-block mr-5 new-button-md">Create</button>
+                    <a class="mr-5 delete-button-md" href="{{ route('civilian.civilians.index') }}">Cancel</a>
                     @if (!empty(get_setting('postal_map_link')))
-                        <a href="{{ get_setting('postal_map_link') }}" target="_blank"
-                            class="w-full md:w-1/4 secondary-button-md">
-                            Link to postal map
+                        <a class="edit-button-md float-right" href="{{ get_setting('postal_map_link') }}"
+                            target="_blank">
+                            Postal Map
                         </a>
                     @endif
                 </div>

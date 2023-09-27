@@ -53,9 +53,50 @@
                 <x-input-error :messages="$errors->get('firearm_limit')" class="mt-2" />
             </div>
 
-            <div class="mt-4">
-                <button class="inline-block w-1/3 mr-5 edit-button-md">Save</button>
-                <a class="w-1/3 delete-button-md" href="{{ route('admin.civilian_level.index') }}">Cancel</a>
+            <div>
+                <label class="block text-black-500" for="firearm_limit">Allowed Licenses</label>
+                <p class="text-sm">Licenses this level can have.</p>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    @foreach ($license_types as $license_type)
+                        <div class="block">
+                            @if (in_array($license_type->id, $allowed_licenses['data']))
+                                <label class="flex items-center cursor-pointer" for="{{ $license_type->id }}">
+                                    <div class="relative">
+                                        <input checked class="hidden checkbox" id="{{ $license_type->id }}"
+                                            name="allowed_licenses[]" type="checkbox" value="{{ $license_type->id }}">
+                                        <div class="block border-[1px] border-white w-14 h-8 rounded-full">
+                                        </div>
+                                        <div
+                                            class="absolute w-6 h-6 transition bg-gray-800 rounded-full dot left-1 top-1 dark:bg-white">
+                                        </div>
+                                    </div>
+                                    <div class="ml-3 font-medium text-gray-900text-white">
+                                        {{ $license_type->name }}
+                                    </div>
+                                </label>
+                            @else
+                                <label class="flex items-center cursor-pointer" for="{{ $license_type->id }}">
+                                    <div class="relative">
+                                        <input class="hidden checkbox" id="{{ $license_type->id }}"
+                                            name="allowed_licenses[]" type="checkbox" value="{{ $license_type->id }}">
+                                        <div class="block border-[1px] border-white w-14 h-8 rounded-full">
+                                        </div>
+                                        <div class="absolute w-6 h-6 transition  rounded-full dot left-1 top-1 bg-white">
+                                        </div>
+                                    </div>
+                                    <div class="ml-3 font-medium text-white">
+                                        {{ $license_type->name }}
+                                    </div>
+                                </label>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="mt-4 flex justify-between">
+                <button class="inline-blockmr-5 edit-button-md">Save</button>
+                <a class="delete-button-md" href="{{ route('admin.civilian_level.index') }}">Cancel</a>
             </div>
         </form>
     </div>

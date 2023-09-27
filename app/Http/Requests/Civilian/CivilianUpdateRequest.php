@@ -27,6 +27,8 @@ class CivilianUpdateRequest extends FormRequest
             'street' => 'required',
             'city' => 'required',
             'picture' => 'url|nullable',
+            'height' => 'required|numeric',
+            'weight' => 'required|numeric',
         ];
     }
 }

@@ -1,59 +1,59 @@
 @extends('layouts.civilian')
 
 @section('content')
-    <div class="container max-w-4xl p-4 mx-auto mt-2">
+    <div class="card">
         <h2 class="my-2 text-2xl text-white border-b-2">New Vehicle for {{ $civilian->name }}</h2>
-        <form action="{{ route('civilian.vehicle.store', $civilian->id) }}" method="POST" class="flex flex-wrap -mx-4">
+        <form action="{{ route('civilian.vehicle.store', $civilian->id) }}" class="flex flex-wrap -mx-4" method="POST">
             @csrf
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="plate" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="plate">
                         Plate
                     </label>
-                    <input type="text" placeholder="ABC 123" name="plate" value="{{ old('plate') }}"
-                        class="text-input" />
+                    <input class="text-input" name="plate" placeholder="ABC 123" type="text"
+                        value="{{ old('plate') }}" />
                     <x-input-error :messages="$errors->get('plate')" class="mt-2" />
                 </div>
             </div>
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="model" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="model">
                         Make and Model
                     </label>
-                    <input type="text" placeholder="Ford F150" name="model" value="{{ old('model') }}"
-                        class="text-input" />
+                    <input class="text-input" name="model" placeholder="Ford F150" type="text"
+                        value="{{ old('model') }}" />
                     <x-input-error :messages="$errors->get('model')" class="mt-2" />
                 </div>
             </div>
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="color" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="color">
                         Color
                     </label>
-                    <input type="text" placeholder="Black" name="color" value="{{ old('color') }}"
-                        class="text-input" />
+                    <input class="text-input" name="color" placeholder="Black" type="text"
+                        value="{{ old('color') }}" />
                     <x-input-error :messages="$errors->get('color')" class="mt-2" />
                 </div>
             </div>
 
             <div class="w-full px-4 md:w-1/2">
                 <div class="mb-6">
-                    <label for="vehicle_status" class="block mb-3 text-base font-medium text-white">
+                    <label class="block text-base font-medium text-white" for="vehicle_status">
                         Status
                     </label>
                     <div class="relative">
-                        <select name="vehicle_status" class="select-input">
+                        <select class="select-input" name="vehicle_status">
                             <option value="">Choose one</option>
-                            <option value="1" {{ old('vehicle_status') == 1 ? 'selected' : '' }}>Valid</option>
-                            <option value="2" {{ old('vehicle_status') == 2 ? 'selected' : '' }}>Stolen</option>
-                            <option value="3" {{ old('vehicle_status') == 3 ? 'selected' : '' }}>Impounded
+                            <option {{ old('vehicle_status') == 1 ? 'selected' : '' }} value="1">Valid</option>
+                            <option {{ old('vehicle_status') == 2 ? 'selected' : '' }} value="2">Stolen</option>
+                            <option {{ old('vehicle_status') == 3 ? 'selected' : '' }} value="3">Impounded
                             </option>
-                            <option value="4" {{ old('vehicle_status') == 4 ? 'selected' : '' }}>Booted
+                            <option {{ old('vehicle_status') == 4 ? 'selected' : '' }} value="4">Booted
                             </option>
-                            <option value="5" {{ old('vehicle_status') == 5 ? 'selected' : '' }}>Expired
+                            <option {{ old('vehicle_status') == 5 ? 'selected' : '' }} value="5">Expired
                             </option>
                         </select>
                         <span
@@ -74,12 +74,10 @@
                 </div>
             </div>
 
-
             <div class="w-full px-4">
-                <div class="mb-6 space-y-3">
-                    <button class="inline-block w-full mr-5 md:w-1/4 new-button-md">Create</button>
-                    <a href="{{ route('civilian.civilians.show', $civilian->id) }}"
-                        class="w-full mr-5 md:w-1/4 delete-button-md">Cancel</a>
+                <div class="mb-6 space-y-3 flex justify-between items-center">
+                    <button class="new-button-md">Create</button>
+                    <a class="delete-button-md" href="{{ route('civilian.civilians.show', $civilian->id) }}">Cancel</a>
                 </div>
             </div>
         </form>

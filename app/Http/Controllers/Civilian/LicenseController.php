@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Civilian;
 use App\Models\CivilianLevel;
 use App\Models\License;
+use App\Models\LicenseType;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,29 +18,13 @@ class LicenseController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
+        $allowed_licenses = LicenseType::whereIn('id', json_decode(auth()->user()->civilian_level->license_types_allowed, true)['data'])->get();
+        $owned_licenses = $civilian->licenses->pluck('license_type_id')->toArray();
 
-        $allowed = $current_civilian_level->license_types_allowed['data'];
-        $license_types = DB::table('license_types')->get();
-        $owned_licenses = [];
-        $authorized_licenses = [];
         $available_licenses = [];
-
-        foreach ($civilian->licenses as $license) {
-            $owned_licenses[] = $license->type;
-        }
-
-        foreach ($license_types as $type) {
-            $perm_name = $type->perm_name;
-
-            if (in_array($perm_name, $allowed)) {
-                $authorized_licenses[$type->name] = $type->id;
-            }
-        }
-
-        foreach ($authorized_licenses as $name => $id) {
-            if (! in_array($id, $owned_licenses)) {
-                $available_licenses[$name] = $id;
+        foreach ($allowed_licenses as $license) {
+            if (!in_array($license->id, $owned_licenses)) {
+                $available_licenses[] = $license;
             }
         }
 
@@ -54,10 +39,15 @@ class LicenseController extends Controller
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $input['license_type_id'] = $request->license_type_id;
+        $validated = $request->validate([
+            'license_type_id' => 'required|numeric',
+            'status' => 'required|numeric',
+        ]);
+
+        $input['license_type_id'] = $validated['license_type_id'];
         $input['civilian_id'] = $civilian->id;
         $input['expires_on'] = date('Y-m-d', strtotime('+30 Days'));
-        $input['license_status'] = $request->status;
+        $input['license_status'] = $validated['status'];
         if ($input['license_status'] == 2) {
             $input['expires_on'] = date('Y-m-d', strtotime('-30 Days'));
             $input['license_status'] = 1;

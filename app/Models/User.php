@@ -52,7 +52,7 @@ class User extends Authenticatable
         ];
         $hexval = '';
         while ($number != '0') {
-            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
+            $hexval = $hexvalues[bcmod($number, '16', 0)] . $hexval;
             $number = bcdiv($number, '16', 0);
         }
 
@@ -73,7 +73,7 @@ class User extends Authenticatable
             return $this->discord_name;
         }
 
-        return $this->discord_name.'#'.$this->discriminator;
+        return $this->discord_name . '#' . $this->discriminator;
     }
 
     public function getOfficerNameCheckAttribute()
@@ -110,8 +110,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    // public function civilian_level()
-    // {
-    //     return $this->hasOne(CivilianLevel::class, 'id', 'civilian_level_id');
-    // }
+    public function civilian_level()
+    {
+        return $this->hasOne(CivilianLevel::class, 'id', 'civilian_level_id');
+    }
 }

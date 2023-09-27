@@ -1,15 +1,12 @@
 @extends('layouts.civilian')
 
 @section('content')
-    <div class="container max-w-4xl p-4 mx-auto mt-2">
+    <div class="card">
         <div class="flex items-center justify-between py-2 border-b-2">
-            <h2 class="text-2xl text-white">Your Citizens</h2>
-            <div class="text-center">
-                <p class="text-white">Civilians Used: {{ $civilians->count() }} | Allowed Civilians:
-                    {{ $current_civilian_level->civilian_limit }}</p>
-                <p class="text-white">Civilian Level: {{ $current_civilian_level->level_description }}</p>
-            </div>
-
+            <h2 class="text-2xl text-white">Your Civilians
+                <span class="text-base">
+                    ({{ $civilians->count() }}/{{ $current_civilian_level->civilian_limit }})</span>
+            </h2>
             @if ($current_civilian_level->civilian_limit > $civilians->count())
                 <a class="new-button-sm" href="{{ route('civilian.civilians.create') }}">
                     <x-new-button></x-new-button>
@@ -17,7 +14,7 @@
             @endif
         </div>
         <div class="space-x-4 space-y-4">
-            {{-- <a href="#" class="secondary-button-md">Create 911 Call</a> --}}
+            {{-- <a class="secondary-button-md" href="#">Create 911 Call</a> --}}
         </div>
 
         <div class="grid grid-cols-1 mt-5 sm:grid-cols-2">
@@ -49,8 +46,7 @@
                             break;
                     }
                 @endphp
-                <div
-                    class="px-3 py-1 m-4 bg-gray-600 cursor-pointer rounded-2xl hover:bg-gray-500 border-l-4 {{ $border_color }}">
+                <div class="pill border-l-4 {{ $border_color }}">
                     <a class="flex" href="{{ route('civilian.civilians.show', $civilian->id) }}">
                         <div class="h-16 p-2">
                             @if (!is_null($civilian->picture))
@@ -68,6 +64,9 @@
                     </a>
                 </div>
             @endforeach
+        </div>
+        <div class="">
+            <p class="text-white">Civilian Level: {{ $current_civilian_level->name }}</p>
         </div>
     </div>
 @endsection
