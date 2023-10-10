@@ -42,6 +42,17 @@
 
     @livewireScripts
 
+    <script>
+        function openExternalWindow(url) {
+            return window.open(
+                url,
+                "_blank",
+                "height=800,width=900,scrollbars=no,status=yes",
+                true
+            );
+        }
+    </script>
+
 </body>
 
 </html>

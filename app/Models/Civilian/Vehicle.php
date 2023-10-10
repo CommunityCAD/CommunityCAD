@@ -3,6 +3,7 @@
 namespace App\Models\Civilian;
 
 use App\Models\Civilian;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,6 +19,7 @@ class Vehicle extends Model
         'registration_expire',
         'civilian_id',
         'vehicle_status',
+        'impound_ticket_id',
     ];
 
     protected $casts = [
@@ -27,6 +29,11 @@ class Vehicle extends Model
     public function civilian()
     {
         return $this->belongsTo(Civilian::class);
+    }
+
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class, 'id', 'impound_ticket_id');
     }
 
     public function getStatusNameAttribute()

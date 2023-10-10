@@ -30,6 +30,11 @@ class License extends Model
         return $this->hasOne(LicenseType::class, 'id', 'license_type_id');
     }
 
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class, 'id', 'suspend_ticket_id');
+    }
+
     public function getStatusNameAttribute()
     {
         switch ($this->license_status) {
