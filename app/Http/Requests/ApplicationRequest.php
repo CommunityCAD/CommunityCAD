@@ -25,15 +25,15 @@ class ApplicationRequest extends FormRequest
     {
         return [
             'department_id' => 'required|numeric',
-            'why_join_department' => 'required|min:150',
-            'experience_department' => 'required|min:150',
-            'department_duties' => 'required|min:150',
+            'why_join_department' => 'required|min:50',
+            'experience_department' => 'required|min:50',
+            'department_duties' => 'required|min:50',
             'scenario' => 'required|min:200',
-            'about_you' => 'required|min:150',
-            'skills' => 'required|min:150',
+            'about_you' => 'required|min:50',
+            'skills' => 'required|min:50',
             'legal_copy' => 'required|boolean',
             'previous_member' => 'required|boolean',
-            'why_join_community' => 'required|min:150',
+            'why_join_community' => 'required|min:50',
         ];
     }
 }
