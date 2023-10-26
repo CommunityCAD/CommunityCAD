@@ -75,37 +75,18 @@ class Call extends Model
         }
     }
 
-    public function getDisplayStatusTextColorAttribute()
+    public function getStatusInfoAttribute()
     {
-        switch ($this->status) {
-            case 'OPN':
-                return 'text-green-500';
-                break;
+        return CallStatuses::STATUSCODES[$this->status];
+    }
 
-            case 'HLD':
-                return 'text-gray-500';
-                break;
-
-            case 'DISP':
-                return 'text-yellow-500';
-                break;
-
-            case 'ENRUTE':
-                return 'text-yellow-500';
-                break;
-
-            case 'ONSCN':
-                return 'text-orange-500';
-                break;
-
-            case 'CLO':
-                return 'text-red-500';
-                break;
-
-            default:
-                return 'text-red-500';
-                break;
+    public function getNatureInfoAttribute()
+    {
+        if (array_key_exists($this->nature, CallNatures::NATURECODES)) {
+            return CallNatures::NATURECODES[$this->nature];
         }
+
+        return false;
     }
 
     public function getNiceUnitsAttribute()

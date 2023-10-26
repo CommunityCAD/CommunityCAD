@@ -7,7 +7,11 @@
         <div class="flex">
             <div class="w-3/5">
                 <label class="block mr-2 text-lg">Nature:</label>
-                <input autofocus class="text-input" name="nature" type="text" value="{{ old('nature') }}">
+                <select class="select-input" name="nature">
+                    @foreach ($call_natures as $code => $props)
+                        <option value="{{ $code }}">{{ $code }} - {{ $props['name'] }}</option>
+                    @endforeach
+                </select>
                 <x-input-error :messages="$errors->get('nature')" class="mt-2" />
             </div>
             <div class="w-2/5 ml-3">
@@ -54,7 +58,6 @@
                 <select class="select-input" name="status">
                     <option value="OPN">OPN</option>
                     <option value="HLD">HLD</option>
-                    <option value="DISP">DISP</option>
                 </select>
             </div>
             <div class="w-1/3 ml-3">
