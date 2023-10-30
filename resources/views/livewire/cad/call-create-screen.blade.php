@@ -56,7 +56,7 @@
             <div class="w-1/3 ml-3">
                 <label class="block mr-2 text-lg">Status:</label>
                 <select class="select-input" name="status">
-                    <option value="OPN">OPN</option>
+                    <option value="RCVD">RCVD</option>
                     <option value="HLD">HLD</option>
                 </select>
             </div>
