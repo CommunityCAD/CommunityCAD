@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Cad;
 
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
+use App\Models\Cad\CallNatures;
+use App\Models\Cad\CallStatuses;
 use App\Models\CallLog;
 use Livewire\Component;
 
@@ -17,10 +19,13 @@ class DispatchCadScreen extends Component
 
     public $active_dispatch = 'OFFDTY';
 
+    public $call_natures = CallNatures::NATURECODES;
+    public $call_statuses = CallStatuses::STATUSCODES;
+
     public function render()
     {
         $this->active_units = ActiveUnit::where('department_type', '!=', 2)->orderBy('department_type', 'asc')->get();
-        $this->calls = Call::where('status', '!=', 'CLO')->orderBy('priority', 'asc')->get();
+        $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
         $this->active_dispatcher = ActiveUnit::where('department_type', 2)->where('status', '!=', 'OFFDTY')->orderBy('created_at')->get()->first();
 
         // dd($this->active_dispatcher);
@@ -60,7 +65,7 @@ class DispatchCadScreen extends Component
 
     public function hard_offduty(ActiveUnit $activeUnit)
     {
-        $calls = Call::where('status', '!=', 'CLO')->get();
+        $calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->get();
 
         foreach ($calls as $call) {
             if (in_array($activeUnit->badge_number, $call->nice_units)) {
@@ -81,6 +86,17 @@ class DispatchCadScreen extends Component
             $unit = ActiveUnit::where('badge_number', $unit)->get()->first();
             $unit->update(['status' => $status]);
         }
+
+        $status_array = explode('-', $status);
+        if ($status_array[0] == 'CLO') {
+            $this->close_call($call);
+        }
+
+        CallLog::create([
+            'from' => 'SYSTEM',
+            'text' => 'Call Status Updated To ' . $status,
+            'call_id' => $call->id,
+        ]);
     }
 
     public function set_call_priority(Call $call, $status)
@@ -94,7 +110,7 @@ class DispatchCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
             'call_id' => $call->id,
         ]);
 
@@ -107,7 +123,7 @@ class DispatchCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit '.$activeUnit->badge_number.' has been added to call.',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been added to call.',
             'call_id' => $call->id,
         ]);
 
@@ -130,7 +146,7 @@ class DispatchCadScreen extends Component
         $call->update(['status' => 'CLO', 'units' => '{"data":[]}']);
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Call '.$call->id.' has been closed and units ('.implode(', ', $call_units).') removed from call.',
+            'text' => 'Call ' . $call->id . ' has been closed and units (' . implode(', ', $call_units) . ') removed from call.',
             'call_id' => $call->id,
         ]);
     }
