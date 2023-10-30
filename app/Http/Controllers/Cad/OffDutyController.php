@@ -50,13 +50,22 @@ class OffDutyController extends Controller
         return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'Report Submitted.', 'level' => 'success']]);
     }
 
+    public function skipreport()
+    {
+
+        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
+        $active_unit->delete();
+
+        return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'Marked Off Duty.', 'level' => 'success']]);
+    }
+
     private function remove_unit_from_call(ActiveUnit $activeUnit, Call $call)
     {
         $this->update_call_with_units($activeUnit, $call, 'delete');
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
             'call_id' => $call->id,
         ]);
 

@@ -56,7 +56,8 @@
 @section('content')
     <div class="">
         <div class="max-w-3xl mx-auto">
-            <a class="delete-button-md" href="{{ route('cad.home') }}">Exit Without Saving</a>
+            <a class="secondary-button-md" href="{{ route('cad.home') }}">Back</a>
+            <a class="delete-button-md" href="{{ route('cad.offduty.skipreport') }}">Skip Report</a>
         </div>
         <div class="bg-yellow-100 max-w-3xl rounded-lg mx-auto p-4 mt-5">
             <form action="{{ route('cad.offduty.store') }}" id="mdeditor" method="POST">
