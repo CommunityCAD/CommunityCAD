@@ -65,7 +65,9 @@
 
     <div class="card">
         <div class="flex flex-wrap">
-            <a class="new-button-md m-1 md:m-3" href="#">File Name Change</a>
+            {{-- <a class="new-button-md m-1 md:m-3" href="#">File Name Change</a> --}}
+            <a class="delete-button-md m-1 md:m-3" href="{{ route('civilian.call.create', $civilian->id) }}">Make 911
+                Call</a>
         </div>
     </div>
 

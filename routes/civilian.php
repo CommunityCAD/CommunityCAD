@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Civilian\CallController;
 use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Civilian\CivilianPageController;
 use App\Http\Controllers\Civilian\LicenseController;
@@ -22,3 +23,6 @@ Route::get('/civilians/{civilian}/vehicle/{vehicle}/found', [VehicleController::
 Route::get('/civilians/{civilian}/vehicle/{vehicle}/expire', [VehicleController::class, 'expire'])->name('vehicle.expire');
 Route::get('/civilians/{civilian}/vehicle/{vehicle}/stolen', [VehicleController::class, 'stolen'])->name('vehicle.stolen');
 Route::resource('civilians/{civilian}/vehicle', VehicleController::class)->only(['create', 'store', 'destroy']);
+
+Route::get('/civilians/{civilian}/911/create', [CallController::class, 'create'])->name('call.create');
+Route::post('/civilians/{civilian}/911', [CallController::class, 'store'])->name('call.store');
