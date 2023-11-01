@@ -50,11 +50,11 @@
                         @if (!$call->civilian)
                             <p>No Reporting person listed.</p>
                         @else
-                            <p class=""><a href="{{ route('cad.name') }}?ssn={{ $call->civilian->id }}"><span
-                                        class="mr-2 text-lg">Name:</span>
+                            <p class=""><a href="{{ route('cad.name.return', $call->civilian->id) }}"
+                                    target="_blank"><span class="mr-2 text-lg">Name:</span>
                                     {{ $call->civilian->name }}</a></p>
-                            <p class=""><a href="{{ route('cad.name') }}?ssn={{ $call->civilian->id }}"><span
-                                        class="mr-2 text-lg">SSN:</span>
+                            <p class=""><a href="{{ route('cad.name.return', $call->civilian->id) }}"
+                                    target="_blank"><span class="mr-2 text-lg">SSN:</span>
                                     {{ $call->civilian->s_n_n }}</a></p>
                         @endif
 
@@ -129,7 +129,7 @@
                                     @forelse ($call->call_civilians as $civilian)
                                         <ul class="ml-8 list-disc">
                                             <li><a class="underline"
-                                                    href="{{ route('cad.name') }}?ssn={{ $civilian->civilian->id }}"
+                                                    href="{{ route('cad.name.return', $civilian->civilian->id) }}"
                                                     target="_blank">{{ $civilian->civilian->name }}
                                                     ({{ $civilian->type }})
                                                 </a>
