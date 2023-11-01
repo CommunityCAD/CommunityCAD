@@ -6,6 +6,7 @@ use App\Http\Controllers\Cad\AddUnitController;
 use App\Http\Controllers\Cad\CadPageController;
 use App\Http\Controllers\Cad\CallController;
 use App\Http\Controllers\Cad\CallLogController;
+use App\Http\Controllers\Cad\CivilianSearchController;
 use App\Http\Controllers\Cad\OffDutyController;
 use App\Http\Controllers\Cad\ReportController;
 use App\Http\Controllers\Cad\TicketController;
@@ -60,8 +61,6 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('clear_panic', [CadPageController::class, 'clear_panic'])->name('clear_panic');
         Route::get('panic', [CadPageController::class, 'panic'])->name('panic');
 
-
-
         Route::resource('call', CallController::class);
         Route::resource('report', ReportController::class);
 
@@ -72,7 +71,9 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('ticket/{ticket}/sign_ticket', [TicketController::class, 'sign_ticket'])->name('ticket.sign_ticket');
         Route::get('ticket/{ticket}', [TicketController::class, 'show'])->name('ticket.show');
 
-        Route::get('name', [CadPageController::class, 'name'])->name('name');
+        Route::get('name/search', [CivilianSearchController::class, 'search'])->name('name.search');
+        Route::get('name/{civilian}', [CivilianSearchController::class, 'return'])->name('name.return');
+
         Route::get('vehicle', [CadPageController::class, 'vehicle'])->name('vehicle');
 
         Route::get('offduty', [OffDutyController::class, 'create'])->name('offduty.create');

@@ -15,7 +15,7 @@
         </p>
     </div>
     <div class="flex flex-row">
-        <div class="w-3/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
+        <div class="w-3/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default mx-auto">
             <div class="flex">
                 <div class="w-3/5">
                     <label class="block mr-2 text-lg">Name:</label>
@@ -28,16 +28,15 @@
             </div>
             <hr>
             @forelse ($civilians as $civilian)
-                <a class="block secondary-button-sm" href="#"
-                    wire:click='show_return("{{ $civilian->id }}",
-                    "{{ $civilian->first_name . ' ' . $civilian->last_name }}")'>{{ $civilian->first_name }}
+                <a class="block secondary-button-sm"
+                    href="{{ route('cad.name.return', $civilian->id) }}">{{ $civilian->first_name }}
                     {{ $civilian->last_name }} ({{ $civilian->s_n_n }})</a>
             @empty
                 <p>No search ran</p>
             @endforelse
         </div>
 
-        <div class="w-2/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
+        {{-- <div class="w-2/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
             @if (!$civilian_return)
                 <p>No search ran</p>
             @else
@@ -164,6 +163,6 @@
                 </div>
             @endif
 
-        </div>
+        </div> --}}
     </div>
 </div>

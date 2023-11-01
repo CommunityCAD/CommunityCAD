@@ -15,8 +15,8 @@ class CallSearchScreen extends Component
 
     public function render()
     {
-        if (! empty($this->search)) {
-            $this->calls = Call::where('id', 'like', '%'.$this->search.'%')->get();
+        if (!empty($this->search)) {
+            $this->calls = Call::where('id', 'like', '%' . $this->search . '%')->get();
         } else {
             $this->calls = Call::where('id', $this->search)->get();
         }

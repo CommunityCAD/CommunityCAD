@@ -21,17 +21,17 @@ class Ticket extends Model
 
     public function civilian()
     {
-        return $this->hasOne(Civilian::class, 'id', 'civilian_id');
+        return $this->hasOne(Civilian::class, 'id', 'civilian_id')->withTrashed();
     }
 
     public function license()
     {
-        return $this->hasOne(License::class, 'id', 'license_id');
+        return $this->hasOne(License::class, 'id', 'license_id')->withTrashed();
     }
 
     public function vehicle()
     {
-        return $this->hasOne(Vehicle::class, 'id', 'vehicle_id');
+        return $this->hasOne(Vehicle::class, 'id', 'vehicle_id')->withTrashed();
     }
 
     public function user()
