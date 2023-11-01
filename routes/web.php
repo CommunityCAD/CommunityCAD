@@ -10,6 +10,7 @@ use App\Http\Controllers\Cad\CivilianSearchController;
 use App\Http\Controllers\Cad\OffDutyController;
 use App\Http\Controllers\Cad\ReportController;
 use App\Http\Controllers\Cad\TicketController;
+use App\Http\Controllers\Cad\VehicleSearchController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
 use App\Http\Controllers\Portal\UserLoaController;
@@ -74,7 +75,8 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('name/search', [CivilianSearchController::class, 'search'])->name('name.search');
         Route::get('name/{civilian}', [CivilianSearchController::class, 'return'])->name('name.return');
 
-        Route::get('vehicle', [CadPageController::class, 'vehicle'])->name('vehicle');
+        Route::get('vehicle/search', [VehicleSearchController::class, 'search'])->name('vehicle.search');
+        Route::get('vehicle/{vehicle:plate}', [VehicleSearchController::class, 'return'])->name('vehicle.return');
 
         Route::get('offduty', [OffDutyController::class, 'create'])->name('offduty.create');
         Route::post('offduty', [OffDutyController::class, 'store'])->name('offduty.store');

@@ -29,6 +29,7 @@
                         <p class="font-bold">Social Security:</p>
                         <p class="font-bold">Phone:</p>
                         <p class="font-bold">Type:</p>
+                        <p class="font-bold">Occupation:</p>
                     </div>
                     <div class="ml-3">
                         <p>{{ $civilian->postal }} {{ $civilian->street }} {{ $civilian->city }}</p>
@@ -36,6 +37,7 @@
                         <p>{{ $civilian->s_n_n }}</p>
                         <p>123-345-9834</p>
                         <p>INDIV - Individual</p>
+                        <p>{{ $civilian->occupation }}</p>
                     </div>
                 </div>
             </div>
@@ -43,7 +45,7 @@
                 <div class="flex">
                     <div class="">
                         <p class="font-bold">Age:</p>
-                        <p class="font-bold">Birth Date:</p>
+                        <p class="font-bold">Birth:</p>
                         <p class="font-bold">Race:</p>
                         <p class="font-bold">Sex:</p>
                         <p class="font-bold">Height:</p>
@@ -51,11 +53,14 @@
                     </div>
                     <div class="ml-3">
                         <p>{{ $civilian->age }}</p>
-                        <p>{{ $civilian->date_of_birth }}</p>
+                        <p>{{ $civilian->date_of_birth->format('m/d/Y') }}</p>
                         <p>{{ $civilian->race }}</p>
                         <p>{{ $civilian->gender }}</p>
-                        <p>{{ $civilian->height }}</p>
-                        <p>{{ $civilian->weight }}</p>
+                        <p>{{ floor($civilian->height / 12) }}'
+                            {{ $civilian->height % 12 }}"
+                            ({{ round($civilian->height * 2.54) }}cm)</p>
+                        <p>{{ $civilian->weight }}lb
+                            ({{ round($civilian->weight / 2.205) }}kg)</p>
                     </div>
                 </div>
             </div>
@@ -205,10 +210,10 @@
                         }
                         ?>
                         <p>
-                            <a class="{{ $status_color }} inline-flex items-center" href="#">{{ $vehicle->plate }}
-                                |
-                                {{ $vehicle->model }} |
-                                {{ $status }} | Expires: {{ $vehicle->registration_expire->format('m/d/Y') }}
+                            <a class="{{ $status_color }} inline-flex items-center"
+                                href="{{ route('cad.vehicle.return', $vehicle->plate) }}" target="_blank">
+                                {{ $vehicle->plate }} |{{ $vehicle->model }} | {{ $status }} | Expires:
+                                {{ $vehicle->registration_expire->format('m/d/Y') }}
                                 <svg class="w-4 h-4 text-blue-700 ml-2" fill="none" stroke-width="1.5"
                                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path

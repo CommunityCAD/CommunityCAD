@@ -55,7 +55,7 @@
             </a>
 
             <a class="py-3 px-5 text-white hover:bg-[#598392] @if (request()->is('cad/vehicle_search/*')) bg-[#598392] @endif"
-                href="{{ route('cad.vehicle') }}">
+                href="{{ route('cad.vehicle.search') }}">
                 <svg class="w-6 h-6 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path

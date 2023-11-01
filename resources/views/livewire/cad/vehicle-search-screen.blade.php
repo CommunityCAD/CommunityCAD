@@ -15,7 +15,7 @@
         </p>
     </div>
     <div class="flex flex-row">
-        <div class="w-3/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
+        <div class="w-3/5 mx-auto p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
             <div class="flex">
                 <div class="w-3/5">
                     <label class="block mr-2 text-lg">Plate:</label>
@@ -24,49 +24,12 @@
             </div>
             <hr>
             @forelse ($vehicles as $vehicle)
-                <a class="block secondary-button-sm" href="#"
+                <a class="block secondary-button-sm" href="{{ route('cad.vehicle.return', $vehicle->plate) }}"
                     wire:click='show_return("{{ $vehicle->id }}")'>{{ $vehicle->plate }} {{ $vehicle->model }}
                     {{ $vehicle->color }}<br>RO: {{ $vehicle->civilian->name }} ({{ $vehicle->civilian->s_n_n }})</a>
             @empty
                 <p>No results</p>
             @endforelse
-        </div>
-
-        <div class="w-2/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
-            @if (!$vehicle_return)
-                <p>No search ran</p>
-            @else
-                <div class="flex justify-between">
-                    <p>Return on: {{ $vehicle_return->plate }}</p>
-                    <a class="text-red-400" href="#" wire:click="clear_return()">Clear Result</a>
-                </div>
-
-                <div class="flex flex-row">
-                    <div class="w-full ml-6">
-                        <p><span class="text-gray-300 font-bold underline">RO:</span>
-                            <span id="ro_name">{{ $vehicle_return->civilian->name }}</span>
-                        </p>
-                        <p><span class="text-gray-300 font-bold underline">RO SSN:</span>
-                            <a href="{{ route('cad.name') }}?ssn={{ $vehicle_return->civilian->id }}"
-                                id="ro_name">{{ $vehicle_return->civilian->id }}</a>
-                        </p>
-
-                        <p><span class="text-gray-300 font-bold underline">Plate:</span>
-                            {{ $vehicle_return->plate }}
-                        </p>
-                        <p><span class="text-gray-300 font-bold underline">Model:</span>
-                            {{ $vehicle_return->model }}</p>
-                        @php
-                            $status = $vehicle_return->status_name;
-                            if ($vehicle_return->registration_expire < date('Y-m-d')) {
-                                $status = 'Expired';
-                            }
-                        @endphp
-                        <p><span class="text-gray-300 font-bold underline">Status:</span>
-                            {{ $status }}</p>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 </div>
