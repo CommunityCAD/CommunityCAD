@@ -56,6 +56,11 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::get('landing', [CadPageController::class, 'landing'])->name('landing');
         Route::post('add_unit', AddUnitController::class)->name('add_unit');
+        Route::get('stop_panic', [CadPageController::class, 'stop_panic'])->name('stop_panic');
+        Route::get('clear_panic', [CadPageController::class, 'clear_panic'])->name('clear_panic');
+        Route::get('panic', [CadPageController::class, 'panic'])->name('panic');
+
+
 
         Route::resource('call', CallController::class);
         Route::resource('report', ReportController::class);

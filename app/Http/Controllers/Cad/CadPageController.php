@@ -41,7 +41,7 @@ class CadPageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (! $active_unit) {
+        if (!$active_unit) {
             return redirect()->route('cad.landing');
         }
 
@@ -52,7 +52,7 @@ class CadPageController extends Controller
     {
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (! $active_unit) {
+        if (!$active_unit) {
             return redirect()->route('cad.landing');
         }
 
@@ -79,5 +79,30 @@ class CadPageController extends Controller
         }
 
         return view('cad.vehicle');
+    }
+
+    public function panic()
+    {
+        auth()->user()->active_unit->update(['is_panic' => true, 'status' => 'PANIC']);
+
+        return redirect()->route('cad.cad');
+    }
+
+    public function stop_panic()
+    {
+        auth()->user()->active_unit->update(['is_panic' => false, 'status' => 'AVL']);
+
+        return redirect()->route('cad.cad');
+    }
+
+    public function clear_panic()
+    {
+        $active_panic_units = ActiveUnit::where('is_panic', '1')->get();
+
+        foreach ($active_panic_units as $active_unit) {
+            $active_unit->update(['is_panic' => false, 'status' => 'AVL']);
+        }
+
+        return redirect()->route('cad.cad');
     }
 }

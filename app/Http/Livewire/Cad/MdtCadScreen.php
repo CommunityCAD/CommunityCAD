@@ -16,6 +16,7 @@ class MdtCadScreen extends Component
     public $calls;
 
     public $active_dispatch = 'OFF';
+    public $active_panic = false;
 
     public $active_dispatcher;
 
@@ -27,6 +28,10 @@ class MdtCadScreen extends Component
         $this->active_units = ActiveUnit::where('department_type', '!=', 2)->orderBy('department_type', 'asc')->get();
         $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
         $this->active_dispatcher = ActiveUnit::where('department_type', 2)->orderBy('created_at')->get()->first();
+
+        if (ActiveUnit::where('is_panic', '1')->count() > 0) {
+            $this->active_panic = true;
+        }
 
         if ($this->active_dispatcher) {
             switch ($this->active_dispatcher->status) {

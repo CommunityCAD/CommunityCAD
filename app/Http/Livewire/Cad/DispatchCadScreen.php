@@ -18,6 +18,7 @@ class DispatchCadScreen extends Component
     public $calls;
 
     public $active_dispatch = 'OFFDTY';
+    public $active_panic = false;
 
     public $call_natures = CallNatures::NATURECODES;
     public $call_statuses = CallStatuses::STATUSCODES;
@@ -27,6 +28,10 @@ class DispatchCadScreen extends Component
         $this->active_units = ActiveUnit::where('department_type', '!=', 2)->orderBy('department_type', 'asc')->get();
         $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
         $this->active_dispatcher = ActiveUnit::where('department_type', 2)->where('status', '!=', 'OFFDTY')->orderBy('created_at')->get()->first();
+
+        if (ActiveUnit::where('is_panic', '1')->count() > 0) {
+            $this->active_panic = true;
+        }
 
         // dd($this->active_dispatcher);
 

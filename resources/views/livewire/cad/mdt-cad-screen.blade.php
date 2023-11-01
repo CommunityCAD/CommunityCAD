@@ -44,12 +44,37 @@
                 </div>
             @endif
             <div>
+                @if (auth()->user()->active_unit->is_panic)
+                    <a class="delete-button-md" href="{{ route('cad.stop_panic') }}">Stop Panic</a>
+                @else
+                    <a class="delete-button-md" href="{{ route('cad.panic') }}">Panic</a>
+                @endif
+
                 <a class="new-button-md" href="#"
                     onclick="openExternalWindow('{{ route('cad.report.create') }}')">New Report</a>
                 <a class="new-button-md" href="{{ route('cad.call.create') }}">New Call</a>
             </div>
         </div>
         <div>
+            @if ($active_panic)
+                <tr>
+                    <div class="bg-red-700 w-full my-3 px-2 py-4 flex justify-between items-center rounded-md">
+                        <p class="text-white font-bold">Active Panic Button!</p>
+                        <button class="rounded-full p-3 bg-red-300" id="playAudio" onclick="play('panicButton')">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke-width="1.5" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 7.5V18M15 7.5V18M3 16.811V8.69c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 010 1.954l-7.108 4.061A1.125 1.125 0 013 16.811z"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <audio autoplay id="panicButton" volume="1">
+                            <source src="{{ secure_asset('audio/panic_button.mp3') }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </tr>
+            @endif
             <table class="w-full mt-4 uppercase border border-collapse table-auto border-slate-400">
                 <tr class="text-lg font-bold">
                     <th class="p-1 border border-slate-400">Call #</th>
