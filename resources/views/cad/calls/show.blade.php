@@ -68,9 +68,6 @@
                     <a class="new-button-sm" href="#"
                         onclick="openExternalWindow('{{ route('cad.report.create') }}?call={{ $call->id }}')">New
                         Report</a>
-                    <a class="new-button-sm" href="#"
-                        onclick="openExternalWindow('{{ route('cad.report.create') }}?call={{ $call->id }}')">New
-                        Person</a>
                     <a class="secondary-button-sm" href="{{ route('cad.cad') }}">Back To CAD</a>
                     <a class="edit-button-sm" href="{{ route('cad.call.show', $call->id) }}" target="_blank">new
                         tab</a>
@@ -103,29 +100,44 @@
                             @livewire('cad.call-chat-tab', ['call_id' => $call->id])
                         </div>
                         <div class="p-6 text-base leading-relaxed" style="display: none" x-show="openTab === 2">
-                            <div class="flex p-4">
-                                <div class="w-1/2">
-                                    <p class="text-lg font-semibold">Suspects</p>
-                                    <ul class="ml-8 list-disc">
-                                        <li><a class="underline" href="#">John Doe</a></li>
-                                    </ul>
-
-                                    <p class="mt-3 text-lg font-semibold">Victims</p>
-                                    <ul class="ml-8 list-disc">
-                                        <li><a class="underline" href="#">Jane Doe</a></li>
-                                    </ul>
+                            <form action="{{ route('cad.add_persons', $call->id) }}"
+                                class="w-full  pb-3 border-b-2 border-white" method="POST">
+                                @csrf
+                                <div class="flex justify-between">
+                                    <div class="w-1/2">
+                                        <label for="">SSN</label>
+                                        <input class="text-input" name="civilian_id" type="number">
+                                    </div>
+                                    <div class="w-1/2 ml-2">
+                                        <label for="">Type</label>
+                                        <select class="select-input" id="" name="type">
+                                            <option value="RP">REPORTING PARTY</option>
+                                            <option value="SUSPECT">SUSPECT</option>
+                                            <option value="VICTIM">VICTIM</option>
+                                            <option value="WITNESS">WITNESS</option>
+                                            <option value="OTHER">OTHER</option>
+                                        </select>
+                                    </div>
                                 </div>
+                                <div class="w-full mt-3">
+                                    <input class="button-md bg-green-700 hover:bg-green-600" type="submit" value="SAVE">
+                                </div>
+                            </form>
+                            <div class="p-4">
                                 <div class="w-1/2">
-                                    <p class="text-lg font-semibold">Other Parties</p>
-                                    <ul class="ml-8 list-disc">
-                                        <li><a class="underline" href="#">Rickey Bobby (Witness)</a></li>
-                                    </ul>
-
-                                    <p class="mt-3 text-lg font-semibold">Officers</p>
-                                    <ul class="ml-8 list-disc">
-                                        <li><a class="underline" href="#">Ron Swanson (Lead)</a></li>
-                                        <li><a class="underline" href="#">Leslie Nopp (ONSCN)</a></li>
-                                    </ul>
+                                    <p class="text-lg font-semibold">LINKED PERSONS</p>
+                                    @forelse ($call->call_civilians as $civilian)
+                                        <ul class="ml-8 list-disc">
+                                            <li><a class="underline"
+                                                    href="{{ route('cad.name') }}?ssn={{ $civilian->civilian->id }}"
+                                                    target="_blank">{{ $civilian->civilian->name }}
+                                                    ({{ $civilian->type }})
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    @empty
+                                        <p>NO PERSONS LINKED TO THIS CALL</p>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>

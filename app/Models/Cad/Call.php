@@ -2,6 +2,7 @@
 
 namespace App\Models\Cad;
 
+use App\Models\CallCivilian;
 use App\Models\CallLog;
 use App\Models\Civilian;
 use App\Models\Report;
@@ -42,6 +43,11 @@ class Call extends Model
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function call_civilians()
+    {
+        return $this->hasMany(CallCivilian::class);
     }
 
     public function getTimeAttribute()

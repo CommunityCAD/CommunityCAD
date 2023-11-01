@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\CallStoreRequest;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
+use App\Models\CallCivilian;
+use App\Models\Civilian;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,6 +37,7 @@ class CallController extends Controller
 
     public function show(Call $call): View
     {
+        $call->with('call_civilians');
         $active_units = ActiveUnit::get();
 
         return view('cad.calls.show', compact('call', 'active_units'));
@@ -57,5 +60,20 @@ class CallController extends Controller
         $call->delete();
 
         return redirect()->route('calls.index')->with('success', 'Message');
+    }
+
+    public function add_persons(Call $call, Request $request)
+    {
+        $civilian = Civilian::where('id', $request->civilian_id)->get()->first();
+        if (Civilian::where('id', $request->civilian_id)->count() == 0) {
+            return redirect()->route('cad.call.show', $call->id)->with('alerts', [['message' => 'That SSN doesn\'t return to anyone.', 'level' => 'error']]);
+        }
+        CallCivilian::create([
+            'call_id' => $call->id,
+            'civilian_id' => $civilian->id,
+            'type' => $request->type,
+        ]);
+
+        return redirect()->route('cad.call.show', $call->id);
     }
 }

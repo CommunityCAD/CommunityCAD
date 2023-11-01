@@ -80,6 +80,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('offdutyskipreport', [OffDutyController::class, 'skipreport'])->name('offduty.skipreport');
 
         Route::post('call/{call}/update_call_log', [CallLogController::class, 'store'])->name('call_log.store');
+        Route::post('call/{call}/add_persons', [CallController::class, 'add_persons'])->name('add_persons');
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
