@@ -329,7 +329,8 @@
                                     <p>
                                         <a class="{{ $status_color }} inline-flex items-center"
                                             href="{{ route('cad.vehicle.return', $vehicle->plate) }}" target="_blank">
-                                            {{ $vehicle->plate }} |{{ $vehicle->model }} | {{ $status }} |
+                                            {{ $vehicle->plate }} | {{ $vehicle->color }} {{ $vehicle->model }} |
+                                            {{ $status }} |
                                             Expires:
                                             {{ $vehicle->registration_expire->format('m/d/Y') }}
                                             <svg class="w-4 h-4 text-blue-700 ml-2" fill="none" stroke-width="1.5"
