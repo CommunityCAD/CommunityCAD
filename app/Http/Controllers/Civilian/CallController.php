@@ -9,7 +9,6 @@ use App\Models\Cad\CallNatures;
 use App\Models\Civilian;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class CallController extends Controller
 {
@@ -29,7 +28,6 @@ class CallController extends Controller
         $input['units'] = '{"data":[]}';
 
         $call = Call::create($input);
-
 
         return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => '911 Call Created', 'level' => 'success']]);
     }

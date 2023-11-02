@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 
 class SuspendedLicenseController extends Controller
 {
-
     public function index(): View
     {
         $licenses = License::where('license_status', 3)->with('ticket')->get();
+
         return view('courthouse.suspended.index', compact('licenses'));
     }
 
@@ -23,8 +23,9 @@ class SuspendedLicenseController extends Controller
             'license_status' => 'required|numeric',
         ]);
 
-        $validated['suspend_ticket_id'] = NULL;
+        $validated['suspend_ticket_id'] = null;
         $license->update($validated);
+
         return redirect()->route('courthouse.suspended.index')->with('alerts', [['message' => 'License Released.', 'level' => 'success']]);
     }
 }

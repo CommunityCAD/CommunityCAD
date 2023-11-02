@@ -13,8 +13,8 @@ class VehicleSearchScreen extends Component
 
     public function render()
     {
-        if (!empty($this->search_plate)) {
-            $this->vehicles = Vehicle::where('plate', 'like', '%' . $this->search_plate . '%')->with(['civilian'])->get();
+        if (! empty($this->search_plate)) {
+            $this->vehicles = Vehicle::where('plate', 'like', '%'.$this->search_plate.'%')->with(['civilian'])->get();
         } else {
             $this->vehicles = Vehicle::where('plate', '333')->get();
         }

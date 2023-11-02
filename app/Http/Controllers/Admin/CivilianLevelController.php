@@ -22,6 +22,7 @@ class CivilianLevelController extends Controller
     public function create(): View
     {
         $license_types = LicenseType::get();
+
         return view('admin.civilian_level.create', compact('license_types'));
     }
 
@@ -29,7 +30,7 @@ class CivilianLevelController extends Controller
     {
 
         $data = $request->validated();
-        $data['license_types_allowed'] = json_encode(["data" => $data['allowed_licenses']]);
+        $data['license_types_allowed'] = json_encode(['data' => $data['allowed_licenses']]);
         unset($data['allowed_licenses']);
 
         CivilianLevel::create($data);
@@ -41,13 +42,14 @@ class CivilianLevelController extends Controller
     {
         $license_types = LicenseType::get();
         $allowed_licenses = json_decode($civilianLevel->license_types_allowed, true);
+
         return view('admin.civilian_level.edit', compact('civilianLevel', 'license_types', 'allowed_licenses'));
     }
 
     public function update(CivilianLevelRequest $request, CivilianLevel $civilianLevel): RedirectResponse
     {
         $data = $request->validated();
-        $data['license_types_allowed'] = json_encode(["data" => $data['allowed_licenses']]);
+        $data['license_types_allowed'] = json_encode(['data' => $data['allowed_licenses']]);
         unset($data['allowed_licenses']);
         $civilianLevel->update($data);
 

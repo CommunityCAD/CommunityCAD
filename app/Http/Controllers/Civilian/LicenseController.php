@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Civilian;
 
 use App\Http\Controllers\Controller;
 use App\Models\Civilian;
-use App\Models\CivilianLevel;
 use App\Models\License;
 use App\Models\LicenseType;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class LicenseController extends Controller
 {
@@ -23,7 +21,7 @@ class LicenseController extends Controller
 
         $available_licenses = [];
         foreach ($allowed_licenses as $license) {
-            if (!in_array($license->id, $owned_licenses)) {
+            if (! in_array($license->id, $owned_licenses)) {
                 $available_licenses[] = $license;
             }
         }

@@ -14,19 +14,19 @@ class UpdateCivilianAlertsController extends Controller
     public function __invoke(Civilian $civilian, Request $request)
     {
         $data = [];
-        if ($request->is_violent  == 'on') {
+        if ($request->is_violent == 'on') {
             $data['is_violent'] = true;
         } else {
             $data['is_violent'] = false;
         }
 
-        if ($request->is_weapon  == 'on') {
+        if ($request->is_weapon == 'on') {
             $data['is_weapon'] = true;
         } else {
             $data['is_weapon'] = false;
         }
 
-        if ($request->is_ill  == 'on') {
+        if ($request->is_ill == 'on') {
             $data['is_ill'] = true;
         } else {
             $data['is_ill'] = false;

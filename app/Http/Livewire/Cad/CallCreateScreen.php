@@ -15,12 +15,13 @@ class CallCreateScreen extends Component
     public $civilian_name = '';
 
     public $civilian_id = '';
+
     public $call_natures = CallNatures::NATURECODES;
 
     public function render()
     {
-        if (!empty($this->civilian_search)) {
-            $this->civilians = Civilian::where('first_name', 'like', '%' . $this->civilian_search . '%')->orWhere('last_name', 'like', '%' . $this->civilian_search . '%')->get();
+        if (! empty($this->civilian_search)) {
+            $this->civilians = Civilian::where('first_name', 'like', '%'.$this->civilian_search.'%')->orWhere('last_name', 'like', '%'.$this->civilian_search.'%')->get();
         } else {
             $this->civilians = Civilian::where('id', $this->civilian_search)->get();
         }

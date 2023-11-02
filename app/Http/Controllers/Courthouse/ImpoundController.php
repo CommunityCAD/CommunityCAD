@@ -10,13 +10,12 @@ use Illuminate\Http\Request;
 
 class ImpoundController extends Controller
 {
-
     public function index(): View
     {
         $vehicles = Vehicle::where('vehicle_status', 3)->with('ticket')->get();
+
         return view('courthouse.impound.index', compact('vehicles'));
     }
-
 
     public function update(Request $request, Vehicle $vehicle): RedirectResponse
     {
@@ -24,8 +23,9 @@ class ImpoundController extends Controller
             'vehicle_status' => 'required|numeric',
         ]);
 
-        $validated['impound_ticket_id'] = NULL;
+        $validated['impound_ticket_id'] = null;
         $vehicle->update($validated);
+
         return redirect()->route('courthouse.impound.index')->with('alerts', [['message' => 'Vehicle Released.', 'level' => 'success']]);
     }
 }

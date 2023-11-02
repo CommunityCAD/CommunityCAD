@@ -65,7 +65,7 @@ class OffDutyController extends Controller
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
+            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
             'call_id' => $call->id,
         ]);
 

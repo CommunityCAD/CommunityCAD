@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Cad;
 use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Civilian\Vehicle;
-use Illuminate\Http\Request;
 
 class VehicleSearchController extends Controller
 {
