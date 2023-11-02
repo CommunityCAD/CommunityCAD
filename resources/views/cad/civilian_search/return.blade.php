@@ -15,8 +15,18 @@
             </h2>
 
             <div class="flex space-x-2">
-                <p class="text-red-700">Arrest Warrant |</p>
-                <p class="text-red-700">Armed & Dangerous</p>
+                @if ($civilian->status == 2)
+                    <span class="text-red-700">Active Warrent</span>
+                @endif
+                @if ($civilian->is_violent)
+                    <span class="text-red-700">History of Violence</span>
+                @endif
+                @if ($civilian->is_weapon)
+                    <span class="text-red-700">History of Weapons</span>
+                @endif
+                @if ($civilian->is_ill)
+                    <span class="text-red-700">History of Mental Illness</span>
+                @endif
             </div>
         </div>
 
@@ -70,7 +80,22 @@
         </div>
         <div class="border-b-2 border-x-2 w-full p-2 select-none" x-data="{ isOpen: false }">
             <h3 @click="isOpen = !isOpen" class="text-lg flex justify-between items-center cursor-pointer">
-                <span>Alerts <span class="text-red-700">Active Warrant|Armed & Dangerous</span></span>
+                <span>Alerts
+                    <div class="space-x-2 inline-block">
+                        @if ($civilian->status == 2)
+                            <span class="text-red-700">Active Warrent</span>
+                        @endif
+                        @if ($civilian->is_violent)
+                            <span class="text-red-700">History of Violence</span>
+                        @endif
+                        @if ($civilian->is_weapon)
+                            <span class="text-red-700">History of Weapons</span>
+                        @endif
+                        @if ($civilian->is_ill)
+                            <span class="text-red-700">History of Mental Illness</span>
+                        @endif
+                    </div>
+                </span>
                 <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                     x-show="isOpen == false" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -82,12 +107,35 @@
             </h3>
             <div class="" x-show="isOpen">
                 <div class="ml-3 text-red-700">
-                    <p>Active Warrant</p>
-                    <p>Armed & Dangerous</p>
-                    <p>Something else</p>
+                    @if ($civilian->status == 2)
+                        <p class="text-red-700">Active Warrent</p>
+                    @endif
+                    @if ($civilian->is_violent)
+                        <p class="text-red-700">History of Violence</p>
+                    @endif
+                    @if ($civilian->is_weapon)
+                        <p class="text-red-700">History of Weapons</p>
+                    @endif
+                    @if ($civilian->is_ill)
+                        <p class="text-red-700">History of Mental Illness</p>
+                    @endif
                 </div>
-                <div class="mt-3">
-                    <a class="edit-button-sm" href="#">Edit Alerts</a>
+                <div class="mt-3 border-t">
+                    <form action="{{ route('cad.name.update_alerts', $civilian->id) }}" method="POST">
+                        @csrf
+                        <label for="is_violent"><input @checked($civilian->is_violent) id="is_violent" name="is_violent"
+                                type="checkbox"> Flag for
+                            Violence</label>
+                        <label for="is_weapon"><input @checked($civilian->is_weapon) id="is_weapon" name="is_weapon"
+                                type="checkbox"> Flag for
+                            Weapons</label>
+                        <label for="is_ill"><input @checked($civilian->is_ill) id="is_ill" name="is_ill"
+                                type="checkbox"> Flag for Mental
+                            Illness</label>
+                        <button class="button-sm bg-blue-700 hover:bg-blue-600" type="submit" value="">Save
+                            Alerts</button>
+                    </form>
+
                 </div>
             </div>
         </div>

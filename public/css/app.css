@@ -1874,6 +1874,9 @@ video {
 .h-screen {
   height: 100vh;
 }
+.h-14 {
+  height: 3.5rem;
+}
 .max-h-0 {
   max-height: 0px;
 }
@@ -1993,6 +1996,9 @@ video {
 }
 .w-screen {
   width: 100vw;
+}
+.w-16 {
+  width: 4rem;
 }
 .min-w-full {
   min-width: 100%;

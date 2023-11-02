@@ -10,6 +10,7 @@ use App\Http\Controllers\Cad\CivilianSearchController;
 use App\Http\Controllers\Cad\OffDutyController;
 use App\Http\Controllers\Cad\ReportController;
 use App\Http\Controllers\Cad\TicketController;
+use App\Http\Controllers\Cad\UpdateCivilianAlertsController;
 use App\Http\Controllers\Cad\VehicleSearchController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DepartmentController;
@@ -74,6 +75,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::get('name/search', [CivilianSearchController::class, 'search'])->name('name.search');
         Route::get('name/{civilian}', [CivilianSearchController::class, 'return'])->name('name.return');
+        Route::post('name/{civilian}/update_alerts', UpdateCivilianAlertsController::class)->name('name.update_alerts');
 
         Route::get('vehicle/search', [VehicleSearchController::class, 'search'])->name('vehicle.search');
         Route::get('vehicle/{vehicle:plate}', [VehicleSearchController::class, 'return'])->name('vehicle.return');
