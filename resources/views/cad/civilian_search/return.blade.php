@@ -450,7 +450,8 @@
         <div class="mt-3 text-center">
             <a class="new-button-md" href="{{ route('cad.name.search') }}">Search More</a>
             <a class="edit-button-md" href="{{ route('cad.name.return', $civilian->id) }}">Refresh Data</a>
-            <a class="secondary-button-md" href="{{ route('cad.name.return', $civilian->id) }}">New Ticket</a>
+            <a class="secondary-button-md" href="#"
+                onclick="openExternalWindow('{{ route('cad.ticket.create', $civilian->id) }}')">New Ticket</a>
         </div>
     </div>
 @endsection
