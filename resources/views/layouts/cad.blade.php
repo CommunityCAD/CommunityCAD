@@ -47,6 +47,39 @@
             </div>
         </div>
     @endif
+    {{-- <div class="relative bg-red-700">
+        <div class="fixed bottom-0 left-0 z-50 w-full">
+            <div class="bg-slate-500 z-50 w-full">
+                <p class="flex items-center space-x-4">
+                    <span class=" ml-4">
+                        @if (auth()->user()->active_unit->status == 'OFFDTY')
+                            <svg class=" w-5 h-5 rounded-full bg-red-700">
+                                <circle cx="50" cy="50" fill="red" r="40" stroke-width="3"
+                                    stroke="black" />
+                            </svg>
+                        @else
+                            <svg class=" w-5 h-5 rounded-full bg-green-700">
+                                <circle cx="50" cy="50" fill="red" r="40" stroke-width="3"
+                                    stroke="black" />
+                            </svg>
+                        @endif
+                    </span>
+                    <span class="">Status:
+                        {{ auth()->user()->active_unit->status }}
+                        {{ auth()->user()->active_unit->updated_at->format('h:i:s') }}</span>
+                    <span class="">Current Call(s):
+                        @forelse (auth()->user()->active_unit->nice_calls as $call)
+                            {{ str_pad($call, 5, 0, STR_PAD_LEFT) }},
+                        @empty
+                            None
+                        @endforelse
+                    </span>
+                    <span class="">Messages: 0</span>
+                    <span class="">No Alerts</span>
+                </p>
+            </div>
+        </div>
+    </div> --}}
 
     @livewireScripts
 
