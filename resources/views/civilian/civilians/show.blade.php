@@ -403,24 +403,30 @@
                                     $text_color = 'text-red-500';
                                 }
                             @endphp
-                            <a class="new-button-sm" href="#" title="Accept Changes">
-                                <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </a>
 
-                            <a class="delete-button-sm" href="#" title="Enter Not-Guilty Plea">
-                                <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </a>
+                            @if ($ticket->plea_type == 0)
+                                <a class="new-button-sm" href="{{ route('civilian.civlian.plea.guilty', $ticket->id) }}"
+                                    title="Plea Guilty">
+                                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </a>
 
-                            <a class="button-sm bg-indigo-700 hover:bg-indigo-600" href="#"
+                                <a class="delete-button-sm"
+                                    href="{{ route('civilian.civlian.plea.not_guilty', $ticket->id) }}"
+                                    title="Plea Not-Guilty">
+                                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </a>
+                            @endif
+
+                            {{-- <a class="button-sm bg-indigo-700 hover:bg-indigo-600" href="#"
                                 title="File For Expungement">
                                 <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -428,7 +434,7 @@
                                         d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                            </a>
+                            </a> --}}
 
                             <a class="block {{ $text_color }}" href="#"
                                 onclick="openExternalWindow('{{ route('cad.ticket.show', $ticket->id) }}')">({{ $ticket->id }})
@@ -441,7 +447,6 @@
                                             {{ $charge->penal_code->name }}
                                         @endif
                                     @endforeach
-
                                 </span>
                             </a>
                         </div>

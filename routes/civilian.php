@@ -3,6 +3,7 @@
 use App\Http\Controllers\Civilian\CallController;
 use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Civilian\CivilianPageController;
+use App\Http\Controllers\Civilian\CivilianPleaController;
 use App\Http\Controllers\Civilian\LicenseController;
 use App\Http\Controllers\Civilian\MedicalRecordController;
 use App\Http\Controllers\Civilian\VehicleController;
@@ -26,3 +27,6 @@ Route::resource('civilians/{civilian}/vehicle', VehicleController::class)->only(
 
 Route::get('/civilians/{civilian}/911/create', [CallController::class, 'create'])->name('call.create');
 Route::post('/civilians/{civilian}/911', [CallController::class, 'store'])->name('call.store');
+
+Route::get('/ticket/{ticket}/plea_guilty', [CivilianPleaController::class, 'plea_guilty'])->name('civlian.plea.guilty');
+Route::get('/ticket/{ticket}/plea_not_guilty', [CivilianPleaController::class, 'plea_not_guilty'])->name('civlian.plea.not_guilty');
