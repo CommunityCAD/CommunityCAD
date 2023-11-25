@@ -13,7 +13,7 @@
 
 -- Dumping data for table fivemcad.civilian_statuses: ~7 rows (approximately)
 /*!40000 ALTER TABLE `civilian_statuses` DISABLE KEYS */;
-INSERT INTO `civilian_statuses` (`id`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+INSERT INTO `civilian_statuses` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Alive', NULL, NULL, NULL),
 	(2, 'Wanted', NULL, NULL, NULL),
 	(3, 'Jailed', NULL, NULL, NULL),
@@ -25,7 +25,7 @@ INSERT INTO `civilian_statuses` (`id`, `status`, `deleted_at`, `created_at`, `up
 
 -- Dumping data for table fivemcad.license_statuses: ~5 rows (approximately)
 /*!40000 ALTER TABLE `license_statuses` DISABLE KEYS */;
-INSERT INTO `license_statuses` (`id`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+INSERT INTO `license_statuses` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Valid', NULL, NULL, NULL),
 	(2, 'Expired', NULL, NULL, NULL),
 	(3, 'Suspended', NULL, NULL, NULL),
@@ -36,4 +36,3 @@ INSERT INTO `license_statuses` (`id`, `status`, `deleted_at`, `created_at`, `upd
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-

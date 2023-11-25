@@ -11,10 +11,10 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping data for table fivemcad.civilian_levels: ~0 rows (approximately)
+-- Dumping data for table fivemcad.civilian_levels: ~1 rows (approximately)
 /*!40000 ALTER TABLE `civilian_levels` DISABLE KEYS */;
-INSERT INTO `civilian_levels` (`id`, `name`, `civilian_limit`, `firearm_limit`, `vehicle_limit`, `license_types_allowed`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(1, 'LEO Default', 1, 1, 2, '{"data": ["dl_license", "cdl_license"]}', NULL, '2023-02-11 00:07:53', '2023-02-11 00:07:54');
+INSERT INTO `civilian_levels` (`id`, `name`, `civilian_limit`, `firearm_limit`, `vehicle_limit`, `license_types_allowed`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Default', 99, 99, 99, '"{\\"data\\":[\\"1\\",\\"2\\",\\"3\\",\\"4\\",\\"5\\",\\"6\\",\\"7\\",\\"8\\",\\"12\\"]}"', '2023-02-11 00:07:53', '2023-11-04 20:01:31', NULL);
 /*!40000 ALTER TABLE `civilian_levels` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -11,20 +11,24 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping data for table fivemcad.cad_settings: ~9 rows (approximately)
+-- Dumping data for table fivemcad.cad_settings: ~15 rows (approximately)
 /*!40000 ALTER TABLE `cad_settings` DISABLE KEYS */;
-INSERT INTO `cad_settings` (`id`, `name`, `value`, `type`, `deleted_at`, `created_at`, `updated_at`) VALUES
-	(1, 'community_logo', 'https://gages.space/images/logo.png', 'text', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(2, 'community_name', 'Community CAD', 'text', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(3, 'minimum_age', '14', 'number', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(4, 'days_until_inactive', '14', 'number', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(5, 'days_until_reapply', '7', 'number', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(6, 'postal_map_link', NULL, 'text', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(7, 'force_discord_link', 'true', 'bool', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(8, 'force_steam_link', 'true', 'bool', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(9, 'application_terms', '<p>You understand that you may only submit one application per recruitment cycle and that\r\n                        if you are denied\r\n                        you are required to wait until the next recruitment cycle to reapply.</p>\r\n\r\n                    <p>You have read over the Applacation Rules & Regulations and agree to them?</p>\r\n\r\n                    <p>Have you read over your application and ensured that all of the information on this\r\n                        application is fully\r\n                        accurate and correct, and that you are ready to submit this application for review?</p>\r\n\r\n                    <p>You understand that applicants will be contacted via our Fan Discord and you must be a\r\n                        member of it if\r\n                        you\r\n                        wish to further within your application</p>', 'textarea', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-	(10, 'community_intro', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'textarea', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08'),
-    (11, 'members_must_apply', 'true', 'bool', NULL, '2023-04-02 16:09:08', '2023-04-02 16:09:08');
+INSERT INTO `cad_settings` (`id`, `name`, `value`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'community_logo', 'https://cdn.discordapp.com/attachments/632810626363686922/1132129051411230811/communitycad.png', 'text', '2023-04-02 16:09:08', '2023-07-21 20:56:56', NULL),
+	(2, 'community_name', 'Community CAD', 'text', '2023-04-02 16:09:08', '2023-06-24 16:56:58', NULL),
+	(3, 'minimum_age', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(4, 'days_until_inactive', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(5, 'days_until_reapply', '7', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(6, 'postal_map_link', NULL, 'text', '2023-04-02 16:09:08', '2023-07-21 21:30:58', NULL),
+	(7, 'force_discord_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(8, 'force_steam_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(9, 'application_terms', 'You understand that you may only submit one application per recruitment cycle and that if you are denied you are required to wait until the next recruitment cycle to reapply.\r\n\r\nYou have read over the Application Rules & Regulations and agree to them?', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:46:43', NULL),
+	(10, 'community_intro', 'Hello All! I am proud to announce that CommunityCAD has now been put into beta and is ready to have communities use it. CommunityCAD is an all in one solution that handles everything you need to run your community. Applications? CHECK! Member rosters and activity tracking? CHECK! CAD/MDT Functionality? wait... CHCEK! DM me if you have any questions or are interested!\r\n\r\nFirst let me tell you a little about the history. Playing FiveM for the last 8 years almost I haven\'t seen a community that has everything in one place. To apply to be a member you have to use this Google Form or worse ejin forms. Then you had to be whitelisted through something else. Then you had the CAD/MDT while department heads tried to keep track of Google Forms and Docs. \r\n\r\nI wanted to change that. After multiple iterations and years of work I have finally finished a complete Version 1 that I wish to open to the public. I still haven\'t decided fully if it will be open source or a subscription based like other systems. This is a web based option so FiveM, Console, and Roblox roleplay communities can take advantage of this system. Its made with simple php so anyone can host it with cPanel very easily if I open source it or Subscription I will handle all hosting needs for you.', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:50:41', NULL),
+	(11, 'members_must_apply', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(12, 'allow_same_name_civilians', 'false', 'bool', '2023-07-21 21:09:34', '2023-07-21 21:32:36', NULL),
+	(13, 'state', 'San Andreas', 'text', '2023-09-25 22:35:53', '2023-09-25 22:35:53', NULL),
+	(14, 'county', 'Blane County', 'text', '2023-09-25 23:06:34', '2023-09-25 23:06:34', NULL),
+	(15, 'city', 'Los Santos', 'text', '2023-09-25 22:36:34', '2023-09-25 22:36:34', NULL);
 /*!40000 ALTER TABLE `cad_settings` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
