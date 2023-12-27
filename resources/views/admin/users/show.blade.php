@@ -53,7 +53,7 @@
                 <div class="text-center">
                     <img alt="" class="w-32 h-32 mx-auto rounded-full" src="{{ $user->avatar }}">
                     <h2 class="text-xl font-semibold">{{ $user->discord }}</h2>
-                    <p class="mt-3 text-sm">Head Admin</p>
+                    <p class="mt-3 text-sm">{{ $user->community_rank }}</p>
                 </div>
                 <ul class="px-3 py-2 mt-3 divide-y">
                     <li class="py-3">
@@ -72,27 +72,27 @@
                                 case '1':
                                     $text_color = 'text-orange-500';
                                     break;
-                            
+
                                 case '2':
                                     $text_color = 'text-yellow-500';
                                     break;
-                            
+
                                 case '3':
                                     $text_color = 'text-green-500';
                                     break;
-                            
+
                                 case '4':
                                     $text_color = 'text-red-500';
                                     break;
-                            
+
                                 case '5':
                                     $text_color = 'text-red-500';
                                     break;
-                            
+
                                 case '6':
                                     $text_color = 'text-red-500';
                                     break;
-                            
+
                                 default:
                                     $text_color = 'text-red-500';
                                     break;
@@ -216,8 +216,8 @@
                 <h2 class="mb-4 text-xl font-semibold underline">Quick Admin Options</h2>
 
                 <div class="grid grid-cols-1 gap-4 text-sm xl:grid-cols-2">
-                    <a class="secondary-button-md" href="#">Suspend/LOA User</a>
-                    <a class="delete-button-md" href="#">Ban User</a>
+                    {{-- <a class="secondary-button-md" href="#">Suspend/LOA User</a>
+                    <a class="delete-button-md" href="#">Ban User</a> --}}
                     <a @click="communityRankModal = true" class="secondary-button-md" href="#">Community Rank</a>
                     <a class="secondary-button-md"
                         href="{{ route('staff.user_department.index', $user->id) }}">Departments</a>
@@ -477,15 +477,12 @@
                 <h3 class="pb-2 text-xl font-bold sm:text-2xl">
                     Edit Community Rank
                 </h3>
-                <p>Community rank has no impact on roles or permissions. This is only to help identify members.</p>
-                <form action="" method="POST">
-                    <select class="select-input" name="community_rank" required>
-                        <option value="1">Member</option>
-                        <option value="2">Moderator</option>
-                        <option value="3">Admin</option>
-                        <option value="4">Department Head</option>
-                        <option value="5">Head Admin</option>
-                    </select>
+                <p></p>
+                <form action="{{ route('admin.users.community_rank.update', $user->id) }}" method="POST">
+                    @csrf
+                    @method('put')
+                    <input autofocus class="text-input" name="community_rank" required type="text"
+                        value="{{ old('community_rank', $user->community_rank) }}">
                     <div class="flex flex-wrap mt-3 -mx-3">
                         <div class="w-1/2 px-3">
                             <button class="w-full edit-button-md">Save</button>

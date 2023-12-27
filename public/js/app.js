@@ -28411,7 +28411,7 @@ const knownAdapters = {
 }
 
 _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].forEach(knownAdapters, (fn, value) => {
-  if(fn) {
+  if (fn) {
     try {
       Object.defineProperty(fn, 'name', {value});
     } catch (e) {
@@ -28421,6 +28421,10 @@ _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].forEach(knownAdapters, (fn, va
   }
 });
 
+const renderReason = (reason) => `- ${reason}`;
+
+const isResolvedHandle = (adapter) => _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFunction(adapter) || adapter === null || adapter === false;
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   getAdapter: (adapters) => {
     adapters = _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isArray(adapters) ? adapters : [adapters];
@@ -28429,30 +28433,44 @@ _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].forEach(knownAdapters, (fn, va
     let nameOrAdapter;
     let adapter;
 
+    const rejectedReasons = {};
+
     for (let i = 0; i < length; i++) {
       nameOrAdapter = adapters[i];
-      if((adapter = _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isString(nameOrAdapter) ? knownAdapters[nameOrAdapter.toLowerCase()] : nameOrAdapter)) {
+      let id;
+
+      adapter = nameOrAdapter;
+
+      if (!isResolvedHandle(nameOrAdapter)) {
+        adapter = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
+
+        if (adapter === undefined) {
+          throw new _core_AxiosError_js__WEBPACK_IMPORTED_MODULE_3__["default"](`Unknown adapter '${id}'`);
+        }
+      }
+
+      if (adapter) {
         break;
       }
+
+      rejectedReasons[id || '#' + i] = adapter;
     }
 
     if (!adapter) {
-      if (adapter === false) {
-        throw new _core_AxiosError_js__WEBPACK_IMPORTED_MODULE_3__["default"](
-          `Adapter ${nameOrAdapter} is not supported by the environment`,
-          'ERR_NOT_SUPPORT'
+
+      const reasons = Object.entries(rejectedReasons)
+        .map(([id, state]) => `adapter ${id} ` +
+          (state === false ? 'is not supported by the environment' : 'is not available in the build')
         );
-      }
 
-      throw new Error(
-        _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].hasOwnProp(knownAdapters, nameOrAdapter) ?
-          `Adapter '${nameOrAdapter}' is not available in the build` :
-          `Unknown adapter '${nameOrAdapter}'`
+      let s = length ?
+        (reasons.length > 1 ? 'since :\n' + reasons.map(renderReason).join('\n') : ' ' + renderReason(reasons[0])) :
+        'as no adapter specified';
+
+      throw new _core_AxiosError_js__WEBPACK_IMPORTED_MODULE_3__["default"](
+        `There is no suitable adapter to dispatch the request ` + s,
+        'ERR_NOT_SUPPORT'
       );
-    }
-
-    if (!_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFunction(adapter)) {
-      throw new TypeError('adapter is not a function');
     }
 
     return adapter;
@@ -28484,7 +28502,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_AxiosError_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../core/AxiosError.js */ "./node_modules/axios/lib/core/AxiosError.js");
 /* harmony import */ var _cancel_CanceledError_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../cancel/CanceledError.js */ "./node_modules/axios/lib/cancel/CanceledError.js");
 /* harmony import */ var _helpers_parseProtocol_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../helpers/parseProtocol.js */ "./node_modules/axios/lib/helpers/parseProtocol.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 /* harmony import */ var _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/AxiosHeaders.js */ "./node_modules/axios/lib/core/AxiosHeaders.js");
 /* harmony import */ var _helpers_speedometer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/speedometer.js */ "./node_modules/axios/lib/helpers/speedometer.js");
 
@@ -28538,7 +28556,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
   return new Promise(function dispatchXhrRequest(resolve, reject) {
     let requestData = config.data;
     const requestHeaders = _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_1__["default"].from(config.headers).normalize();
-    const responseType = config.responseType;
+    let {responseType, withXSRFToken} = config;
     let onCanceled;
     function done() {
       if (config.cancelToken) {
@@ -28550,11 +28568,15 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
       }
     }
 
+    let contentType;
+
     if (_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFormData(requestData)) {
-      if (_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserEnv || _platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserWebWorkerEnv) {
+      if (_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].hasStandardBrowserEnv || _platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].hasStandardBrowserWebWorkerEnv) {
         requestHeaders.setContentType(false); // Let the browser set it
-      } else {
-        requestHeaders.setContentType('multipart/form-data;', false); // mobile/desktop app frameworks
+      } else if ((contentType = requestHeaders.getContentType()) !== false) {
+        // fix semicolon duplication issue for ReactNative FormData implementation
+        const [type, ...tokens] = contentType ? contentType.split(';').map(token => token.trim()).filter(Boolean) : [];
+        requestHeaders.setContentType([type || 'multipart/form-data', ...tokens].join('; '));
       }
     }
 
@@ -28670,13 +28692,16 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
     // Add xsrf header
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
-    if (_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserEnv) {
-      // Add xsrf header
-      const xsrfValue = (config.withCredentials || (0,_helpers_isURLSameOrigin_js__WEBPACK_IMPORTED_MODULE_9__["default"])(fullPath))
-        && config.xsrfCookieName && _helpers_cookies_js__WEBPACK_IMPORTED_MODULE_10__["default"].read(config.xsrfCookieName);
+    if(_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].hasStandardBrowserEnv) {
+      withXSRFToken && _utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(config));
 
-      if (xsrfValue) {
-        requestHeaders.set(config.xsrfHeaderName, xsrfValue);
+      if (withXSRFToken || (withXSRFToken !== false && (0,_helpers_isURLSameOrigin_js__WEBPACK_IMPORTED_MODULE_9__["default"])(fullPath))) {
+        // Add xsrf header
+        const xsrfValue = config.xsrfHeaderName && config.xsrfCookieName && _helpers_cookies_js__WEBPACK_IMPORTED_MODULE_10__["default"].read(config.xsrfCookieName);
+
+        if (xsrfValue) {
+          requestHeaders.set(config.xsrfHeaderName, xsrfValue);
+        }
       }
     }
 
@@ -28770,7 +28795,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_spread_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./helpers/spread.js */ "./node_modules/axios/lib/helpers/spread.js");
 /* harmony import */ var _helpers_isAxiosError_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./helpers/isAxiosError.js */ "./node_modules/axios/lib/helpers/isAxiosError.js");
 /* harmony import */ var _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./core/AxiosHeaders.js */ "./node_modules/axios/lib/core/AxiosHeaders.js");
-/* harmony import */ var _helpers_HttpStatusCode_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./helpers/HttpStatusCode.js */ "./node_modules/axios/lib/helpers/HttpStatusCode.js");
+/* harmony import */ var _adapters_adapters_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./adapters/adapters.js */ "./node_modules/axios/lib/adapters/adapters.js");
+/* harmony import */ var _helpers_HttpStatusCode_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./helpers/HttpStatusCode.js */ "./node_modules/axios/lib/helpers/HttpStatusCode.js");
+
 
 
 
@@ -28851,7 +28878,9 @@ axios.AxiosHeaders = _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_13__["defaul
 
 axios.formToJSON = thing => (0,_helpers_formDataToJSON_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isHTMLForm(thing) ? new FormData(thing) : thing);
 
-axios.HttpStatusCode = _helpers_HttpStatusCode_js__WEBPACK_IMPORTED_MODULE_15__["default"];
+axios.getAdapter = _adapters_adapters_js__WEBPACK_IMPORTED_MODULE_15__["default"].getAdapter;
+
+axios.HttpStatusCode = _helpers_HttpStatusCode_js__WEBPACK_IMPORTED_MODULE_16__["default"];
 
 axios.default = axios;
 
@@ -29154,15 +29183,13 @@ class Axios {
     // Set config.method
     config.method = (config.method || this.defaults.method || 'get').toLowerCase();
 
-    let contextHeaders;
-
     // Flatten headers
-    contextHeaders = headers && _utils_js__WEBPACK_IMPORTED_MODULE_3__["default"].merge(
+    let contextHeaders = headers && _utils_js__WEBPACK_IMPORTED_MODULE_3__["default"].merge(
       headers.common,
       headers[config.method]
     );
 
-    contextHeaders && _utils_js__WEBPACK_IMPORTED_MODULE_3__["default"].forEach(
+    headers && _utils_js__WEBPACK_IMPORTED_MODULE_3__["default"].forEach(
       ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
       (method) => {
         delete headers[method];
@@ -29699,7 +29726,17 @@ class AxiosHeaders {
 
 AxiosHeaders.accessor(['Content-Type', 'Content-Length', 'Accept', 'Accept-Encoding', 'User-Agent', 'Authorization']);
 
-_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].freezeMethods(AxiosHeaders.prototype);
+// reserved names hotfix
+_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].reduceDescriptors(AxiosHeaders.prototype, ({value}, key) => {
+  let mapped = key[0].toUpperCase() + key.slice(1); // map `set` => `Set`
+  return {
+    get: () => value,
+    set(headerValue) {
+      this[mapped] = headerValue;
+    }
+  }
+});
+
 _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].freezeMethods(AxiosHeaders);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AxiosHeaders);
@@ -30024,6 +30061,7 @@ function mergeConfig(config1, config2) {
     timeout: defaultToConfig2,
     timeoutMessage: defaultToConfig2,
     withCredentials: defaultToConfig2,
+    withXSRFToken: defaultToConfig2,
     adapter: defaultToConfig2,
     responseType: defaultToConfig2,
     xsrfCookieName: defaultToConfig2,
@@ -30161,7 +30199,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _transitional_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transitional.js */ "./node_modules/axios/lib/defaults/transitional.js");
 /* harmony import */ var _helpers_toFormData_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/toFormData.js */ "./node_modules/axios/lib/helpers/toFormData.js");
 /* harmony import */ var _helpers_toURLEncodedForm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/toURLEncodedForm.js */ "./node_modules/axios/lib/helpers/toURLEncodedForm.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 /* harmony import */ var _helpers_formDataToJSON_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/formDataToJSON.js */ "./node_modules/axios/lib/helpers/formDataToJSON.js");
 
 
@@ -30172,10 +30210,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const DEFAULT_CONTENT_TYPE = {
-  'Content-Type': undefined
-};
 
 /**
  * It takes a string, tries to parse it, and if it fails, it returns the stringified version
@@ -30315,17 +30349,14 @@ const defaults = {
 
   headers: {
     common: {
-      'Accept': 'application/json, text/plain, */*'
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': undefined
     }
   }
 };
 
-_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].forEach(['delete', 'get', 'head', 'post', 'put', 'patch'], (method) => {
   defaults.headers[method] = {};
-});
-
-_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].merge(DEFAULT_CONTENT_TYPE);
 });
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (defaults);
@@ -30366,7 +30397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   VERSION: () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.4.0";
+const VERSION = "1.6.2";
 
 /***/ }),
 
@@ -30674,59 +30705,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utils.js */ "./node_modules/axios/lib/utils.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 
 
 
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].hasStandardBrowserEnv ?
 
+  // Standard browser envs support document.cookie
+  {
+    write(name, value, expires, path, domain, secure) {
+      const cookie = [name + '=' + encodeURIComponent(value)];
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].isStandardBrowserEnv ?
+      _utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isNumber(expires) && cookie.push('expires=' + new Date(expires).toGMTString());
 
-// Standard browser envs support document.cookie
-  (function standardBrowserEnv() {
-    return {
-      write: function write(name, value, expires, path, domain, secure) {
-        const cookie = [];
-        cookie.push(name + '=' + encodeURIComponent(value));
+      _utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(path) && cookie.push('path=' + path);
 
-        if (_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
-        }
+      _utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(domain) && cookie.push('domain=' + domain);
 
-        if (_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(path)) {
-          cookie.push('path=' + path);
-        }
+      secure === true && cookie.push('secure');
 
-        if (_utils_js__WEBPACK_IMPORTED_MODULE_1__["default"].isString(domain)) {
-          cookie.push('domain=' + domain);
-        }
+      document.cookie = cookie.join('; ');
+    },
 
-        if (secure === true) {
-          cookie.push('secure');
-        }
+    read(name) {
+      const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+      return (match ? decodeURIComponent(match[3]) : null);
+    },
 
-        document.cookie = cookie.join('; ');
-      },
+    remove(name) {
+      this.write(name, '', Date.now() - 86400000);
+    }
+  }
 
-      read: function read(name) {
-        const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-        return (match ? decodeURIComponent(match[3]) : null);
-      },
+  :
 
-      remove: function remove(name) {
-        this.write(name, '', Date.now() - 86400000);
-      }
-    };
-  })() :
+  // Non-standard browser env (web workers, react-native) lack needed support.
+  {
+    write() {},
+    read() {
+      return null;
+    },
+    remove() {}
+  });
 
-// Non standard browser env (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return {
-      write: function write() {},
-      read: function read() { return null; },
-      remove: function remove() {}
-    };
-  })());
 
 
 /***/ }),
@@ -30911,13 +30932,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utils.js */ "./node_modules/axios/lib/utils.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 
 
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].isStandardBrowserEnv ?
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_platform_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].hasStandardBrowserEnv ?
 
 // Standard browser envs have full support of the APIs needed to test
 // whether the request URL is of the same origin as current location.
@@ -30927,7 +30948,7 @@ __webpack_require__.r(__webpack_exports__);
     let originURL;
 
     /**
-    * Parse a URL to discover it's components
+    * Parse a URL to discover its components
     *
     * @param {String} url The URL to be parsed
     * @returns {Object}
@@ -31456,7 +31477,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils.js */ "./node_modules/axios/lib/utils.js");
 /* harmony import */ var _toFormData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toFormData.js */ "./node_modules/axios/lib/helpers/toFormData.js");
-/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _platform_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../platform/index.js */ "./node_modules/axios/lib/platform/index.js");
 
 
 
@@ -31661,6 +31682,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  isBrowser: true,
+  classes: {
+    URLSearchParams: _classes_URLSearchParams_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+    FormData: _classes_FormData_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Blob: _classes_Blob_js__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/platform/common/utils.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/axios/lib/platform/common/utils.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasBrowserEnv: () => (/* binding */ hasBrowserEnv),
+/* harmony export */   hasStandardBrowserEnv: () => (/* binding */ hasStandardBrowserEnv),
+/* harmony export */   hasStandardBrowserWebWorkerEnv: () => (/* binding */ hasStandardBrowserWebWorkerEnv)
+/* harmony export */ });
+const hasBrowserEnv = typeof window !== 'undefined' && typeof document !== 'undefined';
+
 /**
  * Determine if we're running in a standard browser environment
  *
@@ -31678,18 +31727,10 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @returns {boolean}
  */
-const isStandardBrowserEnv = (() => {
-  let product;
-  if (typeof navigator !== 'undefined' && (
-    (product = navigator.product) === 'ReactNative' ||
-    product === 'NativeScript' ||
-    product === 'NS')
-  ) {
-    return false;
-  }
-
-  return typeof window !== 'undefined' && typeof document !== 'undefined';
-})();
+const hasStandardBrowserEnv = (
+  (product) => {
+    return hasBrowserEnv && ['ReactNative', 'NativeScript', 'NS'].indexOf(product) < 0
+  })(typeof navigator !== 'undefined' && navigator.product);
 
 /**
  * Determine if we're running in a standard browser webWorker environment
@@ -31700,7 +31741,7 @@ const isStandardBrowserEnv = (() => {
  * `typeof window !== 'undefined' && typeof document !== 'undefined'`.
  * This leads to a problem when axios post `FormData` in webWorker
  */
- const isStandardBrowserWebWorkerEnv = (() => {
+const hasStandardBrowserWebWorkerEnv = (() => {
   return (
     typeof WorkerGlobalScope !== 'undefined' &&
     // eslint-disable-next-line no-undef
@@ -31710,16 +31751,29 @@ const isStandardBrowserEnv = (() => {
 })();
 
 
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/platform/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/axios/lib/platform/index.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node/index.js */ "./node_modules/axios/lib/platform/browser/index.js");
+/* harmony import */ var _common_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common/utils.js */ "./node_modules/axios/lib/platform/common/utils.js");
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  isBrowser: true,
-  classes: {
-    URLSearchParams: _classes_URLSearchParams_js__WEBPACK_IMPORTED_MODULE_0__["default"],
-    FormData: _classes_FormData_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Blob: _classes_Blob_js__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  isStandardBrowserEnv,
-  isStandardBrowserWebWorkerEnv,
-  protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
+  ..._common_utils_js__WEBPACK_IMPORTED_MODULE_0__,
+  ..._node_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
 
@@ -32279,8 +32333,9 @@ const reduceDescriptors = (obj, reducer) => {
   const reducedDescriptors = {};
 
   forEach(descriptors, (descriptor, name) => {
-    if (reducer(descriptor, name, obj) !== false) {
-      reducedDescriptors[name] = descriptor;
+    let ret;
+    if ((ret = reducer(descriptor, name, obj)) !== false) {
+      reducedDescriptors[name] = ret || descriptor;
     }
   });
 
@@ -33976,10 +34031,11 @@ class InputRule {
     /**
     @internal
     */
-    match, handler) {
+    match, handler, options = {}) {
         this.match = match;
         this.match = match;
         this.handler = typeof handler == "string" ? stringHandler(handler) : handler;
+        this.undoable = options.undoable !== false;
     }
 }
 function stringHandler(string) {
@@ -34041,11 +34097,13 @@ function run(view, from, to, text, rules, plugin) {
         return false;
     let textBefore = $from.parent.textBetween(Math.max(0, $from.parentOffset - MAX_MATCH), $from.parentOffset, null, "\ufffc") + text;
     for (let i = 0; i < rules.length; i++) {
-        let match = rules[i].match.exec(textBefore);
-        let tr = match && rules[i].handler(state, match, from - (match[0].length - text.length), to);
+        let rule = rules[i], match = rule.match.exec(textBefore);
+        let tr = match && rule.handler(state, match, from - (match[0].length - text.length), to);
         if (!tr)
             continue;
-        view.dispatch(tr.setMeta(plugin, { transform: tr, from, to, text }));
+        if (rule.undoable)
+            tr.setMeta(plugin, { transform: tr, from, to, text });
+        view.dispatch(tr);
         return true;
     }
     return false;
@@ -38780,6 +38838,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   AddMarkStep: () => (/* binding */ AddMarkStep),
 /* harmony export */   AddNodeMarkStep: () => (/* binding */ AddNodeMarkStep),
 /* harmony export */   AttrStep: () => (/* binding */ AttrStep),
+/* harmony export */   DocAttrStep: () => (/* binding */ DocAttrStep),
 /* harmony export */   MapResult: () => (/* binding */ MapResult),
 /* harmony export */   Mapping: () => (/* binding */ Mapping),
 /* harmony export */   RemoveMarkStep: () => (/* binding */ RemoveMarkStep),
@@ -39741,18 +39800,26 @@ function removeMark(tr, from, to, mark) {
 }
 function clearIncompatible(tr, pos, parentType, match = parentType.contentMatch) {
     let node = tr.doc.nodeAt(pos);
-    let delSteps = [], cur = pos + 1;
+    let replSteps = [], cur = pos + 1;
     for (let i = 0; i < node.childCount; i++) {
         let child = node.child(i), end = cur + child.nodeSize;
         let allowed = match.matchType(child.type);
         if (!allowed) {
-            delSteps.push(new ReplaceStep(cur, end, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Slice.empty));
+            replSteps.push(new ReplaceStep(cur, end, prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Slice.empty));
         }
         else {
             match = allowed;
             for (let j = 0; j < child.marks.length; j++)
                 if (!parentType.allowsMarkType(child.marks[j].type))
                     tr.step(new RemoveMarkStep(cur, end, child.marks[j]));
+            if (child.isText && !parentType.spec.code) {
+                let m, newline = /\r?\n|\r/g, slice;
+                while (m = newline.exec(child.text)) {
+                    if (!slice)
+                        slice = new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Slice(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Fragment.from(parentType.schema.text(" ", parentType.allowedMarks(child.marks))), 0, 0);
+                    replSteps.push(new ReplaceStep(cur + m.index, cur + m.index + m[0].length, slice));
+                }
+            }
         }
         cur = end;
     }
@@ -39760,8 +39827,8 @@ function clearIncompatible(tr, pos, parentType, match = parentType.contentMatch)
         let fill = match.fillBefore(prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Fragment.empty, true);
         tr.replace(cur, cur, new prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Slice(fill, 0, 0));
     }
-    for (let i = delSteps.length - 1; i >= 0; i--)
-        tr.step(delSteps[i]);
+    for (let i = replSteps.length - 1; i >= 0; i--)
+        tr.step(replSteps[i]);
 }
 
 function canCut(node, start, end) {
@@ -40396,10 +40463,10 @@ function replaceRange(tr, from, to, slice) {
     // Back up preferredDepth to cover defining textblocks directly
     // above it, possibly skipping a non-defining textblock.
     for (let d = preferredDepth - 1; d >= 0; d--) {
-        let type = leftNodes[d].type, def = definesContent(type);
-        if (def && $from.node(preferredTargetIndex).type != type)
+        let leftNode = leftNodes[d], def = definesContent(leftNode.type);
+        if (def && !leftNode.sameMarkup($from.node(Math.abs(preferredTarget) - 1)))
             preferredDepth = d;
-        else if (def || !type.isTextblock)
+        else if (def || !leftNode.type.isTextblock)
             break;
     }
     for (let j = slice.openStart; j >= 0; j--) {
@@ -40541,6 +40608,51 @@ class AttrStep extends Step {
     }
 }
 Step.jsonID("attr", AttrStep);
+/**
+Update an attribute in the doc node.
+*/
+class DocAttrStep extends Step {
+    /**
+    Construct an attribute step.
+    */
+    constructor(
+    /**
+    The attribute to set.
+    */
+    attr, 
+    // The attribute's new value.
+    value) {
+        super();
+        this.attr = attr;
+        this.value = value;
+    }
+    apply(doc) {
+        let attrs = Object.create(null);
+        for (let name in doc.attrs)
+            attrs[name] = doc.attrs[name];
+        attrs[this.attr] = this.value;
+        let updated = doc.type.create(attrs, doc.content, doc.marks);
+        return StepResult.ok(updated);
+    }
+    getMap() {
+        return StepMap.empty;
+    }
+    invert(doc) {
+        return new DocAttrStep(this.attr, doc.attrs[this.attr]);
+    }
+    map(mapping) {
+        return this;
+    }
+    toJSON() {
+        return { stepType: "docAttr", attr: this.attr, value: this.value };
+    }
+    static fromJSON(schema, json) {
+        if (typeof json.attr != "string")
+            throw new RangeError("Invalid input for DocAttrStep.fromJSON");
+        return new DocAttrStep(json.attr, json.value);
+    }
+}
+Step.jsonID("docAttr", DocAttrStep);
 
 /**
 @internal
@@ -40745,9 +40857,18 @@ class Transform {
     }
     /**
     Set a single attribute on a given node to a new value.
+    The `pos` addresses the document content. Use `setDocAttribute`
+    to set attributes on the document itself.
     */
     setNodeAttribute(pos, attr, value) {
         this.step(new AttrStep(pos, attr, value));
+        return this;
+    }
+    /**
+    Set a single attribute on the document to a new value.
+    */
+    setDocAttribute(attr, value) {
+        this.step(new DocAttrStep(attr, value));
         return this;
     }
     /**
@@ -41002,7 +41123,9 @@ function scrollRectIntoView(view, rect, startDOM) {
         if (rect.top < bounding.top + getSide(scrollThreshold, "top"))
             moveY = -(bounding.top - rect.top + getSide(scrollMargin, "top"));
         else if (rect.bottom > bounding.bottom - getSide(scrollThreshold, "bottom"))
-            moveY = rect.bottom - bounding.bottom + getSide(scrollMargin, "bottom");
+            moveY = rect.bottom - rect.top > bounding.bottom - bounding.top
+                ? rect.top + getSide(scrollMargin, "top") - bounding.top
+                : rect.bottom - bounding.bottom + getSide(scrollMargin, "bottom");
         if (rect.left < bounding.left + getSide(scrollThreshold, "left"))
             moveX = -(bounding.left - rect.left + getSide(scrollMargin, "left"));
         else if (rect.right > bounding.right - getSide(scrollThreshold, "right"))
@@ -41263,6 +41386,11 @@ function posAtCoords(view, coords) {
                     offset++;
             }
         }
+        let prev;
+        // When clicking above the right side of an uneditable node, Chrome will report a cursor position after that node.
+        if (webkit && offset && node.nodeType == 1 && (prev = node.childNodes[offset - 1]).nodeType == 1 &&
+            prev.contentEditable == "false" && prev.getBoundingClientRect().top >= coords.top)
+            offset--;
         // Suspiciously specific kludge to work around caret*FromPoint
         // never returning a position at the end of the document
         if (node == view.dom && offset == node.childNodes.length - 1 && node.lastChild.nodeType == 1 &&
@@ -42647,9 +42775,11 @@ class ViewTreeUpdater {
                 }
                 else if (!locked && (updated = this.recreateWrapper(next, node, outerDeco, innerDeco, view, pos))) {
                     this.top.children[this.index] = updated;
-                    updated.dirty = CONTENT_DIRTY;
-                    updated.updateChildren(view, pos + 1);
-                    updated.dirty = NOT_DIRTY;
+                    if (updated.contentDOM) {
+                        updated.dirty = CONTENT_DIRTY;
+                        updated.updateChildren(view, pos + 1);
+                        updated.dirty = NOT_DIRTY;
+                    }
                     this.changed = true;
                     this.index++;
                     return true;
@@ -42666,13 +42796,13 @@ class ViewTreeUpdater {
             !next.node.content.eq(node.content))
             return null;
         let wrapper = NodeViewDesc.create(this.top, node, outerDeco, innerDeco, view, pos);
-        if (!wrapper.contentDOM)
-            return null;
-        wrapper.children = next.children;
-        next.children = [];
+        if (wrapper.contentDOM) {
+            wrapper.children = next.children;
+            next.children = [];
+            for (let ch of wrapper.children)
+                ch.parent = wrapper;
+        }
         next.destroy();
-        for (let ch of wrapper.children)
-            ch.parent = wrapper;
         return wrapper;
     }
     // Insert the node as a newly created node desc.
@@ -42800,10 +42930,17 @@ function iterDeco(parent, deco, onWidget, onNode) {
     }
     let decoIndex = 0, active = [], restNode = null;
     for (let parentIndex = 0;;) {
-        if (decoIndex < locals.length && locals[decoIndex].to == offset) {
-            let widget = locals[decoIndex++], widgets;
-            while (decoIndex < locals.length && locals[decoIndex].to == offset)
-                (widgets || (widgets = [widget])).push(locals[decoIndex++]);
+        let widget, widgets;
+        while (decoIndex < locals.length && locals[decoIndex].to == offset) {
+            let next = locals[decoIndex++];
+            if (next.widget) {
+                if (!widget)
+                    widget = next;
+                else
+                    (widgets || (widgets = [widget])).push(next);
+            }
+        }
+        if (widget) {
             if (widgets) {
                 widgets.sort(compareSide);
                 for (let i = 0; i < widgets.length; i++)
@@ -42845,6 +42982,10 @@ function iterDeco(parent, deco, onWidget, onNode) {
                 end = cutAt;
                 index = -1;
             }
+        }
+        else {
+            while (decoIndex < locals.length && locals[decoIndex].to <= end)
+                decoIndex++;
         }
         let outerDeco = child.isInline && !child.isLeaf ? active.filter(d => !d.inline) : active.slice();
         onNode(child, outerDeco, deco.forChild(offset, child), index);
@@ -42896,6 +43037,8 @@ function findTextInFragment(frag, text, from, to) {
             str += next.text;
         }
         if (pos >= from) {
+            if (pos >= to && str.slice(to - text.length - childStart, to - childStart) == text)
+                return to - text.length;
             let found = childStart < to ? str.lastIndexOf(text, to - childStart - 1) : -1;
             if (found >= 0 && found + text.length + childStart >= from)
                 return childStart + found;
@@ -43149,7 +43292,14 @@ function apply(view, sel) {
 function selectHorizontally(view, dir, mods) {
     let sel = view.state.selection;
     if (sel instanceof prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.TextSelection) {
-        if (!sel.empty || mods.indexOf("s") > -1) {
+        if (mods.indexOf("s") > -1) {
+            let { $head } = sel, node = $head.textOffset ? null : dir < 0 ? $head.nodeBefore : $head.nodeAfter;
+            if (!node || node.isText || !node.isLeaf)
+                return false;
+            let $newHead = view.state.doc.resolve($head.pos + node.nodeSize * (dir < 0 ? -1 : 1));
+            return apply(view, new prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.TextSelection(sel.$anchor, $newHead));
+        }
+        else if (!sel.empty) {
             return false;
         }
         else if (view.endOfTextblock(dir > 0 ? "forward" : "backward")) {
@@ -43192,9 +43342,9 @@ function selectHorizontally(view, dir, mods) {
 function nodeLen(node) {
     return node.nodeType == 3 ? node.nodeValue.length : node.childNodes.length;
 }
-function isIgnorable(dom) {
+function isIgnorable(dom, dir) {
     let desc = dom.pmViewDesc;
-    return desc && desc.size == 0 && (dom.nextSibling || dom.nodeName != "BR");
+    return desc && desc.size == 0 && (dir < 0 || dom.nextSibling || dom.nodeName != "BR");
 }
 function skipIgnoredNodes(view, dir) {
     return dir < 0 ? skipIgnoredNodesBefore(view) : skipIgnoredNodesAfter(view);
@@ -43210,7 +43360,7 @@ function skipIgnoredNodesBefore(view) {
     // Gecko will do odd things when the selection is directly in front
     // of a non-editable node, so in that case, move it into the next
     // node if possible. Issue prosemirror/prosemirror#832.
-    if (gecko && node.nodeType == 1 && offset < nodeLen(node) && isIgnorable(node.childNodes[offset]))
+    if (gecko && node.nodeType == 1 && offset < nodeLen(node) && isIgnorable(node.childNodes[offset], -1))
         force = true;
     for (;;) {
         if (offset > 0) {
@@ -43219,7 +43369,7 @@ function skipIgnoredNodesBefore(view) {
             }
             else {
                 let before = node.childNodes[offset - 1];
-                if (isIgnorable(before)) {
+                if (isIgnorable(before, -1)) {
                     moveNode = node;
                     moveOffset = --offset;
                 }
@@ -43236,7 +43386,7 @@ function skipIgnoredNodesBefore(view) {
         }
         else {
             let prev = node.previousSibling;
-            while (prev && isIgnorable(prev)) {
+            while (prev && isIgnorable(prev, -1)) {
                 moveNode = node.parentNode;
                 moveOffset = domIndex(prev);
                 prev = prev.previousSibling;
@@ -43272,7 +43422,7 @@ function skipIgnoredNodesAfter(view) {
             if (node.nodeType != 1)
                 break;
             let after = node.childNodes[offset];
-            if (isIgnorable(after)) {
+            if (isIgnorable(after, 1)) {
                 moveNode = node;
                 moveOffset = ++offset;
             }
@@ -43284,7 +43434,7 @@ function skipIgnoredNodesAfter(view) {
         }
         else {
             let next = node.nextSibling;
-            while (next && isIgnorable(next)) {
+            while (next && isIgnorable(next, 1)) {
                 moveNode = next.parentNode;
                 moveOffset = domIndex(next) + 1;
                 next = next.nextSibling;
@@ -43309,7 +43459,48 @@ function isBlockNode(dom) {
     let desc = dom.pmViewDesc;
     return desc && desc.node && desc.node.isBlock;
 }
+function textNodeAfter(node, offset) {
+    while (node && offset == node.childNodes.length && !hasBlockDesc(node)) {
+        offset = domIndex(node) + 1;
+        node = node.parentNode;
+    }
+    while (node && offset < node.childNodes.length) {
+        let next = node.childNodes[offset];
+        if (next.nodeType == 3)
+            return next;
+        if (next.nodeType == 1 && next.contentEditable == "false")
+            break;
+        node = next;
+        offset = 0;
+    }
+}
+function textNodeBefore(node, offset) {
+    while (node && !offset && !hasBlockDesc(node)) {
+        offset = domIndex(node);
+        node = node.parentNode;
+    }
+    while (node && offset) {
+        let next = node.childNodes[offset - 1];
+        if (next.nodeType == 3)
+            return next;
+        if (next.nodeType == 1 && next.contentEditable == "false")
+            break;
+        node = next;
+        offset = node.childNodes.length;
+    }
+}
 function setSelFocus(view, node, offset) {
+    if (node.nodeType != 3) {
+        let before, after;
+        if (after = textNodeAfter(node, offset)) {
+            node = after;
+            offset = 0;
+        }
+        else if (before = textNodeBefore(node, offset)) {
+            node = before;
+            offset = before.nodeValue.length;
+        }
+    }
     let sel = view.domSelection();
     if (selectionCollapsed(sel)) {
         let range = document.createRange();
@@ -43456,7 +43647,7 @@ function captureKeyDown(view, event) {
         return selectVertically(view, -1, mods) || skipIgnoredNodes(view, -1);
     }
     else if (code == 40 || (mac && code == 78 && mods == "c")) { // Down arrow, Ctrl-n on Mac
-        return safariDownArrowBug(view) || selectVertically(view, 1, mods) || skipIgnoredNodesAfter(view);
+        return safariDownArrowBug(view) || selectVertically(view, 1, mods) || skipIgnoredNodes(view, 1);
     }
     else if (mods == (mac ? "m" : "c") &&
         (code == 66 || code == 73 || code == 89 || code == 90)) { // Mod-[biyz]
@@ -43738,6 +43929,8 @@ class InputState {
         this.compositionNodes = [];
         this.compositionEndedAt = -2e8;
         this.compositionID = 1;
+        // Set to a composition ID when there are pending changes at compositionend
+        this.compositionPendingChanges = 0;
         this.domChangeCount = 0;
         this.eventHandlers = Object.create(null);
         this.hideSelectionGuard = null;
@@ -44167,6 +44360,9 @@ editHandlers.compositionend = (view, event) => {
     if (view.composing) {
         view.input.composing = false;
         view.input.compositionEndedAt = event.timeStamp;
+        view.input.compositionPendingChanges = view.domObserver.pendingRecords().length ? view.input.compositionID : 0;
+        if (view.input.compositionPendingChanges)
+            Promise.resolve().then(() => view.domObserver.flush());
         view.input.compositionID++;
         scheduleComposeEnd(view, 20);
     }
@@ -44290,6 +44486,13 @@ function doPaste(view, text, html, preferPlain, event) {
     view.dispatch(tr.scrollIntoView().setMeta("paste", true).setMeta("uiEvent", "paste"));
     return true;
 }
+function getText(clipboardData) {
+    let text = clipboardData.getData("text/plain") || clipboardData.getData("Text");
+    if (text)
+        return text;
+    let uris = clipboardData.getData("text/uri-list");
+    return uris ? uris.replace(/\r?\n/g, " ") : "";
+}
 editHandlers.paste = (view, _event) => {
     let event = _event;
     // Handling paste from JavaScript during composition is very poorly
@@ -44300,15 +44503,16 @@ editHandlers.paste = (view, _event) => {
         return;
     let data = brokenClipboardAPI ? null : event.clipboardData;
     let plain = view.input.shiftKey && view.input.lastKeyCode != 45;
-    if (data && doPaste(view, data.getData("text/plain"), data.getData("text/html"), plain, event))
+    if (data && doPaste(view, getText(data), data.getData("text/html"), plain, event))
         event.preventDefault();
     else
         capturePaste(view, event);
 };
 class Dragging {
-    constructor(slice, move) {
+    constructor(slice, move, node) {
         this.slice = slice;
         this.move = move;
+        this.node = node;
     }
 }
 const dragCopyModifier = mac ? "altKey" : "ctrlKey";
@@ -44321,23 +44525,24 @@ handlers.dragstart = (view, _event) => {
         return;
     let sel = view.state.selection;
     let pos = sel.empty ? null : view.posAtCoords(eventCoords(event));
+    let node;
     if (pos && pos.pos >= sel.from && pos.pos <= (sel instanceof prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.NodeSelection ? sel.to - 1 : sel.to)) ;
     else if (mouseDown && mouseDown.mightDrag) {
-        view.dispatch(view.state.tr.setSelection(prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.NodeSelection.create(view.state.doc, mouseDown.mightDrag.pos)));
+        node = prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.NodeSelection.create(view.state.doc, mouseDown.mightDrag.pos);
     }
     else if (event.target && event.target.nodeType == 1) {
         let desc = view.docView.nearestDesc(event.target, true);
         if (desc && desc.node.type.spec.draggable && desc != view.docView)
-            view.dispatch(view.state.tr.setSelection(prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.NodeSelection.create(view.state.doc, desc.posBefore)));
+            node = prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.NodeSelection.create(view.state.doc, desc.posBefore);
     }
-    let slice = view.state.selection.content(), { dom, text } = serializeForClipboard(view, slice);
+    let slice = (node || view.state.selection).content(), { dom, text } = serializeForClipboard(view, slice);
     event.dataTransfer.clearData();
     event.dataTransfer.setData(brokenClipboardAPI ? "Text" : "text/html", dom.innerHTML);
     // See https://github.com/ProseMirror/prosemirror/issues/1156
     event.dataTransfer.effectAllowed = "copyMove";
     if (!brokenClipboardAPI)
         event.dataTransfer.setData("text/plain", text);
-    view.dragging = new Dragging(slice, !event[dragCopyModifier]);
+    view.dragging = new Dragging(slice, !event[dragCopyModifier], node);
 };
 handlers.dragend = view => {
     let dragging = view.dragging;
@@ -44362,7 +44567,7 @@ editHandlers.drop = (view, _event) => {
         view.someProp("transformPasted", f => { slice = f(slice, view); });
     }
     else {
-        slice = parseFromClipboard(view, event.dataTransfer.getData(brokenClipboardAPI ? "Text" : "text/plain"), brokenClipboardAPI ? null : event.dataTransfer.getData("text/html"), false, $mouse);
+        slice = parseFromClipboard(view, getText(event.dataTransfer), brokenClipboardAPI ? null : event.dataTransfer.getData("text/html"), false, $mouse);
     }
     let move = !!(dragging && !event[dragCopyModifier]);
     if (view.someProp("handleDrop", f => f(view, event, slice || prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Slice.empty, move))) {
@@ -44376,8 +44581,13 @@ editHandlers.drop = (view, _event) => {
     if (insertPos == null)
         insertPos = $mouse.pos;
     let tr = view.state.tr;
-    if (move)
-        tr.deleteSelection();
+    if (move) {
+        let { node } = dragging;
+        if (node)
+            node.replace(tr);
+        else
+            tr.deleteSelection();
+    }
     let pos = tr.mapping.map(insertPos);
     let isNode = slice.openStart == 0 && slice.openEnd == 0 && slice.content.childCount == 1;
     let beforeInsert = tr.doc;
@@ -44609,6 +44819,10 @@ class Decoration {
     @internal
     */
     get inline() { return this.type instanceof InlineType; }
+    /**
+    @internal
+    */
+    get widget() { return this.type instanceof WidgetType; }
 }
 const none = [], noSpec = {};
 /**
@@ -44627,7 +44841,8 @@ class DecorationSet {
     }
     /**
     Create a set of decorations, using the structure of the given
-    document.
+    document. This will consume (modify) the `decorations` array, so
+    you must make a copy if you want need to preserve that.
     */
     static create(doc, decorations) {
         return decorations.length ? buildTree(decorations, doc, 0, noSpec) : empty;
@@ -44686,8 +44901,9 @@ class DecorationSet {
     }
     /**
     Add the given array of decorations to the ones in the set,
-    producing a new set. Needs access to the current document to
-    create the appropriate tree structure.
+    producing a new set. Consumes the `decorations` array. Needs
+    access to the current document to create the appropriate tree
+    structure.
     */
     add(doc, decorations) {
         if (!decorations.length)
@@ -44929,7 +45145,7 @@ function mapChildren(oldChildren, newLocal, mapping, node, offset, oldOffset, op
                 if (oldEnd >= start) {
                     children[i + 1] = oldStart <= start ? -2 : -1;
                 }
-                else if (newStart >= offset && dSize) {
+                else if (oldStart >= baseOffset && dSize) {
                     children[i] += dSize;
                     children[i + 1] += dSize;
                 }
@@ -45271,15 +45487,19 @@ class DOMObserver {
             return true;
         }
     }
+    pendingRecords() {
+        if (this.observer)
+            for (let mut of this.observer.takeRecords())
+                this.queue.push(mut);
+        return this.queue;
+    }
     flush() {
         let { view } = this;
         if (!view.docView || this.flushingSoon > -1)
             return;
-        let mutations = this.observer ? this.observer.takeRecords() : [];
-        if (this.queue.length) {
-            mutations = this.queue.concat(mutations);
-            this.queue.length = 0;
-        }
+        let mutations = this.pendingRecords();
+        if (mutations.length)
+            this.queue = [];
         let sel = view.domSelectionRange();
         let newSel = !this.suppressingSelectionUpdates && !this.currentSelection.eq(sel) && hasFocusAndSelection(view) && !this.ignoreSelectionChange(sel);
         let from = -1, to = -1, typeOver = false, added = [];
@@ -45500,6 +45720,8 @@ function ruleFromNode(dom) {
 }
 const isInline = /^(a|abbr|acronym|b|bd[io]|big|br|button|cite|code|data(list)?|del|dfn|em|i|ins|kbd|label|map|mark|meter|output|q|ruby|s|samp|small|span|strong|su[bp]|time|u|tt|var)$/i;
 function readDOMChange(view, from, to, typeOver, addedNodes) {
+    let compositionID = view.input.compositionPendingChanges || (view.composing ? view.input.compositionID : 0);
+    view.input.compositionPendingChanges = 0;
     if (from < 0) {
         let origin = view.input.lastSelectionTime > Date.now() - 50 ? view.input.lastSelectionOrigin : null;
         let newSel = selectionFromDOM(view, origin);
@@ -45513,8 +45735,8 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
                 tr.setMeta("pointer", true);
             else if (origin == "key")
                 tr.scrollIntoView();
-            if (view.composing)
-                tr.setMeta("composition", view.input.compositionID);
+            if (compositionID)
+                tr.setMeta("composition", compositionID);
             view.dispatch(tr);
         }
         return;
@@ -45555,8 +45777,8 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
                 let sel = resolveSelection(view, view.state.doc, parse.sel);
                 if (sel && !sel.eq(view.state.selection)) {
                     let tr = view.state.tr.setSelection(sel);
-                    if (view.composing)
-                        tr.setMeta("composition", view.input.compositionID);
+                    if (compositionID)
+                        tr.setMeta("composition", compositionID);
                     view.dispatch(tr);
                 }
             }
@@ -45689,8 +45911,8 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
     }
     if (storedMarks)
         tr.ensureMarks(storedMarks);
-    if (view.composing)
-        tr.setMeta("composition", view.input.compositionID);
+    if (compositionID)
+        tr.setMeta("composition", compositionID);
     view.dispatch(tr.scrollIntoView());
 }
 function resolveSelection(view, doc, parsedSel) {
@@ -45774,16 +45996,26 @@ function findDiff(a, b, pos, preferredPos, preferredSide) {
     if (endA < start && a.size < b.size) {
         let move = preferredPos <= start && preferredPos >= endA ? start - preferredPos : 0;
         start -= move;
+        if (start && start < b.size && isSurrogatePair(b.textBetween(start - 1, start + 1)))
+            start += move ? 1 : -1;
         endB = start + (endB - endA);
         endA = start;
     }
     else if (endB < start) {
         let move = preferredPos <= start && preferredPos >= endB ? start - preferredPos : 0;
         start -= move;
+        if (start && start < a.size && isSurrogatePair(a.textBetween(start - 1, start + 1)))
+            start += move ? 1 : -1;
         endA = start + (endA - endB);
         endB = start;
     }
     return { start, endA, endB };
+}
+function isSurrogatePair(str) {
+    if (str.length != 2)
+        return false;
+    let a = str.charCodeAt(0), b = str.charCodeAt(1);
+    return a >= 0xDC00 && a <= 0xDFFF && b >= 0xD800 && b <= 0xDBFF;
 }
 
 /**
@@ -45931,6 +46163,7 @@ class EditorView {
         this.updateStateInner(state, this._props);
     }
     updateStateInner(state, prevProps) {
+        var _a;
         let prev = this.state, redraw = false, updateSel = false;
         // When stored marks are added, stop composition, so that they can
         // be displayed.
@@ -45998,6 +46231,8 @@ class EditorView {
             this.domObserver.start();
         }
         this.updatePluginViews(prev);
+        if (((_a = this.dragging) === null || _a === void 0 ? void 0 : _a.node) && !prev.doc.eq(state.doc))
+            this.updateDraggedNode(this.dragging, prev);
         if (scroll == "reset") {
             this.dom.scrollTop = 0;
         }
@@ -46051,6 +46286,19 @@ class EditorView {
                     pluginView.update(this, prevState);
             }
         }
+    }
+    updateDraggedNode(dragging, prev) {
+        let sel = dragging.node, found = -1;
+        if (this.state.doc.nodeAt(sel.from) == sel.node) {
+            found = sel.from;
+        }
+        else {
+            let movedPos = sel.from + (this.state.doc.content.size - prev.doc.content.size);
+            let moved = movedPos > 0 && this.state.doc.nodeAt(movedPos);
+            if (moved == sel.node)
+                found = movedPos;
+        }
+        this.dragging = new Dragging(dragging.slice, dragging.move, found < 0 ? undefined : prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.NodeSelection.create(this.state.doc, found));
     }
     someProp(propName, f) {
         let prop = this._props && this._props[propName], value;
@@ -46120,6 +46368,13 @@ class EditorView {
                 }
             }
         return cached || document;
+    }
+    /**
+    When an existing editor view is moved to a new document or
+    shadow tree, call this to make it recompute its root.
+    */
+    updateRoot() {
+        this._root = null;
     }
     /**
     Given a pair of viewport coordinates, return the document
