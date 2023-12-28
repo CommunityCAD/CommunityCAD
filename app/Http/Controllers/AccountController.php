@@ -34,6 +34,7 @@ class AccountController extends Controller
         $data['discord_name'] = session('discord_name');
         $data['discriminator'] = session('discriminator');
         $data['avatar'] = session('avatar');
+        $data['community_rank'] = 'Non-member';
 
         if (session()->has('steam_id')) {
             $data['steam_id'] = session('steam_id');

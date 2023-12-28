@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Courthouse;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
 
 class NotguiltyController extends Controller
 {

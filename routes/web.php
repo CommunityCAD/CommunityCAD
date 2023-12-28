@@ -34,7 +34,9 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'pages.home')->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('application', ApplicationController::class);
+    if (get_setting('members_must_apply')) {
+        Route::resource('application', ApplicationController::class);
+    }
 });
 
 Route::middleware(['auth', 'member.check'])->group(function () {

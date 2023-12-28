@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Civilian;
 
 use App\Http\Controllers\Controller;
-use App\Models\Civilian;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
 
 class CivilianPleaController extends Controller
 {
