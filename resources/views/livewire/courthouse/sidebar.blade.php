@@ -56,7 +56,7 @@
                 </li>
             @endcan
 
-            @can('not_guilty_manage')
+            @can('manage_not_guilty_tickets')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('courthouse/not_guilty/*') || request()->is('courthouse/not_guilty')) !text-base !text-purple-500 @endif"
                         href="{{ route('courthouse.not_guilty.index') }}">

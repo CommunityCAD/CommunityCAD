@@ -45,7 +45,7 @@ Route::resource('user.user_department', UserDepartmentController::class)->except
     'edit' => 'user_department.edit',
     'update' => 'user_department.update',
     'destroy' => 'user_department.destroy',
-]);
+])->middleware('can:user_departments_manage');
 
 Route::get('loa/{status?}', [LoaController::class, 'index'])->name('loa.index')->middleware('can:loa_manage');
 Route::get('loa/view/{loa}', [LoaController::class, 'show'])->name('loa.show')->middleware('can:loa_manage');
