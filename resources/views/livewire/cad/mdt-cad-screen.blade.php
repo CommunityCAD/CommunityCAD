@@ -81,11 +81,11 @@
                 // $active_call = Call::where('id', $call_info[1])->get();
             @endphp
 
-            @if ($call_info[0] == 'Added to call')
+            {{-- @if ($call_info[0] == 'Added to call')
                 <a class="new-button-md" href="#"
                     onclick="openExternalWindow('{{ route('cad.call.show', trim($call_info[1])) }}')">Open Your active
                     Call</a>
-            @endif
+            @endif --}}
 
             @if (
                 $call_info[1] &&
