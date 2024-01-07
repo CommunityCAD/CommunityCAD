@@ -75,6 +75,44 @@
                     </div>
                 </tr>
             @endif
+
+            @php
+                $call_info = explode(':', auth()->user()->active_unit->description);
+                // $active_call = Call::where('id', $call_info[1])->get();
+            @endphp
+
+            @if ($call_info[0] == 'Added to call')
+                <a class="new-button-md" href="#"
+                    onclick="openExternalWindow('{{ route('cad.call.show', trim($call_info[1])) }}')">Open Your active
+                    Call</a>
+            @endif
+
+            @if (
+                $call_info[1] &&
+                    $call_info[0] == 'Added to call' &&
+                    auth()->user()->active_unit->updated_at->addSeconds(10)->isFuture())
+                <script>
+                    openExternalWindow('{{ route('cad.call.show', trim($call_info[1])) }}')
+                </script>
+                <tr>
+                    <div class="bg-green-700 w-full my-3 px-2 py-4 flex justify-between items-center rounded-md">
+                        <p class="text-white font-bold">You have been added to a call!</p>
+                        <button class="rounded-full p-3 bg-green-300" id="playAudio" onclick="play('addedtocall')">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke-width="1.5" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 7.5V18M15 7.5V18M3 16.811V8.69c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 010 1.954l-7.108 4.061A1.125 1.125 0 013 16.811z"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <audio autoplay id="addedtocall" volume="1">
+                            <source src="{{ secure_asset('audio/addedtocall.mp3') }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </tr>
+            @endif
+
             <table class="w-full mt-4 uppercase border border-collapse table-auto border-slate-400">
                 <tr class="text-lg font-bold">
                     <th class="p-1 border border-slate-400">Call #</th>
@@ -90,9 +128,10 @@
                 @foreach ($calls as $call)
                     @if ($call->created_at->addSeconds(15)->isFuture())
                         <tr>
-                            <div class="bg-red-700 w-full my-3 px-2 py-4 flex justify-between items-center rounded-md">
+                            <div
+                                class="bg-yellow-700 w-full my-3 px-2 py-4 flex justify-between items-center rounded-md">
                                 <p class="text-white font-bold">New Call Created!</p>
-                                <button class="rounded-full p-3 bg-red-300" id="playAudio" onclick="play('newCall')">
+                                <button class="rounded-full p-3 bg-yellow-300" id="playAudio" onclick="play('newCall')">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5"
                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path

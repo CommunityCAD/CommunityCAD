@@ -58,7 +58,7 @@ class MdtCadScreen extends Component
 
     public function set_status(ActiveUnit $activeUnit, $status)
     {
-        $activeUnit->update(['status' => $status]);
+        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: ' . $status]);
     }
 
     public function set_call_status(Call $call, $status)
@@ -77,7 +77,7 @@ class MdtCadScreen extends Component
 
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Call Status Updated To '.$status,
+            'text' => 'Call Status Updated To ' . $status,
             'call_id' => $call->id,
         ]);
     }
@@ -93,7 +93,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit '.$activeUnit->badge_number.' has been removed from call.',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
             'call_id' => $call->id,
         ]);
 
@@ -106,7 +106,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit '.$activeUnit->badge_number.' has been added to call.',
+            'text' => 'Unit ' . $activeUnit->badge_number . ' has been added to call.',
             'call_id' => $call->id,
         ]);
 
@@ -129,7 +129,7 @@ class MdtCadScreen extends Component
         $call->update(['units' => '{"data":[]}']);
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Call '.$call->id.' has been closed and units ('.implode(', ', $call_units).') removed from call.',
+            'text' => 'Call ' . $call->id . ' has been closed and units (' . implode(', ', $call_units) . ') removed from call.',
             'call_id' => $call->id,
         ]);
     }
@@ -166,14 +166,14 @@ class MdtCadScreen extends Component
                 $unit_calls[] = $call->id;
                 $new_unit_calls['data'] = array_values($unit_calls);
                 $new_unit_calls = json_encode(collect($new_unit_calls));
-                $activeUnit->update(['calls' => $new_unit_calls]);
+                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Added to call: ' . $call->id]);
             }
         } else {
             if (($key = array_search($call->id, $unit_calls)) !== false) {
                 unset($unit_calls[$key]);
                 $new_unit_calls['data'] = array_values($unit_calls);
                 $new_unit_calls = json_encode(collect($new_unit_calls));
-                $activeUnit->update(['calls' => $new_unit_calls]);
+                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Removed from call: ' . $call->id]);
             }
         }
     }
