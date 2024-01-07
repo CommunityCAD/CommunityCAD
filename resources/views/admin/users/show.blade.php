@@ -139,6 +139,9 @@
 
                     <li class="flex items-center justify-between">
                         <p class="">Protected User <br>
+                            <span class="text-sm italic">Makes it so only super users and owners can view this
+                                user.</span>
+                            <br>
                             @if ($user->is_protected_user)
                                 <span class="font-bold text-green-600">Yes</span>
                             @else
@@ -163,6 +166,9 @@
 
                     <li class="flex items-center justify-between">
                         <p class="">Super User <br>
+                            <span class="text-sm italic">Makes this user bypass permissions and roles and can access
+                                everything by default.</span>
+                            <br>
                             @if ($user->is_super_user)
                                 <span class="font-bold text-green-600">Yes</span>
                             @else
