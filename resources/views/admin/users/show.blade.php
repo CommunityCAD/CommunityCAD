@@ -376,7 +376,7 @@
                 </div>
 
                 <div class="">
-                    <p>Shows the last 5 actions. View complete history here.</p>
+                    <p>Shows the last 5 actions.</p>
                     @foreach ($histories as $history)
                         <div class="admin-pill border-l-4 border-blue-600 cursor-default">
                             <p class="text-white">Actioned by: {{ $history->user->discord }}

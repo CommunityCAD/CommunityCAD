@@ -1867,6 +1867,9 @@ video {
 .h-screen {
   height: 100vh;
 }
+.h-52 {
+  height: 13rem;
+}
 .max-h-96 {
   max-height: 24rem;
 }
@@ -2164,6 +2167,9 @@ video {
 }
 .overflow-y-auto {
   overflow-y: auto;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 .truncate {
   overflow: hidden;
@@ -2738,6 +2744,9 @@ video {
 }
 .font-semibold {
   font-weight: 600;
+}
+.font-light {
+  font-weight: 300;
 }
 .uppercase {
   text-transform: uppercase;

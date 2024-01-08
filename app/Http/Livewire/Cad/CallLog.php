@@ -13,7 +13,7 @@ class CallLog extends Component
 
     public function mount()
     {
-        $this->call_logs = ModelsCallLog::where('call_id', $this->call)->get();
+        $this->call_logs = ModelsCallLog::where('call_id', $this->call)->orderBy('created_at', 'desc')->get();
     }
 
     public function render()

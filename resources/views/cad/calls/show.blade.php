@@ -19,13 +19,14 @@
         </div>
 
         <div class="flex flex-row">
-            <div class="w-3/5 mx-auto p-4">
-                <h1 class="text-2xl  font-bold">Call {{ str_pad($call->id, 5, 0, STR_PAD_LEFT) }} | Status:
-                    {{ $call->status }} - {{ $call->status_info['name'] }} | Last Update:
-                    {{ $call->updated_at->format('m/d/Y H:i:s') }}</h1>
+            <div class="w-1/2 mx-auto p-4">
+                <h1 class="text-2xl">Call {{ str_pad($call->id, 5, 0, STR_PAD_LEFT) }} | Status:
+                    {{ $call->status }} - {{ $call->status_info['name'] }}</h1>
+                <h3 class="">Last Update:
+                    {{ $call->updated_at->format('m/d/Y H:i:s') }}</h3>
                 <div class="p-4 mt-5 space-y-3 border border-white rounded cursor-default">
                     <h1 class="text-xl font-semibold">Call Info</h1>
-                    <div class="space-y-4">
+                    <div class="space-y-1">
                         <p class=""><span class="mr-2 text-lg">Status:</span>
                             {{ $call->status }}</p>
                         <p class=""><span class="mr-2 text-lg">Type:</span>
@@ -36,10 +37,8 @@
                             {{ $call->source }}</p>
                         <p class=""><span class="mr-2 text-lg">Address:</span>
                             {{ $call->location }}, {{ $call->city }}</p>
-
                         <p class=""><span class="mr-2 text-lg">Priority:</span>
                             {{ $call->priority }}</p>
-
                         <hr>
                         <p class=""><span class="mr-2 text-lg">Narrative:</span>
                             {{ $call->narrative }}</p>
@@ -57,13 +56,11 @@
                                     target="_blank"><span class="mr-2 text-lg">SSN:</span>
                                     {{ $call->civilian->s_n_n }}</a></p>
                         @endif
-
                     </div>
                 </div>
-
             </div>
 
-            <div class="w-2/5 p-4 mt-5 space-y-3 text-white rounded cursor-default">
+            <div class="w-1/2 p-4 mt-5 space-y-3 text-white rounded cursor-default">
                 <div class="">
                     <a class="new-button-sm" href="#"
                         onclick="openExternalWindow('{{ route('cad.report.create') }}?call={{ $call->id }}')">New
@@ -80,7 +77,7 @@
                     <div class="flex flex-wrap px-4 pt-3 rounded-lg">
                         <a :class="openTab === 1 ? activeClasses : inactiveClasses" @click="openTab = 1"
                             class="px-2 py-1 text-sm font-medium text-white border-t border-x" href="#">
-                            Chat
+                            Log
                         </a>
                         <a :class="openTab === 2 ? activeClasses : inactiveClasses" @click="openTab = 2"
                             class="px-2 py-1 text-sm font-medium text-white border-t border-x" href="#">
@@ -92,7 +89,7 @@
                         </a>
                         <a :class="openTab === 4 ? activeClasses : inactiveClasses" @click="openTab = 4"
                             class="px-2 py-1 text-sm font-medium text-white border-t border-x" href="#">
-                            Call Log
+                            Units
                         </a>
                     </div>
                     <div class="uppercase border">
@@ -163,11 +160,55 @@
                         </div>
                         <div class="p-6 text-base leading-relaxed" style="display: none" x-show="openTab === 4">
                             <div class="space-y-1">
-                                <livewire:cad.call-log call="{{ $call->id }}">
+                                <p class="underline">Attached Units</p>
+                                @foreach ($call->nice_units as $unit)
+                                    <p>{{ $unit }}</p>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row">
+            <div class="w-1/2 mx-auto p-4">
+                <div class="p-4 mt-5 space-y-3 border border-white rounded cursor-default">
+                    <h1 class="text-xl font-semibold">Update Call</h1>
+                    <form action="{{ route('cad.call.update', $call->id) }}" class="space-y-2" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="w-full">
+                            <label class="block mr-2 text-lg">Status:</label>
+                            <select class="select-input" name="status">
+                                @foreach ($call_statuses as $code => $props)
+                                    <option @selected($call->status == $code) value="{{ $code }}">{{ $code }}
+                                        - {{ $props['name'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('nature')" class="mt-2" />
+                        </div>
+                        <div class="w-full">
+                            <label class="block mr-2 text-lg">Nature:</label>
+                            <select class="select-input" name="nature">
+                                @foreach ($call_natures as $code => $props)
+                                    <option @selected($call->nature == $code) value="{{ $code }}">{{ $code }}
+                                        - {{ $props['name'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('nature')" class="mt-2" />
+                        </div>
+                        <div>
+                            <button class="edit-button-md">SAVE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="w-1/2 p-4 mt-5 space-y-3 text-white rounded cursor-default">
+
             </div>
         </div>
     </div>

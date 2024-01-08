@@ -1,13 +1,23 @@
 <div wire:poll.10s>
-    <div class="space-y-1">
-        @forelse ($call_chat as $chat)
-            <div class="p-2 @if ($loop->last) border border-red-400 @endif">
-                <p>{{ $chat->created_at->format('H:i:s m/d/Y') }} - {{ $chat->from }}</p>
-                <p>{{ $chat->text }}</p>
-            </div>
-        @empty
-            <p class="p-2">No Call Log</p>
-        @endforelse
+    <div class="h-52 overflow-y-auto overflow-x-hidden">
+        <div class="space-y-1">
+            @forelse ($call_chat as $chat)
+                @php
+                    $text_color = 'text-gray-400';
+                    if ($chat->from != 'SYSTEM') {
+                        $text_color = 'text-white';
+                    }
+                @endphp
+                <div class="@if ($loop->first) border border-red-400 @endif">
+                    <p class="border-b-2 border-gray-500 {{ $text_color }}">
+                        <span class="text-sm font-light">{{ $chat->created_at->format('H:i:s m/d/Y') }} -
+                            {{ $chat->from }}</span> | {{ $chat->text }}
+                    </p>
+                </div>
+            @empty
+                <p class="p-2">No Call Log</p>
+            @endforelse
+        </div>
     </div>
 
     <div class="mt-2 border-t-2">

@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\CallStoreRequest;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\Call;
+use App\Models\Cad\CallNatures;
+use App\Models\Cad\CallStatuses;
 use App\Models\CallCivilian;
+use App\Models\CallLog;
 use App\Models\Civilian;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -39,8 +42,10 @@ class CallController extends Controller
     {
         $call->with('call_civilians');
         $active_units = ActiveUnit::get();
+        $call_natures = CallNatures::NATURECODES;
+        $call_statuses = CallStatuses::STATUSCODES;
 
-        return view('cad.calls.show', compact('call', 'active_units'));
+        return view('cad.calls.show', compact('call', 'active_units', 'call_natures', 'call_statuses'));
     }
 
     public function edit(Call $call): View
@@ -50,9 +55,30 @@ class CallController extends Controller
 
     public function update(Request $request, Call $call): RedirectResponse
     {
-        $call->update($request->validated());
+        $validated = $request->validate([
+            'status' => 'required',
+            'nature' => 'required',
+        ]);
 
-        return redirect()->route('calls.index')->with('success', 'Message');
+        if ($call->status != $validated['status']) {
+            CallLog::create([
+                'from' => 'SYSTEM',
+                'text' => 'Call Status Updated to: ' . $validated['status'],
+                'call_id' => $call->id,
+            ]);
+        }
+
+        if ($call->nature != $validated['nature']) {
+            CallLog::create([
+                'from' => 'SYSTEM',
+                'text' => 'Call Nature Updated to: ' . $validated['nature'],
+                'call_id' => $call->id,
+            ]);
+        }
+
+        $call->update($validated);
+
+        return redirect()->route('cad.call.show', $call->id);
     }
 
     public function destroy(Call $call): RedirectResponse

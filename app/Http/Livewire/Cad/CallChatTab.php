@@ -13,7 +13,7 @@ class CallChatTab extends Component
 
     public function mount()
     {
-        $this->call_chat = ModelsCallLog::where('call_id', $this->call_id)->where('from', '!=', 'SYSTEM')->get();
+        $this->call_chat = ModelsCallLog::where('call_id', $this->call_id)->orderBy('created_at', 'desc')->get();
     }
 
     public function render()

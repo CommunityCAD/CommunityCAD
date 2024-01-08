@@ -65,10 +65,10 @@ class MdtCadScreen extends Component
     {
         $call->update(['status' => $status]);
 
-        foreach ($call->nice_units as $unit) {
-            $unit = ActiveUnit::where('badge_number', $unit)->get()->first();
-            $unit->update(['status' => $status]);
-        }
+        // foreach ($call->nice_units as $unit) {
+        //     $unit = ActiveUnit::where('badge_number', $unit)->get()->first();
+        //     $unit->update(['status' => $status]);
+        // }
 
         $status_array = explode('-', $status);
         if ($status_array[0] == 'CLO') {
@@ -93,7 +93,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been removed from call.',
+            'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
             'call_id' => $call->id,
         ]);
 
@@ -106,7 +106,7 @@ class MdtCadScreen extends Component
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
             'from' => 'SYSTEM',
-            'text' => 'Unit ' . $activeUnit->badge_number . ' has been added to call.',
+            'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
             'call_id' => $call->id,
         ]);
 
@@ -144,7 +144,7 @@ class MdtCadScreen extends Component
                 $new_call_units = json_encode(collect($new_call_units));
                 $call->update(['units' => $new_call_units]);
 
-                $activeUnit->update(['status' => $call->status]);
+                $activeUnit->update(['status' => "ENRUTE"]);
             }
         } else {
             if (($key = array_search($activeUnit->badge_number, $call_units)) !== false) {
