@@ -189,6 +189,17 @@
                             </select>
                             <x-input-error :messages="$errors->get('nature')" class="mt-2" />
                         </div>
+
+                        <div class="w-full">
+                            <label class="block mr-2 text-lg">Location:</label>
+                            <input class="text-input" name="location" type="text" value="{{ $call->location }}">
+                            <x-input-error :messages="$errors->get('location')" class="mt-2" />
+                        </div>
+                        <div class="w-full">
+                            <label class="block mr-2 text-lg">City:</label>
+                            <input class="text-input" name="city" type="text" value="{{ $call->city }}">
+                            <x-input-error :messages="$errors->get('city')" class="mt-2" />
+                        </div>
                         <div class="w-full">
                             <label class="block mr-2 text-lg">Nature:</label>
                             <select class="select-input" name="nature">

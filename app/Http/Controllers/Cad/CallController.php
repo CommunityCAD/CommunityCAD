@@ -58,11 +58,13 @@ class CallController extends Controller
         $validated = $request->validate([
             'status' => 'required',
             'nature' => 'required',
+            'location' => 'required',
+            'city' => 'required',
         ]);
 
         if ($call->status != $validated['status']) {
             CallLog::create([
-                'from' => 'SYSTEM',
+                'from' => 'Dispatch ' . auth()->user()->active_unit->badge_number,
                 'text' => 'Call Status Updated to: ' . $validated['status'],
                 'call_id' => $call->id,
             ]);
@@ -70,7 +72,8 @@ class CallController extends Controller
 
         if ($call->nature != $validated['nature']) {
             CallLog::create([
-                'from' => 'SYSTEM',
+                'from' => 'Dispatch ' .
+                    auth()->user()->active_unit->badge_number,
                 'text' => 'Call Nature Updated to: ' . $validated['nature'],
                 'call_id' => $call->id,
             ]);

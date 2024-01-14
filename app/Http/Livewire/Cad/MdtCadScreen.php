@@ -76,7 +76,7 @@ class MdtCadScreen extends Component
         }
 
         CallLog::create([
-            'from' => 'SYSTEM',
+            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
             'text' => 'Call Status Updated To ' . $status,
             'call_id' => $call->id,
         ]);
@@ -92,7 +92,7 @@ class MdtCadScreen extends Component
         $this->update_call_with_units($activeUnit, $call, 'delete');
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
-            'from' => 'SYSTEM',
+            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
             'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
             'call_id' => $call->id,
         ]);
@@ -105,7 +105,7 @@ class MdtCadScreen extends Component
         $this->update_call_with_units($activeUnit, $call, 'add');
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
-            'from' => 'SYSTEM',
+            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
             'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
             'call_id' => $call->id,
         ]);
@@ -128,7 +128,7 @@ class MdtCadScreen extends Component
 
         $call->update(['units' => '{"data":[]}']);
         CallLog::create([
-            'from' => 'SYSTEM',
+            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
             'text' => 'Call ' . $call->id . ' has been closed and units (' . implode(', ', $call_units) . ') removed from call.',
             'call_id' => $call->id,
         ]);

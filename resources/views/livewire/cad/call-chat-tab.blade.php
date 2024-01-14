@@ -11,7 +11,9 @@
                 <div class="@if ($loop->first) border border-red-400 @endif">
                     <p class="border-b-2 border-gray-500 {{ $text_color }}">
                         <span class="text-sm font-light">{{ $chat->created_at->format('H:i:s m/d/Y') }} -
-                            {{ $chat->from }}</span> | {{ $chat->text }}
+                            {{ $chat->from }}</span>
+
+                        <br>{{ $chat->text }}
                     </p>
                 </div>
             @empty
