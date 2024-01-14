@@ -6,7 +6,7 @@
             <p class="text-sm font-semibold">
                 Officer {{ auth()->user()->officer_name ? auth()->user()->officer_name : auth()->user()->discord_name }}
             </p>
-            <p class="text-lg"><span class="mr-3">{{ date('m/d/Y') }}</span><span id="running_clock"></span></p>
+            <p class="text-lg"><span class="mr-3" id="running_clock"></span></p>
             <p class="flex">
                 <svg class="w-6 h-6 text-green-600" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">

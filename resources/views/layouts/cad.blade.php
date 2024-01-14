@@ -85,13 +85,26 @@
 
     <script>
         function startTime() {
-            const today = new Date();
+            function convertTZ(date, tzString) {
+                return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
+                    timeZone: tzString
+                }));
+            }
+
+            const today = convertTZ(new Date(), "{{ config('app.timezone') }}");
+            let d = today.getDate();
+            let mo = today.getMonth();
+            let y = today.getFullYear();
+
+            d = checkTime(d);
+            mo = checkTime(mo + 1);
+
             let h = today.getHours();
             let m = today.getMinutes();
             let s = today.getSeconds();
             m = checkTime(m);
             s = checkTime(s);
-            document.getElementById('running_clock').innerHTML = h + ":" + m + ":" + s;
+            document.getElementById('running_clock').innerHTML = mo + "/" + d + "/" + y + " " + h + ":" + m + ":" + s;
             setTimeout(startTime, 1000);
         }
 

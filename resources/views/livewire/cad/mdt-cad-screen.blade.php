@@ -380,11 +380,11 @@
             </div>
         </section>
     @endif
-</div>
 
-<script>
-    function play(type) {
-        var audio = document.getElementById(type);
-        audio.play();
-    }
-</script>
+    <script>
+        function play(type) {
+            var audio = document.getElementById(type);
+            audio.play();
+        }
+    </script>
+</div>

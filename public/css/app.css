@@ -2787,6 +2787,12 @@ video {
 .uppercase {
   text-transform: uppercase;
 }
+.lowercase {
+  text-transform: lowercase;
+}
+.\!lowercase {
+  text-transform: lowercase !important;
+}
 .italic {
   font-style: italic;
 }
