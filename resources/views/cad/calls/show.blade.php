@@ -91,6 +91,14 @@
                             class="px-2 py-1 text-sm font-medium text-white border-t border-x" href="#">
                             Units
                         </a>
+                        <a :class="openTab === 5 ? activeClasses : inactiveClasses" @click="openTab = 5"
+                            class="px-2 py-1 text-sm font-medium text-white border-t border-x" href="#">
+                            Tickets
+                        </a>
+                        <a :class="openTab === 6 ? activeClasses : inactiveClasses" @click="openTab = 6"
+                            class="px-2 py-1 text-sm font-medium text-white border-t border-x" href="#">
+                            Evidence
+                        </a>
                     </div>
                     <div class="uppercase border">
                         <div class="p-6 text-base leading-relaxed" x-show="openTab === 1">
@@ -117,7 +125,8 @@
                                     </div>
                                 </div>
                                 <div class="w-full mt-3">
-                                    <input class="button-md bg-green-700 hover:bg-green-600" type="submit" value="SAVE">
+                                    <input class="button-md bg-green-700 hover:bg-green-600" type="submit"
+                                        value="SAVE">
                                 </div>
                             </form>
                             <div class="p-4">
@@ -164,6 +173,52 @@
                                 @foreach ($call->nice_units as $unit)
                                     <p>{{ $unit }}</p>
                                 @endforeach
+                            </div>
+                        </div>
+                        <div class="p-6 text-base leading-relaxed" style="display: none" x-show="openTab === 5">
+                            <div class="flex justify-between">
+
+                                <ul class="space-y-2">
+                                    @forelse ($call->tickets as $ticket)
+                                        @php
+
+                                            if ($ticket->type_id == 1) {
+                                                $type = 'Warning';
+                                                $text_color = 'text-yellow-500';
+                                            } elseif ($ticket->type_id == 2) {
+                                                $type = 'Ticket';
+                                                $text_color = 'text-orange-500';
+                                            } elseif ($ticket->type_id == 3) {
+                                                $type = 'Arrest';
+                                                $text_color = 'text-red-500';
+                                            }
+                                        @endphp
+                                        <li class="underline">
+                                            <a class="block {{ $text_color }}" href="#"
+                                                onclick="openExternalWindow('{{ route('cad.ticket.show', $ticket->id) }}')">
+                                                <div class="p-2 space-x-2">
+                                                    (Ticket: {{ $ticket->id }} Type: {{ $type }})
+                                                    {{ $ticket->civilian->name }} |
+                                                    {{ $ticket->offense_occured_at->format('m/d/Y H:i') }}<span
+                                                        class="block ml-5">Offense(s)
+                                                        @foreach ($ticket->charges as $charge)
+                                                            @if (!$loop->last)
+                                                                {{ $charge->penal_code->name }},
+                                                            @else
+                                                                {{ $charge->penal_code->name }}
+                                                            @endif
+                                                        @endforeach
+
+                                                    </span>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @empty
+                                        <li>No Tickets Linked To This Call.</li>
+                                    @endforelse
+                                </ul>
+
                             </div>
                         </div>
                     </div>

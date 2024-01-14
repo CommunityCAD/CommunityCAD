@@ -6,6 +6,7 @@ use App\Models\CallCivilian;
 use App\Models\CallLog;
 use App\Models\Civilian;
 use App\Models\Report;
+use App\Models\Ticket;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,11 @@ class Call extends Model
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 
     public function call_civilians()
