@@ -1649,6 +1649,9 @@ video {
 .float-right {
   float: right;
 }
+.float-left {
+  float: left;
+}
 .m-1 {
   margin: 0.25rem;
 }
@@ -2771,6 +2774,14 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .font-bold {
   font-weight: 700;

@@ -1,4 +1,4 @@
-<div class="flex items-center justify-around p-1 space-x-3 text-white rounded cursor-default">
+{{-- <div class="flex items-center justify-around p-1 space-x-3 text-white rounded cursor-default">
     <p class="text-sm font-semibold">
         Officer {{ auth()->user()->officer_name_check }}
     </p>
@@ -12,4 +12,11 @@
         </svg>
         <span class="mx-3 !lowercase">Connected to live_database_prod</span>
     </p>
+</div> --}}
+
+<div class="">
+    <div class="text-lg text-red-700 float-right">
+        <p class="mr-3 text-4xl" id="running_clock_time"></p>
+        <p class="mr-3 text-lg" id="running_clock_date"></p>
+    </div>
 </div>

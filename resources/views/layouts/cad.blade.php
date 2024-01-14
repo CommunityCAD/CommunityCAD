@@ -17,6 +17,22 @@
 
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
 
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'digital-clock-font';
+            src: url('{{ asset('fonts/DIGITALDREAM.ttf') }}');
+        }
+
+        #running_clock_date,
+        #running_clock_time {
+            font-family: "digital-clock-font" !important;
+        }
+    </style>
+
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
                 '(prefers-color-scheme: dark)').matches)) {
@@ -47,7 +63,7 @@
             </div>
         </div>
     @endif
-    {{-- <div class="relative bg-red-700">
+    <div class="relative bg-red-700">
         <div class="fixed bottom-0 left-0 z-50 w-full">
             <div class="bg-slate-500 z-50 w-full">
                 <p class="flex items-center space-x-4">
@@ -66,7 +82,7 @@
                     </span>
                     <span class="">Status:
                         {{ auth()->user()->active_unit->status }}
-                        {{ auth()->user()->active_unit->updated_at->format('h:i:s') }}</span>
+                        {{ auth()->user()->active_unit->updated_at->format('H:i:s') }}</span>
                     <span class="">Current Call(s):
                         @forelse (auth()->user()->active_unit->nice_calls as $call)
                             {{ str_pad($call, 5, 0, STR_PAD_LEFT) }},
@@ -79,7 +95,7 @@
                 </p>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     @livewireScripts
 
@@ -104,7 +120,8 @@
             let s = today.getSeconds();
             m = checkTime(m);
             s = checkTime(s);
-            document.getElementById('running_clock').innerHTML = mo + "/" + d + "/" + y + " " + h + ":" + m + ":" + s;
+            document.getElementById('running_clock_date').innerHTML = mo + "/" + d + "/" + y;
+            document.getElementById('running_clock_time').innerHTML = h + ":" + m + ":" + s;
             setTimeout(startTime, 1000);
         }
 
