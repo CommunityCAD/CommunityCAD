@@ -18,6 +18,15 @@
                     </div>
                 </div>
                 <div class="flex">
+                    <div class="border-2 border-black w-full p-2">
+                        <p class="text-gray-500">Call:
+                            {{ $ticket->call->id }} - {{ $ticket->call->nature }} @
+                            {{ $ticket->call->location }}, {{ $ticket->call->city }} on
+                            {{ $ticket->call->created_at->format('m/d/Y') }}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex">
                     <div class="border-2 border-black w-4/6 p-2">
                         <p class="text-gray-500">Last Name (Defendant) <span
                                 class="block text-black font-bold uppercase">{{ $ticket->civilian->last_name }}</span>
@@ -211,8 +220,13 @@
                         </div>
                     </div>
                 </div> --}}
-            <a class="new-button-md mt-5" href="{{ route('cad.ticket.sign_ticket', $ticket->id) }}">Finish and Sign
-                Ticket</a>
+            @if ($allow_sign)
+                <a class="new-button-md mt-5" href="{{ route('cad.ticket.sign_ticket', $ticket->id) }}">Finish and Sign
+                    Ticket</a>
+            @else
+                <p>You must add charges before signing the ticket.</p>
+            @endif
+
         </div>
 
     </div>

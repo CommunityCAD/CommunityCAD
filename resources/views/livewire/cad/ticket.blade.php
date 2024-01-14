@@ -15,6 +15,20 @@
                 </div>
             </div>
             <div class="flex">
+                <div class="border-2 border-black w-full p-2">
+                    <p class="text-gray-500">Call
+                        <select class="select-input" id="call_id" name="call_id">
+                            <option value="0">Choose a Call #</option>
+                            @foreach ($calls as $call)
+                                <option value="{{ $call->id }}">{{ $call->id }} - {{ $call->nature }} @
+                                    {{ $call->location }}, {{ $call->city }} on
+                                    {{ $call->created_at->format('m/d/Y') }}</option>
+                            @endforeach
+                        </select>
+                    </p>
+                </div>
+            </div>
+            <div class="flex">
                 <div class="border-2 border-black w-4/6 p-2">
                     <p class="text-gray-500">Last Name (Defendant) <span
                             class="block text-black font-bold uppercase">{{ $civilian->last_name }}</span></p>
@@ -128,12 +142,12 @@
                         </p>
                     </div>
                     <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Expire <span class="block text-black font-bold uppercase">
+                        <p class="text-gray-500">Expires <span class="block text-black font-bold uppercase">
                                 {{ $chosen_vehicle->registration_expire->format('m/d/Y') }}
                             </span></p>
                     </div>
                     <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Suspend <span class="block text-black font-bold uppercase">
+                        <p class="text-gray-500">Impound <span class="block text-black font-bold uppercase">
                                 <input class="mx-auto text-center w-full h-6" name="vehicle_was_impounded"
                                     type="checkbox">
                             </span></p>
@@ -167,6 +181,7 @@
                     </p>
                 </div>
             </div>
+
         </div>
 
         {{-- <h3 class="text-xl my-3 uppercase text-center">The Person Described above is charged as follows</h3>

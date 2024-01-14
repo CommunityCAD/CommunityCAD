@@ -353,7 +353,6 @@
         <div class="mt-3 text-center">
             <a class="new-button-md" href="{{ route('cad.vehicle.search') }}">Search More</a>
             <a class="edit-button-md" href="{{ route('cad.vehicle.return', $vehicle->plate) }}">Refresh Data</a>
-            <a class="secondary-button-md" href="{{ route('cad.vehicle.return', $vehicle->plate) }}">New Ticket</a>
         </div>
     </div>
 @endsection

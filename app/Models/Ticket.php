@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cad\Call;
 use App\Models\Civilian\Vehicle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,5 +43,10 @@ class Ticket extends Model
     public function charges()
     {
         return $this->hasMany(Charges::class);
+    }
+
+    public function call()
+    {
+        return $this->belongsTo(Call::class);
     }
 }

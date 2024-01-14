@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\TicketRequest;
+use App\Models\Cad\Call;
 use App\Models\Charges;
 use App\Models\Civilian;
 use App\Models\Civilian\Vehicle;
 use App\Models\License;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,7 +36,8 @@ class TicketController extends Controller
 
     public function create(Civilian $civilian): View
     {
-        return view('cad.ticket.create', compact('civilian'));
+        $calls = Call::where('created_at', '>', Carbon::today()->subDays(30))->orderBy('id', 'desc')->get();
+        return view('cad.ticket.create', compact('civilian', 'calls'));
     }
 
     public function store(Civilian $civilian, TicketRequest $request): RedirectResponse
@@ -42,7 +45,7 @@ class TicketController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $data['civilian_id'] = $civilian->id;
-        $data['offense_occured_at'] = $data['date'].' '.$data['time'].':00';
+        $data['offense_occured_at'] = $data['date'] . ' ' . $data['time'] . ':00';
 
         unset($data['time'], $data['date']);
 
@@ -62,6 +65,10 @@ class TicketController extends Controller
             $data['showed_id'] = true;
         }
 
+        if ($data['call_id'] == 0) {
+            unset($data['call_id']);
+        }
+
         $ticket = Ticket::create($data);
 
         return redirect()->route('cad.ticket.add_charges', $ticket->id);
@@ -70,7 +77,11 @@ class TicketController extends Controller
     public function add_charges(Ticket $ticket): View
     {
         // dd($ticket->charges->penal_code_id);
-        return view('cad.ticket.edit', compact('ticket'));
+        $allow_sign = true;
+        if ($ticket->charges()->count() == 0) {
+            $allow_sign = false;
+        }
+        return view('cad.ticket.edit', compact('ticket', 'allow_sign'));
     }
 
     public function add_charges_store(Ticket $ticket, Request $request)
@@ -96,6 +107,8 @@ class TicketController extends Controller
 
     public function sign_ticket(Ticket $ticket)
     {
+
+
         return redirect()->route('cad.ticket.show', $ticket->id);
     }
 }

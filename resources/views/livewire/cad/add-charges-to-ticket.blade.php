@@ -52,6 +52,7 @@
             @endif
 
             <button class="new-button-md m-5">Add Charge</button>
+            <p class="text-sm pl-4">You must save this charge before signing the ticket.</p>
         </form>
     </div>
 </div>

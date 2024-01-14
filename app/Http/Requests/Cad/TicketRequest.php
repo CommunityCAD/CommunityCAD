@@ -23,6 +23,7 @@ class TicketRequest extends FormRequest
     {
         return [
             'type_id' => 'required|numeric',
+            'call_id' => 'nullable|numeric',
             'license_id' => 'nullable|numeric',
             'vehicle_id' => 'nullable|numeric',
             'license_was_suspended' => 'nullable',
