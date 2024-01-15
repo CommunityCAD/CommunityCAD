@@ -7,38 +7,37 @@
     </header>
     <div class="card">
 
-        <form action="{{ route('staff.announcement.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('staff.announcement.store') }}" class="space-y-4" method="POST">
             @csrf
 
             <div>
-                <label for="title" class="block text-black-500">Title</label>
-                <input type="text" name="title" value="{{ old('title') }}" required autofocus
-                    class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" />
+                <label class="block text-black-500" for="title">Title</label>
+                <input autofocus class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" name="title"
+                    required type="text" value="{{ old('title') }}" />
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
 
             <div>
-                <label for="department_id" class="block text-black-500">Department</label>
-                <select name="department_id" id="department_id" class="select-input">
+                <label class="block text-black-500" for="department_id">Department</label>
+                <select class="select-input" id="department_id" name="department_id">
                     <option value="">Choose one</option>
                     @foreach ($departments as $department)
-                        <option value="{{ $department->id }}" @selected(old('department_id') == $department->id)>{{ $department->name }}</option>
+                        <option @selected(old('department_id') == $department->id) value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
             </div>
 
             <div>
-                <label for="text" class="block text-black-500">Text</label>
-                <p class="text-sm">Prefix to license numbers. Example Drivers License might be DL. So the number would be
-                    DL123456.</p>
-                <textarea name="text" id="text" class="textarea-input">{{ old('text') }}</textarea>
+                <label class="block text-black-500" for="text">Text</label>
+                <p class="text-sm"></p>
+                <textarea class="textarea-input" id="text" name="text">{{ old('text') }}</textarea>
                 <x-input-error :messages="$errors->get('prefix')" class="mt-2" />
             </div>
 
             <div class="mt-4">
                 <button class="inline-block w-1/3 mr-5 new-button-md">Create</button>
-                <a href="{{ route('staff.announcement.index') }}" class="w-1/3 delete-button-md">Cancel</a>
+                <a class="w-1/3 delete-button-md" href="{{ route('staff.announcement.index') }}">Cancel</a>
             </div>
         </form>
     </div>
