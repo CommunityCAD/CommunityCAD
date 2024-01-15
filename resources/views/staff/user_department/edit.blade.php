@@ -9,7 +9,7 @@
     <div class="card">
         <form
             action="{{ route('staff.user_department.destroy', ['user' => $user->id, 'user_department' => $user_department->id]) }}"
-            method="POST" class="text-right"
+            class="text-right" method="POST"
             onsubmit="return confirm('Are you sure you wish to delete this department? This can\'t be undone!');">
             @csrf
             @method('DELETE')
@@ -19,13 +19,13 @@
         </form>
         <form
             action="{{ route('staff.user_department.update', ['user' => $user->id, 'user_department' => $user_department->id]) }}"
-            method="POST" class="flex flex-wrap -mx-4">
+            class="flex flex-wrap -mx-4" method="POST">
             @csrf
             @method('PUT')
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="department_id" class="block mb-3 text-base font-medium text-white">
+                    <label class="block mb-3 text-base font-medium text-white" for="department_id">
                         Department
                     </label>
                     <p class="text-white">{{ $user_department->department->name }}</p>
@@ -34,12 +34,12 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="badge_number" class="block mb-3 text-base font-medium text-white">
-                        Badge Number
+                    <label class="block mb-3 text-base font-medium text-white" for="badge_number">
+                        Call Sign
                     </label>
                     <div class="relative">
-                        <input type="text" value="{{ $user_department->badge_number }}" name="badge_number"
-                            class="text-input" required autofocus>
+                        <input autofocus class="text-input" name="badge_number" required type="text"
+                            value="{{ $user_department->badge_number }}">
                     </div>
                     <x-input-error :messages="$errors->get('badge_number')" class="mt-2" />
 
@@ -48,12 +48,12 @@
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
                 <div class="mb-6">
-                    <label for="rank" class="block mb-3 text-base font-medium text-white">
+                    <label class="block mb-3 text-base font-medium text-white" for="rank">
                         Rank
                     </label>
                     <div class="relative">
-                        <input type="text" name="rank" class="text-input" value="{{ $user_department->rank }}"
-                            required>
+                        <input class="text-input" name="rank" required type="text"
+                            value="{{ $user_department->rank }}">
                     </div>
                     <x-input-error :messages="$errors->get('rank')" class="mt-2" />
 
@@ -65,7 +65,7 @@
                     <button class="w-full edit-button-md">Save</button>
                 </div>
                 <div class="w-1/3 px-3">
-                    <a href="{{ route('staff.user_department.index', $user->id) }}" class="w-full delete-button-md">
+                    <a class="w-full delete-button-md" href="{{ route('staff.user_department.index', $user->id) }}">
                         Cancel
                     </a>
                 </div>
