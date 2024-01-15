@@ -27,4 +27,17 @@ class Report extends Model
     {
         return $this->belongsTo(ReportType::class);
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(
+            function ($model) {
+                $new_number = date("ymd");
+                $number = Call::where('id', 'like', $new_number . "%")->count() + 1;
+                $new_number = $new_number . str_pad($number, 3, '0', STR_PAD_LEFT);
+                $model->id =  $new_number;
+            }
+        );
+    }
 }
