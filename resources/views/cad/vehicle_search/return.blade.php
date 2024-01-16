@@ -1,6 +1,7 @@
 @extends('layouts.cad')
 
 @section('content')
+@include('inc.cad.header')
     <div class="card !max-w-6xl">
         <div class="flex justify-between items-center">
             <h2 class="text-2xl flex items-center">
@@ -254,12 +255,12 @@
                                     <?php
                                     $status = $license->status_name;
                                     $status_color = 'text-green-700';
-                                    
+
                                     if ($license->expires_on < date('Y-m-d')) {
                                         $status = 'Expired';
                                         $status_color = 'text-yellow-700';
                                     }
-                                    
+
                                     if ($license->status_name == 'Revoked' || $license->status_name == 'Suspended') {
                                         $status = $license->status_name;
                                         $status_color = 'text-red-700';
@@ -315,12 +316,12 @@
                                     <?php
                                     $status = $vehicle->status_name;
                                     $status_color = 'text-green-700';
-                                    
+
                                     if ($vehicle->registration_expire < date('Y-m-d')) {
                                         $status = 'Expired';
                                         $status_color = 'text-yellow-700';
                                     }
-                                    
+
                                     if ($vehicle->status_name == 'Revoked' || $vehicle->status_name == 'Suspended') {
                                         $status = $vehicle->status_name;
                                         $status_color = 'text-red-700';

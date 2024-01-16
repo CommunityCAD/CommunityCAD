@@ -29,6 +29,8 @@ class CivilianUpdateRequest extends FormRequest
             'picture' => 'url|nullable',
             'height' => 'required|numeric',
             'weight' => 'required|numeric',
+            'is_officer' => 'required|numeric',
+            'user_department_id' => 'numeric|nullable',
         ];
     }
 }

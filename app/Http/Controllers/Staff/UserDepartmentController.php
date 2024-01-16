@@ -76,6 +76,7 @@ class UserDepartmentController extends Controller
 
     public function destroy(User $user, UserDepartment $user_department): RedirectResponse
     {
+        $user_department->civilian()->update(['is_officer' => 0, 'user_department_id' => null, 'occupation' => 'Unemployed']);
         $user_department->delete();
 
         return redirect()->route('staff.user_department.index', $user->id)->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);

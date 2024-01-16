@@ -1,22 +1,14 @@
 @extends('layouts.cad')
 
 @section('content')
+    @include('inc.cad.header')
     <div class="container p-4 mx-auto bg-[#124559] text-white cursor-default rounded-2xl mt-5">
         <header>
             <div class="flex justify-between">
                 <h1 class="text-2xl font-semibold">Welcome Officer
-                    {{ auth()->user()->officer_name_check }}</h1>
-                <p class="flex">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke-width="1.5" stroke="currentColor"
-                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span class="mx-3">Connected to live_database_prod</span>
-                </p>
+                    {{ isset($active_unit->civilian->name) ? $active_unit->civilian->name : auth()->user()->discord_name }}
+                </h1>
             </div>
-            <p><span class="mr-3">{{ date('m/d/Y') }}</span><span id="running_clock"></span></p>
         </header>
 
         <main class="my-5"></main>
@@ -34,8 +26,8 @@
 
                     <p class="mt-3 text-lg font-semibold">System</p>
                     <ul class="ml-8 list-disc">
-                        <li>Username: <span
-                                class="text-sm">{{ str_replace(' ', '_', strtolower(auth()->user()->officer_name_check)) }}</span>
+                        <li class="">Username: <span
+                                class="text-sm !lowercase">{{ str_replace(' ', '_', strtolower(isset($active_unit->civilian->name) ? $active_unit->civilian->name : auth()->user()->discord_name)) }}</span>
                         </li>
                         <li>Server: <span class="text-sm">live_database_prod</span></li>
                         <li>Version: <span class="text-sm">2023.3.29.1856</span></li>

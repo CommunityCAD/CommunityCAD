@@ -2,7 +2,9 @@
 
 namespace App\Models\Cad;
 
+use App\Models\Civilian;
 use App\Models\User;
+use App\Models\UserDepartment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +36,11 @@ class ActiveUnit extends Model
         $calls = json_decode($this->calls);
 
         return $calls->data;
+    }
+
+    public function civilian()
+    {
+        return $this->belongsTo(Civilian::class);
     }
 
     public function user()

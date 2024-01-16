@@ -1,6 +1,7 @@
 @extends('layouts.cad')
 
 @section('content')
+    @include('inc.cad.header')
     <div class="card !max-w-6xl">
         <div class="flex justify-between items-center">
             <h2 class="text-2xl flex items-center">

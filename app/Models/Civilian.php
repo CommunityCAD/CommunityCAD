@@ -54,12 +54,12 @@ class Civilian extends Model
 
     public function getNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function getAddressAttribute()
     {
-        return $this->postal.' '.$this->street.' '.$this->city;
+        return $this->postal . ' ' . $this->street . ' ' . $this->city;
     }
 
     public function getAgeAttribute()
@@ -88,6 +88,11 @@ class Civilian extends Model
     public function weapons()
     {
         return $this->HasMany(Weapon::class);
+    }
+
+    public function user_department()
+    {
+        return $this->belongsTo(UserDepartment::class);
     }
 
     public function tickets()

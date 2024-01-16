@@ -117,6 +117,36 @@
                 </div>
             </div>
 
+            <div class="w-full px-4 md:w-1/2">
+                <div class="mb-6">
+                    <label class="block text-base font-medium text-white" for="is_officer">
+                        Is this civilian for a LEO or Fire/EMS department?
+                    </label>
+                    <p class="text-sm">Only change this is if you are quiting your department.</p>
+                    <select class="select-input" name="is_officer">
+                        <option @selected(!$civilian->is_officer) value="0">No</option>
+                        <option value="1"@selected($civilian->is_officer)>Yes</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('is_officer')" class="mt-2" />
+                </div>
+            </div>
+            <div class="w-full px-4 md:w-1/2">
+                <div class="mb-6">
+                    <label class="block text-base font-medium text-white" for="user_department_id">
+                        What department is this civilian for?
+                    </label>
+                    <p class="text-sm">Only change this is if you are switching departments.</p>
+                    <select class="select-input" name="user_department_id">
+                        <option value="">Choose One</option>
+                        @foreach ($available_user_departments as $user_department)
+                            <option value="{{ $user_department->id }}">{{ $user_department->badge_number }} -
+                                {{ $user_department->rank }}</option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('user_department_id')" class="mt-2" />
+                </div>
+            </div>
+
             <div class="w-full px-4">
                 <div class="mb-6 space-y-3 flex justify-between items-center">
                     <button class="new-button-md">Save</button>

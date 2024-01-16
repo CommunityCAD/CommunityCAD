@@ -34,6 +34,8 @@ class CivilianStoreRequest extends FormRequest
             'street' => 'required',
             'city' => 'required',
             'picture' => 'url|nullable',
+            'is_officer' => 'required|numeric',
+            'user_department_id' => 'numeric|nullable',
         ];
     }
 }
