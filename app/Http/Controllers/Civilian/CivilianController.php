@@ -75,7 +75,7 @@ class CivilianController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['id'] = rand(100000000, 999999999);
 
-        if ($data['user_department_id'] != null) {
+        if (isset($data['user_department_id']) and $data['user_department_id'] != null) {
             $data['is_officer'] = 1;
         }
 
