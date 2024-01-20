@@ -448,11 +448,37 @@
                 </svg>
             </h3>
         </div>
-        <div class="mt-3 text-center">
-            <a class="new-button-md" href="{{ route('cad.name.search') }}">Search More</a>
-            <a class="edit-button-md" href="{{ route('cad.name.return', $civilian->id) }}">Refresh Data</a>
-            <a class="secondary-button-md" href="#"
-                onclick="openExternalWindow('{{ route('cad.ticket.create', $civilian->id) }}')">New Ticket</a>
+        <div class="mt-3 flex justify-between">
+            <div class="">
+                <a class="new-button-md" href="{{ route('cad.name.search') }}">Search More</a>
+                <a class="edit-button-md" href="{{ route('cad.name.return', $civilian->id) }}">Refresh Data</a>
+                <a class="secondary-button-md" href="#"
+                    onclick="openExternalWindow('{{ route('cad.ticket.create', $civilian->id) }}')">New Ticket</a>
+            </div>
+            <div>
+                <form action="{{ route('cad.name.link_to_call', $civilian->id) }}" class="space-y-2" method="POST">
+                    @csrf
+                    <select class="select-input w-full" id="call_id" name="call_id">
+                        <option value="">Link Civilian to Call</option>
+                        @foreach ($calls as $call)
+                            <option value="{{ $call->id }}">{{ $call->id }} - {{ $call->nature }}</option>
+                        @endforeach
+                    </select>
+
+                    <select class="select-input" id="type" name="type">
+                        <option value="">TYPE</option>
+                        <option value="RP">REPORTING PARTY</option>
+                        <option value="SUSPECT">SUSPECT</option>
+                        <option value="VICTIM">VICTIM</option>
+                        <option value="WITNESS">WITNESS</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+
+                    <button
+                        class="px-4 py-2 text-center text-white bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600"
+                        type="submit">LINK</button>
+                </form>
+            </div>
         </div>
     </div>
 @endsection

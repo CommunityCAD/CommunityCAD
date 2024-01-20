@@ -77,6 +77,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
 
         Route::get('name/search', [CivilianSearchController::class, 'search'])->name('name.search');
         Route::get('name/{civilian}', [CivilianSearchController::class, 'return'])->name('name.return');
+        Route::post('name/{civilian}/link_to_call', [CivilianSearchController::class, 'link_civilian_to_call'])->name('name.link_to_call');
         Route::post('name/{civilian}/update_alerts', UpdateCivilianAlertsController::class)->name('name.update_alerts');
 
         Route::get('vehicle/search', [VehicleSearchController::class, 'search'])->name('vehicle.search');
