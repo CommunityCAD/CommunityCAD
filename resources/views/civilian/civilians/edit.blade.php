@@ -41,20 +41,17 @@
                             for ($inches = 0; $inches <= 11; $inches++) {
                                 $inch = $foot * 12 + $inches;
                                 $cm = round($inch * 2.54);
-                        
-                                $selected = '';
-                                if ($inch == $civilian->height) {
-                                    $selected = 'selected';
-                                }
-                        
-                                if ($inches == 0) {
-                                    echo "<option value='$inch' $selected> $foot' ($cm cm)</option>";
-                                } else {
-                                    echo "<option value='$inch' $selected>$foot' $inches\" ($cm cm) </option>";
-                                }
                             }
                         }
                         ?>
+
+                        @if ($inches == 0)
+                            <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
+                                ({{ $cm }} cm)</option>
+                        @else
+                            <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
+                                {{ $inches }}" ({{ $cm }} cm)</option>
+                        @endif
                     </select>
                     <x-input-error :messages="$errors->get('height')" class="mt-2" />
                 </div>
@@ -68,14 +65,11 @@
                     <select class="select-input" name="weight">
                         <?php
                         for ($weight = 90; $weight <= 450; $weight += 5) {
-                            $selected = '';
-                            if ($weight == $civilian->weight) {
-                                $selected = 'selected';
-                            }
                             $kg = round($weight / 2.205);
-                            echo "<option value='$weight' $selected>$weight lb ($kg kg) </option>";
                         }
                         ?>
+                        <option @selected(old('weight', $civilian->weight) == $weight) value="{{ $weight }}">{{ $weight }} lb
+                            ({{ $kg }} kg)</option>
                     </select>
                     <x-input-error :messages="$errors->get('weight')" class="mt-2" />
                 </div>
