@@ -102,6 +102,7 @@ class CivilianController extends Controller
 
     public function edit(Civilian $civilian): View
     {
+
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
         $civilians = Civilian::where('user_id', auth()->user()->id);
@@ -117,11 +118,9 @@ class CivilianController extends Controller
         $member_departments = [];
         $available_user_departments = [];
 
-        foreach ($officer_civilians as $civilian) {
-            $member_departments[$civilian->id] = $civilian->user_department_id;
+        foreach ($officer_civilians as $officer_civilian) {
+            $member_departments[$officer_civilian->id] = $officer_civilian->user_department_id;
         }
-
-        // dd($member_departments);
 
         foreach ($user_departments as $department) {
             if ($department->department->type == 1 or $department->department->type == 4) {
@@ -129,15 +128,11 @@ class CivilianController extends Controller
             }
         }
 
-        // dd($available_user_departments);
-
         foreach ($available_user_departments as $id => $user_department) {
             if (in_array($user_department->id, $member_departments)) {
                 unset($available_user_departments[$user_department->id]);
             }
         }
-
-        // dd($available_user_departments);
 
         return view('civilian.civilians.edit', compact('civilian', 'available_user_departments'));
     }
