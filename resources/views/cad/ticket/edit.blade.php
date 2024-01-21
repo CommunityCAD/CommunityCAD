@@ -17,15 +17,17 @@
                         </p>
                     </div>
                 </div>
-                <div class="flex">
-                    <div class="border-2 border-black w-full p-2">
-                        <p class="text-gray-500">Call:
-                            {{ $ticket->call->id }} - {{ $ticket->call->nature }} @
-                            {{ $ticket->call->location }}, {{ $ticket->call->city }} on
-                            {{ $ticket->call->created_at->format('m/d/Y') }}
-                        </p>
+                @if ($ticket->call_id)
+                    <div class="flex">
+                        <div class="border-2 border-black w-full p-2">
+                            <p class="text-gray-500">Call:
+                                {{ $ticket->call->id }} - {{ $ticket->call->nature }} @
+                                {{ $ticket->call->location }}, {{ $ticket->call->city }} on
+                                {{ $ticket->call->created_at->format('m/d/Y') }}
+                            </p>
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="flex">
                     <div class="border-2 border-black w-4/6 p-2">
                         <p class="text-gray-500">Last Name (Defendant) <span
