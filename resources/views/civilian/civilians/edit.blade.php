@@ -36,22 +36,22 @@
                         Height
                     </label>
                     <select class="select-input" name="height">
-                        <?php
-                        for ($foot = 4; $foot <= 7; $foot++) {
-                            for ($inches = 0; $inches <= 11; $inches++) {
-                                $inch = $foot * 12 + $inches;
-                                $cm = round($inch * 2.54);
-                            }
-                        }
-                        ?>
+                        @for ($foot = 4; $foot <= 7; $foot++)
+                            @for ($inches = 0; $inches <= 11; $inches++)
+                                @php
+                                    $inch = $foot * 12 + $inches;
+                                    $cm = round($inch * 2.54);
+                                @endphp
+                                @if ($inches == 0)
+                                    <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
+                                        ({{ $cm }} cm)</option>
+                                @else
+                                    <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
+                                        {{ $inches }}" ({{ $cm }} cm)</option>
+                                @endif
+                            @endfor
+                        @endfor
 
-                        @if ($inches == 0)
-                            <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
-                                ({{ $cm }} cm)</option>
-                        @else
-                            <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
-                                {{ $inches }}" ({{ $cm }} cm)</option>
-                        @endif
                     </select>
                     <x-input-error :messages="$errors->get('height')" class="mt-2" />
                 </div>
@@ -63,13 +63,13 @@
                         Weight
                     </label>
                     <select class="select-input" name="weight">
-                        <?php
-                        for ($weight = 90; $weight <= 450; $weight += 5) {
-                            $kg = round($weight / 2.205);
-                        }
-                        ?>
-                        <option @selected(old('weight', $civilian->weight) == $weight) value="{{ $weight }}">{{ $weight }} lb
-                            ({{ $kg }} kg)</option>
+                        @for ($weight = 90; $weight <= 450; $weight += 5)
+                            @php
+                                $kg = round($weight / 2.205);
+                            @endphp
+                            <option @selected(old('weight', $civilian->weight) == $weight) value="{{ $weight }}">{{ $weight }} lb
+                                ({{ $kg }} kg)</option>
+                        @endfor
                     </select>
                     <x-input-error :messages="$errors->get('weight')" class="mt-2" />
                 </div>
