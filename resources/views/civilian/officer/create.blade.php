@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="card">
-        <h2 class="my-2 text-2xl text-white border-b-2">Create Civilian</h2>
-        <form action="{{ route('civilian.civilians.store') }}" class="flex flex-wrap -mx-4" method="POST">
+        <h2 class="my-2 text-2xl text-white border-b-2">Create Officer</h2>
+        <form action="{{ route('civilian.officers.store') }}" class="flex flex-wrap -mx-4" method="POST">
             @csrf
 
             <div class="w-full px-4 md:w-1/2 lg:w-1/3">
@@ -193,9 +193,25 @@
             </div>
 
             <div class="w-full px-4">
+                <div class="mb-6">
+                    <label class="block text-base font-medium text-white" for="user_department_id">
+                        What department is this officer for?
+                    </label>
+                    <select class="select-input" name="user_department_id">
+                        <option value="">Choose One</option>
+                        @foreach ($available_user_departments as $user_department)
+                            <option value="{{ $user_department->id }}">{{ $user_department->badge_number }} -
+                                {{ $user_department->rank }} - {{ $user_department->department->name }}</option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('user_department_id')" class="mt-2" />
+                </div>
+            </div>
+
+            <div class="w-full px-4">
                 <div class="mb-6 space-y-3">
                     <button class="inline-block mr-5 new-button-md">Create</button>
-                    <a class="mr-5 delete-button-md" href="{{ route('civilian.civilians.index') }}">Cancel</a>
+                    <a class="mr-5 delete-button-md" href="{{ route('civilian.officers.index') }}">Cancel</a>
                     @if (!empty(get_setting('postal_map_link')))
                         <a class="edit-button-md float-right" href="{{ get_setting('postal_map_link') }}"
                             target="_blank">

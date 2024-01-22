@@ -62,20 +62,6 @@
             </div>
         </div>
     </div>
-    @if ($civilian->is_officer)
-        <div class="card">
-            <div class="">
-                <p><span class="text-gray-300">Is an officer/fire/ems:</span> Yes</p>
-                <p><span class="text-gray-300">Department Info:</span></p>
-                <div class="ml-3">
-                    <p><span class="text-gray-300">Department: </span> {{ $civilian->user_department->department->name }}
-                    </p>
-                    <p><span class="text-gray-300">Call Sign: </span> {{ $civilian->user_department->badge_number }}</p>
-                    <p><span class="text-gray-300">Rank: </span> {{ $civilian->user_department->rank }}</p>
-                </div>
-            </div>
-        </div>
-    @endif
     <div class="card">
         <div class="flex flex-wrap">
             {{-- <a class="new-button-md m-1 md:m-3" href="#">File Name Change</a> --}}

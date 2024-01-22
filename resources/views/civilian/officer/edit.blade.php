@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="card">
-        <h2 class="my-2 text-2xl text-white border-b-2">Edit Civilian: {{ $civilian->name }}</h2>
-        <form action="{{ route('civilian.civilians.update', $civilian->id) }}" class="flex flex-wrap -mx-4" method="POST">
+        <h2 class="my-2 text-2xl text-white border-b-2">Edit Officer: {{ $officer->name }}</h2>
+        <form action="{{ route('civilian.officers.update', $officer->id) }}" class="flex flex-wrap -mx-4" method="POST">
             @csrf
             @method('put')
 
@@ -13,7 +13,7 @@
                         Image URL <span class="text-gray-400">(optional)</span>
                     </label>
                     <input class="text-input" name="picture" placeholder="https://cdn.discordapp.com/..." type="text"
-                        value="{{ old('picture', $civilian->picture) }}" />
+                        value="{{ $officer->picture }}" />
                     <x-input-error :messages="$errors->get('picture')" class="mt-2" />
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         Occupation <span class="text-gray-400">(optional)</span>
                     </label>
                     <input class="text-input" name="occupation" placeholder="Farmer" type="text"
-                        value="{{ old('occupation', $civilian->occupation) }}" />
+                        value="{{ $officer->occupation }}" />
                     <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
 
                 </div>
@@ -43,10 +43,10 @@
                                     $cm = round($inch * 2.54);
                                 @endphp
                                 @if ($inches == 0)
-                                    <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
+                                    <option @selected(old('height', $officer->height) == $inch) value="{{ $inch }}">{{ $foot }}'
                                         ({{ $cm }} cm)</option>
                                 @else
-                                    <option @selected(old('height', $civilian->height) == $inch) value="{{ $inch }}">{{ $foot }}'
+                                    <option @selected(old('height', $officer->height) == $inch) value="{{ $inch }}">{{ $foot }}'
                                         {{ $inches }}" ({{ $cm }} cm)</option>
                                 @endif
                             @endfor
@@ -67,7 +67,7 @@
                             @php
                                 $kg = round($weight / 2.205);
                             @endphp
-                            <option @selected(old('weight', $civilian->weight) == $weight) value="{{ $weight }}">{{ $weight }} lb
+                            <option @selected(old('weight', $officer->weight) == $weight) value="{{ $weight }}">{{ $weight }} lb
                                 ({{ $kg }} kg)</option>
                         @endfor
                     </select>
@@ -81,7 +81,7 @@
                         Postal
                     </label>
                     <input class="text-input" name="postal" placeholder="123" type="text"
-                        value="{{ old('postal', $civilian->postal) }}" />
+                        value="{{ $officer->postal }}" />
                     <x-input-error :messages="$errors->get('postal')" class="mt-2" />
 
                 </div>
@@ -93,7 +93,7 @@
                         Street
                     </label>
                     <input class="text-input" name="street" placeholder="Route 68" type="text"
-                        value="{{ old('street', $civilian->street) }}" />
+                        value="{{ $officer->street }}" />
                     <x-input-error :messages="$errors->get('street')" class="mt-2" />
 
                 </div>
@@ -105,9 +105,28 @@
                         City
                     </label>
                     <input class="text-input" name="city" placeholder="Sandy Shores" type="text"
-                        value="{{ old('city', $civilian->city) }}" />
+                        value="{{ $officer->city }}" />
                     <x-input-error :messages="$errors->get('city')" class="mt-2" />
+                </div>
+            </div>
 
+            <div class="w-full px-4">
+                <div class="mb-6">
+                    <label class="block text-base font-medium text-white" for="user_department_id">
+                        Transfer department
+                    </label>
+                    <p class="text-sm">Only change this is if you are switching departments.</p>
+                    <select class="select-input" name="user_department_id">
+                        <option value="{{ $officer->user_department->id }}">{{ $officer->user_department->badge_number }}
+                            -
+                            {{ $officer->user_department->rank }} - {{ $officer->user_department->department->name }}
+                        </option>
+                        @foreach ($available_user_departments as $user_department)
+                            <option value="{{ $user_department->id }}">{{ $user_department->badge_number }} -
+                                {{ $user_department->rank }} - {{ $user_department->department->name }}</option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('user_department_id')" class="mt-2" />
                 </div>
             </div>
 
@@ -119,7 +138,7 @@
                             Postal Map
                         </a>
                     @endif
-                    <a class="delete-button-md" href="{{ route('civilian.civilians.show', $civilian->id) }}">Cancel</a>
+                    <a class="delete-button-md" href="{{ route('civilian.officers.show', $officer->id) }}">Cancel</a>
                 </div>
             </div>
         </form>

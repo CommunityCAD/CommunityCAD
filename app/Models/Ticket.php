@@ -25,6 +25,11 @@ class Ticket extends Model
         return $this->hasOne(Civilian::class, 'id', 'civilian_id')->withTrashed();
     }
 
+    public function officer()
+    {
+        return $this->belongsTo(Officer::class)->withTrashed();
+    }
+
     public function license()
     {
         return $this->hasOne(License::class, 'id', 'license_id')->withTrashed();

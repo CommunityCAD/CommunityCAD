@@ -23,6 +23,11 @@ class Report extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function officer()
+    {
+        return $this->belongsTo(Officer::class);
+    }
+
     public function report_type()
     {
         return $this->belongsTo(ReportType::class);

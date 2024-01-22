@@ -44,6 +44,7 @@ class TicketController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+        $data['officer_id'] = auth()->user()->active_unit->officer_id;
         $data['civilian_id'] = $civilian->id;
         $data['offense_occured_at'] = $data['date'] . ' ' . $data['time'] . ':00';
 

@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
+use App\Models\Civilian;
+use App\Models\Officer;
 use App\Models\UserDepartment;
 use Illuminate\Http\Request;
 
 class AddUnitController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request)
     {
         $validated = $request->validate([
@@ -21,6 +20,15 @@ class AddUnitController extends Controller
         $selected_department = $validated['user_department'];
         $active_department = UserDepartment::findOrFail($selected_department);
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
+        $officer = Officer::where('user_id', auth()->user()->id)->where('user_department_id', $active_department->id)->get()->first();
+
+        if (!$officer && $active_department->department->type != 2) {
+            return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'You have not created an officer for this department yet. Please go to the Civilian portal to create one.', 'level' => 'error']]);
+        } else {
+            if ($active_department->department->type != 2) {
+                $input['officer_id'] = $officer->id;
+            }
+        }
 
         if ($active_unit) {
             if ($active_unit->department_type == 1) {
@@ -43,7 +51,6 @@ class AddUnitController extends Controller
         $input['user_id'] = auth()->user()->id;
         $input['department_id'] = $active_department->department->id;
         $input['department_type'] = $active_department->department->type;
-
         $input['calls'] = '{"data":[]}';
 
         $new_active_unit = ActiveUnit::create($input);

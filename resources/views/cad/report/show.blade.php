@@ -18,7 +18,13 @@
                     <p>Date: <span class="underline">{{ $report->created_at->format('m/d/Y') }}</span></p>
                 </div>
                 <div class="">
-                    <p>Reporting Officer: <span class="underline">{{ $report->user->officer_name_check }}</span></p>
+                    <p>Reporting Officer: <span class="underline">
+                            @if ($report->officer)
+                                {{ $report->officer->name }}
+                            @else
+                                {{ $report->user->officer_name_check }}
+                            @endif
+                        </span></p>
                     <p>Report Type: <span class="underline">{{ $report->report_type->title }}</span></p>
                     <p>Report Title: <span class="underline">{{ $report->title }}</span></p>
                 </div>

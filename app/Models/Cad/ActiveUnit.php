@@ -3,6 +3,7 @@
 namespace App\Models\Cad;
 
 use App\Models\Civilian;
+use App\Models\Officer;
 use App\Models\User;
 use App\Models\UserDepartment;
 use Carbon\Carbon;
@@ -38,9 +39,19 @@ class ActiveUnit extends Model
         return $calls->data;
     }
 
-    public function civilian()
+    public function getDisplayNameAttribute()
     {
-        return $this->belongsTo(Civilian::class);
+        return $this->formatName($this->getOfficerNameAttribute());
+    }
+
+    public function getOfficerNameAttribute()
+    {
+        return isset($this->officer->name) ? $this->officer->name : auth()->user()->discord_name;
+    }
+
+    public function officer()
+    {
+        return $this->belongsTo(Officer::class);
     }
 
     public function user()
@@ -71,5 +82,29 @@ class ActiveUnit extends Model
                 return 'text-red-500';
                 break;
         }
+    }
+
+    private function formatName($name)
+    {
+        $name = explode(' ', $name);
+        switch (get_setting('officer_name_format')) {
+            case 'F. Last':
+                $formatted_name = substr($name[0], 0, 1) . '. ' . $name[1];
+                break;
+
+            case 'First Last':
+                $formatted_name = $name[0] . ' ' . $name[1];
+                break;
+
+            case 'First L.':
+                $formatted_name = $name[0] . ' ' . substr($name[1], 0, 1) . '.';
+                break;
+
+            default:
+                $formatted_name = substr($name[0], 0, 1) . '. ' . $name[1];
+                break;
+        }
+
+        return $formatted_name;
     }
 }

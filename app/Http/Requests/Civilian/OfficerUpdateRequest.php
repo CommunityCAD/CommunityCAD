@@ -4,7 +4,7 @@ namespace App\Http\Requests\Civilian;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CivilianUpdateRequest extends FormRequest
+class OfficerUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class CivilianUpdateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -29,6 +29,7 @@ class CivilianUpdateRequest extends FormRequest
             'picture' => 'url|nullable',
             'height' => 'required|numeric',
             'weight' => 'required|numeric',
+            'user_department_id' => 'required|numeric',
         ];
     }
 }

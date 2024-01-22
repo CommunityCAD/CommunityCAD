@@ -80,14 +80,7 @@
 
                 @php
                     $call_info = explode(':', auth()->user()->active_unit->description);
-                    // $active_call = Call::where('id', $call_info[1])->get();
                 @endphp
-
-                {{-- @if ($call_info[0] == 'Added to call')
-                <a class="new-button-md" href="#"
-                    onclick="openExternalWindow('{{ route('cad.call.show', trim($call_info[1])) }}')">Open Your active
-                    Call</a>
-            @endif --}}
 
                 @if (
                     $call_info[1] &&
@@ -284,7 +277,7 @@
                     <tr class="{{ $active_unit->display_status_text_color }}">
                         <td class="p-1 border border-slate-400">{{ $active_unit->agency }}</td>
                         <td class="p-1 border border-slate-400">{{ $active_unit->badge_number }}
-                            ({{ $active_unit->user->officer_name_check }})</td>
+                            ({{ $active_unit->displayName }})</td>
                         <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                             <div class="flex justify-between">
                                 <span>{{ $active_unit->status }}</span>

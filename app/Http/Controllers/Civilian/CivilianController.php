@@ -31,35 +31,7 @@ class CivilianController extends Controller
             return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
         }
 
-        $user_departments = UserDepartment::where('user_id', auth()->user()->id)->with('department')->get();
-        $officer_civilians = $civilians->where('is_officer', 1)->get();
-
-        $member_departments = [];
-        $available_user_departments = [];
-
-        foreach ($officer_civilians as $civilian) {
-            $member_departments[$civilian->id] = $civilian->user_department_id;
-        }
-
-        // dd($member_departments);
-
-        foreach ($user_departments as $department) {
-            if ($department->department->type == 1 or $department->department->type == 4) {
-                $available_user_departments[$department->id] = $department;
-            }
-        }
-
-        // dd($available_user_departments);
-
-        foreach ($available_user_departments as $id => $user_department) {
-            if (in_array($user_department->id, $member_departments)) {
-                unset($available_user_departments[$user_department->id]);
-            }
-        }
-
-        // dd($available_user_departments);
-
-        return view('civilian.civilians.create', compact('available_user_departments'));
+        return view('civilian.civilians.create');
     }
 
     public function store(CivilianStoreRequest $request): RedirectResponse
@@ -74,10 +46,6 @@ class CivilianController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $data['id'] = rand(100000000, 999999999);
-
-        if (isset($data['user_department_id']) and $data['user_department_id'] != null) {
-            $data['is_officer'] = 1;
-        }
 
         if (!get_setting('allow_same_name_civilians')) {
             if ($this->name_check($data['first_name'], $data['last_name'])) {
@@ -112,29 +80,7 @@ class CivilianController extends Controller
             return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
         }
 
-        $user_departments = UserDepartment::where('user_id', auth()->user()->id)->with('department')->get();
-        $officer_civilians = $civilians->where('is_officer', 1)->get();
-
-        $member_departments = [];
-        $available_user_departments = [];
-
-        foreach ($officer_civilians as $officer_civilian) {
-            $member_departments[$officer_civilian->id] = $officer_civilian->user_department_id;
-        }
-
-        foreach ($user_departments as $department) {
-            if ($department->department->type == 1 or $department->department->type == 4) {
-                $available_user_departments[$department->id] = $department;
-            }
-        }
-
-        foreach ($available_user_departments as $id => $user_department) {
-            if (in_array($user_department->id, $member_departments)) {
-                unset($available_user_departments[$user_department->id]);
-            }
-        }
-
-        return view('civilian.civilians.edit', compact('civilian', 'available_user_departments'));
+        return view('civilian.civilians.edit', compact('civilian'));
     }
 
     public function update(CivilianUpdateRequest $request, Civilian $civilian): RedirectResponse
@@ -142,12 +88,6 @@ class CivilianController extends Controller
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
         $data = $request->validated();
-
-        if ($data['is_officer'] == 0) {
-            $data['user_department_id'] = null;
-            $data['occupation'] = 'Unemployed';
-        }
-
         $civilian->update($data);
 
         return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'Civilian Updated.', 'level' => 'success']]);
@@ -176,10 +116,6 @@ class CivilianController extends Controller
         $civilian->delete();
 
         return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'Civilian Deceased', 'level' => 'success']]);
-    }
-
-    public function leave_department(Civilian $civilian)
-    {
     }
 
     private function name_check($first_name, $last_name)

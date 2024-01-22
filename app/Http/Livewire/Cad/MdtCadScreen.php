@@ -7,6 +7,7 @@ use App\Models\Cad\Call;
 use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
 use App\Models\CallLog;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class MdtCadScreen extends Component
@@ -58,6 +59,7 @@ class MdtCadScreen extends Component
 
     public function set_status(ActiveUnit $activeUnit, $status)
     {
+        Log::log('error', 'Test message');
         $activeUnit->update(['status' => $status, 'description' => 'Status Set To: ' . $status]);
     }
 

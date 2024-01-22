@@ -90,10 +90,6 @@ class Civilian extends Model
         return $this->HasMany(Weapon::class);
     }
 
-    public function user_department()
-    {
-        return $this->belongsTo(UserDepartment::class);
-    }
 
     public function tickets()
     {

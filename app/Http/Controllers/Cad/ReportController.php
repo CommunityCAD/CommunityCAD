@@ -41,6 +41,8 @@ class ReportController extends Controller
         $data['text'] = $data['mdcontent'];
         unset($data['mdcontent']);
         $data['user_id'] = auth()->user()->id;
+        $data['officer_id'] = auth()->user()->active_unit->officer_id;
+
         $report = Report::create($data);
 
         return redirect()->route('cad.report.show', $report->id);

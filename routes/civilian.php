@@ -6,6 +6,7 @@ use App\Http\Controllers\Civilian\CivilianPageController;
 use App\Http\Controllers\Civilian\CivilianPleaController;
 use App\Http\Controllers\Civilian\LicenseController;
 use App\Http\Controllers\Civilian\MedicalRecordController;
+use App\Http\Controllers\Civilian\OfficerController;
 use App\Http\Controllers\Civilian\VehicleController;
 use App\Http\Controllers\Civilian\WeaponController;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,5 @@ Route::post('/civilians/{civilian}/911', [CallController::class, 'store'])->name
 
 Route::get('/ticket/{ticket}/plea_guilty', [CivilianPleaController::class, 'plea_guilty'])->name('civlian.plea.guilty');
 Route::get('/ticket/{ticket}/plea_not_guilty', [CivilianPleaController::class, 'plea_not_guilty'])->name('civlian.plea.not_guilty');
+
+Route::resource('officers', OfficerController::class);

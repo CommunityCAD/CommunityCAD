@@ -5,8 +5,8 @@
     <div class="container p-4 mx-auto bg-[#124559] text-white cursor-default rounded-2xl mt-5">
         <header>
             <div class="flex justify-between">
-                <h1 class="text-2xl font-semibold">Welcome Officer
-                    {{ isset($active_unit->civilian->name) ? $active_unit->civilian->name : auth()->user()->discord_name }}
+                <h1 class="text-2xl font-semibold">Welcome
+                    {{ $active_unit->officer_name }}
                 </h1>
             </div>
         </header>
@@ -27,7 +27,7 @@
                     <p class="mt-3 text-lg font-semibold">System</p>
                     <ul class="ml-8 list-disc">
                         <li class="">Username: <span
-                                class="text-sm !lowercase">{{ str_replace(' ', '_', strtolower(isset($active_unit->civilian->name) ? $active_unit->civilian->name : auth()->user()->discord_name)) }}</span>
+                                class="text-sm !lowercase">{{ str_replace(' ', '_', strtolower($active_unit->officer_name)) }}</span>
                         </li>
                         <li>Server: <span class="text-sm">live_database_prod</span></li>
                         <li>Version: <span class="text-sm">2023.3.29.1856</span></li>
