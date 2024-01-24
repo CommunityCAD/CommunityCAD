@@ -30397,7 +30397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   VERSION: () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.6.2";
+const VERSION = "1.6.5";
 
 /***/ }),
 
@@ -30686,7 +30686,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 function combineURLs(baseURL, relativeURL) {
   return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    ? baseURL.replace(/\/?\/$/, '') + '/' + relativeURL.replace(/^\/+/, '')
     : baseURL;
 }
 
@@ -30815,6 +30815,9 @@ function arrayToObject(arr) {
 function formDataToJSON(formData) {
   function buildPath(path, value, target, index) {
     let name = path[index++];
+
+    if (name === '__proto__') return true;
+
     const isNumericKey = Number.isFinite(+name);
     const isLast = index >= path.length;
     name = !name && _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].isArray(target) ? target.length : name;
@@ -34496,25 +34499,20 @@ class Fragment {
     [`Node`](https://prosemirror.net/docs/ref/#model.Node.textBetween).
     */
     textBetween(from, to, blockSeparator, leafText) {
-        let text = "", separated = true;
+        let text = "", first = true;
         this.nodesBetween(from, to, (node, pos) => {
-            if (node.isText) {
-                text += node.text.slice(Math.max(from, pos) - pos, to - pos);
-                separated = !blockSeparator;
+            let nodeText = node.isText ? node.text.slice(Math.max(from, pos) - pos, to - pos)
+                : !node.isLeaf ? ""
+                    : leafText ? (typeof leafText === "function" ? leafText(node) : leafText)
+                        : node.type.spec.leafText ? node.type.spec.leafText(node)
+                            : "";
+            if (node.isBlock && (node.isLeaf && nodeText || node.isTextblock) && blockSeparator) {
+                if (first)
+                    first = false;
+                else
+                    text += blockSeparator;
             }
-            else if (node.isLeaf) {
-                if (leafText) {
-                    text += typeof leafText === "function" ? leafText(node) : leafText;
-                }
-                else if (node.type.spec.leafText) {
-                    text += node.type.spec.leafText(node);
-                }
-                separated = !blockSeparator;
-            }
-            else if (!separated && node.isBlock) {
-                text += blockSeparator;
-                separated = true;
-            }
+            text += nodeText;
         }, 0);
         return text;
     }
@@ -42984,7 +42982,7 @@ function iterDeco(parent, deco, onWidget, onNode) {
             }
         }
         else {
-            while (decoIndex < locals.length && locals[decoIndex].to <= end)
+            while (decoIndex < locals.length && locals[decoIndex].to < end)
                 decoIndex++;
         }
         let outerDeco = child.isInline && !child.isLeaf ? active.filter(d => !d.inline) : active.slice();
