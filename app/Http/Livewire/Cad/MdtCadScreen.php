@@ -60,7 +60,7 @@ class MdtCadScreen extends Component
     public function set_status(ActiveUnit $activeUnit, $status)
     {
         Log::log('error', 'Test message');
-        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: ' . $status]);
+        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: '.$status]);
     }
 
     public function set_call_status(Call $call, $status)
@@ -78,8 +78,8 @@ class MdtCadScreen extends Component
         }
 
         CallLog::create([
-            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
-            'text' => 'Call Status Updated To ' . $status,
+            'from' => auth()->user()->officer_name_check.' ('.auth()->user()->active_unit->badge_number.')',
+            'text' => 'Call Status Updated To '.$status,
             'call_id' => $call->id,
         ]);
     }
@@ -94,8 +94,8 @@ class MdtCadScreen extends Component
         $this->update_call_with_units($activeUnit, $call, 'delete');
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
-            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
+            'from' => auth()->user()->officer_name_check.' ('.auth()->user()->active_unit->badge_number.')',
+            'text' => 'Officer '.$activeUnit->badge_number.' has been unassigned.',
             'call_id' => $call->id,
         ]);
 
@@ -107,8 +107,8 @@ class MdtCadScreen extends Component
         $this->update_call_with_units($activeUnit, $call, 'add');
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
-            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
+            'from' => auth()->user()->officer_name_check.' ('.auth()->user()->active_unit->badge_number.')',
+            'text' => 'Officer '.$activeUnit->badge_number.' has been assigned.',
             'call_id' => $call->id,
         ]);
 
@@ -130,8 +130,8 @@ class MdtCadScreen extends Component
 
         $call->update(['units' => '{"data":[]}']);
         CallLog::create([
-            'from' => auth()->user()->officer_name_check . ' (' . auth()->user()->active_unit->badge_number . ')',
-            'text' => 'Call ' . $call->id . ' has been closed and units (' . implode(', ', $call_units) . ') removed from call.',
+            'from' => auth()->user()->officer_name_check.' ('.auth()->user()->active_unit->badge_number.')',
+            'text' => 'Call '.$call->id.' has been closed and units ('.implode(', ', $call_units).') removed from call.',
             'call_id' => $call->id,
         ]);
     }
@@ -146,7 +146,7 @@ class MdtCadScreen extends Component
                 $new_call_units = json_encode(collect($new_call_units));
                 $call->update(['units' => $new_call_units]);
 
-                $activeUnit->update(['status' => "ENRUTE"]);
+                $activeUnit->update(['status' => 'ENRUTE']);
             }
         } else {
             if (($key = array_search($activeUnit->badge_number, $call_units)) !== false) {
@@ -168,14 +168,14 @@ class MdtCadScreen extends Component
                 $unit_calls[] = $call->id;
                 $new_unit_calls['data'] = array_values($unit_calls);
                 $new_unit_calls = json_encode(collect($new_unit_calls));
-                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Added to call: ' . $call->id]);
+                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Added to call: '.$call->id]);
             }
         } else {
             if (($key = array_search($call->id, $unit_calls)) !== false) {
                 unset($unit_calls[$key]);
                 $new_unit_calls['data'] = array_values($unit_calls);
                 $new_unit_calls = json_encode(collect($new_unit_calls));
-                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Removed from call: ' . $call->id]);
+                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Removed from call: '.$call->id]);
             }
         }
     }

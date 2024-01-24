@@ -95,8 +95,8 @@ class DispatchCadScreen extends Component
         }
 
         CallLog::create([
-            'from' => 'Dispatch ' . $this->active_dispatcher->badge_number,
-            'text' => 'Call Status Updated To ' . $status,
+            'from' => 'Dispatch '.$this->active_dispatcher->badge_number,
+            'text' => 'Call Status Updated To '.$status,
             'call_id' => $call->id,
         ]);
     }
@@ -111,8 +111,8 @@ class DispatchCadScreen extends Component
         $this->update_call_with_units($activeUnit, $call, 'delete');
         $this->update_units_for_call($activeUnit, $call, 'delete');
         CallLog::create([
-            'from' => 'Dispatch ' . $this->active_dispatcher->badge_number,
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
+            'from' => 'Dispatch '.$this->active_dispatcher->badge_number,
+            'text' => 'Officer '.$activeUnit->badge_number.' has been unassigned.',
             'call_id' => $call->id,
         ]);
 
@@ -124,8 +124,8 @@ class DispatchCadScreen extends Component
         $this->update_call_with_units($activeUnit, $call, 'add');
         $this->update_units_for_call($activeUnit, $call, 'add');
         CallLog::create([
-            'from' => 'Dispatch ' . $this->active_dispatcher->badge_number,
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
+            'from' => 'Dispatch '.$this->active_dispatcher->badge_number,
+            'text' => 'Officer '.$activeUnit->badge_number.' has been assigned.',
             'call_id' => $call->id,
         ]);
 
@@ -147,8 +147,8 @@ class DispatchCadScreen extends Component
 
         $call->update(['units' => '{"data":[]}']);
         CallLog::create([
-            'from' => 'Dispatch ' . $this->active_dispatcher->badge_number,
-            'text' => 'Call ' . $call->id . ' has been closed and units (' . implode(', ', $call_units) . ') removed from call.',
+            'from' => 'Dispatch '.$this->active_dispatcher->badge_number,
+            'text' => 'Call '.$call->id.' has been closed and units ('.implode(', ', $call_units).') removed from call.',
             'call_id' => $call->id,
         ]);
     }
@@ -163,7 +163,7 @@ class DispatchCadScreen extends Component
                 $new_call_units = json_encode(collect($new_call_units));
                 $call->update(['units' => $new_call_units]);
 
-                $activeUnit->update(['status' => "ENRUTE"]);
+                $activeUnit->update(['status' => 'ENRUTE']);
             }
         } else {
             if (($key = array_search($activeUnit->badge_number, $call_units)) !== false) {
@@ -185,14 +185,14 @@ class DispatchCadScreen extends Component
                 $unit_calls[] = $call->id;
                 $new_unit_calls['data'] = array_values($unit_calls);
                 $new_unit_calls = json_encode(collect($new_unit_calls));
-                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Added to call: ' . $call->id]);
+                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Added to call: '.$call->id]);
             }
         } else {
             if (($key = array_search($call->id, $unit_calls)) !== false) {
                 unset($unit_calls[$key]);
                 $new_unit_calls['data'] = array_values($unit_calls);
                 $new_unit_calls = json_encode(collect($new_unit_calls));
-                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Removed from call: ' . $call->id]);
+                $activeUnit->update(['calls' => $new_unit_calls, 'description' => 'Removed from call: '.$call->id]);
             }
         }
     }

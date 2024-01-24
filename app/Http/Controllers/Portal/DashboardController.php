@@ -13,11 +13,10 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-
-        $total_members = User::where('account_status', 3)->count();
+        $total_members = User::where('account_status', 3)->count() - 2;
         $announcements = Announcement::where('department_id', 0)->latest()->limit(5)->get();
 
-        $total_active_members = User::where('last_login', '>=', Carbon::now()->subDays(get_setting('days_until_inactive')))->count();
+        $total_active_members = User::where('last_login', '>=', Carbon::now()->subDays(get_setting('days_until_inactive')))->count() - 2;
 
         return view('portal.dashboard', compact('total_members', 'total_active_members', 'announcements'));
     }

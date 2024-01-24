@@ -10,26 +10,17 @@ use App\Models\History;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     public function index(): View
     {
-        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return view('admin.users.index');
     }
 
     public function show(User $user): mixed
     {
-
-        // dd(config('cad.owner_ids'));
-
-        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         if (! in_array(auth()->user()->id, config('cad.owner_ids'))) {
             if ($user->is_protected_user && ! auth()->user()->is_super_user) {
                 return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->discord.' is a protected user. You can not edit them.', 'level' => 'error']]);

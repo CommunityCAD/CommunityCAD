@@ -53,8 +53,6 @@ class VehicleController extends Controller
 
     public function renew(Civilian $civilian, Vehicle $vehicle)
     {
-        abort_if(auth()->user()->id != $civilian->user_id, 403);
-
         $vehicle->update(['registration_expire' => date('Y-m-d', strtotime('+30 days'))]);
 
         return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle Renewed.', 'level' => 'success']]);
@@ -62,8 +60,6 @@ class VehicleController extends Controller
 
     public function stolen(Civilian $civilian, Vehicle $vehicle)
     {
-        abort_if(auth()->user()->id != $civilian->user_id, 403);
-
         $vehicle->update(['vehicle_status' => 2]);
 
         return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle Reported As Stolen.', 'level' => 'success']]);
@@ -71,8 +67,6 @@ class VehicleController extends Controller
 
     public function found(Civilian $civilian, Vehicle $vehicle)
     {
-        abort_if(auth()->user()->id != $civilian->user_id, 403);
-
         $vehicle->update(['vehicle_status' => 1]);
 
         return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle Reported As Found. Im glad you found it!', 'level' => 'success']]);
@@ -80,8 +74,6 @@ class VehicleController extends Controller
 
     public function expire(Civilian $civilian, Vehicle $vehicle)
     {
-        abort_if(auth()->user()->id != $civilian->user_id, 403);
-
         $vehicle->update(['registration_expire' => date('Y-m-d', strtotime('-30 days'))]);
 
         return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle reported as expired. Hope you know what you are doing.', 'level' => 'success']]);

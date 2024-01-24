@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class Officer extends Model
 {
@@ -28,17 +28,17 @@ class Officer extends Model
 
     public function getNameAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->first_name.' '.$this->last_name;
     }
 
     public function getFormattedNameAttribute()
     {
-        return $this->formatName($this->first_name . ' ' . $this->last_name);
+        return $this->formatName($this->first_name.' '.$this->last_name);
     }
 
     public function getAddressAttribute()
     {
-        return $this->postal . ' ' . $this->street . ' ' . $this->city;
+        return $this->postal.' '.$this->street.' '.$this->city;
     }
 
     public function getAgeAttribute()
@@ -59,19 +59,19 @@ class Officer extends Model
         $name = explode(' ', $name);
         switch (get_setting('officer_name_format')) {
             case 'F. Last':
-                $formatted_name = substr($name[0], 0, 1) . '. ' . $name[1];
+                $formatted_name = substr($name[0], 0, 1).'. '.$name[1];
                 break;
 
             case 'First Last':
-                $formatted_name = $name[0] . ' ' . $name[1];
+                $formatted_name = $name[0].' '.$name[1];
                 break;
 
             case 'First L.':
-                $formatted_name = $name[0] . ' ' . substr($name[1], 0, 1) . '.';
+                $formatted_name = $name[0].' '.substr($name[1], 0, 1).'.';
                 break;
 
             default:
-                $formatted_name = substr($name[0], 0, 1) . '. ' . $name[1];
+                $formatted_name = substr($name[0], 0, 1).'. '.$name[1];
                 break;
         }
 

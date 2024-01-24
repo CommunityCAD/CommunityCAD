@@ -64,17 +64,17 @@ class CallController extends Controller
 
         if ($call->status != $validated['status']) {
             CallLog::create([
-                'from' => 'Dispatch ' . auth()->user()->active_unit->badge_number,
-                'text' => 'Call Status Updated to: ' . $validated['status'],
+                'from' => 'Dispatch '.auth()->user()->active_unit->badge_number,
+                'text' => 'Call Status Updated to: '.$validated['status'],
                 'call_id' => $call->id,
             ]);
         }
 
         if ($call->nature != $validated['nature']) {
             CallLog::create([
-                'from' => 'Dispatch ' .
+                'from' => 'Dispatch '.
                     auth()->user()->active_unit->badge_number,
-                'text' => 'Call Nature Updated to: ' . $validated['nature'],
+                'text' => 'Call Nature Updated to: '.$validated['nature'],
                 'call_id' => $call->id,
             ]);
         }

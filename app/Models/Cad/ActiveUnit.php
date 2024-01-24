@@ -2,10 +2,8 @@
 
 namespace App\Models\Cad;
 
-use App\Models\Civilian;
 use App\Models\Officer;
 use App\Models\User;
-use App\Models\UserDepartment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -89,19 +87,19 @@ class ActiveUnit extends Model
         $name = explode(' ', $name);
         switch (get_setting('officer_name_format')) {
             case 'F. Last':
-                $formatted_name = substr($name[0], 0, 1) . '. ' . $name[1];
+                $formatted_name = substr($name[0], 0, 1).'. '.$name[1];
                 break;
 
             case 'First Last':
-                $formatted_name = $name[0] . ' ' . $name[1];
+                $formatted_name = $name[0].' '.$name[1];
                 break;
 
             case 'First L.':
-                $formatted_name = $name[0] . ' ' . substr($name[1], 0, 1) . '.';
+                $formatted_name = $name[0].' '.substr($name[1], 0, 1).'.';
                 break;
 
             default:
-                $formatted_name = substr($name[0], 0, 1) . '. ' . $name[1];
+                $formatted_name = substr($name[0], 0, 1).'. '.$name[1];
                 break;
         }
 

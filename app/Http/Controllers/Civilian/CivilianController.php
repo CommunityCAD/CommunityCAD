@@ -7,7 +7,6 @@ use App\Http\Requests\Civilian\CivilianStoreRequest;
 use App\Http\Requests\Civilian\CivilianUpdateRequest;
 use App\Models\Civilian;
 use App\Models\CivilianLevel;
-use App\Models\UserDepartment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +46,7 @@ class CivilianController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['id'] = rand(100000000, 999999999);
 
-        if (!get_setting('allow_same_name_civilians')) {
+        if (! get_setting('allow_same_name_civilians')) {
             if ($this->name_check($data['first_name'], $data['last_name'])) {
                 return redirect()->route('civilian.civilians.create')
                     ->with('alerts', [['message' => 'That name is already in use. Choose a diffrent name.', 'level' => 'error']])

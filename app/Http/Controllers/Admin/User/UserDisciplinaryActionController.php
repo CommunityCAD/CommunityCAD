@@ -7,7 +7,6 @@ use App\Models\Admin\User\DisciplinaryAction;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class UserDisciplinaryActionController extends Controller
 {

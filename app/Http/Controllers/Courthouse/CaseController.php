@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Courthouse;
 
-use App\Models\Cad\Call;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Cad\Call;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CaseController extends Controller
 {
@@ -14,12 +14,14 @@ class CaseController extends Controller
     {
         abort(403);
         dd($call);
+
         return view('calls.show', compact('calls'));
     }
 
     public function edit(Call $call): View
     {
         abort(403);
+
         return view('calls.edit', compact('calls'));
     }
 
@@ -27,6 +29,7 @@ class CaseController extends Controller
     {
         abort(403);
         $call->update($request->validated());
+
         return redirect()->route('calls.index')->with('success', 'Message');
     }
 
@@ -34,6 +37,7 @@ class CaseController extends Controller
     {
         abort(403);
         $call->delete();
+
         return redirect()->route('calls.index')->with('success', 'Message');
     }
 }

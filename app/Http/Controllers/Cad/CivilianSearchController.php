@@ -25,6 +25,7 @@ class CivilianSearchController extends Controller
     public function return(Civilian $civilian)
     {
         $calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
+
         return view('cad.civilian_search.return', compact('civilian', 'calls'));
     }
 
@@ -41,6 +42,6 @@ class CivilianSearchController extends Controller
             'type' => $validated['type'],
         ]);
 
-        return redirect()->route('cad.name.return', $civilian->id)->with('alerts', [['message' => 'Civilian linked to call ' . $call->id, 'level' => 'success']]);
+        return redirect()->route('cad.name.return', $civilian->id)->with('alerts', [['message' => 'Civilian linked to call '.$call->id, 'level' => 'success']]);
     }
 }

@@ -37,8 +37,6 @@ class DepartmentController extends Controller
 
         Department::create($input);
 
-        // $this->refreshcache();
-
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department created.', 'level' => 'success']]);
     }
 
@@ -66,8 +64,6 @@ class DepartmentController extends Controller
         }
         $department->update($input);
 
-        // $this->refreshcache();
-
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department updated.', 'level' => 'success']]);
     }
 
@@ -76,15 +72,5 @@ class DepartmentController extends Controller
         $department->delete();
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);
-    }
-
-    protected function refreshcache()
-    {
-        $departments = Department::where('id', '>', 0)->where('deleted_at', '!=', 'null')->get();
-
-        Cache::forget('departments');
-        Cache::forever('departments', $departments);
-
-        return true;
     }
 }

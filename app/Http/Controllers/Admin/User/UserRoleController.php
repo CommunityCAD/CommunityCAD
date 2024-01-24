@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class UserRoleController extends Controller
 {
     public function update(Request $request, User $user)
     {
-        abort_if(Gate::denies('user_edit_roles'), 403);
-
         $old_roles = $user->roles->pluck('title')->toArray();
         $old_roles = implode(', ', $old_roles);
 

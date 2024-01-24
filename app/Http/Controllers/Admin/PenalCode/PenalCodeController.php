@@ -14,7 +14,6 @@ class PenalCodeController extends Controller
 {
     public function index(): View
     {
-        // $codes = PenalCode::all();
         $titles = PenalCodeTitle::orderBy('number', 'asc')->get();
 
         return view('admin.penalcode.code.index', compact('titles'));

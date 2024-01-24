@@ -10,6 +10,7 @@ use Livewire\Component;
 class Ticket extends Component
 {
     public $civilian;
+
     public $calls;
 
     public $licenseId;

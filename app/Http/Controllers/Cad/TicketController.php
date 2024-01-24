@@ -37,6 +37,7 @@ class TicketController extends Controller
     public function create(Civilian $civilian): View
     {
         $calls = Call::where('created_at', '>', Carbon::today()->subDays(30))->orderBy('id', 'desc')->get();
+
         return view('cad.ticket.create', compact('civilian', 'calls'));
     }
 
@@ -46,7 +47,7 @@ class TicketController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['officer_id'] = auth()->user()->active_unit->officer_id;
         $data['civilian_id'] = $civilian->id;
-        $data['offense_occured_at'] = $data['date'] . ' ' . $data['time'] . ':00';
+        $data['offense_occured_at'] = $data['date'].' '.$data['time'].':00';
 
         unset($data['time'], $data['date']);
 
@@ -82,6 +83,7 @@ class TicketController extends Controller
         if ($ticket->charges()->count() == 0) {
             $allow_sign = false;
         }
+
         return view('cad.ticket.edit', compact('ticket', 'allow_sign'));
     }
 
@@ -108,7 +110,6 @@ class TicketController extends Controller
 
     public function sign_ticket(Ticket $ticket)
     {
-
 
         return redirect()->route('cad.ticket.show', $ticket->id);
     }

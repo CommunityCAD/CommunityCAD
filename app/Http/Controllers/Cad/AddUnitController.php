@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
-use App\Models\Civilian;
 use App\Models\Officer;
 use App\Models\UserDepartment;
 use Illuminate\Http\Request;
@@ -22,7 +21,7 @@ class AddUnitController extends Controller
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
         $officer = Officer::where('user_id', auth()->user()->id)->where('user_department_id', $active_department->id)->get()->first();
 
-        if (!$officer && $active_department->department->type != 2) {
+        if (! $officer && $active_department->department->type != 2) {
             return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'You have not created an officer for this department yet. Please go to the Civilian portal to create one.', 'level' => 'error']]);
         } else {
             if ($active_department->department->type != 2) {

@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Civilian;
 
-use App\Models\Officer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\OfficerStoreRequest;
 use App\Http\Requests\Civilian\OfficerUpdateRequest;
+use App\Models\Officer;
 use App\Models\UserDepartment;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class OfficerController extends Controller
 {
-
     public function index(): View
     {
         $user_departments = UserDepartment::where('user_id', auth()->user()->id)->with('department')->get();
@@ -39,6 +37,7 @@ class OfficerController extends Controller
         }
 
         $officers = Officer::where('user_id', auth()->user()->id)->get();
+
         return view('civilian.officer.index', compact('officers', 'available_user_departments'));
     }
 
@@ -122,7 +121,6 @@ class OfficerController extends Controller
     {
         abort_if(auth()->user()->id != $officer->user_id, 403);
 
-
         $user_departments = UserDepartment::where('user_id', auth()->user()->id)->with('department')->get();
         $officer_civilians = Officer::where('user_id', auth()->user()->id)->get();
 
@@ -156,12 +154,14 @@ class OfficerController extends Controller
         $data = $request->validated();
 
         $officer->update($data);
+
         return redirect()->route('civilian.officers.show', $officer->id)->with('alerts', [['message' => 'Officer Updated.', 'level' => 'success']]);
     }
 
     public function destroy(Officer $officer): RedirectResponse
     {
         $officer->delete();
+
         return redirect()->route('civilian.officers.index')->with('alerts', [['message' => 'Officer Deleted.', 'level' => 'success']]);
     }
 }

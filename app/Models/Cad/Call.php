@@ -114,7 +114,7 @@ class Call extends Model
         static::creating(
             function ($model) {
                 $number = Call::count() + 1;
-                $model->id =  date("y") . str_pad($number, 5, '0', STR_PAD_LEFT);
+                $model->id = date('y').str_pad($number, 5, '0', STR_PAD_LEFT);
             }
         );
     }

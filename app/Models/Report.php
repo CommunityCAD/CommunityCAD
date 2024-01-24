@@ -38,10 +38,10 @@ class Report extends Model
         parent::boot();
         static::creating(
             function ($model) {
-                $new_number = date("ymd");
-                $number = Report::where('id', 'like', $new_number . "%")->count() + 1;
-                $new_number = $new_number . str_pad($number, 3, '0', STR_PAD_LEFT);
-                $model->id =  $new_number;
+                $new_number = date('ymd');
+                $number = Report::where('id', 'like', $new_number.'%')->count() + 1;
+                $new_number = $new_number.str_pad($number, 3, '0', STR_PAD_LEFT);
+                $model->id = $new_number;
             }
         );
     }

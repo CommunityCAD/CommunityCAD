@@ -41,7 +41,7 @@ class CadPageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (!$active_unit) {
+        if (! $active_unit) {
             return redirect()->route('cad.landing');
         }
 
@@ -52,7 +52,7 @@ class CadPageController extends Controller
     {
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (!$active_unit) {
+        if (! $active_unit) {
             return redirect()->route('cad.landing');
         }
 

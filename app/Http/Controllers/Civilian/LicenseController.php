@@ -59,6 +59,8 @@ class LicenseController extends Controller
 
     public function destroy(Civilian $civilian, License $license): RedirectResponse
     {
+        abort_if(auth()->user()->id != $civilian->user_id, 403);
+
         $license->delete();
 
         return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'License Deleted.', 'level' => 'success']]);
