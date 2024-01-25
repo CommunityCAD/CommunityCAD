@@ -56,7 +56,7 @@
             <div class="admin-card">
                 <div class="text-center">
                     <img alt="" class="w-32 h-32 mx-auto rounded-full" src="{{ $user->avatar }}">
-                    <h2 class="text-xl font-semibold">{{ $user->discord }}</h2>
+                    <h2 class="text-xl font-semibold">{{ $user->preferred_name }}</h2>
                     <p class="mt-3 text-sm">{{ $user->community_rank }}</p>
                 </div>
                 <ul class="px-3 py-2 mt-3 divide-y">
