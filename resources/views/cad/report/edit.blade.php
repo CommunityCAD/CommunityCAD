@@ -27,7 +27,8 @@
                         <p>Date: <span class="underline">{{ $report->created_at->format('m/d/Y') }}</span></p>
                     </div>
                     <div class="">
-                        <p>Reporting Officer: <span class="underline">{{ $report->user->officer_name_check }}</span></p>
+                        <p>Reporting Officer: <span
+                                class="underline">{{ $report->officer->name ?? $report->user->preferred_name }}</span></p>
                         <p>Report Type:
                             <select class="select-input" name="report_type_id" required>
                                 <option>Choose one</option>

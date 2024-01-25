@@ -19,11 +19,7 @@
                 </div>
                 <div class="">
                     <p>Reporting Officer: <span class="underline">
-                            @if ($report->officer)
-                                {{ $report->officer->name }}
-                            @else
-                                {{ $report->user->officer_name_check }}
-                            @endif
+                            {{ $report->officer->name ?? $report->user->preferred_name }}
                         </span></p>
                     <p>Report Type: <span class="underline">{{ $report->report_type->title }}</span></p>
                     <p>Report Title: <span class="underline">{{ $report->title }}</span></p>

@@ -142,7 +142,7 @@
                                                 onclick="openExternalWindow('{{ route('cad.report.show', $report->id) }}')">
                                                 Report: {{ $report->id }}
                                                 | {{ $report->title }} | Created By:
-                                                {{ $report->user->officer_name_check }}
+                                                {{ $report->officer->name ?? $report->user->preferred_name }}
                                             </a>
                                         </li>
                                     @empty
