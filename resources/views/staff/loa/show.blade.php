@@ -2,7 +2,7 @@
 
 @section('content')
     <header class="w-full my-3">
-        <h1 class="text-2xl font-bold text-white">View LOA for {{ $loa->user->discord }}</h1>
+        <h1 class="text-2xl font-bold text-white">View LOA for {{ $loa->user->preferred_name }}</h1>
         <p class="text-sm text-white"></p>
     </header>
 
@@ -84,7 +84,7 @@
             <div class="">
                 @foreach ($histories as $history)
                     <div class="p-3 my-2 border-2 border-gray-900">
-                        <p class="text-white">Actioned by: {{ $history->user->discord }} at
+                        <p class="text-white">Actioned by: {{ $history->user->preferred_name }} at
                             {{ $history->created_at->format('m/d/Y H:i:s') }}
                         </p>
                         <div>

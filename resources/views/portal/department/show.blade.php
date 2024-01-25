@@ -99,7 +99,7 @@
                             @endcan
                         </div>
                     </div>
-                    <p class="text-right text-gray-400">Posted by: {{ $announcement->user->discord }} at
+                    <p class="text-right text-gray-400">Posted by: {{ $announcement->user->preferred_name }} at
                         {{ $announcement->created_at->format('m/d/Y H:i') }}</p>
                 </div>
             @endforeach

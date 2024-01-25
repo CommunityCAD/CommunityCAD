@@ -26,7 +26,8 @@
         <div class="space-y-3">
             @forelse ($loa_history as $history)
                 <div class="pill">
-                    <p class="text-gray-400">{{ $history->user->discord }} @ {{ $history->created_at->format('m/d/Y H:i') }}
+                    <p class="text-gray-400">{{ $history->user->preferred_name }} @
+                        {{ $history->created_at->format('m/d/Y H:i') }}
                     </p>
                     <p>{{ $history->description }}</p>
                 </div>
