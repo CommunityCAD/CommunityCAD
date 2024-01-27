@@ -21,7 +21,7 @@ class AddUnitController extends Controller
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
         $officer = Officer::where('user_id', auth()->user()->id)->where('user_department_id', $active_department->id)->get()->first();
 
-        if (! $officer && $active_department->department->type != 2) {
+        if (!$officer && $active_department->department->type != 2) {
             return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'You have not created an officer for this department yet. Please go to the Civilian portal to create one.', 'level' => 'error']]);
         } else {
             if ($active_department->department->type != 2) {
@@ -54,7 +54,7 @@ class AddUnitController extends Controller
 
         $new_active_unit = ActiveUnit::create($input);
 
-        if ($new_active_unit->department_type == 1) {
+        if ($new_active_unit->department_type == 1 || $new_active_unit->department_type == 4) {
             return redirect()->route('cad.home');
         } elseif ($new_active_unit->department_type == 2) {
             $active_dispatcher = ActiveUnit::where('department_type', 2)->orderBy('created_at')->get()->first();
@@ -64,7 +64,7 @@ class AddUnitController extends Controller
 
             return redirect()->route('cad.home')->with('alerts', [['message' => 'You are the primary dispatcher.', 'level' => 'success']]);
         } else {
-            return abort(404, 'Department type is not set correctly.');
+            return abort(403, 'Department type is not set correctly.');
         }
     }
 }
