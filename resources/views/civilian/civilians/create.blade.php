@@ -84,10 +84,12 @@
                         <select class="select-input" name="race">
                             <option value="">Choose one</option>
                             <option {{ old('race') == 'White' ? 'selected="selected"' : '' }} value="White">White</option>
-                            <option {{ old('race') == 'Asian' ? 'selected="selected"' : '' }} value="Asian">Asian</option>
                             <option {{ old('race') == 'African American' ? 'selected="selected"' : '' }}
-                                value="African American">African American
+                                value="African American">African American</option>
+                            <option {{ old('race') == 'Asian' ? 'selected="selected"' : '' }} value="Asian">Asian</option>
+                            <option {{ old('race') == 'Hispanic' ? 'selected="selected"' : '' }} value="Hispanic">Hispanic
                             </option>
+                            <option {{ old('race') == 'Other' ? 'selected="selected"' : '' }} value="Other">Other</option>
                         </select>
                         <span
                             class="border-body-color absolute right-4 top-1/2 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2">

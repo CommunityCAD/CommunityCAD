@@ -3,7 +3,7 @@
 @section('content')
     <div x-data="{ noteModal: false, accommodationModal: false, daModal: false, communityRankModal: false, rolesModal: false }">
         <header class="w-full my-3">
-            <h1 class="text-2xl font-bold">Viewing Member {{ $user->discord }}</h1>
+            <h1 class="text-2xl font-bold">Viewing Member {{ $user->preferred_name }}</h1>
             <p class="text-sm"></p>
         </header>
 
@@ -13,6 +13,10 @@
                     <div class="flex">
                         <p class="px-2 font-bold">Discord Name:</p>
                         <p class="px-2">{{ $user->discord }}</p>
+                    </div>
+                    <div class="flex">
+                        <p class="px-2 font-bold">Display Name:</p>
+                        <p class="px-2">{{ $user->display_name }}</p>
                     </div>
                     <div class="flex">
                         <p class="px-2 font-bold">Real Name</p>
@@ -52,7 +56,7 @@
             <div class="admin-card">
                 <div class="text-center">
                     <img alt="" class="w-32 h-32 mx-auto rounded-full" src="{{ $user->avatar }}">
-                    <h2 class="text-xl font-semibold">{{ $user->discord }}</h2>
+                    <h2 class="text-xl font-semibold">{{ $user->preferred_name }}</h2>
                     <p class="mt-3 text-sm">{{ $user->community_rank }}</p>
                 </div>
                 <ul class="px-3 py-2 mt-3 divide-y">
@@ -379,7 +383,7 @@
                     <p>Shows the last 5 actions.</p>
                     @foreach ($histories as $history)
                         <div class="admin-pill border-l-4 border-blue-600 cursor-default">
-                            <p class="text-white">Actioned by: {{ $history->user->discord }}
+                            <p class="text-white">Actioned by: {{ $history->user->preferred_name }}
                                 <span
                                     class="block -mt-1 text-xs tracking-widest">{{ $history->created_at->format('m/d/Y H:i:s') }}</span>
                             </p>

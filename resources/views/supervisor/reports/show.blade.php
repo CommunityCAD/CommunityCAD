@@ -11,7 +11,7 @@
             <div class="pill hover:bg-slate-700">
                 <p>Title: {{ $report->title }}</p>
                 <p>Submitted: {{ $report->created_at->format('m/d/Y H:i') }}</p>
-                <p>Submitted by: {{ $report->user->officer_name_check }}</p>
+                <p>Submitted by: {{ $report->officer->name ?? $report->user->preferred_name }}</p>
                 <hr>
                 <p>{{ $report->text }}</p>
 

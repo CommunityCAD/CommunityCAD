@@ -45,7 +45,7 @@
                         <div class="flex">
                             <img alt="" class="w-10 h-10 mr-3 rounded-full" src="{{ $user->avatar }}">
                             <div>
-                                <p>{{ $user->discord }}</p>
+                                <p>{{ $user->preferred_name }}</p>
                                 <p class="-mt-1 text-xs">{{ $user->status_name }} | {{ $user->community_rank }}</p>
                             </div>
                         </div>

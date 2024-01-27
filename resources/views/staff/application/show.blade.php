@@ -2,7 +2,7 @@
 
 @section('content')
     <header class="w-full my-3">
-        <h1 class="text-2xl font-bold text-white">View Application for {{ $application->user->discord }}</h1>
+        <h1 class="text-2xl font-bold text-white">View Application for {{ $application->user->preferred_name }}</h1>
         <p class="text-sm text-white"></p>
     </header>
 
@@ -88,21 +88,21 @@
         <div class="card">
             <div class="">
                 <div class="w-full">
-                    <label for="department_id" class="block mt-3 font-bold">What department are you applying
+                    <label class="block mt-3 font-bold" for="department_id">What department are you applying
                         for?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->department->name }}</p>
                 </div>
 
                 <div class="w-full">
-                    <label for="why_join_department" class="block mt-3 font-bold">Why do you wish to join this
+                    <label class="block mt-3 font-bold" for="why_join_department">Why do you wish to join this
                         department?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->why_join_department }}</p>
                 </div>
 
                 <div class="w-full">
-                    <label for="experience_department" class="block mt-3 font-bold">Do you have any
+                    <label class="block mt-3 font-bold" for="experience_department">Do you have any
                         experiences in
                         this
                         field?</label>
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="w-full">
-                    <label for="department_duties" class="block mt-3 font-bold">In your own words, what are
+                    <label class="block mt-3 font-bold" for="department_duties">In your own words, what are
                         the
                         general
                         duties of the department?</label>
@@ -120,7 +120,7 @@
                 </div>
 
                 <div class="w-full">
-                    <label for="scenario" class="block mt-3 font-bold">Please create a detailed scenario (For
+                    <label class="block mt-3 font-bold" for="scenario">Please create a detailed scenario (For
                         Example: 911 call, traffic stop, crime scene, etc.)</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->scenario }}</p>
@@ -129,13 +129,13 @@
                 <hr class="my-4">
 
                 <div class="w-full">
-                    <label for="about_you" class="block mt-3 font-bold">Tell us about yourself</label>
+                    <label class="block mt-3 font-bold" for="about_you">Tell us about yourself</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
                         {{ $application->about_you }}</p>
                 </div>
 
                 <div class="w-full">
-                    <label for="skills" class="block mt-3 font-bold">Do you have any skills that can be
+                    <label class="block mt-3 font-bold" for="skills">Do you have any skills that can be
                         useful in
                         your department and/or the community?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
@@ -143,7 +143,7 @@
                 </div>
 
                 <div class="w-full">
-                    <label for="legal_copy" class="block mt-3 font-bold">Do you have a working and legal copy
+                    <label class="block mt-3 font-bold" for="legal_copy">Do you have a working and legal copy
                         of
                         GTA V on PC?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
@@ -156,7 +156,7 @@
                 </div>
 
                 <div class="w-full">
-                    <label for="previous_member" class="block mt-3 font-bold">Are you a previous member of
+                    <label class="block mt-3 font-bold" for="previous_member">Are you a previous member of
                         {{ get_setting('community_name') }}?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
                         @if ($application->previous_member)
@@ -168,7 +168,7 @@
                 </div>
 
                 <div class="w-full">
-                    <label for="why_join_community" class="block mt-3 font-bold">Why do you want to be apart
+                    <label class="block mt-3 font-bold" for="why_join_community">Why do you want to be apart
                         of
                         {{ get_setting('community_name') }}?</label>
                     <p class="w-full p-3 mt-2 border border-black rounded-md">
@@ -236,7 +236,7 @@
             <div class="">
                 @foreach ($histories as $history)
                     <div class="p-3 my-2 border-2 border-gray-900">
-                        <p class="text-white">Actioned by: {{ $history->user->discord }} at
+                        <p class="text-white">Actioned by: {{ $history->user->preferred_name }} at
                             {{ $history->created_at->format('m/d/Y H:i:s') }}
                         </p>
                         <div>

@@ -33,9 +33,9 @@
                         <td class="border">
                             @can('user_departments_access')
                                 <a class="underline hover:text-gray-400"
-                                    href="{{ route('staff.user_department.index', [$user_department->user->id]) }}">{{ $user_department->user->discord }}</a>
+                                    href="{{ route('staff.user_department.index', [$user_department->user->id]) }}">{{ $user_department->user->preferred_name }}</a>
                             @else
-                                {{ $user_department->user->discord }}
+                                {{ $user_department->user->preferred_name }}
                             @endcan
                         </td>
                         <td class="border">{{ $user_department->user->officer_name }}</td>

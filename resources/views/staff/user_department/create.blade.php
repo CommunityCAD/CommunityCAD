@@ -3,7 +3,7 @@
 @section('content')
     <header class="w-full my-3">
         <h1 class="text-2xl font-bold text-white">Add to Department</h1>
-        <p class="text-sm text-white">Add {{ $user->discord }} to a Department</p>
+        <p class="text-sm text-white">Add {{ $user->preferred_name }} to a Department</p>
     </header>
 
     <div class="card">

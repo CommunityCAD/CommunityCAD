@@ -277,7 +277,7 @@
                     <tr class="{{ $active_unit->display_status_text_color }}">
                         <td class="p-1 border border-slate-400">{{ $active_unit->agency }}</td>
                         <td class="p-1 border border-slate-400">{{ $active_unit->badge_number }}
-                            ({{ $active_unit->displayName }})</td>
+                            ({{ $active_unit->display_name }})</td>
                         <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                             <div class="flex justify-between">
                                 <span>{{ $active_unit->status }}</span>

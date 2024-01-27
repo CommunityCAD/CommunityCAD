@@ -38,7 +38,7 @@
             <a href="{{ route('staff.loa.show', $loa->id) }}">
                 <div class="flex justify-between">
                     <p class="{{ $text_color }}">{{ $loa->id }} |
-                        {{ $loa->user->discord }}</p>
+                        {{ $loa->user->preferred_name }}</p>
                     <div>
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />

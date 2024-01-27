@@ -7,7 +7,7 @@
         @endif
 
         <div>
-            {{ auth()->user()->discord }}
+            {{ auth()->user()->preferred_name }}
         </div>
 
         <div class="ml-1">

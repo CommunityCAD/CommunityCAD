@@ -17,8 +17,6 @@ class DepartmentController extends Controller
 
         $total_department_members = UserDepartment::where('department_id', $department->id)->where('id', '!=', 188790560658685954)->where('id', '!=', 1117962582905585684)->count();
 
-        // $total_active_members = User::where('last_login', '>=', Carbon::now()->subDays(get_setting('days_until_inactive')))->where('id', '!=', 188790560658685954)->where('id', '!=', 1117962582905585684)->count();
-
         return view('portal.department.show', compact('department', 'total_department_members'));
     }
 

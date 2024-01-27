@@ -52,7 +52,7 @@ class User extends Authenticatable
         ];
         $hexval = '';
         while ($number != '0') {
-            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
+            $hexval = $hexvalues[bcmod($number, '16', 0)] . $hexval;
             $number = bcdiv($number, '16', 0);
         }
 
@@ -67,13 +67,22 @@ class User extends Authenticatable
         return $age;
     }
 
+    public function getPreferredNameAttribute()
+    {
+        if ($this->display_name) {
+            return $this->display_name;
+        }
+
+        return $this->getDiscordAttribute();
+    }
+
     public function getDiscordAttribute()
     {
         if ($this->discriminator == 0) {
             return $this->discord_name;
         }
 
-        return $this->discord_name.'#'.$this->discriminator;
+        return $this->discord_name . '#' . $this->discriminator;
     }
 
     public function getOfficerNameCheckAttribute()

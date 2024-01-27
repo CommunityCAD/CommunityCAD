@@ -195,33 +195,6 @@
 
             @livewire('cad.add-charges-to-ticket', ['ticket' => $ticket])
 
-            {{-- <h3 class="text-xl my-3 uppercase text-center">Totals</h3> --}}
-
-            {{-- <div class="border-2 border-black w-full">
-
-                    <div class="flex">
-                        <div class="border-2 border-black w-1/6 p-2">
-                            <p class="text-gray-500">Total Jail <span
-                                    class="block text-black font-bold uppercase">100s</span>
-                            </p>
-                        </div>
-                        <div class="border-2 border-black w-1/6 p-2">
-                            <p class="text-gray-500">Total Fine <span
-                                    class="block text-black font-bold uppercase">$4500</span>
-                            </p>
-                        </div>
-                        <div class="border-2 border-black w-1/6 p-2">
-                            <p class="text-gray-500">Total CAD Jail <span
-                                    class="block text-black font-bold uppercase">100h</span></p>
-                        </div>
-
-                        <div class="border-2 border-black w-3/6 p-2">
-                            <p class="text-gray-500">Signed <span
-                                    class="block text-black font-bold uppercase">{{ auth()->user()->officer_name_check }}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div> --}}
             @if ($allow_sign)
                 <a class="new-button-md mt-5" href="{{ route('cad.ticket.sign_ticket', $ticket->id) }}">Finish and Sign
                     Ticket</a>

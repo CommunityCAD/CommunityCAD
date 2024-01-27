@@ -216,11 +216,7 @@
                 <div class="flex">
                     <div class="border-2 border-black w-full p-2">
                         <p class="text-gray-500">Signed <span class="block text-black font-bold uppercase">
-                                @if ($ticket->officer)
-                                    {{ $ticket->officer->name }}
-                                @else
-                                    {{ $ticket->user->officer_name_check }}
-                                @endif
+                                {{ $ticket->officer->name ?? $ticket->user->preferred_name }}
                             </span>
                         </p>
                     </div>

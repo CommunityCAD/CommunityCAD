@@ -3,7 +3,7 @@
 @section('content')
     <header class="w-full my-3">
         <h1 class="text-2xl font-bold text-white">Edit User Department</h1>
-        <p class="text-sm text-white">Edit {{ $user->discord }} for {{ $user_department->name }}</p>
+        <p class="text-sm text-white">Edit {{ $user->preferred_name }} for {{ $user_department->name }}</p>
     </header>
 
     <div class="card">

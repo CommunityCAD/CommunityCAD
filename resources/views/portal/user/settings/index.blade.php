@@ -13,27 +13,19 @@
         <form action="{{ route('portal.user.settings.update') }}" class="mt-6 space-y-4" method="post">
             @method('PUT')
             @csrf
-
-            <div>
-                <label for="">Teamspeak Name</label>
-                <span class="text-gray-500 text-sm block">Name in Teamspeak Server.</span>
-                <input class="text-input" name="ts_name" type="text"
-                    value="{{ old('ts_name', auth()->user()->ts_name) }}">
-            </div>
-
             <div>
                 <label for="">Display Name</label>
-                <span class="text-gray-500 text-sm block">Not used. Discord information is used for everything. This is only
-                    for backwards compatability.</span>
+                <span class="text-gray-300 text-sm block">Discord is the prefered method to have your name. If your Discord
+                    name is different than what you need for the server you can change it here.</span>
                 <input class="text-input" name="display_name" type="text"
                     value="{{ old('display_name', auth()->user()->display_name) }}">
             </div>
 
             <div>
                 <label for="">Officer Name</label>
-                <span class="text-gray-500 text-sm block">Name to be displayed in the CAD/MDT and on paperwork. Omitt the
-                    "Officer" before your name. "Officer" will be added by default.</span>
-                <input class="text-input" name="officer_name" type="text"
+                <span class="text-red-500 text-sm block">This is no longer supported. Please create an officer <a
+                        class="underline" href="{{ route('civilian.officers.index') }}">here</a>.</span>
+                <input class="text-input" disabled name="officer_name" readonly type="text"
                     value="{{ old('officer_name', auth()->user()->officer_name) }}">
             </div>
 
