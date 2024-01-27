@@ -15,7 +15,10 @@ class CadPageController extends Controller
         $available_departments = [];
 
         foreach ($user_departments as $department) {
-            if ($department->department->type == 1 | $department->department->type == 2) {
+            if (
+                $department->department->type == 1 | $department->department->type == 2
+                | $department->department->type == 4
+            ) {
                 $available_departments[] = $department;
             }
         }
@@ -41,7 +44,7 @@ class CadPageController extends Controller
         $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (! $active_unit) {
+        if (!$active_unit) {
             return redirect()->route('cad.landing');
         }
 
@@ -52,7 +55,7 @@ class CadPageController extends Controller
     {
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if (! $active_unit) {
+        if (!$active_unit) {
             return redirect()->route('cad.landing');
         }
 
