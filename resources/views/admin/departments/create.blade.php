@@ -19,7 +19,7 @@
 
             <div>
                 <label class="block text-black-500" for="type">Type</label>
-                <select id="type" name="type">
+                <select class="select-input" id="type" name="type">
                     <option value="">Choose one</option>
                     <option value="1">Law Enforcement</option>
                     <option value="2">Dispatch</option>
