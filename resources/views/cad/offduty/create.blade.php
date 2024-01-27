@@ -14,7 +14,8 @@
                 <div class="my-5 text-2xl">
                     <div class="">
                         <p>Reporting Officer: <span
-                                class="underline">{{ auth()->user()->active_unit->officer->name }}</span></p>
+                                class="underline">{{ auth()->user()->active_unit->officer->name ?? auth()->user()->preferred_name }}</span>
+                        </p>
                         <p>Report Type:
                             <select class="select-input" name="report_type_id" required>
                                 <option>Choose one</option>
@@ -26,7 +27,7 @@
                         </p>
                         <x-input-error :messages="$errors->get('report_type_id')" class="mt-2" />
                         <p>Report Title: <input class="text-input" name="title" required type="text"
-                                value="{{ old('title', 'End of Watch Report for ' . auth()->user()->active_unit->officer->name . ' on ' . date('m/d/Y H:i')) }}">
+                                value="{{ old('title', 'End of Watch Report for ' . date('m/d/Y H:i')) }}">
                         </p>
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
