@@ -49,14 +49,18 @@
                         </div>
                         <div class="ml-3 text-white">
                             <p>{{ $business->name }}</p>
-                            <p>Owner: {{ $business->owner->name }}</p>
-                            <p>
+                            <p>Owner: {{ $business->owner->name }}
                                 @if ($business->owner->user_id == auth()->user()->id)
-                                    You own this
-                                @elseif ($business->employees)
+                                    (You)
+                                @endif
+                            </p>
+                            <p>
+
+                                @if ($business->employees)
                                     @foreach ($business->employees as $employee)
                                         @if ($employee->civilian->user_id == auth()->user()->id)
-                                            {{ $employee->civilian->name }} is an employee
+                                            <p class="text-sm">{{ $employee->civilian->name }} - {{ $employee->role_name }}
+                                            </p>
                                         @endif
                                     @endforeach
                                 @endif

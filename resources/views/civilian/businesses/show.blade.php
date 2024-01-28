@@ -1,7 +1,16 @@
 @extends('layouts.civilian')
 
 @section('content')
-    <div x-data="">
+    <div x-data="{ applyModal: false }">
+        <div class="card">
+            @if ($is_owner)
+                You are an owner; Make employees managers, Change name of business; Transfer ownership; manage vehicles;
+            @endif
+
+            @if ($is_manager)
+                You are an manager; Approve new members; Remove members;
+            @endif
+        </div>
 
         <div class="lg:flex pt-5 pb-5">
 
@@ -32,20 +41,54 @@
                     </li>
 
                     <li class="py-3">
-                        <p class="font-semibold text-lg">Created at</p>
+                        <p class="font-semibold text-lg">Founded</p>
                         <p class="ml-auto text-sm">
                             {{ $business->created_at->format('M d, Y') }}
                         </p>
                     </li>
+                    @if ($is_owner)
+                        <li class="py-3">
+                            <p class="font-semibold text-lg">Transfer Ownership</p>
+                            <form action="{{ route('civilian.business.transfer_ownership', $business->id) }}"
+                                method="POST">
+                                @csrf
+
+                                <select class="select-input" id="owner_id" name="owner_id">
+                                    <option value="">Transfer Ownership (Can not be undone)</option>
+
+                                    @foreach ($business->employees as $employee)
+                                        <option value="{{ $employee->civilian->id }}">{{ $employee->civilian->name }} -
+                                            {{ $employee->role_name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button class="delete-button-md mt-3 w-full">Transfer Ownership</button>
+                            </form>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <div class="w-full lg:w-2/3">
                 <div class="card w-full">
-                    <h2 class="mb-4 text-xl font-semibold underline">Employees</h2>
-
+                    <div class="flex justify-between">
+                        <h2 class="mb-4 text-xl font-semibold underline">Employees</h2>
+                        <p><a @click="applyModal = true" class="text-green-600 hover:underline" href="#">Apply</a></p>
+                    </div>
                     <div class="grid grid-cols-1 gap-4 text-sm xl:grid-cols-3">
                         @foreach ($business->employees as $employee)
                             <div class="border p-2">
+                                <p class="flex justify-between">
+                                    @if ($is_manager && $employee->role == 2)
+                                        <a class="text-red-600 hover:underline" href="#">Fire</a>
+                                    @elseif ($is_owner)
+                                        <a class="text-red-600 hover:underline" href="#">Fire</a>
+                                    @endif
+
+                                    @if ($employee->civilian->user_id == auth()->user()->id)
+                                        <a class="text-red-600 hover:underline"
+                                            href="{{ route('civilian.business.quit', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}}}">Quit</a>
+                                    @endif
+                                </p>
                                 @if ($employee->civilian->picture)
                                     <img alt="" class="w-24 h-24 mx-auto rounded-full"
                                         src="{{ $employee->civilian->picture }}">
@@ -57,8 +100,34 @@
                                             stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 @endif
+
                                 <p class="text-xl font-semibold text-center">{{ $employee->civilian->name }}</p>
                                 <p>{{ $employee->role_name }}</p>
+                                <div class="border-t p-2 flex justify-between">
+                                    @if ($is_manager)
+                                        @if ($employee->role == 1)
+                                            <a class="text-green-600 hover:underline block"
+                                                href="{{ route('civilian.business.approve_interview', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}">Approve</a>
+                                            <a class="text-red-600 hover:underline block"
+                                                href="{{ route('civilian.business.deny_interview', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}">Deny</a>
+                                        @elseif ($employee->role == 2)
+                                            @if ($is_owner)
+                                                <a class="text-blue-600 hover:underline block"
+                                                    href="{{ route('civilian.business.promote_to_manager', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}">Promote</a>
+                                            @endif
+                                        @elseif ($employee->role == 3 && $is_owner)
+                                            <a class="text-red-600 hover:underline block"
+                                                href="{{ route('civilian.business.demote_to_employee', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}">Demote</a>
+                                            <a class="text-blue-600 hover:underline block"
+                                                href="{{ route('civilian.business.promote_to_owner', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}">Promote</a>
+                                        @elseif ($employee->role == 4)
+                                            @if ($is_owner)
+                                                <a class="text-red-600 hover:underline block"
+                                                    href="{{ route('civilian.business.demote_to_manager', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}">Demote</a>
+                                            @endif
+                                        @endif
+                                    @endif
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -202,5 +271,37 @@
 
             </div>
         </div>
+
+        <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
+            x-show="applyModal" x-transition>
+            <div @click.outside="applyModal = false"
+                class="w-full max-w-[570px] rounded-[20px] bg-[#131c23] py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+                <h3 class="pb-2 text-xl font-bold sm:text-2xl">
+                    Choose Civilian to apply
+                </h3>
+                <form action="{{ route('civilian.business.apply', $business->id) }}" method="POST">
+                    @csrf
+
+                    <select class="select-input mb-4" id="civilian_id" name="civilian_id">
+                        <option value="">Choose one</option>
+
+                        @foreach ($civilians as $civilian)
+                            <option value="{{ $civilian->id }}">{{ $civilian->name }}</option>
+                        @endforeach
+                    </select>
+                    <div class="flex flex-wrap -mx-3">
+                        <div class="w-1/2 px-3">
+                            <button class="w-full new-button-md">Apply</button>
+                        </div>
+                        <div class="w-1/2 px-3">
+                            <button @click.prevent="applyModal = false" class="w-full delete-button-md">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 @endsection

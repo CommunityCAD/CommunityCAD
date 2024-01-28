@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\Civilian\Business\BusinessEmployeeController;
+use App\Http\Controllers\Civilian\BusinessController;
 use App\Http\Controllers\Civilian\CallController;
 use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Civilian\CivilianPageController;
@@ -32,7 +33,23 @@ Route::post('/civilians/{civilian}/911', [CallController::class, 'store'])->name
 
 Route::resource('civilians', CivilianController::class);
 
+Route::get('/businesses/{business}/approve_interview/{businessEmployee}', [BusinessEmployeeController::class, 'approve_interview'])->name('business.approve_interview');
+Route::get('/businesses/{business}/deny_interview/{businessEmployee}', [BusinessEmployeeController::class, 'deny_interview'])->name('business.deny_interview');
+
+Route::get('/businesses/{business}/quit/{businessEmployee}', [BusinessEmployeeController::class, 'quit'])->name('business.quit');
+
+Route::get('/businesses/{business}/promote_to_manager/{businessEmployee}', [BusinessEmployeeController::class, 'promote_to_manager'])->name('business.promote_to_manager');
+Route::get('/businesses/{business}/promote_to_owner/{businessEmployee}', [BusinessEmployeeController::class, 'promote_to_owner'])->name('business.promote_to_owner');
+
+Route::get('/businesses/{business}/demote_to_manager/{businessEmployee}', [BusinessEmployeeController::class, 'demote_to_manager'])->name('business.demote_to_manager');
+Route::get('/businesses/{business}/demote_to_employee/{businessEmployee}', [BusinessEmployeeController::class, 'demote_to_employee'])->name('business.demote_to_employee');
+
+Route::post('/businesses/{business}/transfer_ownership', [BusinessEmployeeController::class, 'transfer_ownership'])->name('business.transfer_ownership');
+Route::post('/businesses/{business}/apply', [BusinessEmployeeController::class, 'apply'])->name('business.apply');
+
+
 Route::resource('businesses', BusinessController::class);
+
 
 Route::get('/ticket/{ticket}/plea_guilty', [CivilianPleaController::class, 'plea_guilty'])->name('civlian.plea.guilty');
 Route::get('/ticket/{ticket}/plea_not_guilty', [CivilianPleaController::class, 'plea_not_guilty'])->name('civlian.plea.not_guilty');

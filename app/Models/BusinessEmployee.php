@@ -10,6 +10,8 @@ class BusinessEmployee extends Model
 {
     use HasFactory, softDeletes;
 
+    protected $guarded = [];
+
     public function getRoleNameAttribute()
     {
         switch ($this->role) {
@@ -24,6 +26,9 @@ class BusinessEmployee extends Model
                 break;
             case '4':
                 return "Co-Owner";
+                break;
+            case '5':
+                return "Owner";
                 break;
 
             default:
