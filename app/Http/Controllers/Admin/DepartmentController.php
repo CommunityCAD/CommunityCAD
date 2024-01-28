@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DepartmentRequest;
 use App\Models\Department;
+use App\Models\UserDepartment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
@@ -76,6 +77,13 @@ class DepartmentController extends Controller
 
     public function destroy(Department $department): RedirectResponse
     {
+
+        $department_members = UserDepartment::where('department_id', $department->id)->get();
+
+        foreach ($department_members as $member) {
+            $member->delete();
+        }
+
         $department->delete();
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);
