@@ -88,4 +88,26 @@ class BusinessController extends Controller
 
         return redirect()->route('supervisor.businesses.index', 1)->with('alerts', [['message' => 'Business Suspended.', 'level' => 'success']]);
     }
+
+    public function destroy(Business $business)
+    {
+        History::create([
+            'subject_type' => 'business',
+            'subject_id' => $business->id,
+            'user_id' => auth()->user()->id,
+            'description' => 'Business Deleted.',
+        ]);
+
+        foreach ($business->vehicles as $vehicle) {
+            $vehicle->delete();
+        }
+
+        foreach ($business->employees as $employee) {
+            $employee->delete();
+        }
+
+        $business->delete();
+
+        return redirect()->route('supervisor.businesses.index', 1)->with('alerts', [['message' => 'Business Deleted.', 'level' => 'success']]);
+    }
 }

@@ -107,6 +107,9 @@
                         @default
                             <p class="pl-3 text-lg text-white">You have no options here.</p>
                     @endswitch
+                    <a class="delete-button-md" href="{{ route('supervisor.businesses.destroy', $business->id) }}">
+                        Delete
+                    </a>
                 @endcan
             </div>
         </div>
