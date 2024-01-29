@@ -2,16 +2,6 @@
 
 @section('content')
     <div x-data="{ applyModal: false }">
-        <div class="card">
-            @if ($is_owner)
-                You are an owner; Make employees managers, Change name of business; Transfer ownership; manage vehicles;
-            @endif
-
-            @if ($is_manager)
-                You are an manager; Approve new members; Remove members;
-            @endif
-        </div>
-
         <div class="lg:flex pt-5 pb-5">
 
             <div class="card lg:w-1/3 w-full">
