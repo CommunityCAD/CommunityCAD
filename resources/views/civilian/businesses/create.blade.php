@@ -100,7 +100,7 @@
             <div class="w-full px-4">
                 <div class="mb-6 space-y-3">
                     <button class="inline-block mr-5 new-button-md">Create</button>
-                    <a class="mr-5 delete-button-md" href="{{ route('civilian.civilians.index') }}">Cancel</a>
+                    <a class="mr-5 delete-button-md" href="{{ route('civilian.businesses.index') }}">Cancel</a>
                     @if (!empty(get_setting('postal_map_link')))
                         <a class="edit-button-md float-right" href="{{ get_setting('postal_map_link') }}" target="_blank">
                             Postal Map

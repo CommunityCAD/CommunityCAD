@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Civilian\Business\BusinessEmployeeController;
+use App\Http\Controllers\Civilian\Business\BusinessVehicleController;
 use App\Http\Controllers\Civilian\BusinessController;
 use App\Http\Controllers\Civilian\CallController;
 use App\Http\Controllers\Civilian\CivilianController;
@@ -46,6 +47,12 @@ Route::get('/businesses/{business}/demote_to_employee/{businessEmployee}', [Busi
 
 Route::post('/businesses/{business}/transfer_ownership', [BusinessEmployeeController::class, 'transfer_ownership'])->name('business.transfer_ownership');
 Route::post('/businesses/{business}/apply', [BusinessEmployeeController::class, 'apply'])->name('business.apply');
+
+Route::get('businesses/{business}/vehicle/{vehicle}/renew', [BusinessVehicleController::class, 'renew'])->name('businesses.vehicle.renew');
+Route::get('businesses/{business}/vehicle/{vehicle}/found', [BusinessVehicleController::class, 'found'])->name('businesses.vehicle.found');
+Route::get('businesses/{business}/vehicle/{vehicle}/expire', [BusinessVehicleController::class, 'expire'])->name('businesses.vehicle.expire');
+Route::get('businesses/{business}/vehicle/{vehicle}/stolen', [BusinessVehicleController::class, 'stolen'])->name('businesses.vehicle.stolen');
+Route::resource('businesses/{business}/vehicle', BusinessVehicleController::class)->only(['create', 'store', 'destroy'])->names('businesses.vehicle');
 
 
 Route::resource('businesses', BusinessController::class);

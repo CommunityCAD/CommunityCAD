@@ -89,7 +89,8 @@
             </li>
 
             <li class="relative px-6 py-3">
-                <a class="flex items-center" href="{{ route('civilian.businesses.index') }}">
+                <a class="flex items-center @if (request()->is('civilian/businesses') || request()->is('civilian/businesses/*')) !text-base !text-purple-500 @endif"
+                    href="{{ route('civilian.businesses.index') }}">
                     <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path

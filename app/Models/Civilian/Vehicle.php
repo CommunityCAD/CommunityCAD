@@ -18,6 +18,7 @@ class Vehicle extends Model
         'color',
         'registration_expire',
         'civilian_id',
+        'business_id',
         'vehicle_status',
         'impound_ticket_id',
     ];
