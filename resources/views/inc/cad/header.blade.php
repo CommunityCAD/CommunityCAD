@@ -2,7 +2,7 @@
     <div class="text-white">
         <p>
             Current User: <span
-                class="text-sm !lowercase">{{ str_replace([' ', '.'], ['_', ''], strtolower(auth()->user()->active_unit->displayName)) }}</span>
+                class="text-sm !lowercase">{{ str_replace([' ', '.'], ['_', ''], strtolower(auth()->user()->active_unit->display_name)) }}</span>
         </p>
         <p class="flex">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"

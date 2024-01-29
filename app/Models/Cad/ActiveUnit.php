@@ -84,23 +84,28 @@ class ActiveUnit extends Model
 
     private function formatName($name)
     {
-        $name = explode(' ', $name);
-        switch (get_setting('officer_name_format')) {
-            case 'F. Last':
-                $formatted_name = substr($name[0], 0, 1).'. '.$name[1];
-                break;
+        $name_array = explode(' ', $name, 2);
+        if (isset($name_array[1])) {
 
-            case 'First Last':
-                $formatted_name = $name[0].' '.$name[1];
-                break;
+            switch (get_setting('officer_name_format')) {
+                case 'F. Last':
+                    $formatted_name = substr($name_array[0], 0, 1) . '. ' . $name_array[1];
+                    break;
 
-            case 'First L.':
-                $formatted_name = $name[0].' '.substr($name[1], 0, 1).'.';
-                break;
+                case 'First Last':
+                    $formatted_name = $name_array[0] . ' ' . $name_array[1];
+                    break;
 
-            default:
-                $formatted_name = substr($name[0], 0, 1).'. '.$name[1];
-                break;
+                case 'First L.':
+                    $formatted_name = $name_array[0] . ' ' . substr($name_array[1], 0, 1) . '.';
+                    break;
+
+                default:
+                    $formatted_name = substr($name_array[0], 0, 1) . '. ' . $name_array[1];
+                    break;
+            }
+        } else {
+            return $formatted_name = $name;
         }
 
         return $formatted_name;
