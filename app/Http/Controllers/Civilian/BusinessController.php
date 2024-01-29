@@ -69,9 +69,10 @@ class BusinessController extends Controller
             $is_manager = true;
         }
 
-        if ($business->status != 2 && !$is_owner) {
-            return redirect()->route('civilian.businesses.index')->with('alerts', [['message' => 'Business can only be viewed by owner.', 'level' => 'error']]);
-        } else {
+        if ($business->status != 2) {
+            if (!$is_owner) {
+                return redirect()->route('civilian.businesses.index')->with('alerts', [['message' => 'Business can only be viewed by owner.', 'level' => 'error']]);
+            }
             $is_locked = true;
         }
 
