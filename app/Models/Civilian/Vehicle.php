@@ -2,6 +2,7 @@
 
 namespace App\Models\Civilian;
 
+use App\Models\Business;
 use App\Models\Civilian;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,12 @@ class Vehicle extends Model
     public function civilian()
     {
         return $this->belongsTo(Civilian::class);
+    }
+
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
     }
 
     public function ticket()
