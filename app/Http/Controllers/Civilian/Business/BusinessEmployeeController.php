@@ -79,15 +79,16 @@ class BusinessEmployeeController extends Controller
         $new_owner_id = $request->owner_id;
         $old_owner_id = $business->owner_id;
 
-        $new_owner = Civilian::where('id', $new_owner_id)->get()->first();
-        $old_owner = Civilian::where('id', $old_owner_id)->get()->first();
+        $new_owner = BusinessEmployee::where('civilian_id', $new_owner_id)->get()->first();
+        $old_owner = BusinessEmployee::where('civilian_id', $old_owner_id)->get()->first();
 
         if (!$new_owner) {
             return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Owner is not a citizen.', 'level' => 'error']]);
         }
 
-        $business->update(['owner_id' => $new_owner]);
-
+        $business->update(['owner_id' => $new_owner_id]);
+        $new_owner->update(['role' => 5]);
+        $old_owner->update(['role' => 2]);
 
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Owner updated.', 'level' => 'success']]);
     }
