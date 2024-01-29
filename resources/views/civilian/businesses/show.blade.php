@@ -2,6 +2,11 @@
 
 @section('content')
     <div x-data="{ applyModal: false }">
+        @if ($is_locked)
+            <div class="card">
+                <p class="text-red-600">This business is locked. Get with a supervisor to unlock it.</p>
+            </div>
+        @endif
         <div class="lg:flex pt-5 pb-5">
 
             <div class="card lg:w-1/3 w-full">
@@ -36,7 +41,7 @@
                             {{ $business->created_at->format('M d, Y') }}
                         </p>
                     </li>
-                    @if ($is_owner)
+                    @if ($is_owner && !$is_locked)
                         <li class="py-3">
                             <p class="font-semibold text-lg">Transfer Ownership</p>
                             <form action="{{ route('civilian.business.transfer_ownership', $business->id) }}"
@@ -62,13 +67,16 @@
                 <div class="card w-full">
                     <div class="flex justify-between">
                         <h2 class="mb-4 text-xl font-semibold underline">Employees</h2>
-                        <p><a @click="applyModal = true" class="text-green-600 hover:underline" href="#">Apply</a></p>
+                        @if (!$is_locked)
+                            <p><a @click="applyModal = true" class="text-green-600 hover:underline" href="#">Apply</a>
+                            </p>
+                        @endif
                     </div>
                     <div class="grid grid-cols-1 gap-4 text-sm xl:grid-cols-3">
                         @foreach ($business->employees as $employee)
                             <div class="border p-2">
                                 <p class="flex justify-between">
-                                    @if ($employee->role != 5)
+                                    @if ($employee->role != 5 && !$is_locked)
                                         @if ($is_manager && $employee->role == 2)
                                             <a class="text-red-600 hover:underline" href="#">Fire</a>
                                         @elseif ($is_owner)
@@ -96,7 +104,7 @@
                                 <p class="text-xl font-semibold text-center">{{ $employee->civilian->name }}</p>
                                 <p>{{ $employee->role_name }}</p>
                                 <div class="border-t p-2 flex justify-between">
-                                    @if ($is_manager)
+                                    @if ($is_manager && !$is_locked)
                                         @if ($employee->role == 1)
                                             <a class="text-green-600 hover:underline block"
                                                 href="{{ route('civilian.business.approve_interview', ['business' => $business->id, 'businessEmployee' => $employee->id]) }}">Approve</a>
@@ -133,7 +141,7 @@
                         </h2>
 
                         <div class="flex">
-                            @if ($is_owner)
+                            @if ($is_owner && !$is_locked)
                                 <a class="new-button-sm"
                                     href="{{ route('civilian.businesses.vehicle.create', $business->id) }}">
                                     <x-new-button></x-new-button>
@@ -183,83 +191,86 @@
                         }
                         ?>
                         <div class="flex items-center p-2 space-x-2">
-                            @if ($reregister)
-                                <a class="new-button-sm"
-                                    href="{{ route('civilian.businesses.vehicle.renew', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
-                                    title="Reregister vehicle">
-                                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </a>
-                            @endif
+                            @if (!$is_locked)
+                                @if ($reregister)
+                                    <a class="new-button-sm"
+                                        href="{{ route('civilian.businesses.vehicle.renew', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
+                                        title="Reregister vehicle">
+                                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </a>
+                                @endif
 
-                            @if ($transfer)
-                                <a class="text-white bg-purple-500 button-sm hover:bg-purple-400"
-                                    href="{{ route('civilian.businesses.vehicle.renew', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
-                                    title="Set as expired">
-                                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </a>
-                            @endif
+                                @if ($transfer)
+                                    <a class="text-white bg-purple-500 button-sm hover:bg-purple-400"
+                                        href="{{ route('civilian.businesses.vehicle.renew', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
+                                        title="Set as expired">
+                                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </a>
+                                @endif
 
-                            @if ($found)
-                                <a class="text-white bg-purple-500 button-sm hover:bg-purple-400"
-                                    href="{{ route('civilian.businesses.vehicle.found', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
-                                    title="Set as not stolen">
-                                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </a>
-                            @endif
+                                @if ($found)
+                                    <a class="text-white bg-purple-500 button-sm hover:bg-purple-400"
+                                        href="{{ route('civilian.businesses.vehicle.found', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
+                                        title="Set as not stolen">
+                                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </a>
+                                @endif
 
-                            @if ($expire)
-                                <a class="text-white bg-red-500 button-sm hover:bg-red-400"
-                                    href="{{ route('civilian.businesses.vehicle.expire', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
-                                    title="Set as expired">
-                                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                @if ($expire)
+                                    <a class="text-white bg-red-500 button-sm hover:bg-red-400"
+                                        href="{{ route('civilian.businesses.vehicle.expire', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
+                                        title="Set as expired">
+                                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
 
-                                </a>
-                            @endif
+                                    </a>
+                                @endif
 
-                            @if ($stolen)
-                                <a class="text-white bg-orange-500 button-sm hover:bg-orange-400"
-                                    href="{{ route('civilian.businesses.vehicle.stolen', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
-                                    title="Set as stolen">
-                                    <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                @if ($stolen)
+                                    <a class="text-white bg-orange-500 button-sm hover:bg-orange-400"
+                                        href="{{ route('civilian.businesses.vehicle.stolen', ['vehicle' => $vehicle->id, 'business' => $business->id]) }}"
+                                        title="Set as stolen">
+                                        <svg class="w-4 h-4" fill="none" stroke-width="1.5" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
 
-                                </a>
-                            @endif
+                                    </a>
+                                @endif
 
-                            @if ($delete)
-                                <form
-                                    action="{{ route('civilian.businesses.vehicle.destroy', ['business' => $business->id, 'vehicle' => $vehicle->id]) }}"
-                                    class="mr-2" method="POST"
-                                    onsubmit="return confirm('Are you sure you wish to delete this vehicle? This can\'t be undone!');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="delete-button-sm" title="Delete vehicle">
-                                        <x-delete-button></x-delete-button>
-                                    </button>
-                                </form>
+                                @if ($delete)
+                                    <form
+                                        action="{{ route('civilian.businesses.vehicle.destroy', ['business' => $business->id, 'vehicle' => $vehicle->id]) }}"
+                                        class="mr-2" method="POST"
+                                        onsubmit="return confirm('Are you sure you wish to delete this vehicle? This can\'t be undone!');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="delete-button-sm" title="Delete vehicle">
+                                            <x-delete-button></x-delete-button>
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
 
                             <p class="{{ $status_color }}">{{ $vehicle->plate }} | {{ $vehicle->model }} |

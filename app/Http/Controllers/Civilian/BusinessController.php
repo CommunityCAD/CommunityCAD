@@ -50,6 +50,7 @@ class BusinessController extends Controller
 
         $is_owner = false;
         $is_manager = false;
+        $is_locked = false;
 
         foreach ($business->employees as $employee) {
             if ($employee->civilian->user_id == auth()->user()->id) {
@@ -68,7 +69,13 @@ class BusinessController extends Controller
             $is_manager = true;
         }
 
-        return view('civilian.businesses.show', compact('business', 'is_owner', 'is_manager', 'civilians'));
+        if ($business->status != 2 && !$is_owner) {
+            return redirect()->route('civilian.businesses.index')->with('alerts', [['message' => 'Business can only be viewed by owner.', 'level' => 'error']]);
+        } else {
+            $is_locked = true;
+        }
+
+        return view('civilian.businesses.show', compact('business', 'is_owner', 'is_manager', 'is_locked', 'civilians'));
     }
 
     public function edit(Business $business): View
