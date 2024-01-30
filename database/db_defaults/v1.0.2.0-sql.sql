@@ -29,13 +29,15 @@ INSERT INTO `civilian_statuses` (`id`, `status`, `created_at`, `updated_at`, `de
 	(7, 'Deleted', NULL, NULL, NULL);
 
 INSERT INTO `departments` (`id`, `name`, `initials`, `is_open_external`, `is_open_internal`, `slug`, `logo`, `created_at`, `updated_at`, `deleted_at`, `type`) VALUES
-	(0, 'Community Wide', 'CW', 0, 0, 'community-wide', NULL, '2023-06-13 22:09:28', '2023-06-13 22:09:29', NULL, 1),
+	(7, 'Community Wide', 'CW', 0, 0, 'community-wide', NULL, '2023-06-13 22:09:28', '2023-06-13 22:09:29', NULL, 1),
 	(1, 'Blane County Sheriffs Office', 'BCSO', 1, 1, 'blane-county-sheriffs-office', 'https://media.discordapp.net/attachments/1131390538315218955/1131390563187441674/latest.png', '2023-05-19 17:34:13', '2023-06-17 17:57:25', NULL, 1),
 	(2, 'Los Santos Police Department', 'LSPD', 1, 1, 'los-santos-police-department', 'https://cdn.discordapp.com/attachments/1132425644941246504/1160345906072264714/image.png', '2023-05-19 17:34:14', '2023-10-07 17:40:34', NULL, 1),
 	(3, 'San Andreas Highway Patrol', 'SAHP', 1, 1, 'san-andreas-highway-patrol', 'https://static.wikia.nocookie.net/alterlifepolicedepartement/images/b/b5/SAHP_logo.png', '2023-05-19 17:34:16', '2023-08-29 21:17:50', NULL, 1),
 	(4, 'Civilian Operations', 'CIV', 1, 1, 'civilian-operations', 'https://content.invisioncic.com/y305077/monthly_2021_03/RCiv_Logo.png.62e84cd49d883db8492dc588c771b8bd.png', '2023-05-19 17:34:17', '2023-07-24 17:32:09', NULL, 3),
 	(5, 'Communications', 'DISP', 1, 1, 'communications', 'https://static.wikia.nocookie.net/ultimate-roleplay/images/c/cb/LCPD-GTA4-logo.png', '2023-05-19 17:34:18', '2023-07-24 17:32:18', NULL, 2),
 	(6, 'San Andreas Fire Rescue', 'SAFR', 1, 1, 'san-andreas-fire-rescue', 'https://cdn.discordapp.com/attachments/1131390538315218955/1131390662479183934/e997a311f79ceb5244645969a0e0f3a6c5_720x720.png', '2023-05-19 17:34:19', '2023-10-07 17:39:06', NULL, 4);
+
+UPDATE departments SET id = 0 WHERE id = 7;
 
 INSERT INTO `disciplinary_action_types` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Level 1', NULL, '2023-06-12 19:58:57', '2023-06-12 19:58:57', NULL),
