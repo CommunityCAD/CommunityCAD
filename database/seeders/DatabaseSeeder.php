@@ -17,14 +17,7 @@ class DatabaseSeeder extends Seeder
     {
 
         $sql_defaults = [
-            'database/db_defaults/cad_settings.sql',
-            'database/db_defaults/civilian_levels.sql',
-            'database/db_defaults/departments.sql',
-            'database/db_defaults/licenses_defaults.sql',
-            'database/db_defaults/penal_code.sql',
-            'database/db_defaults/permissions.sql',
-            'database/db_defaults/statuses.sql',
-            'database/db_defaults/users.sql',
+            'database/db_defaults/v1.0.2.0-sql.sql',
         ];
 
         foreach ($sql_defaults as $query) {

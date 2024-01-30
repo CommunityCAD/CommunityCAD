@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::table('permissions')->insert(['title' => 'report_type_manage', 'category' => 'admin', 'description' => 'Grants access to manage report types.']);
+        // DB::table('permissions')->insert(['title' => 'report_type_manage', 'category' => 'admin', 'description' => 'Grants access to manage report types.']);
     }
 
     /**
