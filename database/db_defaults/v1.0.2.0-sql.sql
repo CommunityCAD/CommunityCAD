@@ -1,18 +1,88 @@
--- --------------------------------------------------------
--- Host:                         localhost
--- Server version:               5.7.24 - MySQL Community Server (GPL)
--- Server OS:                    Win64
--- HeidiSQL Version:             10.2.0.5599
--- --------------------------------------------------------
+INSERT INTO `cad_settings` (`id`, `name`, `value`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'community_logo', 'https://cdn.discordapp.com/attachments/632810626363686922/1132129051411230811/communitycad.png', 'text', '2023-04-02 16:09:08', '2023-07-21 20:56:56', NULL),
+	(2, 'community_name', 'Community CAD', 'text', '2023-04-02 16:09:08', '2023-06-24 16:56:58', NULL),
+	(3, 'minimum_age', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(4, 'days_until_inactive', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(5, 'days_until_reapply', '7', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(6, 'postal_map_link', NULL, 'text', '2023-04-02 16:09:08', '2023-07-21 21:30:58', NULL),
+	(7, 'force_discord_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(8, 'force_steam_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(9, 'application_terms', 'You understand that you may only submit one application per recruitment cycle and that if you are denied you are required to wait until the next recruitment cycle to reapply.\r\n\r\nYou have read over the Application Rules & Regulations and agree to them?', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:46:43', NULL),
+	(10, 'community_intro', 'Community Intro.', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:50:41', NULL),
+	(11, 'members_must_apply', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	(12, 'allow_same_name_civilians', 'false', 'bool', '2023-07-21 21:09:34', '2023-07-21 21:32:36', NULL),
+	(13, 'state', 'San Andreas', 'text', '2023-09-25 22:35:53', '2023-09-25 22:35:53', NULL),
+	(14, 'county', 'Blane County', 'text', '2023-09-25 23:06:34', '2023-09-25 23:06:34', NULL),
+	(15, 'city', 'Los Santos', 'text', '2023-09-25 22:36:34', '2023-09-25 22:36:34', NULL),
+	(16, 'officer_name_format', 'F. Last', 'text', '2024-01-20 21:46:05', '2024-01-20 21:46:05', NULL);
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+INSERT INTO `civilian_levels` (`id`, `name`, `civilian_limit`, `firearm_limit`, `vehicle_limit`, `license_types_allowed`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Default', 99, 99, 99, '"{\\"data\\":[\\"1\\",\\"2\\",\\"3\\",\\"4\\",\\"5\\",\\"6\\",\\"7\\",\\"8\\",\\"12\\"]}"', '2023-02-11 00:07:53', '2023-11-04 20:01:31', NULL);
 
--- Dumping data for table fivemcad.penal_codes: ~151 rows (approximately)
-/*!40000 ALTER TABLE `penal_codes` DISABLE KEYS */;
+INSERT INTO `civilian_statuses` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Alive', NULL, NULL, NULL),
+	(2, 'Wanted', NULL, NULL, NULL),
+	(3, 'Jailed', NULL, NULL, NULL),
+	(4, 'Dead', NULL, NULL, NULL),
+	(5, 'Hospitalized', NULL, NULL, NULL),
+	(6, 'Pending Deleteion', NULL, NULL, NULL),
+	(7, 'Deleted', NULL, NULL, NULL);
+
+INSERT INTO `departments` (`id`, `name`, `initials`, `is_open_external`, `is_open_internal`, `slug`, `logo`, `created_at`, `updated_at`, `deleted_at`, `type`) VALUES
+	(0, 'Community Wide', 'CW', 0, 0, 'community-wide', NULL, '2023-06-13 22:09:28', '2023-06-13 22:09:29', NULL, 1),
+	(1, 'Blane County Sheriffs Office', 'BCSO', 1, 1, 'blane-county-sheriffs-office', 'https://media.discordapp.net/attachments/1131390538315218955/1131390563187441674/latest.png', '2023-05-19 17:34:13', '2023-06-17 17:57:25', NULL, 1),
+	(2, 'Los Santos Police Department', 'LSPD', 1, 1, 'los-santos-police-department', 'https://cdn.discordapp.com/attachments/1132425644941246504/1160345906072264714/image.png', '2023-05-19 17:34:14', '2023-10-07 17:40:34', NULL, 1),
+	(3, 'San Andreas Highway Patrol', 'SAHP', 1, 1, 'san-andreas-highway-patrol', 'https://static.wikia.nocookie.net/alterlifepolicedepartement/images/b/b5/SAHP_logo.png', '2023-05-19 17:34:16', '2023-08-29 21:17:50', NULL, 1),
+	(4, 'Civilian Operations', 'CIV', 1, 1, 'civilian-operations', 'https://content.invisioncic.com/y305077/monthly_2021_03/RCiv_Logo.png.62e84cd49d883db8492dc588c771b8bd.png', '2023-05-19 17:34:17', '2023-07-24 17:32:09', NULL, 3),
+	(5, 'Communications', 'DISP', 1, 1, 'communications', 'https://static.wikia.nocookie.net/ultimate-roleplay/images/c/cb/LCPD-GTA4-logo.png', '2023-05-19 17:34:18', '2023-07-24 17:32:18', NULL, 2),
+	(6, 'San Andreas Fire Rescue', 'SAFR', 1, 1, 'san-andreas-fire-rescue', 'https://cdn.discordapp.com/attachments/1131390538315218955/1131390662479183934/e997a311f79ceb5244645969a0e0f3a6c5_720x720.png', '2023-05-19 17:34:19', '2023-10-07 17:39:06', NULL, 4);
+
+INSERT INTO `disciplinary_action_types` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Level 1', NULL, '2023-06-12 19:58:57', '2023-06-12 19:58:57', NULL),
+	(2, 'Level 2', NULL, '2023-06-12 19:59:02', '2023-06-12 19:59:02', NULL);
+
+INSERT INTO `license_statuses` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Valid', NULL, NULL, NULL),
+	(2, 'Expired', NULL, NULL, NULL),
+	(3, 'Suspended', NULL, NULL, NULL),
+	(4, 'Revoked', NULL, NULL, NULL),
+	(5, 'Pending Approval', NULL, NULL, NULL);
+
+INSERT INTO `license_types` (`id`, `name`, `perm_name`, `prefix`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Drivers License', 'drivers-license', 'DL', NULL, '2023-06-13 10:54:23', NULL),
+	(2, 'Commercial Drivers License', 'cdl_license', 'CDL', NULL, NULL, NULL),
+	(3, 'CCW License', 'ccw_license', 'CCW', NULL, NULL, NULL),
+	(4, 'Security License', 'security_license', 'SC', NULL, NULL, NULL),
+	(5, 'Tow License', 'tow_license', 'TW', NULL, NULL, NULL),
+	(6, 'Fishing License', 'fishing_license', 'FSH', NULL, NULL, NULL),
+	(7, 'Hunting License', 'hunting_license', 'HNT', NULL, NULL, NULL),
+	(8, 'Pilot License', 'pilot-license', 'PL', NULL, '2023-09-25 22:07:45', NULL),
+	(9, 'Weapons Permit', 'weapons-permit', NULL, '2023-11-04 19:59:57', '2023-11-04 19:59:57', NULL);
+
+	INSERT INTO `penal_code_classes` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'Felony', NULL, '2023-07-23 14:26:24', '2023-08-28 17:21:48', NULL),
+	(4, 'Misdemeanor', NULL, '2023-07-23 14:26:55', '2023-08-28 17:21:54', NULL),
+	(7, 'Infraction', NULL, '2023-07-23 14:27:15', '2023-07-23 14:27:15', NULL),
+	(8, 'Information Only', NULL, '2023-11-03 13:00:27', '2023-11-03 13:00:27', NULL);
+
+INSERT INTO `penal_code_titles` (`id`, `number`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, 'Crimes Against The Person', '2023-07-23 14:09:39', '2023-07-23 14:17:44', NULL),
+	(2, 2, 'Crimes Against Property And Criminal Profiteering', '2023-07-23 14:11:26', '2023-08-28 17:30:24', NULL),
+	(3, 3, 'Crimes Against Public Decency', '2023-07-23 14:11:40', '2023-07-23 14:11:40', NULL),
+	(4, 4, 'Test', '2023-07-23 14:20:20', '2023-07-23 14:20:41', '2023-07-23 14:20:41'),
+	(5, 4, 'Test', '2023-07-23 15:45:18', '2023-07-23 15:46:21', '2023-07-23 15:46:21'),
+	(6, 4, 'Crimes Against Public Justice', '2023-08-28 17:30:39', '2023-08-28 17:30:39', NULL),
+	(7, 5, 'Crimes Against Public Peace', '2023-08-28 17:30:48', '2023-08-28 17:30:48', NULL),
+	(8, 6, 'Crimes Against Public Health And Safety', '2023-08-28 17:30:56', '2023-08-28 17:30:56', NULL),
+	(9, 7, 'Crimes Against State Dependents', '2023-08-28 17:31:08', '2023-08-28 17:31:08', NULL),
+	(10, 8, 'Vehicular Offenses', '2023-08-28 17:31:20', '2023-08-28 17:31:20', NULL),
+	(11, 9, 'Control Of Deadly Weapons And Equipment', '2023-08-28 17:31:28', '2023-08-28 17:31:28', NULL),
+	(12, 10, 'Sentencing Enhancements', '2023-08-28 17:31:37', '2023-08-28 17:31:37', NULL),
+	(13, 11, 'Road Law', '2023-08-28 17:31:45', '2023-08-28 17:31:45', NULL),
+	(14, 12, 'Code Policy', '2023-08-28 17:31:53', '2023-08-28 17:31:53', NULL),
+	(15, 13, 'State Code Violations', '2023-08-28 17:32:01', '2023-08-28 17:32:01', NULL),
+	(16, 14, 'Amendments', '2023-08-28 17:32:09', '2023-08-28 17:32:09', NULL);
+
 INSERT INTO `penal_codes` (`id`, `penal_code_title_id`, `number`, `name`, `section`, `notes`, `penal_code_class_id`, `fine`, `bail`, `in_game_jail_time`, `cad_jail_time`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(6, 1, 1, 'Intimidation', 'A person who communicates to another that they will physically harm or kill such other, placing such other in a reasonable state of fear for their own safety.\r\nA person who communicates that they will physically harm or kill another person’s close friends or relatives.\r\nSuch communication can be not just verbal, but also in writing or transmitted through other media.', 'Intimidation differs from assault in terms of the distance between the acts. Intimidation can occur across the street, while assault is up close, within reach of leading to battery. Intimidation replaces criminal threats.', 4, 0, 0, 60, 120, '2023-08-28 17:33:34', '2023-08-28 17:33:34', NULL),
 	(7, 1, 2, 'Assault', 'A person who intentionally puts another in the reasonable belief of imminent physical harm or offensive contact.\r\n\r\nAssault is defined by distance the threats occur. Someone a few feet away threatening to harm or kill you at any moment is assault. Intimidation is less severe as there’s a distance that someone can escape through, or that the perpetrator has more time to reconsider the threat.\r\n*Any unwanted physical contact is considered to be battery, however grabbing someone during a threat may be either assault or battery, depending on intention and interpretation.*', NULL, 4, 750, 0, 30, 60, '2023-08-28 17:34:37', '2023-08-28 17:34:37', NULL),
@@ -169,38 +239,49 @@ INSERT INTO `penal_codes` (`id`, `penal_code_title_id`, `number`, `name`, `secti
 	(158, 13, 14, 'Driving without a Valid License', '1. A person operating a motor vehicle without carrying a valid driver\'s license.\r\n2. A person who refuses to show or provide a driver\'s license to a peace officer while operating a motor vehicle.\r\n3. A person operating a motor vehicle without a valid, unexpired permit or license.\r\n\r\n- The peace officer may also issue a warning or fine up to $3,000 instead at their discretion.', NULL, 4, 1000, 0, 0, 0, '2023-11-03 22:28:38', '2023-11-03 22:28:38', NULL),
 	(159, 13, 15, 'Jaywalking', 'A person who recklessly or intentionally crosses a road in a manner that creates a foreseeable risk of obstructing the flow of traffic, or otherwise creates a hazard to themselves and others.\r\n\r\n- Fine at peace officer\'s discretion. Max $2000', NULL, 7, 2000, 0, 0, 0, '2023-11-03 22:29:22', '2023-11-03 22:29:22', NULL),
 	(160, 13, 16, 'Illegal Parking Of An Aircraft', 'A person who failures to follow the flight protocols as detailed in the State Aviation Act\r\n\r\n- Fine at peace officer\'s discretion. Max $20,000', NULL, 7, 10000, 0, 0, 0, '2023-11-03 22:30:06', '2023-11-03 22:30:06', NULL);
-/*!40000 ALTER TABLE `penal_codes` ENABLE KEYS */;
 
--- Dumping data for table fivemcad.penal_code_classes: ~3 rows (approximately)
-/*!40000 ALTER TABLE `penal_code_classes` DISABLE KEYS */;
-INSERT INTO `penal_code_classes` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Felony', NULL, '2023-07-23 14:26:24', '2023-08-28 17:21:48', NULL),
-	(4, 'Misdemeanor', NULL, '2023-07-23 14:26:55', '2023-08-28 17:21:54', NULL),
-	(7, 'Infraction', NULL, '2023-07-23 14:27:15', '2023-07-23 14:27:15', NULL),
-	(8, 'Information Only', NULL, '2023-11-03 13:00:27', '2023-11-03 13:00:27', NULL);
-/*!40000 ALTER TABLE `penal_code_classes` ENABLE KEYS */;
+INSERT INTO `permissions` (`id`, `title`, `category`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'admin_access', 'admin', 'Grants access to Admin Area.', '2023-01-19 20:18:19', '2023-01-19 20:18:19', NULL),
+	(2, 'announcement_manage', 'staff', 'Grants access to Announcements.', '2023-01-19 20:34:19', '2023-01-19 20:34:19', NULL),
+	(3, 'application_access', 'staff', 'Grants access to Applications link.', '2023-01-19 21:17:26', '2023-01-19 21:17:27', NULL),
+	(5, 'role_manage', 'admin', 'Grants access to Roles link', '2023-01-19 21:56:40', '2023-01-19 21:56:40', NULL),
+	(6, 'application_staff_review', 'staff', 'Grants access to Flagged for Staff Applications', '2023-01-19 22:01:13', '2023-01-19 22:01:13', NULL),
+	(7, 'application_action', 'staff', 'Grants access to action Applications.', '2023-01-19 22:01:25', '2023-01-19 22:01:25', NULL),
+	(11, 'user_access', 'admin', NULL, '2023-01-27 17:41:34', '2023-01-27 17:41:34', NULL),
+	(14, 'user_view', 'admin', NULL, '2023-01-27 17:41:58', '2023-01-27 17:41:58', NULL),
+	(15, 'user_manage_user_roles', 'admin', 'Grants access to edit User Roles.', '2023-01-29 20:03:03', '2023-01-29 20:03:03', NULL),
+	(16, 'user_edit_user_status', 'admin', 'Grants access to edit User account Status.', '2023-02-03 23:13:44', '2023-02-03 23:13:44', NULL),
+	(17, 'user_manage_user_notes', 'admin', 'Grants access to manage User Notes.', '2023-05-16 15:01:48', '2023-05-16 15:01:50', NULL),
+	(18, 'user_manage_user_accommodations', 'admin', 'Grants access to manage User Accommodations.', '2023-05-16 15:02:05', '2023-05-16 15:02:05', NULL),
+	(19, 'user_manage_user_disciplinary_actions', 'admin', 'Grants access to manage User Disciplinary Actions.', '2023-05-16 15:02:20', '2023-05-16 15:02:20', NULL),
+	(20, 'user_advanced_access', 'admin', 'Grants access to manage non-member Users.', '2023-05-16 15:55:13', '2023-05-16 15:55:13', NULL),
+	(21, 'user_departments_manage', 'staff', 'Grants access to manage Members Departments', '2023-05-16 22:32:37', '2023-05-16 22:32:38', NULL),
+	(22, 'department_manage', 'admin', 'Grants access to manage departments.', '2023-05-25 17:11:08', '2023-05-25 17:11:08', NULL),
+	(23, 'disciplinary_action_type_manage', 'admin', 'Grants access to manage Disciplinary Action Types.', '2023-06-12 19:47:59', '2023-06-12 19:47:59', NULL),
+	(24, 'license_type_manage', 'admin', 'Grants access to manage License Types', '2023-06-12 20:15:40', '2023-06-12 20:15:40', NULL),
+	(25, 'civilian_level_manage', 'admin', 'Grants access to manage Civilian Levels', '2023-06-13 14:59:27', '2023-06-13 14:59:27', NULL),
+	(26, 'staff_access', 'staff', 'Grants access to Staff Area.', '2023-07-22 19:30:14', '2023-07-22 19:30:14', NULL),
+	(27, 'supervisor_access', 'supervisor', 'Grants access to Supervisor Area.', '2023-07-22 19:30:13', '2023-07-22 19:30:13', NULL),
+	(28, 'cad_settings', 'admin', 'Grants access to CAD Settings. Very dangerous permission to give.', '2023-06-13 18:26:03', '2023-06-13 18:26:03', NULL),
+	(29, 'report_type_manage', 'admin', 'Grants access to manage report types.', '2023-07-22 19:30:12', '2023-07-22 19:30:12', NULL),
+	(30, 'penal_code_manage', 'admin', 'Grants access to manage the penal code.', NULL, NULL, NULL),
+	(31, 'impound_lot_manage', 'courthouse', 'Grans access to impound lot and ability to release vehicles', '2023-10-05 19:46:30', '2023-10-05 19:46:30', NULL),
+	(32, 'suspended_license_manage', 'courthouse', 'Grants access to suspended licenses and ability to release them.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL),
+	(33, 'reports_manage', 'supervisor', 'Grants access to reports area in the supervisor screen.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL),
+	(34, 'business_manage', 'supervisor', 'Grants access to business area in the supervisor screen.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL);
 
--- Dumping data for table fivemcad.penal_code_titles: ~15 rows (approximately)
-/*!40000 ALTER TABLE `penal_code_titles` DISABLE KEYS */;
-INSERT INTO `penal_code_titles` (`id`, `number`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 'Crimes Against The Person', '2023-07-23 14:09:39', '2023-07-23 14:17:44', NULL),
-	(2, 2, 'Crimes Against Property And Criminal Profiteering', '2023-07-23 14:11:26', '2023-08-28 17:30:24', NULL),
-	(3, 3, 'Crimes Against Public Decency', '2023-07-23 14:11:40', '2023-07-23 14:11:40', NULL),
-	(4, 4, 'Test', '2023-07-23 14:20:20', '2023-07-23 14:20:41', '2023-07-23 14:20:41'),
-	(5, 4, 'Test', '2023-07-23 15:45:18', '2023-07-23 15:46:21', '2023-07-23 15:46:21'),
-	(6, 4, 'Crimes Against Public Justice', '2023-08-28 17:30:39', '2023-08-28 17:30:39', NULL),
-	(7, 5, 'Crimes Against Public Peace', '2023-08-28 17:30:48', '2023-08-28 17:30:48', NULL),
-	(8, 6, 'Crimes Against Public Health And Safety', '2023-08-28 17:30:56', '2023-08-28 17:30:56', NULL),
-	(9, 7, 'Crimes Against State Dependents', '2023-08-28 17:31:08', '2023-08-28 17:31:08', NULL),
-	(10, 8, 'Vehicular Offenses', '2023-08-28 17:31:20', '2023-08-28 17:31:20', NULL),
-	(11, 9, 'Control Of Deadly Weapons And Equipment', '2023-08-28 17:31:28', '2023-08-28 17:31:28', NULL),
-	(12, 10, 'Sentencing Enhancements', '2023-08-28 17:31:37', '2023-08-28 17:31:37', NULL),
-	(13, 11, 'Road Law', '2023-08-28 17:31:45', '2023-08-28 17:31:45', NULL),
-	(14, 12, 'Code Policy', '2023-08-28 17:31:53', '2023-08-28 17:31:53', NULL),
-	(15, 13, 'State Code Violations', '2023-08-28 17:32:01', '2023-08-28 17:32:01', NULL),
-	(16, 14, 'Amendments', '2023-08-28 17:32:09', '2023-08-28 17:32:09', NULL);
-/*!40000 ALTER TABLE `penal_code_titles` ENABLE KEYS */;
 
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+INSERT INTO `report_types` (`id`, `title`, `is_locked`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'End Of Watch Report', 1, 'Report for the end of patrol.', '2023-07-09 04:35:13', '2023-07-09 04:35:13', NULL),
+	(2, 'Use of Force', 0, 'Report for a use of force event by a LEO officer.', '2023-07-22 21:53:27', '2023-07-23 00:21:59', NULL),
+	(3, 'Officer Involved Shooting', 0, 'Fill this out when you are involved in a shooting.', '2024-01-06 04:14:43', '2024-01-06 04:14:43', NULL),
+	(4, 'Medical Report', 0, 'Fill this out when you give medical aid to someone.', '2024-01-06 04:14:59', '2024-01-06 04:14:59', NULL),
+	(5, 'Supervisor Evidence Collecting Report Form', 0, 'Fill this out if you are a supervisor and collect evidence related to a OIS.', '2024-01-06 04:15:58', '2024-01-06 04:15:58', NULL),
+	(6, 'Witness Statement', 0, 'Fill this out after gathering a witness statement', '2024-01-06 04:16:33', '2024-01-06 04:16:33', NULL),
+	(7, 'Post-Call Interaction Report', 0, 'Fill this out after each call. You can disregard this **ONLY** if you have filled out another type of report for the call.', '2024-01-06 04:17:50', '2024-01-06 04:17:50', NULL),
+	(8, 'Vehicle Accident Report', 0, 'Fill this out for a vehicle accident report.', '2024-01-06 04:18:12', '2024-01-06 04:18:12', NULL),
+	(9, 'Sub Division Activation Report', 0, 'Fill this out after the use of a sub division', '2024-01-06 04:19:32', '2024-01-06 04:19:32', NULL);
+
+
+INSERT INTO `users` (`id`, `discord_name`, `discord_username`, `discriminator`, `avatar`, `steam_hex`, `steam_id`, `steam_name`, `account_status`, `reapply`, `reapply_date`, `denied_reason`, `email`, `real_name`, `birthday`, `display_name`, `ts_name`, `officer_name`, `last_login`, `is_protected_user`, `is_super_user`, `civilian_level_id`, `member_join_date`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(188790560658685954, 'Ron Swanson', '.ronswanson', '0', 'https://cdn.discordapp.com/avatars/188790560658685954/a_92e9cc29feaeb37cb66418a8d320faf0.gif', '11000010CDE9587', 76561198176179591, 'Loaf Dog', 3, NULL, NULL, NULL, 'test@test.com', 'Ron Swanson', '1776-07-04', NULL, NULL, 'Ron S', '2023-11-25 15:11:26', 1, 1, 1, '2023-06-13 17:13:04', 'ivF292Ty1VPQ8dyaK0JL3aAbT7Uh1YZJiXpcjng5FsZ4uwfXjklQCUjQ4k2f', '2023-05-28 21:18:50', '2023-11-25 15:11:26', NULL);

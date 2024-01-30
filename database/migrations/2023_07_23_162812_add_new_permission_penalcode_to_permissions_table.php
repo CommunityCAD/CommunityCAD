@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::table('permissions')->insert(['id' => 13, 'title' => 'penal_code_manage', 'category' => 'admin', 'description' => 'Grants access to manage the penal code.']);
+        // DB::table('permissions')->insert(['id' => 13, 'title' => 'penal_code_manage', 'category' => 'admin', 'description' => 'Grants access to manage the penal code.']);
     }
 
     /**

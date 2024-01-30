@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::table('cad_settings')->insert(['name' => 'allow_same_name_civilians', 'value' => 'false', 'type' => 'bool']);
+        // DB::table('cad_settings')->insert(['name' => 'allow_same_name_civilians', 'value' => 'false', 'type' => 'bool']);
     }
 
     /**
