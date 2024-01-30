@@ -12,7 +12,13 @@
             @forelse ($vehicles as $vehicle)
                 <a class="block secondary-button-sm" href="{{ route('cad.vehicle.return', $vehicle->plate) }}"
                     wire:click='show_return("{{ $vehicle->id }}")'>{{ $vehicle->plate }} {{ $vehicle->model }}
-                    {{ $vehicle->color }}<br>RO: {{ $vehicle->civilian->name }} ({{ $vehicle->civilian->s_n_n }})</a>
+                    {{ $vehicle->color }}<br>RO:
+                    @if ($vehicle->civilian)
+                        {{ $vehicle->civilian->name }} ({{ $vehicle->civilian->s_n_n }})
+                    @elseif ($vehicle->business)
+                        {{ $vehicle->business->name }} (BUSSINESS VEHICLE)
+                    @endif
+                </a>
             @empty
                 <p>No results</p>
             @endforelse
