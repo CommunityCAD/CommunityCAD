@@ -56,7 +56,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('cad.')->prefix('cad')->group(function () {
-        // Route::get('home', [CadPageController::class, 'home'])->name('home');
+        Route::get('home', [CadPageController::class, 'home'])->name('home');
         // Route::get('cad', [CadPageController::class, 'cad'])->name('cad');
 
         Route::get('landing', [CadPageController::class, 'landing'])->name('landing');

@@ -23,33 +23,27 @@ class CadPageController extends Controller
             }
         }
 
-        $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-        if ($active_unit) {
-            if ($active_unit->department_type == 1) {
-                return redirect()->route('cad.home');
-            } elseif ($active_unit->department_type == 2) {
-                return redirect()->route('cad.home');
-            } else {
-                return abort(404, 'Department type is not set correctly.');
-            }
+
+        if (auth()->user()->active_unit) {
+            $this->is_active_unit_and_redirect(auth()->user()->active_unit);
+            abort(500, 'message');
         }
+
+
 
         return view('cad.landing', compact('available_departments'));
     }
 
-    // public function home()
-    // {
+    public function home()
+    {
+        $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
+        if (!auth()->user()->active_unit) {
+            return redirect()->route('cad.landing');
+        }
 
-    //     $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
-    //     $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
-
-    //     if (!$active_unit) {
-    //         return redirect()->route('cad.landing');
-    //     }
-
-    //     return view('cad.home', compact('call_count', 'active_unit'));
-    // }
+        return view('cad.home', compact('call_count'));
+    }
 
     // public function cad()
     // {
@@ -108,4 +102,25 @@ class CadPageController extends Controller
 
     //     return redirect()->route('cad.cad');
     // }
+
+    private function is_active_unit_and_redirect($active_unit)
+    {
+        switch ($active_unit->user_department->department->type) {
+            case 1: // LEO
+                return redirect()->route('cad.home');
+                break;
+
+            case 2: // Dispatch
+                return redirect()->route('cad.home');
+                break;
+
+            case 4: // Fire/EMS
+                return redirect()->route('cad.home');
+                break;
+
+            default:
+                return abort(404, 'Department type is not set correctly.');
+                break;
+        }
+    }
 }
