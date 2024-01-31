@@ -16,8 +16,8 @@ class CadPageController extends Controller
 
         foreach ($user_departments as $department) {
             if (
-                $department->department->type == 1 | $department->department->type == 2
-                | $department->department->type == 4
+                $department->department->type == 1 || $department->department->type == 2
+                || $department->department->type == 4
             ) {
                 $available_departments[] = $department;
             }
