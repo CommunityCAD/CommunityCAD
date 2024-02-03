@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cad\ActiveUnit;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,7 +37,7 @@ class User extends Authenticatable
 
     public function active_unit()
     {
-        return $this->hasOne('App\Models\Cad\ActiveUnit');
+        return $this->hasOne(ActiveUnit::class);
     }
 
     public function histories()

@@ -13,7 +13,6 @@
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/cad_helpers.js') }}"></script>
 
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
 
@@ -35,6 +34,7 @@
     @endif
 
     @livewireScripts
+    @include('inc.cad.helperscripts')
 </body>
 
 </html>

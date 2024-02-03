@@ -373,11 +373,4 @@
             </div>
         </section>
     @endif
-
-    <script>
-        function play(type) {
-            var audio = document.getElementById(type);
-            audio.play();
-        }
-    </script>
 </div>
