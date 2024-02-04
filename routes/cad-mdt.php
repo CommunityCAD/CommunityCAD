@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cad\AddUnitController;
 use App\Http\Controllers\Cad\CadController;
+use App\Http\Controllers\Cad\CallController;
 use App\Http\Controllers\Cad\Mdt\MdtController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,11 @@ Route::get('stop_panic', [CadController::class, 'stop_panic'])->name('stop_panic
 Route::get('clear_panic', [CadController::class, 'clear_panic'])->name('clear_panic');
 Route::get('panic', [CadController::class, 'panic'])->name('panic');
 
+Route::resource('call', CallController::class);
+
 Route::get('mdt/home', [CadController::class, 'mdt_home'])->name('mdt.home');
 Route::get('mdt', [MdtController::class, 'mdt'])->name('mdt');
+
 
 
 

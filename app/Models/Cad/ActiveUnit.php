@@ -2,6 +2,7 @@
 
 namespace App\Models\Cad;
 
+use App\Models\CallActiveUnit;
 use App\Models\Officer;
 use App\Models\User;
 use App\Models\UserDepartment;
@@ -16,7 +17,7 @@ class ActiveUnit extends Model
 
     protected $guarded = [];
 
-    protected $with = ['officer', 'user_department'];
+    protected $with = ['officer', 'user_department', 'calls'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -53,6 +54,11 @@ class ActiveUnit extends Model
     public function user_department()
     {
         return $this->belongsTo(UserDepartment::class);
+    }
+
+    public function calls()
+    {
+        return $this->belongsToMany(Call::class);
     }
 
     public function user()

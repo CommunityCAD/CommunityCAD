@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Models\Cad;
+namespace App\Models;
 
+use App\Models\Cad\ActiveUnit;
+use App\Models\Cad\CallNatures;
+use App\Models\Cad\CallStatuses;
 use App\Models\CallActiveUnit;
 use App\Models\CallCivilian;
 use App\Models\CallLog;

@@ -13,9 +13,9 @@
     </header>
     <header class="z-10 shadow-md bg-[#2e3547]  uppercase mb-3 border-b-2">
         <div class="">
-            <div class="flex items-center justify-between max-w-7xl mx-auto h-20 ">
+            <div class="flex items-center justify-between max-w-7xl mx-auto h-10 ">
                 <div class="flex items-center">
-                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-20 @if (request()->is('cad/mdt/home')) font-bold bg-[#131c23] @endif"
+                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10 @if (request()->is('cad/mdt/home')) font-bold bg-[#131c23] @endif"
                         href="{{ route('cad.home') }}">
                         <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +26,7 @@
                         <p>Home</p>
                     </a>
 
-                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-20 @if (request()->is('cad/mdt')) font-bold bg-[#131c23] @endif"
+                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10 @if (request()->is('cad/mdt')) font-bold bg-[#131c23] @endif"
                         href="{{ route('cad.mdt') }}">
                         <svg class="w-6 h-6 mr-2" fill="#ffffff" id="Layer_1" stroke="#ffffff" version="1.1"
                             viewBox="0 0 508.053 508.053" width="200px" xml:space="preserve"
@@ -53,7 +53,7 @@
                         <p>MDT</p>
                     </a>
 
-                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-20" href="#">
+                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10" href="#">
                         <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -63,7 +63,7 @@
                         <p>Names</p>
                     </a>
 
-                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-20" href="#">
+                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10" href="#">
                         <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -73,17 +73,18 @@
                         <p>Vehicle</p>
                     </a>
 
-                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-20" href="#">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
+                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10" href="#">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M14.25 9.75v-4.5m0 4.5h4.5m-4.5 0 6-6m-3 18c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 0 1 4.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 0 0-.38 1.21 12.035 12.035 0 0 0 7.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 0 1 1.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 0 1-2.25 2.25h-2.25Z"
+                                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
+
                         <p>Calls</p>
                     </a>
 
-                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-20" href="#">
+                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10" href="#">
                         <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -97,7 +98,7 @@
                 <div class="flex items-center">
                     @if (auth()->user()->active_unit->status != 'OFFDTY')
                         @if (auth()->user()->active_unit->is_panic)
-                            <a class="flex items-center py-1 px-5 text-black font-bold animate-pulse bg-red-600 hover:bg-red-700 h-20"
+                            <a class="flex items-center py-1 px-5 text-black font-bold animate-pulse bg-red-600 hover:bg-red-700 h-10"
                                 href="{{ route('cad.stop_panic') }}">
                                 <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +108,7 @@
                                 <p>Stop <br> Panic</p>
                             </a>
                         @else
-                            <a class="flex items-center py-1 px-5 text-black bg-red-600 hover:bg-red-700 h-20"
+                            <a class="flex items-center py-1 px-5 text-black bg-red-600 hover:bg-red-700 h-10"
                                 href="{{ route('cad.panic') }}">
                                 <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +133,8 @@
                 <a class="hover:underline" href="#">10 Codes</a>
                 <a class="hover:underline" href="#">Stolen Vehicles</a>
                 <a class="hover:underline" href="#">Chat</a>
-                <a class="hover:underline" href="#">Create a call</a>
+                <a class="hover:underline @if (request()->is('cad/call/create')) font-bold underline text-xl @endif"
+                    href="{{ route('cad.call.create') }}">Create a call</a>
                 <a class="hover:underline" href="#">Supervisor</a>
 
             </div>

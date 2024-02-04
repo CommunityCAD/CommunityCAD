@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Cad;
 
 use App\Models\Cad\ActiveUnit;
-use App\Models\Cad\Call;
+use App\Models\Call;
 use Carbon\Carbon;
 use Livewire\Component;
 
