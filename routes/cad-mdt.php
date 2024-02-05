@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Cad\AddUnitController;
 use App\Http\Controllers\Cad\CadController;
+use App\Http\Controllers\Cad\CallCivilianController;
 use App\Http\Controllers\Cad\CallController;
+use App\Http\Controllers\Cad\CallLogController;
 use App\Http\Controllers\Cad\Mdt\MdtController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,10 @@ Route::get('home', [CadController::class, 'home'])->name('home');
 Route::get('stop_panic', [CadController::class, 'stop_panic'])->name('stop_panic');
 Route::get('clear_panic', [CadController::class, 'clear_panic'])->name('clear_panic');
 Route::get('panic', [CadController::class, 'panic'])->name('panic');
+
+Route::post('call/{call}/update_call_log', [CallLogController::class, 'store'])->name('call_log.store');
+Route::post('call/{call}/add_civilian/{civilian}', [CallCivilianController::class, 'add_civilian'])->name('call.add_civilian');
+Route::get('call/{call}/remove_civilian/{civilian}', [CallCivilianController::class, 'remove_civilian'])->name('call.remove_civilian');
 
 Route::resource('call', CallController::class);
 
@@ -55,5 +61,5 @@ Route::get('mdt', [MdtController::class, 'mdt'])->name('mdt');
 // Route::post('offduty', [OffDutyController::class, 'store'])->name('offduty.store');
 // Route::get('offdutyskipreport', [OffDutyController::class, 'skipreport'])->name('offduty.skipreport');
 
-// Route::post('call/{call}/update_call_log', [CallLogController::class, 'store'])->name('call_log.store');
+//
 // Route::post('call/{call}/add_persons', [CallController::class, 'add_persons'])->name('add_persons');

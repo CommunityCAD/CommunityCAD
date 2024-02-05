@@ -9,6 +9,7 @@ use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
 use App\Models\CallCivilian;
+use App\Models\CallLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -53,11 +54,11 @@ class CallController extends Controller
     public function show(Call $call): View
     {
         $call->with('call_civilians');
-        $active_units = ActiveUnit::get();
         $call_natures = CallNatures::NATURECODES;
         $call_statuses = CallStatuses::STATUSCODES;
+        $rps = CallCivilian::where('call_id', $call->id)->where('type', 'RP')->get();
 
-        return view('cad.call.show', compact('call', 'active_units', 'call_natures', 'call_statuses'));
+        return view('cad.call.show', compact('call', 'call_natures', 'call_statuses', 'rps'));
     }
 
     public function edit(Call $call): View
@@ -70,13 +71,24 @@ class CallController extends Controller
         $validated = $request->validate([
             'status' => 'required',
             'nature' => 'required',
-            'location' => 'required',
-            'city' => 'required',
+            // 'location' => 'required',
+            // 'city' => 'required',
+            'priority' => 'required',
         ]);
+
+        $name = "";
+
+        if (auth()->user()->active_unit->user_department->department->type == 1) {
+            $name = 'Officer';
+        } elseif (auth()->user()->active_unit->user_department->department->type == 2) {
+            $name = 'Dispatcher';
+        } elseif (auth()->user()->active_unit->user_department->department->type == 4) {
+            $name = 'Fire/EMS';
+        }
 
         if ($call->status != $validated['status']) {
             CallLog::create([
-                'from' => 'Dispatch ' . auth()->user()->active_unit->badge_number,
+                'from' => $name . ' ' . auth()->user()->active_unit->user_department->badge_number,
                 'text' => 'Call Status Updated to: ' . $validated['status'],
                 'call_id' => $call->id,
             ]);
@@ -84,9 +96,16 @@ class CallController extends Controller
 
         if ($call->nature != $validated['nature']) {
             CallLog::create([
-                'from' => 'Dispatch ' .
-                    auth()->user()->active_unit->badge_number,
+                'from' => $name . ' ' . auth()->user()->active_unit->user_department->badge_number,
                 'text' => 'Call Nature Updated to: ' . $validated['nature'],
+                'call_id' => $call->id,
+            ]);
+        }
+
+        if ($call->nature != $validated['priority']) {
+            CallLog::create([
+                'from' => $name . ' ' . auth()->user()->active_unit->user_department->badge_number,
+                'text' => 'Call Priority Updated to: P' . $validated['priority'],
                 'call_id' => $call->id,
             ]);
         }
@@ -94,13 +113,6 @@ class CallController extends Controller
         $call->update($validated);
 
         return redirect()->route('cad.call.show', $call->id);
-    }
-
-    public function destroy(Call $call): RedirectResponse
-    {
-        $call->delete();
-
-        return redirect()->route('calls.index')->with('success', 'Message');
     }
 
     public function add_persons(Call $call, Request $request)
@@ -116,24 +128,5 @@ class CallController extends Controller
         ]);
 
         return redirect()->route('cad.call.show', $call->id);
-    }
-
-    private function redirect_to_cad()
-    {
-        switch (auth()->user()->active_unit->user_department->department->type) {
-            case 1:
-                return redirect()->route('cad.mdt');
-                break;
-            case 2:
-                return redirect()->route('cad.cad');
-                break;
-            case 4:
-                return redirect()->route('cad.fire_cad');
-                break;
-
-            default:
-                abort(403);
-                break;
-        }
     }
 }

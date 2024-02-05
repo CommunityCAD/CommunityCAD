@@ -124,7 +124,7 @@
             </div>
         </div>
         <div class="flex justify-between max-w-7xl mx-auto mt-2">
-            <div class="flex items-center text-white space-x-4">
+            <div class="flex items-center text-gray-300 space-x-4">
                 <a class="hover:underline" href="#">Firearm Database</a>
                 <a class="hover:underline" href="#">Notes</a>
                 <a class="hover:underline" href="#">BOLO +</a>
@@ -133,7 +133,7 @@
                 <a class="hover:underline" href="#">10 Codes</a>
                 <a class="hover:underline" href="#">Stolen Vehicles</a>
                 <a class="hover:underline" href="#">Chat</a>
-                <a class="hover:underline @if (request()->is('cad/call/create')) font-bold underline text-xl @endif"
+                <a class="hover:underline @if (request()->is('cad/call/create')) font-bold underline text-white text-xl @endif"
                     href="{{ route('cad.call.create') }}">Create a call</a>
                 <a class="hover:underline" href="#">Supervisor</a>
 

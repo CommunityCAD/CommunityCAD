@@ -123,23 +123,4 @@ class CadController extends Controller
 
         return $this->redirect_to_cad();
     }
-
-    private function redirect_to_cad()
-    {
-        switch (auth()->user()->active_unit->user_department->department->type) {
-            case 1:
-                return redirect()->route('cad.mdt');
-                break;
-            case 2:
-                return redirect()->route('cad.cad');
-                break;
-            case 4:
-                return redirect()->route('cad.fire_cad');
-                break;
-
-            default:
-                abort(403);
-                break;
-        }
-    }
 }

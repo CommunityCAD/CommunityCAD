@@ -1,26 +1,26 @@
-<div class="max-w-7xl mx-auto p-4">
+<div class="max-w-7xl mx-auto p-2">
     <h1 class="text-xl font-bold text-white">Create Call</h1>
     <form action="{{ route('cad.call.store') }}"
-        class="p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default" method="POST">
+        class="p-2 mt-5 space-y-2 text-white border border-white rounded cursor-default" method="POST">
         @csrf
         <h1 class="text-xl font-semibold">Location</h1>
         <div class="flex">
             <div class="w-3/5">
-                <label class="block mr-2 text-lg">Incident Address:</label>
-                <input autofocus class="text-input uppercase" name="location" type="text"
+                <label class="block mr-2">Incident Address:</label>
+                <input autofocus class="text-input-sm uppercase" name="location" type="text"
                     value="{{ old('location') }}">
                 <x-input-error :messages="$errors->get('location')" class="mt-2" />
             </div>
             <div class="w-2/5 ml-3">
-                <label class="block mr-2 text-lg">City:</label>
-                <input class="text-input uppercase" name="city" type="text" value="{{ old('city') }}">
+                <label class="block mr-2">City:</label>
+                <input class="text-input-sm uppercase" name="city" type="text" value="{{ old('city') }}">
                 <x-input-error :messages="$errors->get('city')" class="mt-2" />
             </div>
         </div>
 
         <h1 class="text-xl font-semibold">Caller Info</h1>
         <div class="flex">
-            <div class="w-full my-3 text-white space-y-2">
+            <div class="w-full text-white space-y-2">
                 @forelse ($linked_civilians as $id => $name)
                     <div>
                         <input checked class="hidden" name="linked_civilians[]" type="checkbox"
@@ -28,7 +28,7 @@
                         <label for="">{{ $name }} | <a class="text-red-600 hover:underline"
                                 href="#" wire:click='remove_civilian_from_call("{{ $id }}")'>Remove</a>
                         </label>
-                        <select class="select-input" id="" name="linked_civilians_types[]">
+                        <select class="select-input-sm" id="" name="linked_civilians_types[]">
                             <option value="RP">REPORTING PARTY</option>
                             <option value="SUSPECT">SUSPECT</option>
                             <option value="VICTIM">VICTIM</option>
@@ -44,8 +44,8 @@
         <hr>
         <div class="flex justify-between items-baseline">
             <div class="w-full">
-                <label class="block mr-2 text-lg">Search:</label>
-                <input class="text-input uppercase" wire:model.debounce='civilian_search'>
+                <label class="block mr-2">Search:</label>
+                <input class="text-input-sm uppercase" wire:model.debounce='civilian_search'>
             </div>
         </div>
         <div class="flex">
@@ -76,7 +76,7 @@
         <div class="flex">
             <div class="w-3/5">
                 <label class="block mr-2 text-lg">Nature:</label>
-                <select class="select-input" name="nature">
+                <select class="select-input-sm" name="nature">
                     @foreach ($call_natures as $code => $props)
                         <option value="{{ $code }}">{{ $code }} - {{ $props['name'] }}</option>
                     @endforeach
@@ -85,7 +85,7 @@
             </div>
             <div class="w-2/5 ml-3">
                 <label class="block mr-2 text-lg">Received via:</label>
-                <select class="select-input" name="source">
+                <select class="select-input-sm" name="source">
                     <option value="911 CALL">911 CALL</option>
                     <option value="NON-EMERGENCY">NON-EMERGENCY</option>
                     <option value="OFFICER">OFFICER</option>
@@ -100,7 +100,7 @@
         <div class="flex">
             <div class="w-1/3">
                 <label class="block mr-2 text-lg">Priority:</label>
-                <select class="select-input" name="priority">
+                <select class="select-input-sm" name="priority">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option selected value="3">3</option>
@@ -110,7 +110,7 @@
             </div>
             <div class="w-1/3 ml-3">
                 <label class="block mr-2 text-lg">Type:</label>
-                <select class="select-input" name="type">
+                <select class="select-input-sm" name="type">
                     <option value="1">Police</option>
                     <option value="2">Fire</option>
                     <option value="3">EMS</option>
@@ -118,9 +118,9 @@
             </div>
             <div class="w-1/3 ml-3">
                 <label class="block mr-2 text-lg">Status:</label>
-                <select class="select-input" name="status">
-                    <option value="RCVD">RCVD</option>
-                    <option value="HLD">HLD</option>
+                <select class="select-input-sm" name="status">
+                    <option value="RCVD">RCVD - RECEIVED</option>
+                    <option value="HLD">HLD - HOLD</option>
                 </select>
             </div>
         </div>
@@ -128,7 +128,7 @@
         <div class="flex">
             <div class="w-full">
                 <label class="block mr-2 text-lg">Narrative:</label>
-                <textarea class="textarea-input uppercase" name="narrative">{{ old('narrative') }}</textarea>
+                <textarea class="textarea-input-sm uppercase" name="narrative">{{ old('narrative') }}</textarea>
                 <x-input-error :messages="$errors->get('narrative')" class="mt-2" />
             </div>
         </div>

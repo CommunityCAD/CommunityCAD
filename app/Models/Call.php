@@ -28,17 +28,7 @@ class Call extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected $with = ['user', 'civilian', 'call_log'];
-
-    public function user()
-    {
-        return $this->hasOne(User::class, 'id', 'user_id');
-    }
-
-    public function civilian()
-    {
-        return $this->hasOne(Civilian::class, 'id', 'civilian_id');
-    }
+    protected $with = [];
 
     public function call_log()
     {
