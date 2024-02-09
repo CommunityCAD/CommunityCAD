@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Cad\Mdt;
+namespace App\Http\Livewire\Cad\Cad;
 
 use App\Models\Cad\ActiveUnit;
 use App\Models\Call;
@@ -9,7 +9,7 @@ use App\Models\Cad\CallStatuses;
 use App\Models\CallLog;
 use Livewire\Component;
 
-class MdtScreen extends Component
+class CadScreen extends Component
 {
     public $active_units;
 
@@ -29,7 +29,7 @@ class MdtScreen extends Component
 
     public function render()
     {
-        return view('livewire.cad.mdt.mdt-screen');
+        return view('livewire.cad.cad.cad-screen');
     }
 
     public function set_status(ActiveUnit $activeUnit, $status)
@@ -107,5 +107,14 @@ class MdtScreen extends Component
             'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
             'call_id' => $call->id,
         ]);
+    }
+
+    public function hard_offduty(ActiveUnit $activeUnit)
+    {
+        $activeUnit->calls()->detach();
+
+        $activeUnit->delete();
+
+        $this->reset();
     }
 }

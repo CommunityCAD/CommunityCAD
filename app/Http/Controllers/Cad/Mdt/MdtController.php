@@ -9,10 +9,6 @@ class MdtController extends Controller
 {
     public function mdt()
     {
-        if (!isset(auth()->user()->active_unit) || auth()->user()->active_unit->user_department->department->type != 1) {
-            return redirect(route('cad.landing'));
-        }
-
         return view('cad.mdt.mdt');
     }
 }

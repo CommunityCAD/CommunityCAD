@@ -459,7 +459,7 @@
                         <a class="edit-button-md" href="{{ route('cad.name.return', $civilian->id) }}">Refresh
                             Data</a>
                     </div>
-                    @if (auth()->user()->active_unit->user_department->department->type == 1)
+                    @if (auth()->user()->active_unit->department_type == 1)
                         <div class="mt-3">
                             <a class="secondary-button-md" href="#" onclick="openExternalWindow('#')">New
                                 Warning</a>
@@ -468,9 +468,9 @@
                             <a class="secondary-button-md" href="#" onclick="openExternalWindow('#')">New
                                 Arrest</a>
                         </div>
-                    @elseif (auth()->user()->active_unit->user_department->department->type == 2)
-                        <p>Dispatch doesn't have options yet.</p>
-                    @elseif (auth()->user()->active_unit->user_department->department->type == 4)
+                    @elseif (auth()->user()->active_unit->department_type == 2)
+                        <p></p>
+                    @elseif (auth()->user()->active_unit->department_type == 4)
                         <a class="secondary-button-md" href="#" onclick="openExternalWindow('#')">New
                             Medical History</a>
                     @endif

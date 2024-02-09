@@ -18,7 +18,7 @@ class ActiveUnit extends Model
 
     protected $guarded = [];
 
-    protected $with = ['officer', 'user_department', 'calls'];
+    // protected $with = ['officer', 'user_department', 'calls'];
 
     protected $casts = [
         'created_at' => 'datetime',

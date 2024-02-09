@@ -36,6 +36,7 @@ class AddUnitController extends Controller
 
         $input['user_id'] = auth()->user()->id;
         $input['user_department_id'] = $user_department->id;
+        $input['department_type'] = $user_department->department->type;
         $input['status'] = 'OFFDTY';
         $input['description'] = 'SIGNED IN: ' . date('G:i:s');
 

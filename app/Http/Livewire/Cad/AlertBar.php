@@ -11,7 +11,7 @@ class AlertBar extends Component
 {
     public $active_alerts = [];
 
-    public function render()
+    public function mount()
     {
         $this->active_alerts = [];
         if (auth()->user()->active_unit->is_panic) {
@@ -52,8 +52,10 @@ class AlertBar extends Component
                 ];
             }
         }
+    }
 
-
+    public function render()
+    {
         return view('livewire.cad.alert-bar');
     }
 }
