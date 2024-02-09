@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Cad\Call;
+use App\Models\Call;
 use App\Models\Civilian\Vehicle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -61,8 +61,8 @@ class Ticket extends Model
         static::creating(
             function ($model) {
                 $new_number = date('ymd');
-                $number = Ticket::where('id', 'like', $new_number.'%')->count() + 1;
-                $new_number = $new_number.str_pad($number, 3, '0', STR_PAD_LEFT);
+                $number = Ticket::where('id', 'like', $new_number . '%')->count() + 1;
+                $new_number = $new_number . str_pad($number, 3, '0', STR_PAD_LEFT);
                 $model->id = $new_number;
             }
         );

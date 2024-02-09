@@ -55,7 +55,7 @@ Route::middleware(['auth', 'member.check'])->group(function () {
         Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
     });
 
-    Route::name('cad.')->prefix('cad')->group(function () {
+    Route::name('cad.')->prefix('cad')->middleware(['cad.activity_check'])->group(function () {
         require __DIR__ . '/cad-mdt.php';
     });
 

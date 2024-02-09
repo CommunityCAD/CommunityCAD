@@ -1,8 +1,4 @@
 <div wire:poll.5s>
-    <div class="text-white">
-        Dispatch Header
-    </div>
-
     <div class="max-w-7xl mx-auto">
         @include('inc.cad.call_table')
     </div>

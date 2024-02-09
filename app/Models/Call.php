@@ -55,6 +55,11 @@ class Call extends Model
         return $this->hasMany(CallCivilian::class);
     }
 
+    public function call_vehicles()
+    {
+        return $this->hasMany(CallVehicle::class);
+    }
+
     public function getTimeAttribute()
     {
         $updated_at = Carbon::parse($this->updated_at);

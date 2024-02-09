@@ -60,7 +60,7 @@
                     </svg>
                     Reports
                 </a>
-                <a :class="openTab === 5 ? activeClasses : inactiveClasses" @click="openTab = 5" class="block py-3"
+                {{-- <a :class="openTab === 5 ? activeClasses : inactiveClasses" @click="openTab = 5" class="block py-3"
                     href="#">
                     <svg class="w-8 h-8 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -95,12 +95,15 @@
                         </g>
                     </svg>
                     Officers
-                </a>
+                </a> --}}
 
             </div>
+
             <div class="col-span-8">
-                <h1 class="text-xl text-center font-bold text-white">Call {{ $call->id }} - {{ $call->nature }} -
+                <h1 class="text-xl text-center font-bold text-white">Call {{ $call->id }} - ({{ $call->nature }})
                     {{ $call->nature_info['name'] }}</h1>
+                <p class="text-lg text-center font-bold text-white">Status - ({{ $call->status }})
+                    {{ $call->status_info['name'] }}</p>
 
                 <div class="p-2 text-base leading-relaxed" x-show="openTab === 1">
                     <div class="max-w-7xl mx-auto p-2">
@@ -170,7 +173,8 @@
                                             href="{{ route('cad.call.remove_civilian', [$call->id, $call_civilian->civilian->id]) }}">Remove
                                         </a>
 
-                                        <a class="text-blue-600 hover:underline flex items-center" href="#">RUN
+                                        <a class="text-blue-600 hover:underline flex items-center"
+                                            href="{{ route('cad.name.return', $call_civilian->civilian->id) }}">RUN
                                             <svg class="w-3 h-3 ml-2" fill="none" stroke-width="1.5"
                                                 stroke="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -292,7 +296,8 @@
                                         href="{{ route('cad.call.remove_civilian', [$call->id, $call_civilian->civilian->id]) }}">Remove
                                     </a>
 
-                                    <a class="text-blue-600 hover:underline flex items-center" href="#">RUN
+                                    <a class="text-blue-600 hover:underline flex items-center"
+                                        href="{{ route('cad.name.return', $call_civilian->civilian->id) }}">RUN
                                         <svg class="w-3 h-3 ml-2" fill="none" stroke-width="1.5"
                                             stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -307,10 +312,177 @@
                 </div>
 
                 <div class="p-6 text-base leading-relaxed" x-show="openTab === 3">
-                    Vehicles
+                    <p class="text-center mb-2">You can add vehicles on their return page.</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        @foreach ($call->call_vehicles as $call_vehicle)
+                            <div class="bg-gray-200 rounded-lg p-2 text-black text-sm">
+                                <div class="">
+                                    <p class="text-lg text-center">{{ strtoupper(get_setting('state')) }}</p>
+                                </div>
+                                <div class="mt-1">
+                                    <p class="text-5xl text-center">{{ $call_vehicle->vehicle->plate }}</p>
+                                </div>
+                                <div class="mt-1 flex ">
+                                    <p class=""><span class="text-blue-500 text-xs">MK</span>
+                                        {{ $call_vehicle->vehicle->model }}
+                                    </p>
+                                    <p class="ml-3"><span class="text-blue-500 text-xs">CL</span>
+                                        {{ $call_vehicle->vehicle->color }}
+                                    </p>
+                                </div>
+                                <div class="border-t-2 border-black flex justify-between">
+                                    <p class=""><span class="text-blue-500 text-xs">ROLE</span>
+                                        {{ $call_vehicle->type }}
+                                    </p>
+
+                                    <a class="text-red-600 hover:underline"
+                                        href="{{ route('cad.call.remove_vehicle', [$call->id, $call_vehicle->vehicle->id]) }}">Remove
+                                    </a>
+
+                                    <a class="text-blue-600 hover:underline flex items-center"
+                                        href="{{ route('cad.vehicle.return', $call_vehicle->vehicle->plate) }}">RUN
+                                        <svg class="w-3 h-3 ml-2" fill="none" stroke-width="1.5"
+                                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
+
                 <div class="p-6 text-base leading-relaxed" x-show="openTab === 4">
-                    Reports
+                    <div class="grid grid-cols-2 gap-2">
+                        @forelse ($call->reports as $report)
+                            <div class="bg-gray-200 rounded-lg p-2 text-black text-sm">
+                                <a href="#"
+                                    onclick="openExternalWindow('{{ route('cad.report.show', $report->id) }}')">
+                                    <div class="mt-1">
+                                        <svg class="w-16 h-16 mx-auto" fill="none" stroke-width="1.5"
+                                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <div class="mt-1 flex ">
+                                        <p class=""><span class="text-blue-500 text-xs">Name</span>
+                                            {{ $report->title }}
+                                        </p>
+
+                                    </div>
+                                    <div class="border-t-2 border-black flex justify-between">
+                                        <p class=""><span class="text-blue-500 text-xs">OFF</span>
+                                            {{ $report->officer->name ?? $report->user->preferred_name }}
+                                        </p>
+                                        <p class="ml-3"><span class="text-blue-500 text-xs">ID</span>
+                                            {{ $report->id }}
+                                        </p>
+                                        <p class="ml-3"><span class="text-blue-500 text-xs">TY</span>
+                                            {{ $report->report_type->title }}
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+
+                        @empty
+                            <p>No Reports Linked To This Call.</p>
+                        @endforelse
+                        <hr class="col-span-2">
+                        @foreach ($call->tickets as $ticket)
+                            @php
+                                if ($ticket->type_id == 1) {
+                                    $type = 'Warning';
+                                } elseif ($ticket->type_id == 2) {
+                                    $type = 'Ticket';
+                                } elseif ($ticket->type_id == 3) {
+                                    $type = 'Arrest';
+                                }
+                            @endphp
+                            <div class="bg-gray-200 rounded-lg p-2 text-black text-sm">
+                                <div class="mt-1">
+                                    @if ($type == 'Warning')
+                                        <svg class="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path d="M12 7.75V13" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="1.5" stroke="#292D32"></path>
+                                                <path
+                                                    d="M21.08 8.58003V15.42C21.08 16.54 20.48 17.58 19.51 18.15L13.57 21.58C12.6 22.14 11.4 22.14 10.42 21.58L4.47998 18.15C3.50998 17.59 2.90997 16.55 2.90997 15.42V8.58003C2.90997 7.46003 3.50998 6.41999 4.47998 5.84999L10.42 2.42C11.39 1.86 12.59 1.86 13.57 2.42L19.51 5.84999C20.48 6.41999 21.08 7.45003 21.08 8.58003Z"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    stroke="#292D32"></path>
+                                                <path d="M12 16.2V16.2999" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" stroke="#292D32"></path>
+                                            </g>
+                                        </svg>
+                                    @elseif($type == 'Ticket')
+                                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="#000000"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M9 9H15M9 12H15M9 15H15M5 3V21L8 19L10 21L12 19L14 21L16 19L19 21V3L16 5L14 3L12 5L10 3L8 5L5 3Z"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    stroke="#000000"></path>
+                                            </g>
+                                        </svg>
+                                    @elseif($type == 'Arrest')
+                                        <svg class="w-16 h-16 mx-auto" id="Layer_1" version="1.1"
+                                            viewBox="0 0 392.533 392.533" width="200px" xml:space="preserve"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <g>
+                                                    <g>
+                                                        <path
+                                                            d="M300.057,0c-29.673,0-56.048,14.093-73.05,35.879h-52.622c-6.012,0-10.925,4.849-10.925,10.925v36.137 c-42.408,4.59-76.283,38.141-81.131,80.549H46.772c-6.012,0-10.925,4.848-10.925,10.925v52.622 c-21.786,16.937-35.814,43.313-35.814,72.986c0,51.006,41.503,92.509,92.509,92.509s92.509-41.503,92.509-92.509 c0-29.673-14.093-56.048-35.879-73.05v-52.622c0-6.012-4.849-10.925-10.925-10.925h-33.939 c4.655-30.319,28.768-54.174,59.087-58.505v33.293c0,6.012,4.848,10.925,10.925,10.925h52.622 c16.937,21.786,43.378,35.879,73.05,35.879c51.006,0,92.509-41.503,92.509-92.509C392.501,41.503,351.063,0,300.057,0z M163.329,300.024c0,39.047-31.741,70.723-70.723,70.723c-39.046,0-70.723-31.741-70.723-70.723s31.741-70.723,70.723-70.723 C131.523,229.236,163.329,261.042,163.329,300.024z M127.386,185.277v29.091c-10.731-4.396-22.497-6.853-34.844-6.853 s-24.113,2.457-34.844,6.853v-29.091H127.386z M214.4,127.418h-29.091v-0.065V57.729H214.4 c-4.396,10.731-6.853,22.497-6.853,34.844S210.004,116.687,214.4,127.418z M300.057,163.297 c-39.046,0-70.723-31.741-70.723-70.723s31.741-70.723,70.723-70.723s70.723,31.741,70.723,70.723 S339.038,163.297,300.057,163.297z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    @endif
+
+                                </div>
+                                <div class="mt-1">
+                                    <p class=""><span class="text-blue-500 text-xs">Name</span>
+                                        {{ $ticket->civilian->name }} |
+                                        {{ $ticket->offense_occured_at->format('m/d/Y H:i') }}
+                                    </p>
+                                    <p><span class="text-blue-500 text-xs">CHRG</span>
+                                        @foreach ($ticket->charges as $charge)
+                                            @if (!$loop->last)
+                                                {{ $charge->penal_code->name }},
+                                            @else
+                                                {{ $charge->penal_code->name }}
+                                            @endif
+                                        @endforeach
+                                    </p>
+                                </div>
+                                <div class="border-t-2 border-black flex justify-between">
+                                    <p class=""><span class="text-blue-500 text-xs">OFF</span>
+                                        {{ $report->officer->name ?? $report->user->preferred_name }}
+                                    </p>
+                                    <p class="ml-3"><span class="text-blue-500 text-xs">ID</span>
+                                        {{ $ticket->id }}
+                                    </p>
+                                    <p class="ml-3"><span class="text-blue-500 text-xs">TY</span>
+                                        {{ $type }}
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="p-6 text-base leading-relaxed" x-show="openTab === 5">
                     Evidence

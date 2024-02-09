@@ -2,6 +2,7 @@
 
 namespace App\Models\Cad;
 
+use App\Models\Call;
 use App\Models\CallActiveUnit;
 use App\Models\Officer;
 use App\Models\User;

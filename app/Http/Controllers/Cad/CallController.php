@@ -10,6 +10,7 @@ use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
 use App\Models\CallCivilian;
 use App\Models\CallLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -19,9 +20,12 @@ class CallController extends Controller
 
     public function index(): View
     {
-        $calls = Call::all();
+        $all_calls = Call::orderBy('id', 'desc')->get();
 
-        return view('cad.calls.index', compact('calls'));
+        $recent_calls = $all_calls->where('created_at', '>', Carbon::now()->subDays(2));
+        $all_calls = $all_calls->where('created_at', '<', Carbon::now()->subDays(2));
+
+        return view('cad.call.index', compact('all_calls', 'recent_calls'));
     }
 
     public function create(): View
@@ -92,6 +96,22 @@ class CallController extends Controller
                 'text' => 'Call Status Updated to: ' . $validated['status'],
                 'call_id' => $call->id,
             ]);
+
+            if ($validated['status'] == 'CLO' || explode('-', $validated['status'], 2)[0] == "CLO") {
+                foreach ($call->attached_units as $unit) {
+                    $unit->update(['status' => 'AVL']);
+                    $unit->touch();
+                    $call->attached_units()->detach($unit->id);
+                }
+
+                $call->attached_units()->detach();
+
+                CallLog::create([
+                    'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->badge_number . ')',
+                    'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
+                    'call_id' => $call->id,
+                ]);
+            }
         }
 
         if ($call->nature != $validated['nature']) {

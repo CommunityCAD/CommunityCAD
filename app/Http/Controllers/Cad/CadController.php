@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
-use App\Models\Cad\Call;
+use App\Models\Call;
 use App\Models\UserDepartment;
 use Illuminate\Http\Request;
 
@@ -13,21 +13,7 @@ class CadController extends Controller
     public function landing()
     {
         if (isset(auth()->user()->active_unit)) {
-            switch (auth()->user()->active_unit->user_department->department->type) {
-                case 1:
-                    return redirect()->route('cad.mdt.home');
-                    break;
-                case 2:
-                    return redirect()->route('cad.cad.home');
-                    break;
-                case 4:
-                    return redirect()->route('cad.fire_cad.home');
-                    break;
-
-                default:
-                    abort(403);
-                    break;
-            }
+            return redirect()->route('cad.home');
         }
 
         $user_departments = UserDepartment::where('user_id', auth()->user()->id)->get();
@@ -48,52 +34,6 @@ class CadController extends Controller
     public function home()
     {
         if (!isset(auth()->user()->active_unit)) {
-            return redirect(route('cad.landing'));
-        }
-
-        switch (auth()->user()->active_unit->user_department->department->type) {
-            case 1:
-                return redirect()->route('cad.mdt.home');
-                break;
-            case 2:
-                return redirect()->route('cad.cad.home');
-                break;
-            case 4:
-                return redirect()->route('cad.fire_cad.home');
-                break;
-
-            default:
-                abort(403);
-                break;
-        }
-
-        $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
-        return view('cad.home', compact('call_count'));
-    }
-
-    public function mdt_home()
-    {
-        if (!isset(auth()->user()->active_unit) || auth()->user()->active_unit->user_department->department->type != 1) {
-            return redirect(route('cad.landing'));
-        }
-
-        $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
-        return view('cad.home', compact('call_count'));
-    }
-
-    public function cad_home()
-    {
-        if (!isset(auth()->user()->active_unit) || auth()->user()->active_unit->user_department->department->type != 2) {
-            return redirect(route('cad.landing'));
-        }
-
-        $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
-        return view('cad.home', compact('call_count'));
-    }
-
-    public function fire_cad_home()
-    {
-        if (!isset(auth()->user()->active_unit) || auth()->user()->active_unit->user_department->department->type != 4) {
             return redirect(route('cad.landing'));
         }
 

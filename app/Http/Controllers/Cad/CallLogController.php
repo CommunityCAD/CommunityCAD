@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cad\Call;
+use App\Models\Call;
 use App\Models\CallLog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
