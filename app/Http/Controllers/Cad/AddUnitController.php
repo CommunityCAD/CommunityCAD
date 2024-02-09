@@ -28,12 +28,10 @@ class AddUnitController extends Controller
         $user_department = UserDepartment::findOrFail($selected_department);
         $officer = Officer::where('user_id', auth()->user()->id)->where('user_department_id', $user_department->id)->get()->first();
 
-        if (!$officer && $user_department->department->type != 2) {
+        if (!$officer) {
             return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'You have not created an officer for this department yet. Please go to the Civilian portal to create one.', 'level' => 'error']]);
         } else {
-            if ($user_department->department->type != 2) {
-                $input['officer_id'] = $officer->id;
-            }
+            $input['officer_id'] = $officer->id;
         }
 
         $input['user_id'] = auth()->user()->id;
