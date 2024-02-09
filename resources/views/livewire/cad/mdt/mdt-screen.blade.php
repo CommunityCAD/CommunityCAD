@@ -21,7 +21,7 @@
                         SCENE</a>
                     <a class="delete-button-md" href="#"
                         wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">BREAK</a>
-                    <a class="delete-button-md" href="#">OFF DUTY</a>
+                    <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY</a>
                 @endif
 
             @endif
