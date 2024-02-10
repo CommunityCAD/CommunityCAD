@@ -18,7 +18,10 @@ class CivilianSearchScreen extends Component
     public function render()
     {
         if (! empty($this->search_name)) {
-            $this->civilians = Civilian::where('first_name', 'like', '%'.$this->search_name.'%')->orWhere('last_name', 'like', '%'.$this->search_name.'%')->without(['licenses', 'medical_records', 'vehicles', 'weapons'])->get(['id', 'first_name', 'last_name']);
+            $this->civilians = Civilian::where('first_name', 'like', '%'.$this->search_name.'%')
+                ->orWhere('last_name', 'like', '%'.$this->search_name.'%')
+                ->without(['licenses', 'medical_records', 'vehicles', 'weapons'])
+                ->get();
         } elseif (! empty($this->search_ssn)) {
             $this->civilians = Civilian::where('id', 'like', '%'.$this->search_ssn.'%')->get();
         } else {
@@ -27,16 +30,4 @@ class CivilianSearchScreen extends Component
 
         return view('livewire.cad.civilian-search-screen');
     }
-
-    // public function show_return(Civilian $civilian)
-    // {
-    //     return $this->civilian_return = $civilian;
-    // }
-
-    // public function clear_return()
-    // {
-    //     $this->reset();
-
-    //     return $this->civilian_return = null;
-    // }
 }

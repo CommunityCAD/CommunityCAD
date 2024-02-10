@@ -2,8 +2,10 @@
 
 namespace App\Models\Cad;
 
+use App\Models\Call;
 use App\Models\Officer;
 use App\Models\User;
+use App\Models\UserDepartment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,9 +17,13 @@ class ActiveUnit extends Model
 
     protected $guarded = [];
 
+    // protected $with = ['officer', 'user_department', 'calls'];
+
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'first_on_duty_at' => 'datetime',
+        'off_duty_at' => 'datetime',
     ];
 
     public function getTimeAttribute()
@@ -30,13 +36,6 @@ class ActiveUnit extends Model
         return $age;
     }
 
-    public function getNiceCallsAttribute()
-    {
-        $calls = json_decode($this->calls);
-
-        return $calls->data;
-    }
-
     public function getDisplayNameAttribute()
     {
         return $this->formatName($this->getOfficerNameAttribute());
@@ -44,7 +43,7 @@ class ActiveUnit extends Model
 
     public function getOfficerNameAttribute()
     {
-        return isset($this->officer->name) ? $this->officer->name : auth()->user()->discord_name;
+        return isset($this->officer->name) ? $this->officer->name : auth()->user()->preferred_name;
     }
 
     public function officer()
@@ -52,9 +51,19 @@ class ActiveUnit extends Model
         return $this->belongsTo(Officer::class);
     }
 
+    public function user_department()
+    {
+        return $this->belongsTo(UserDepartment::class);
+    }
+
+    public function calls()
+    {
+        return $this->belongsToMany(Call::class);
+    }
+
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function getDisplayStatusTextColorAttribute()
@@ -89,19 +98,19 @@ class ActiveUnit extends Model
 
             switch (get_setting('officer_name_format')) {
                 case 'F. Last':
-                    $formatted_name = substr($name_array[0], 0, 1) . '. ' . $name_array[1];
+                    $formatted_name = substr($name_array[0], 0, 1).'. '.$name_array[1];
                     break;
 
                 case 'First Last':
-                    $formatted_name = $name_array[0] . ' ' . $name_array[1];
+                    $formatted_name = $name_array[0].' '.$name_array[1];
                     break;
 
                 case 'First L.':
-                    $formatted_name = $name_array[0] . ' ' . substr($name_array[1], 0, 1) . '.';
+                    $formatted_name = $name_array[0].' '.substr($name_array[1], 0, 1).'.';
                     break;
 
                 default:
-                    $formatted_name = substr($name_array[0], 0, 1) . '. ' . $name_array[1];
+                    $formatted_name = substr($name_array[0], 0, 1).'. '.$name_array[1];
                     break;
             }
         } else {

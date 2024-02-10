@@ -2,57 +2,61 @@
 
 namespace App\Http\Controllers\Civilian\Business;
 
-use App\Models\BusinessEmployee;
 use App\Http\Controllers\Controller;
 use App\Models\Business;
+use App\Models\BusinessEmployee;
 use App\Models\Civilian;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\View\View;
 
 class BusinessEmployeeController extends Controller
 {
-
     public function approve_interview(Business $business, BusinessEmployee $businessEmployee)
     {
         $businessEmployee->update(['role' => 2]);
         $businessEmployee->touch('created_at');
+
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Interview Approved.', 'level' => 'success']]);
     }
 
     public function promote_to_manager(Business $business, BusinessEmployee $businessEmployee)
     {
         $businessEmployee->update(['role' => 3]);
+
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Employee Promoted.', 'level' => 'success']]);
     }
 
     public function promote_to_owner(Business $business, BusinessEmployee $businessEmployee)
     {
         $businessEmployee->update(['role' => 4]);
+
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Employee Promoted.', 'level' => 'success']]);
     }
 
     public function demote_to_manager(Business $business, BusinessEmployee $businessEmployee)
     {
         $businessEmployee->update(['role' => 3]);
+
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Employee Demoted.', 'level' => 'success']]);
     }
 
     public function demote_to_employee(Business $business, BusinessEmployee $businessEmployee)
     {
         $businessEmployee->update(['role' => 2]);
+
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Employee Demoted.', 'level' => 'success']]);
     }
 
     public function deny_interview(Business $business, BusinessEmployee $businessEmployee)
     {
         $businessEmployee->delete();
+
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Interview Denied.', 'level' => 'success']]);
     }
 
     public function quit(Business $business, BusinessEmployee $businessEmployee)
     {
         $businessEmployee->delete();
+
         return redirect()->route('civilian.businesses.index')->with('alerts', [['message' => 'You have quit.', 'level' => 'success']]);
     }
 
@@ -71,6 +75,7 @@ class BusinessEmployeeController extends Controller
             'civilian_id' => $request->civilian_id,
             'role' => 1,
         ]);
+
         return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'You have quit.', 'level' => 'success']]);
     }
 
@@ -82,7 +87,7 @@ class BusinessEmployeeController extends Controller
         $new_owner = BusinessEmployee::where('civilian_id', $new_owner_id)->get()->first();
         $old_owner = BusinessEmployee::where('civilian_id', $old_owner_id)->get()->first();
 
-        if (!$new_owner) {
+        if (! $new_owner) {
             return redirect()->route('civilian.businesses.show', $business->id)->with('alerts', [['message' => 'Owner is not a citizen.', 'level' => 'error']]);
         }
 

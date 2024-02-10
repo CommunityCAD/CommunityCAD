@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class UpdateCivilianAlertsController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Civilian $civilian, Request $request)
     {
         $data = [];

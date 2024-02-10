@@ -1,4 +1,4 @@
-@extends('layouts.cad_reports')
+@extends('layouts.cad_simple')
 
 @section('content')
     <div class="">
@@ -19,10 +19,8 @@
                         <p>Report Type:
                             <select class="select-input" name="report_type_id" required>
                                 <option>Choose one</option>
-                                @foreach ($report_types as $type)
-                                    <option @selected(old('report_type_id') == $type->id) value="{{ $type->id }}">{{ $type->title }}
-                                    </option>
-                                @endforeach
+                                <option selected value="1">Off Duty Report
+                                </option>
                             </select>
                         </p>
                         <x-input-error :messages="$errors->get('report_type_id')" class="mt-2" />
@@ -37,7 +35,7 @@
                     </div>
                     <input id="mdcontent" name="mdcontent" type="hidden" value="{{ old('mdcontent') }}">
 
-                    <button class="new-button-md text-base mt-5">Save</button>
+                    <button class="new-button-md text-base mt-5">Submit</button>
 
                 </div>
             </form>

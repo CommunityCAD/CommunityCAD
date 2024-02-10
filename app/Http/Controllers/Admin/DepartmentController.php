@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DepartmentRequest;
 use App\Models\Department;
+use App\Models\Officer;
 use App\Models\UserDepartment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -81,6 +82,7 @@ class DepartmentController extends Controller
         $department_members = UserDepartment::where('department_id', $department->id)->get();
 
         foreach ($department_members as $member) {
+            Officer::where('user_department_id', $member->id)->get()->first()->delete();
             $member->delete();
         }
 

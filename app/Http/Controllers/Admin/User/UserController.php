@@ -21,13 +21,13 @@ class UserController extends Controller
 
     public function show(User $user): mixed
     {
-        if (!in_array(auth()->user()->id, config('cad.owner_ids'))) {
-            if ($user->is_protected_user && !auth()->user()->is_super_user) {
-                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->preferred_name . ' is a protected user. You can not edit them.', 'level' => 'error']]);
+        if (! in_array(auth()->user()->id, config('cad.owner_ids'))) {
+            if ($user->is_protected_user && ! auth()->user()->is_super_user) {
+                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->preferred_name.' is a protected user. You can not edit them.', 'level' => 'error']]);
             }
 
-            if ($user->is_super_user && !auth()->user()->is_super_user) {
-                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->preferred_name . ' is a super user. You can not edit them.', 'level' => 'error']]);
+            if ($user->is_super_user && ! auth()->user()->is_super_user) {
+                return redirect()->route('admin.users.index')->with('alerts', [['message' => $user->preferred_name.' is a super user. You can not edit them.', 'level' => 'error']]);
             }
         }
 

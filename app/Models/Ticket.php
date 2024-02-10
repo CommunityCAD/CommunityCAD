@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Cad\Call;
 use App\Models\Civilian\Vehicle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

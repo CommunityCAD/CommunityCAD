@@ -10,6 +10,18 @@
     @apply w-full px-2 py-2 mt-2 text-black border rounded-md cursor-pointer focus:outline-none;
 }
 
+.text-input-sm {
+    @apply w-full px-1 py-1 mt-2 text-black border rounded-md focus:outline-none;
+}
+
+.textarea-input-sm {
+    @apply w-full h-16 px-1 py-1 mt-2 text-black border rounded-md focus:outline-none;
+}
+
+.select-input-sm {
+    @apply w-full px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none;
+}
+
 input:checked ~ .dot {
     transform: translateX(100%);
     background-color: #00ff00;
