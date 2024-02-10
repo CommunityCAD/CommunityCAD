@@ -37,6 +37,12 @@ class CallController extends Controller
     {
 
         $input = $request->validated();
+
+        if (!isset($input['linked_civilians'])) {
+            $call = Call::create($input);
+            return redirect()->route('cad.mdt');
+        }
+
         $linked_civilians = $input['linked_civilians'];
         $linked_civilians_types = $input['linked_civilians_types'];
         unset($input['linked_civilians'], $input['linked_civilians_types']);
@@ -52,7 +58,7 @@ class CallController extends Controller
             $index++;
         }
 
-        return $this->redirect_to_cad();
+        return redirect()->route('cad.mdt');
     }
 
     public function show(Call $call): View
@@ -131,21 +137,6 @@ class CallController extends Controller
         }
 
         $call->update($validated);
-
-        return redirect()->route('cad.call.show', $call->id);
-    }
-
-    public function add_persons(Call $call, Request $request)
-    {
-        $civilian = Civilian::where('id', $request->civilian_id)->get()->first();
-        if (Civilian::where('id', $request->civilian_id)->count() == 0) {
-            return redirect()->route('cad.call.show', $call->id)->with('alerts', [['message' => 'That SSN doesn\'t return to anyone.', 'level' => 'error']]);
-        }
-        CallCivilian::create([
-            'call_id' => $call->id,
-            'civilian_id' => $civilian->id,
-            'type' => $request->type,
-        ]);
 
         return redirect()->route('cad.call.show', $call->id);
     }

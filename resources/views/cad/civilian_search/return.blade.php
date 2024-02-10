@@ -421,7 +421,7 @@
                                 @endphp
 
                                 <a class="block {{ $text_color }}" href="#"
-                                    onclick="openExternalWindow('#')">({{ $ticket->id }})
+                                    onclick="openExternalWindow('{{ route('cad.ticket.show', $ticket->id) }}')">({{ $ticket->id }})
                                     {{ $type }} on {{ $ticket->offense_occured_at->format('m/d/Y H:i') }} at
                                     {{ $ticket->location_of_offense }} <span class="block ml-5">Offense(s)
                                         @foreach ($ticket->charges as $charge)
@@ -461,12 +461,9 @@
                     </div>
                     @if (auth()->user()->active_unit->department_type == 1)
                         <div class="mt-3">
-                            <a class="secondary-button-md" href="#" onclick="openExternalWindow('#')">New
-                                Warning</a>
-                            <a class="secondary-button-md" href="#" onclick="openExternalWindow('#')">New
-                                Ticket</a>
-                            <a class="secondary-button-md" href="#" onclick="openExternalWindow('#')">New
-                                Arrest</a>
+                            <a class="secondary-button-md" href="#"
+                                onclick="openExternalWindow('{{ route('cad.ticket.create', $civilian->id) }}')">New
+                                Ticket/Arrest</a>
                         </div>
                     @elseif (auth()->user()->active_unit->department_type == 2)
                         <p></p>

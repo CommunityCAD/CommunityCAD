@@ -105,13 +105,6 @@ class Call extends Model
         return false;
     }
 
-    public function getNiceUnitsAttribute()
-    {
-        $units = json_decode($this->units);
-
-        return $units->data;
-    }
-
     public static function boot()
     {
         parent::boot();

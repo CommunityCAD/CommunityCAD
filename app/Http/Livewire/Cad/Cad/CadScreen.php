@@ -13,6 +13,8 @@ class CadScreen extends Component
 {
     public $active_units;
 
+    public $online_dispatcher;
+
     public $calls;
 
     public $active_panic = false;
@@ -21,20 +23,25 @@ class CadScreen extends Component
 
     public $call_statuses = CallStatuses::STATUSCODES;
 
+    protected $listeners = ['updated-page' => '$refresh'];
+
     public function mount()
     {
-        $this->active_units = ActiveUnit::with(['officer', 'user_department', 'calls'])->get()->sortBy('user_department.department.type')->sortBy('user_department.department.initials');
-        $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
     }
 
     public function render()
     {
+        $this->active_units = ActiveUnit::with(['officer', 'user_department', 'calls'])->get()->sortBy('user_department.department.type')->sortBy('user_department.department.initials');
+        $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
+        $this->online_dispatcher = ActiveUnit::where('department_type', 2)->where('status', '!=', 'OFFDTY')->orderBy('created_at')->get()->first();
+
         return view('livewire.cad.cad.cad-screen');
     }
 
     public function set_status(ActiveUnit $activeUnit, $status)
     {
         $activeUnit->update(['status' => $status, 'description' => 'Status Set To: ' . $status]);
+        $this->emit('updated-page');
     }
 
     public function set_call_status(Call $call, $status)
@@ -47,21 +54,23 @@ class CadScreen extends Component
         }
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->badge_number . ')',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
             'text' => 'Call Status Updated To ' . $status,
             'call_id' => $call->id,
         ]);
+        $this->emit('updated-page');
     }
 
     public function set_call_priority(Call $call, $priority)
     {
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->badge_number . ')',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
             'text' => 'Call Priority Updated To ' . $priority,
             'call_id' => $call->id,
         ]);
 
         $call->update(['priority' => $priority]);
+        $this->emit('updated-page');
     }
 
     public function remove_unit_from_call(ActiveUnit $activeUnit, Call $call)
@@ -70,13 +79,16 @@ class CadScreen extends Component
         $call->attached_units()->detach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->badge_number . ')',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
             'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
             'call_id' => $call->id,
         ]);
 
+        $activeUnit->update(['description' => 'Removed from call: ' . $call->id]);
+
         $call->touch();
         $activeUnit->touch();
+        $this->emit('updated-page');
     }
 
     public function add_unit_to_call(ActiveUnit $activeUnit, Call $call)
@@ -84,13 +96,15 @@ class CadScreen extends Component
         $call->attached_units()->attach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->badge_number . ')',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
             'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
             'call_id' => $call->id,
         ]);
 
+        $activeUnit->update(['description' => 'Added to call: ' . $call->id]);
         $call->touch();
         $activeUnit->touch();
+        $this->emit('updated-page');
     }
 
     public function close_call(Call $call)
@@ -103,10 +117,11 @@ class CadScreen extends Component
         $call->attached_units()->detach();
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->badge_number . ')',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
             'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
             'call_id' => $call->id,
         ]);
+        $this->emit('updated-page');
     }
 
     public function hard_offduty(ActiveUnit $activeUnit)
@@ -114,7 +129,6 @@ class CadScreen extends Component
         $activeUnit->calls()->detach();
 
         $activeUnit->delete();
-
-        $this->reset();
+        $this->emit('updated-page');
     }
 }

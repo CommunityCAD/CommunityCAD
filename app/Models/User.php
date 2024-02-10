@@ -86,11 +86,6 @@ class User extends Authenticatable
         return $this->discord_name . '#' . $this->discriminator;
     }
 
-    public function getOfficerNameCheckAttribute()
-    {
-        return $this->discord_name;
-    }
-
     public function getStatusNameAttribute()
     {
         switch ($this->account_status) {

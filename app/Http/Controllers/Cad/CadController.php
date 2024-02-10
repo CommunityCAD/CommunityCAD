@@ -44,13 +44,13 @@ class CadController extends Controller
     public function panic()
     {
         auth()->user()->active_unit->update(['is_panic' => true, 'status' => 'PANIC']);
-        return $this->redirect_to_cad();
+        return redirect()->route('cad.mdt');
     }
 
     public function stop_panic()
     {
         auth()->user()->active_unit->update(['is_panic' => false, 'status' => 'AVL']);
-        return $this->redirect_to_cad();
+        return redirect()->route('cad.mdt');
     }
 
     public function clear_panic()
@@ -61,6 +61,6 @@ class CadController extends Controller
             $active_unit->update(['is_panic' => false, 'status' => 'AVL']);
         }
 
-        return $this->redirect_to_cad();
+        return redirect()->route('cad.mdt');
     }
 }

@@ -33,7 +33,7 @@
         @elseif($alert['color'] == 'green')
             <div class="bg-green-600 text-white py-1 text-center text-lg">
                 @if ($alert['link'] != null)
-                    <a href="{{ route($alert['link']) }}">{{ $alert['message'] }}</a>
+                    <a href="{{ $alert['link'] }}">{{ $alert['message'] }}</a>
                 @else
                     <p>{{ $alert['message'] }}</p>
                 @endif

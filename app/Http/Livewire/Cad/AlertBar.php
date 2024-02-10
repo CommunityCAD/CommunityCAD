@@ -11,7 +11,13 @@ class AlertBar extends Component
 {
     public $active_alerts = [];
 
+    protected $listeners = ['updated-page' => '$refresh'];
+
     public function mount()
+    {
+    }
+
+    public function render()
     {
         $this->active_alerts = [];
         if (auth()->user()->active_unit->is_panic) {
@@ -52,10 +58,25 @@ class AlertBar extends Component
                 ];
             }
         }
-    }
 
-    public function render()
-    {
+        if (auth()->user()->active_unit->description != '') {
+            $call_info = explode(':', auth()->user()->active_unit->description);
+            if (
+                $call_info[1] &&
+                $call_info[0] == 'Added to call' &&
+                auth()->user()->active_unit->updated_at->addSeconds(15)->isFuture()
+            ) {
+                $call = Call::where('id', $call_info[1])->get()->first();
+                $this->active_alerts['added_to_call' . $call->id] = [
+                    'color' => 'green',
+                    'message' => 'You have been added to a call. Click to see call.',
+                    'link' => route('cad.call.show', trim($call_info[1])),
+                    'model' => null,
+                    'audio' => "audio/addedtocall.mp3",
+                ];
+            }
+        }
+
         return view('livewire.cad.alert-bar');
     }
 }

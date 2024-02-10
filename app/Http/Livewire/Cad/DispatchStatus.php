@@ -11,7 +11,13 @@ class DispatchStatus extends Component
 
     public $has_active_dispatch = 'OFF';
 
+    protected $listeners = ['updated-page' => '$refresh'];
+
     public function mount()
+    {
+    }
+
+    public function render()
     {
         $this->active_dispatch = ActiveUnit::where('department_type', 2)->where('status', '!=', 'OFFDTY')->orderBy('created_at')->get()->first();
         if ($this->active_dispatch) {
@@ -25,10 +31,7 @@ class DispatchStatus extends Component
                 $this->has_active_dispatch = 'OFF';
             }
         }
-    }
 
-    public function render()
-    {
         return view('livewire.cad.dispatch-status');
     }
 }

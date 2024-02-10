@@ -86,7 +86,7 @@ class OfficerController extends Controller
         }
 
         foreach ($user_departments as $department) {
-            if ($department->department->type == 1 or $department->department->type == 4) {
+            if (true) {
                 $available_user_departments[$department->id] = $department;
             }
         }
