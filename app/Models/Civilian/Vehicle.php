@@ -33,7 +33,6 @@ class Vehicle extends Model
         return $this->belongsTo(Civilian::class);
     }
 
-
     public function business()
     {
         return $this->belongsTo(Business::class);

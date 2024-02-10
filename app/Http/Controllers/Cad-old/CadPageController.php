@@ -23,14 +23,10 @@ class CadPageController extends Controller
             }
         }
 
-
-
         if (auth()->user()->active_unit) {
             $this->is_active_unit_and_redirect(auth()->user()->active_unit);
             abort(500, 'message');
         }
-
-
 
         return view('cad.landing', compact('available_departments'));
     }
@@ -38,7 +34,7 @@ class CadPageController extends Controller
     public function home()
     {
         $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
-        if (!auth()->user()->active_unit) {
+        if (! auth()->user()->active_unit) {
             return redirect()->route('cad.landing');
         }
 

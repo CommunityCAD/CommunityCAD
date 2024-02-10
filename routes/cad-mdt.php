@@ -16,7 +16,6 @@ use App\Http\Controllers\Cad\UpdateCivilianAlertsController;
 use App\Http\Controllers\Cad\VehicleSearchController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('landing', [CadController::class, 'landing'])->name('landing');
 Route::post('add_unit', AddUnitController::class)->name('add_unit');
 

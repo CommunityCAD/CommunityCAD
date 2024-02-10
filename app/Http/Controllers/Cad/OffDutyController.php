@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Call;
 use App\Models\Report;
-use App\Models\ReportType;
 use Illuminate\Http\Request;
 
 class OffDutyController extends Controller
@@ -55,6 +54,7 @@ class OffDutyController extends Controller
         }
 
         $active_unit->delete();
+
         return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'Marked Off Duty.', 'level' => 'success']]);
     }
 }

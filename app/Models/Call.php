@@ -5,13 +5,6 @@ namespace App\Models;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
-use App\Models\CallActiveUnit;
-use App\Models\CallCivilian;
-use App\Models\CallLog;
-use App\Models\Civilian;
-use App\Models\Report;
-use App\Models\Ticket;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -111,7 +104,7 @@ class Call extends Model
         static::creating(
             function ($model) {
                 $number = Call::count() + 1;
-                $model->id = date('y') . str_pad($number, 5, '0', STR_PAD_LEFT);
+                $model->id = date('y').str_pad($number, 5, '0', STR_PAD_LEFT);
             }
         );
     }

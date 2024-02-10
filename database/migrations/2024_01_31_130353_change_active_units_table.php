@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Department;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -32,7 +31,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('location')->nullable();
             $table->text('status')->nullable();
-
 
             $table->timestamp('first_on_duty_at')->nullable();
             $table->timestamp('off_duty_at')->nullable();

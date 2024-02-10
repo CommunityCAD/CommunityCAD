@@ -16,7 +16,7 @@ class CallLogController extends Controller
             'text' => 'required',
         ]);
 
-        $validated['from'] = auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')';
+        $validated['from'] = auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')';
         $validated['call_id'] = $call->id;
 
         CallLog::create($validated);

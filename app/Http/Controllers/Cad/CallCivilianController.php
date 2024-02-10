@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Call;
 use App\Models\CallCivilian;
 use App\Models\Civilian;
-use Illuminate\Http\Request;
 
 class CallCivilianController extends Controller
 {

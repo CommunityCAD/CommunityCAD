@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\Cad;
 
-use App\Models\Call;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\CallStoreRequest;
-use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
+use App\Models\Call;
 use App\Models\CallCivilian;
 use App\Models\CallLog;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CallController extends Controller
 {
-
     public function index(): View
     {
         $all_calls = Call::orderBy('id', 'desc')->get();
@@ -38,8 +36,9 @@ class CallController extends Controller
 
         $input = $request->validated();
 
-        if (!isset($input['linked_civilians'])) {
+        if (! isset($input['linked_civilians'])) {
             $call = Call::create($input);
+
             return redirect()->route('cad.mdt');
         }
 
@@ -86,7 +85,7 @@ class CallController extends Controller
             'priority' => 'required',
         ]);
 
-        $name = "";
+        $name = '';
 
         if (auth()->user()->active_unit->user_department->department->type == 1) {
             $name = 'Officer';
@@ -98,12 +97,12 @@ class CallController extends Controller
 
         if ($call->status != $validated['status']) {
             CallLog::create([
-                'from' => $name . ' ' . auth()->user()->active_unit->user_department->badge_number,
-                'text' => 'Call Status Updated to: ' . $validated['status'],
+                'from' => $name.' '.auth()->user()->active_unit->user_department->badge_number,
+                'text' => 'Call Status Updated to: '.$validated['status'],
                 'call_id' => $call->id,
             ]);
 
-            if ($validated['status'] == 'CLO' || explode('-', $validated['status'], 2)[0] == "CLO") {
+            if ($validated['status'] == 'CLO' || explode('-', $validated['status'], 2)[0] == 'CLO') {
                 foreach ($call->attached_units as $unit) {
                     $unit->update(['status' => 'AVL']);
                     $unit->touch();
@@ -113,8 +112,8 @@ class CallController extends Controller
                 $call->attached_units()->detach();
 
                 CallLog::create([
-                    'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->badge_number . ')',
-                    'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
+                    'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->badge_number.')',
+                    'text' => 'Call '.$call->id.' has been closed and all units removed from call.',
                     'call_id' => $call->id,
                 ]);
             }
@@ -122,16 +121,16 @@ class CallController extends Controller
 
         if ($call->nature != $validated['nature']) {
             CallLog::create([
-                'from' => $name . ' ' . auth()->user()->active_unit->user_department->badge_number,
-                'text' => 'Call Nature Updated to: ' . $validated['nature'],
+                'from' => $name.' '.auth()->user()->active_unit->user_department->badge_number,
+                'text' => 'Call Nature Updated to: '.$validated['nature'],
                 'call_id' => $call->id,
             ]);
         }
 
         if ($call->nature != $validated['priority']) {
             CallLog::create([
-                'from' => $name . ' ' . auth()->user()->active_unit->user_department->badge_number,
-                'text' => 'Call Priority Updated to: P' . $validated['priority'],
+                'from' => $name.' '.auth()->user()->active_unit->user_department->badge_number,
+                'text' => 'Call Priority Updated to: P'.$validated['priority'],
                 'call_id' => $call->id,
             ]);
         }

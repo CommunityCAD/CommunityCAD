@@ -18,6 +18,7 @@ class VehicleSearchController extends Controller
     public function return(Vehicle $vehicle)
     {
         $calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
+
         return view('cad.vehicle_search.return', compact('vehicle', 'calls'));
     }
 
@@ -34,6 +35,6 @@ class VehicleSearchController extends Controller
             'type' => $validated['type'],
         ]);
 
-        return redirect()->route('cad.vehicle.return', $vehicle->plate)->with('alerts', [['message' => 'Vehicle linked to call ' . $call->id, 'level' => 'success']]);
+        return redirect()->route('cad.vehicle.return', $vehicle->plate)->with('alerts', [['message' => 'Vehicle linked to call '.$call->id, 'level' => 'success']]);
     }
 }

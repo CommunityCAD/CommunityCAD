@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Call;
 use App\Models\UserDepartment;
-use Illuminate\Http\Request;
 
 class CadController extends Controller
 {
@@ -33,23 +32,26 @@ class CadController extends Controller
 
     public function home()
     {
-        if (!isset(auth()->user()->active_unit)) {
+        if (! isset(auth()->user()->active_unit)) {
             return redirect(route('cad.landing'));
         }
 
         $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
+
         return view('cad.home', compact('call_count'));
     }
 
     public function panic()
     {
         auth()->user()->active_unit->update(['is_panic' => true, 'status' => 'PANIC']);
+
         return redirect()->route('cad.mdt');
     }
 
     public function stop_panic()
     {
         auth()->user()->active_unit->update(['is_panic' => false, 'status' => 'AVL']);
+
         return redirect()->route('cad.mdt');
     }
 

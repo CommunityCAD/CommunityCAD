@@ -21,6 +21,7 @@ class ActiveUnitCheck
         if ($active_unit_count != 1) {
             return redirect()->route('cad.landing');
         }
+
         return $next($request);
     }
 }

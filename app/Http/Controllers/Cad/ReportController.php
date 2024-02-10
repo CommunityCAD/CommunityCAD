@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Cad;
 
-use App\Models\Report;
 use App\Http\Controllers\Controller;
 use App\Models\Call;
+use App\Models\Report;
 use App\Models\ReportType;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {

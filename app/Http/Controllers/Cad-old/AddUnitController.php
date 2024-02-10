@@ -19,7 +19,6 @@ class AddUnitController extends Controller
         $selected_department = $validated['user_department'];
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
 
-
         if ($active_unit) {
             $this->is_active_unit_and_redirect($active_unit);
             abort(500);
@@ -28,7 +27,7 @@ class AddUnitController extends Controller
         $user_department = UserDepartment::findOrFail($selected_department);
         $officer = Officer::where('user_id', auth()->user()->id)->where('user_department_id', $user_department->id)->get()->first();
 
-        if (!$officer && $user_department->department->type != 2) {
+        if (! $officer && $user_department->department->type != 2) {
             return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'You have not created an officer for this department yet. Please go to the Civilian portal to create one.', 'level' => 'error']]);
         } else {
             if ($user_department->department->type != 2) {
@@ -39,11 +38,12 @@ class AddUnitController extends Controller
         $input['user_id'] = auth()->user()->id;
         $input['user_department_id'] = $user_department->id;
         $input['status'] = 'OFFDTY';
-        $input['description'] = 'SIGNED IN: ' . date('G:i:s');
+        $input['description'] = 'SIGNED IN: '.date('G:i:s');
 
         $new_active_unit = ActiveUnit::create($input);
 
         $this->is_active_unit_and_redirect($new_active_unit);
+
         return abort(500, 'Didn\'t redirect after going onduty');
     }
 

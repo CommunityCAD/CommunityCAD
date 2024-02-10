@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Cad\Mdt;
 
 use App\Models\Cad\ActiveUnit;
-use App\Models\Call;
 use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
+use App\Models\Call;
 use App\Models\CallLog;
 use Livewire\Component;
 
@@ -31,12 +31,13 @@ class MdtScreen extends Component
     {
         $this->active_units = ActiveUnit::with(['officer', 'user_department', 'calls'])->get()->sortBy('user_department.department.type')->sortBy('user_department.department.initials');
         $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
+
         return view('livewire.cad.mdt.mdt-screen');
     }
 
     public function set_status(ActiveUnit $activeUnit, $status)
     {
-        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: ' . $status]);
+        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: '.$status]);
         $this->emit('updated-page');
     }
 
@@ -50,8 +51,8 @@ class MdtScreen extends Component
         }
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Call Status Updated To ' . $status,
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Call Status Updated To '.$status,
             'call_id' => $call->id,
         ]);
         $this->emit('updated-page');
@@ -60,8 +61,8 @@ class MdtScreen extends Component
     public function set_call_priority(Call $call, $priority)
     {
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Call Priority Updated To ' . $priority,
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Call Priority Updated To '.$priority,
             'call_id' => $call->id,
         ]);
 
@@ -75,12 +76,12 @@ class MdtScreen extends Component
         $call->attached_units()->detach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Officer '.$activeUnit->badge_number.' has been unassigned.',
             'call_id' => $call->id,
         ]);
 
-        $activeUnit->update(['description' => 'Removed from call: ' . $call->id]);
+        $activeUnit->update(['description' => 'Removed from call: '.$call->id]);
 
         $call->touch();
         $activeUnit->touch();
@@ -92,12 +93,12 @@ class MdtScreen extends Component
         $call->attached_units()->attach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Officer '.$activeUnit->badge_number.' has been assigned.',
             'call_id' => $call->id,
         ]);
 
-        $activeUnit->update(['description' => 'Added to call: ' . $call->id]);
+        $activeUnit->update(['description' => 'Added to call: '.$call->id]);
 
         $call->touch();
         $activeUnit->touch();
@@ -114,8 +115,8 @@ class MdtScreen extends Component
         $call->attached_units()->detach();
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Call '.$call->id.' has been closed and all units removed from call.',
             'call_id' => $call->id,
         ]);
         $this->emit('updated-page');

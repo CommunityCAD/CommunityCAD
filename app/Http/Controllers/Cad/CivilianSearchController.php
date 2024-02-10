@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cad\ActiveUnit;
 use App\Models\Call;
 use App\Models\CallCivilian;
 use App\Models\Civilian;
@@ -36,6 +35,6 @@ class CivilianSearchController extends Controller
             'type' => $validated['type'],
         ]);
 
-        return redirect()->route('cad.name.return', $civilian->id)->with('alerts', [['message' => 'Civilian linked to call ' . $call->id, 'level' => 'success']]);
+        return redirect()->route('cad.name.return', $civilian->id)->with('alerts', [['message' => 'Civilian linked to call '.$call->id, 'level' => 'success']]);
     }
 }
