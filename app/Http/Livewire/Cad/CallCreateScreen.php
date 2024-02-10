@@ -12,9 +12,7 @@ class CallCreateScreen extends Component
 
     public $civilians;
 
-    public $civilian_name = '';
-
-    public $civilian_id = '';
+    public $linked_civilians = [];
 
     public $call_natures = CallNatures::NATURECODES;
 
@@ -29,10 +27,15 @@ class CallCreateScreen extends Component
         return view('livewire.cad.call-create-screen');
     }
 
-    public function fill_rp_name($civilian_id, $civilian_name)
+    public function add_civilian_to_call($civilian_id, $civilian_name)
     {
-        $this->civilian_name = $civilian_name;
-        $this->civilian_id = $civilian_id;
+        $this->linked_civilians[$civilian_id] = $civilian_name;
+        $this->civilian_search = '';
+    }
+
+    public function remove_civilian_from_call($civilian_id)
+    {
+        unset($this->linked_civilians[$civilian_id]);
         $this->civilian_search = '';
     }
 }

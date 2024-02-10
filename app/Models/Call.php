@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Models\Cad;
+namespace App\Models;
 
-use App\Models\CallCivilian;
-use App\Models\CallLog;
-use App\Models\Civilian;
-use App\Models\Report;
-use App\Models\Ticket;
-use App\Models\User;
+use App\Models\Cad\ActiveUnit;
+use App\Models\Cad\CallNatures;
+use App\Models\Cad\CallStatuses;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,17 +21,7 @@ class Call extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected $with = ['user', 'civilian', 'call_log'];
-
-    public function user()
-    {
-        return $this->hasOne(User::class, 'id', 'user_id');
-    }
-
-    public function civilian()
-    {
-        return $this->hasOne(Civilian::class, 'id', 'civilian_id');
-    }
+    protected $with = [];
 
     public function call_log()
     {
@@ -46,6 +33,11 @@ class Call extends Model
         return $this->hasMany(Report::class);
     }
 
+    public function attached_units()
+    {
+        return $this->belongsToMany(ActiveUnit::class);
+    }
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
@@ -54,6 +46,11 @@ class Call extends Model
     public function call_civilians()
     {
         return $this->hasMany(CallCivilian::class);
+    }
+
+    public function call_vehicles()
+    {
+        return $this->hasMany(CallVehicle::class);
     }
 
     public function getTimeAttribute()
@@ -99,13 +96,6 @@ class Call extends Model
         }
 
         return false;
-    }
-
-    public function getNiceUnitsAttribute()
-    {
-        $units = json_decode($this->units);
-
-        return $units->data;
     }
 
     public static function boot()

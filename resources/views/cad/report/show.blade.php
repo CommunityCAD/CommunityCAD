@@ -1,4 +1,4 @@
-@extends('layouts.cad_reports')
+@extends('layouts.cad_simple')
 
 @section('content')
     <div class="">

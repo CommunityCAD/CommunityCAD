@@ -23,9 +23,4 @@ class UserDepartment extends Model
     {
         return $this->hasOne(Department::class, 'id', 'department_id');
     }
-
-    public function civilian()
-    {
-        return $this->hasOne(Civilian::class, 'user_department_id', 'id');
-    }
 }

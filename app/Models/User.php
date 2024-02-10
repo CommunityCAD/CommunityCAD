@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cad\ActiveUnit;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,7 +37,7 @@ class User extends Authenticatable
 
     public function active_unit()
     {
-        return $this->hasOne('App\Models\Cad\ActiveUnit');
+        return $this->hasOne(ActiveUnit::class);
     }
 
     public function histories()
@@ -52,7 +53,7 @@ class User extends Authenticatable
         ];
         $hexval = '';
         while ($number != '0') {
-            $hexval = $hexvalues[bcmod($number, '16', 0)] . $hexval;
+            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
             $number = bcdiv($number, '16', 0);
         }
 
@@ -82,12 +83,7 @@ class User extends Authenticatable
             return $this->discord_name;
         }
 
-        return $this->discord_name . '#' . $this->discriminator;
-    }
-
-    public function getOfficerNameCheckAttribute()
-    {
-        return $this->discord_name;
+        return $this->discord_name.'#'.$this->discriminator;
     }
 
     public function getStatusNameAttribute()
