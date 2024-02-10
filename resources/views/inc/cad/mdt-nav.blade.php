@@ -97,7 +97,9 @@
                 {{-- <a class="hover:underline" href="#">BOLOS</a> --}}
                 <a class="hover:underline" href="#"
                     onclick="openExternalWindow('{{ route('cad.penal_code') }}')">Penal Code</a>
-                {{-- <a class="hover:underline" href="#">10 Codes</a> --}}
+                <a class="hover:underline" href="#"
+                    onclick="openExternalWindow('{{ route('cad.ten_code.index') }}')">10
+                    Codes</a>
                 {{-- <a class="hover:underline" href="#">Stolen Vehicles</a> --}}
                 <a class="hover:underline @if (request()->is('cad/call/create')) font-bold underline text-white text-xl @endif"
                     href="{{ route('cad.call.create') }}">Create a call</a>

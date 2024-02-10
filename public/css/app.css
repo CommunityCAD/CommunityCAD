@@ -1693,6 +1693,9 @@ video {
 .top-3 {
   top: 0.75rem;
 }
+.bottom-0 {
+  bottom: 0px;
+}
 .z-0 {
   z-index: 0;
 }
@@ -2797,6 +2800,10 @@ video {
 .bg-\[\#717377\] {
   --tw-bg-opacity: 1;
   background-color: rgb(113 115 119 / var(--tw-bg-opacity));
+}
+.bg-lime-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(101 163 13 / var(--tw-bg-opacity));
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
