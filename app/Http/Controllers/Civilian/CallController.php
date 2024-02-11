@@ -25,7 +25,7 @@ class CallController extends Controller
         $input = $request->validated();
         $civilian_id = false;
 
-        if ($input['civilian_id']) {
+        if (isset($input['civilian_id'])) {
             $civilian_id = $input['civilian_id'];
             unset($input['civilian_id']);
         }
