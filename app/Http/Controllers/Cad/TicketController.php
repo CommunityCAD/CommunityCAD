@@ -47,7 +47,7 @@ class TicketController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['officer_id'] = auth()->user()->active_unit->officer_id;
         $data['civilian_id'] = $civilian->id;
-        $data['offense_occured_at'] = $data['date'].' '.$data['time'].':00';
+        $data['offense_occured_at'] = $data['date'] . ' ' . $data['time'] . ':00';
 
         unset($data['time'], $data['date']);
 
@@ -99,6 +99,7 @@ class TicketController extends Controller
             'cad_jail_time' => 'required|numeric',
             'description' => 'required',
             'penal_code_id' => 'required|numeric',
+            'counts' => 'required|numeric',
         ]);
 
         $validated['ticket_id'] = $ticket->id;

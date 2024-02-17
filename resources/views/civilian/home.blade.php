@@ -115,9 +115,9 @@
                             {{ $ticket->location_of_offense }} <span class="block ml-5">Offense(s)
                                 @foreach ($ticket->charges as $charge)
                                     @if (!$loop->last)
-                                        {{ $charge->penal_code->name }},
+                                        {{ $charge->penal_code->name }} (x{{ $charge->counts }}),
                                     @else
-                                        {{ $charge->penal_code->name }}
+                                        {{ $charge->penal_code->name }} (x{{ $charge->counts }})
                                     @endif
                                 @endforeach
                             </span>
