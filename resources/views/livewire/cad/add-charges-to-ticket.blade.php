@@ -3,7 +3,7 @@
         <form action="{{ route('cad.ticket.add_charges_store', $ticket->id) }}" method="POST">
             @csrf
             <div class="flex">
-                <div class="border-2 border-black w-full p-2">
+                <div class="border-2 border-black w-5/6 p-2">
                     <p class="text-gray-500">Charge
                         <select class="select-input font-bold uppercase" name="penal_code_id" wire:model="penal_code_id">
                             <option value="">Choose one</option>
@@ -17,6 +17,12 @@
                                 </optgroup>
                             @endforeach
                         </select>
+                    </p>
+                </div>
+                <div class="border-2 border-black w-1/6 p-2">
+                    <p class="text-gray-500">Counts
+                        <input class="block text-black p-3 w-full font-bold uppercase" name="counts" required
+                            type="number" value="1">
                     </p>
                 </div>
             </div>

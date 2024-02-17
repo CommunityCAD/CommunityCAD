@@ -32,9 +32,9 @@
 
                             @foreach ($ticket->charges as $charge)
                                 @if (!$loop->last)
-                                    {{ $charge->penal_code->name }},
+                                    {{ $charge->penal_code->name }} (x{{ $charge->counts }}),
                                 @else
-                                    {{ $charge->penal_code->name }}
+                                    {{ $charge->penal_code->name }} (x{{ $charge->counts }})
                                 @endif
                             @endforeach
                         </div>
