@@ -37,10 +37,10 @@ class DepartmentController extends Controller
             return redirect()->route('admin.department.create')->with('alerts', [['message' => 'Department name is already taken.', 'level' => 'error']]);
         }
 
-        if (!isset($input['is_open_external'])) {
+        if (! isset($input['is_open_external'])) {
             $input['is_open_external'] = 0;
         }
-        if (!isset($input['is_open_internal'])) {
+        if (! isset($input['is_open_internal'])) {
             $input['is_open_internal'] = 0;
         }
 
@@ -65,10 +65,10 @@ class DepartmentController extends Controller
             }
         }
 
-        if (!isset($input['is_open_external'])) {
+        if (! isset($input['is_open_external'])) {
             $input['is_open_external'] = 0;
         }
-        if (!isset($input['is_open_internal'])) {
+        if (! isset($input['is_open_internal'])) {
             $input['is_open_internal'] = 0;
         }
         $department->update($input);
