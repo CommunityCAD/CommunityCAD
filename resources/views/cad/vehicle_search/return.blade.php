@@ -20,6 +20,9 @@
                 </h2>
 
                 <div class="flex space-x-2">
+                    @if ($vehicle->vehicle_status == 2)
+                        <span class="text-red-600">Stolen VEHICLE</span>
+                    @endif
                 </div>
             </div>
 
@@ -64,11 +67,15 @@
             <div class="border-b-2 border-x-2 w-full p-2 select-none" x-data="{ isOpen: false }">
                 <h3 @click="isOpen = !isOpen" class="text-lg flex justify-between items-center cursor-pointer">
                     <span>Alerts
+                        @if ($vehicle->vehicle_status == 2)
+                            <span class="text-red-600">Stolen</span>
+                        @endif
                         @if ($vehicle->business)
                             <span class="ml-3 text-blue-600">
                                 Advise
                             </span>
                         @endif
+
                     </span>
                     <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         x-show="isOpen == false" xmlns="http://www.w3.org/2000/svg">
@@ -80,11 +87,15 @@
                     </svg>
                 </h3>
                 <div class="" x-show="isOpen">
+                    @if ($vehicle->vehicle_status == 2)
+                        <span class="text-red-600">Reported Stolen Vehicle</span>
+                    @endif
                     @if ($vehicle->business)
                         <div class="ml-3 text-blue-600">
                             <p>Registered to a Business</p>
                         </div>
                     @endif
+
                 </div>
             </div>
             @if ($vehicle->civilian)
@@ -286,12 +297,12 @@
                                             <?php
                                             $status = $license->status_name;
                                             $status_color = 'text-green-700';
-                                            
+
                                             if ($license->expires_on < date('Y-m-d')) {
                                                 $status = 'Expired';
                                                 $status_color = 'text-yellow-700';
                                             }
-                                            
+
                                             if ($license->status_name == 'Revoked' || $license->status_name == 'Suspended') {
                                                 $status = $license->status_name;
                                                 $status_color = 'text-red-700';
@@ -350,12 +361,12 @@
                                             <?php
                                             $status = $vehicle->status_name;
                                             $status_color = 'text-green-700';
-                                            
+
                                             if ($vehicle->registration_expire < date('Y-m-d')) {
                                                 $status = 'Expired';
                                                 $status_color = 'text-yellow-700';
                                             }
-                                            
+
                                             if ($vehicle->status_name == 'Revoked' || $vehicle->status_name == 'Suspended') {
                                                 $status = $vehicle->status_name;
                                                 $status_color = 'text-red-700';
