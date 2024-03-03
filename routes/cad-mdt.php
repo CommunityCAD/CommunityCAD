@@ -11,6 +11,7 @@ use App\Http\Controllers\Cad\Mdt\MdtController;
 use App\Http\Controllers\Cad\OffDutyController;
 use App\Http\Controllers\Cad\PenalCodeController;
 use App\Http\Controllers\Cad\ReportController;
+use App\Http\Controllers\Cad\StolenVehicleController;
 use App\Http\Controllers\Cad\TenCodeController;
 use App\Http\Controllers\Cad\TicketController;
 use App\Http\Controllers\Cad\UpdateCivilianAlertsController;
@@ -53,6 +54,8 @@ Route::middleware('cad.active_unit_check')->group(function () {
     Route::resource('report', ReportController::class)->except('index', 'destory');
     Route::get('penal_code', PenalCodeController::class)->name('penal_code');
     Route::get('ten_codes', [TenCodeController::class, 'index'])->name('ten_code.index');
+    Route::get('stolen_vehicles', [StolenVehicleController::class, 'index'])->name('stolen_vehicles.index');
+
 
     Route::get('civilan/{civilian}/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
     Route::post('civilan/{civilian}/ticket', [TicketController::class, 'store'])->name('ticket.store');
