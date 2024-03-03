@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Call;
 use App\Models\Report;
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
+use Spatie\DiscordAlerts\Facades\DiscordAlert;
 
 class OffDutyController extends Controller
 {
@@ -18,7 +21,7 @@ class OffDutyController extends Controller
             $call->attached_units()->detach($active_unit->id);
         }
 
-        $active_unit->update(['status' => 'OFFDTY']);
+        $active_unit->update(['status' => 'OFFDTY - RPT', 'off_duty_at' => now(), 'off_duty_type' => 1]);
 
         return view('cad.offduty.create');
     }
@@ -37,9 +40,43 @@ class OffDutyController extends Controller
         $validated['text'] = $validated['mdcontent'];
         unset($validated['mdcontent']);
 
-        Report::create($validated);
+        $report = Report::create($validated);
 
         $active_unit = ActiveUnit::where('user_id', auth()->user()->id)->get()->first();
+
+        $start_timer = $active_unit->first_on_duty_at;
+        $end_timer = $active_unit->off_duty_at;
+
+        if (is_null($start_timer) || is_null($end_timer)) {
+            DiscordAlert::to('https://discord.com/api/webhooks/1212940209310797914/Giu2DCBrfRp1BbckGaXp6ODBjhpW7HRfHcljpdA54c1hZjDOlrMAQ2xxEIUdegqoVyHJ')->message("", [
+                [
+                    'title' => auth()->user()->preferred_name . ' has went Off duty',
+                    'description' => 'Report: ' . $report->id . '\n Duration: UNAVAILABLE \n Off duty at ' . $end_timer->format('m/d/y H:i:s') . '\n Discord ID: ' . auth()->user()->id,
+                    'color' => '#FF0000',
+                    'author' => [
+                        'name' => 'CommunityCAD - Unit Off Duty',
+                    ]
+                ]
+            ]);
+        } else {
+            $duration = $start_timer->diffForHumans($end_timer, [
+                'join' => ', ',
+                'parts' => 3,
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            ]);
+
+            DiscordAlert::to('https://discord.com/api/webhooks/1212940209310797914/Giu2DCBrfRp1BbckGaXp6ODBjhpW7HRfHcljpdA54c1hZjDOlrMAQ2xxEIUdegqoVyHJ')->message("", [
+                [
+                    'title' => auth()->user()->preferred_name . ' has went off duty',
+                    'description' => 'Report: ' . $report->id . '\n Duration: ' . $duration . '\n Off duty at ' . date('m/d/Y H:i:s') . '\n Discord ID: ' . auth()->user()->id,
+                    'color' => '#FF0000',
+                    'author' => [
+                        'name' => 'CommunityCAD - Unit Off Duty',
+                    ]
+                ]
+            ]);
+        }
+
         $active_unit->delete();
 
         return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'Report Submitted.', 'level' => 'success']]);
@@ -51,6 +88,39 @@ class OffDutyController extends Controller
         $calls = Call::where('status', '!=', 'CLO')->get();
         foreach ($calls as $call) {
             $call->attached_units()->detach($active_unit->id);
+        }
+
+        $start_timer = $active_unit->first_on_duty_at;
+        $end_timer = $active_unit->off_duty_at;
+
+        if (is_null($start_timer) || is_null($end_timer)) {
+            DiscordAlert::to('https://discord.com/api/webhooks/1212940209310797914/Giu2DCBrfRp1BbckGaXp6ODBjhpW7HRfHcljpdA54c1hZjDOlrMAQ2xxEIUdegqoVyHJ')->message("", [
+                [
+                    'title' => auth()->user()->preferred_name . ' has went Off duty',
+                    'description' => 'Duration: UNAVAILABLE \n Off duty at ' . $end_timer->format('m/d/y H:i:s') . '\n Discord ID: ' . auth()->user()->id,
+                    'color' => '#FF0000',
+                    'author' => [
+                        'name' => 'CommunityCAD - Unit Off Duty',
+                    ]
+                ]
+            ]);
+        } else {
+            $duration = $start_timer->diffForHumans($end_timer, [
+                'join' => ', ',
+                'parts' => 3,
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            ]);
+
+            DiscordAlert::to('https://discord.com/api/webhooks/1212940209310797914/Giu2DCBrfRp1BbckGaXp6ODBjhpW7HRfHcljpdA54c1hZjDOlrMAQ2xxEIUdegqoVyHJ')->message("", [
+                [
+                    'title' => auth()->user()->preferred_name . ' has went off duty',
+                    'description' => 'Duration: ' . $duration . '\n Off duty at ' . date('m/d/Y H:i:s') . '\n Discord ID: ' . auth()->user()->id,
+                    'color' => '#FF0000',
+                    'author' => [
+                        'name' => 'CommunityCAD - Unit Off Duty',
+                    ]
+                ]
+            ]);
         }
 
         $active_unit->delete();

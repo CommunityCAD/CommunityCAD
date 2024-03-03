@@ -7,6 +7,7 @@ use App\Models\Cad\ActiveUnit;
 use App\Models\Officer;
 use App\Models\UserDepartment;
 use Illuminate\Http\Request;
+use Spatie\DiscordAlerts\Facades\DiscordAlert;
 
 class AddUnitController extends Controller
 {
@@ -28,7 +29,7 @@ class AddUnitController extends Controller
         $user_department = UserDepartment::findOrFail($selected_department);
         $officer = Officer::where('user_id', auth()->user()->id)->where('user_department_id', $user_department->id)->get()->first();
 
-        if (! $officer) {
+        if (!$officer) {
             return redirect()->route('portal.dashboard')->with('alerts', [['message' => 'You have not created an officer for this department yet. Please go to the Civilian portal to create one.', 'level' => 'error']]);
         } else {
             $input['officer_id'] = $officer->id;
@@ -38,9 +39,10 @@ class AddUnitController extends Controller
         $input['user_department_id'] = $user_department->id;
         $input['department_type'] = $user_department->department->type;
         $input['status'] = 'OFFDTY';
-        $input['description'] = 'SIGNED IN: '.date('G:i:s');
+        $input['description'] = 'SIGNED IN: ' . date('G:i:s');
 
         $new_active_unit = ActiveUnit::create($input);
+
 
         return redirect()->route('cad.home');
     }
