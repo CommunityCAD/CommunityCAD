@@ -7,6 +7,7 @@ use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
 use App\Models\Call;
 use App\Models\CallLog;
+use App\Notifications\DiscordNotification;
 use Livewire\Component;
 
 class CadScreen extends Component
@@ -127,8 +128,55 @@ class CadScreen extends Component
     public function hard_offduty(ActiveUnit $activeUnit)
     {
         $activeUnit->calls()->detach();
+        $activeUnit->update(['status' => 'OFFDTY', 'description' => 'Forced off duty by dispatch', 'off_duty_at' => now(), 'off_duty_type' => 2]);
+        $start_timer = $activeUnit->first_on_duty_at;
+        $end_timer = $activeUnit->off_duty_at;
 
+        DiscordNotification::send(
+            'cad_off_duty',
+            $activeUnit->user->preferred_name.' has went off duty.',
+            'Marked off duty by dispatcher '.auth()->user()->preferred_name,
+            15548997,
+            [
+                [
+                    'name' => 'Duration',
+                    'value' => 'undefined',
+                ],
+                [
+                    'name' => 'Off Duty At',
+                    'value' => $end_timer->format('m/d/Y H:i:s'),
+                ],
+                [
+                    'name' => 'Discord ID',
+                    'value' => $activeUnit->user->id,
+                ],
+            ]
+        );
         $activeUnit->delete();
+        $this->emit('updated-page');
+    }
+
+    public function on_duty(ActiveUnit $activeUnit)
+    {
+        $activeUnit->update(['status' => 'AVL', 'description' => 'Status Set To: AVL', 'first_on_duty_at' => now()]);
+
+        DiscordNotification::send(
+            'cad_on_duty',
+            auth()->user()->preferred_name.' has went on duty.',
+            'Department: '.$activeUnit->user_department->department->name,
+            5763719,
+            [
+                [
+                    'name' => 'On Duty At',
+                    'value' => date('m/d/Y H:i:s'),
+                ],
+                [
+                    'name' => 'Discord ID',
+                    'value' => auth()->user()->id,
+                ],
+            ]
+        );
+
         $this->emit('updated-page');
     }
 }

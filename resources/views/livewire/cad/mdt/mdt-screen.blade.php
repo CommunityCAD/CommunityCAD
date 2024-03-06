@@ -8,8 +8,8 @@
             @if (auth()->user()->active_unit)
 
                 @if (auth()->user()->active_unit->status == 'OFFDTY')
-                    <a class="new-button-md" href="#"
-                        wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">ON DUTY</a>
+                    <a class="new-button-md" href="#" wire:click="on_duty({{ auth()->user()->active_unit->id }})">ON
+                        DUTY</a>
                     <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY REPORT</a>
                 @else
                     <a class="new-button-md" href="#"

@@ -12,7 +12,8 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "socialiteproviders/discord": "^4.1",
-        "socialiteproviders/steam": "^4.2"
+        "socialiteproviders/steam": "^4.2",
+        "spatie/laravel-discord-alerts": "^1.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
