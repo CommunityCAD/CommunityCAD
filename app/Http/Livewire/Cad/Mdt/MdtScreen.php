@@ -7,6 +7,7 @@ use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
 use App\Models\Call;
 use App\Models\CallLog;
+use App\Notifications\DiscordNotification;
 use Livewire\Component;
 
 class MdtScreen extends Component
@@ -119,6 +120,30 @@ class MdtScreen extends Component
             'text' => 'Call '.$call->id.' has been closed and all units removed from call.',
             'call_id' => $call->id,
         ]);
+        $this->emit('updated-page');
+    }
+
+    public function on_duty(ActiveUnit $activeUnit)
+    {
+        $activeUnit->update(['status' => 'AVL', 'description' => 'Status Set To: AVL', 'first_on_duty_at' => now()]);
+
+        DiscordNotification::send(
+            'cad_on_duty',
+            auth()->user()->preferred_name.' has went on duty.',
+            'Department: '.$activeUnit->user_department->department->name,
+            5763719,
+            [
+                [
+                    'name' => 'On Duty At',
+                    'value' => date('m/d/Y H:i:s'),
+                ],
+                [
+                    'name' => 'Discord ID',
+                    'value' => auth()->user()->id,
+                ],
+            ]
+        );
+
         $this->emit('updated-page');
     }
 }
