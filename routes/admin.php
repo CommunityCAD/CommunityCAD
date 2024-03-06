@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CadSettingController;
 use App\Http\Controllers\Admin\CivilianLevelController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
+use App\Http\Controllers\Admin\DiscordChannelController;
 use App\Http\Controllers\Admin\LicenseTypeController;
 use App\Http\Controllers\Admin\PenalCode\PenalCodeClassController;
 use App\Http\Controllers\Admin\PenalCode\PenalCodeController;
@@ -50,6 +51,7 @@ Route::resource('license_type', LicenseTypeController::class)->except('show')->m
 Route::resource('report_type', ReportTypeController::class)->except('show')->middleware('can:report_type_manage');
 Route::resource('civilian_level', CivilianLevelController::class)->except('show')->middleware('can:civilian_level_manage');
 Route::resource('ten_code', TenCodeController::class)->except('edit', 'update')->middleware('can:ten_code_manage');
+Route::resource('discord_channel', DiscordChannelController::class)->only('index', 'edit', 'update')->middleware('can:cad_settings');
 
 Route::middleware(['can:penal_code_manage'])->name('penalcode.')->prefix('penalcode')->group(function () {
     Route::resource('title', PenalCodeTitleController::class)->except('show')->middleware('can:penal_code_manage');

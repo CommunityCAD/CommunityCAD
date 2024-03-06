@@ -7,8 +7,8 @@ use App\Models\Cad\CallNatures;
 use App\Models\Cad\CallStatuses;
 use App\Models\Call;
 use App\Models\CallLog;
+use App\Notifications\DiscordNotification;
 use Livewire\Component;
-use Spatie\DiscordAlerts\Facades\DiscordAlert;
 
 class CadScreen extends Component
 {
@@ -41,7 +41,7 @@ class CadScreen extends Component
 
     public function set_status(ActiveUnit $activeUnit, $status)
     {
-        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: ' . $status]);
+        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: '.$status]);
         $this->emit('updated-page');
     }
 
@@ -55,8 +55,8 @@ class CadScreen extends Component
         }
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Call Status Updated To ' . $status,
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Call Status Updated To '.$status,
             'call_id' => $call->id,
         ]);
         $this->emit('updated-page');
@@ -65,8 +65,8 @@ class CadScreen extends Component
     public function set_call_priority(Call $call, $priority)
     {
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Call Priority Updated To ' . $priority,
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Call Priority Updated To '.$priority,
             'call_id' => $call->id,
         ]);
 
@@ -80,12 +80,12 @@ class CadScreen extends Component
         $call->attached_units()->detach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Officer '.$activeUnit->badge_number.' has been unassigned.',
             'call_id' => $call->id,
         ]);
 
-        $activeUnit->update(['description' => 'Removed from call: ' . $call->id]);
+        $activeUnit->update(['description' => 'Removed from call: '.$call->id]);
 
         $call->touch();
         $activeUnit->touch();
@@ -97,12 +97,12 @@ class CadScreen extends Component
         $call->attached_units()->attach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Officer '.$activeUnit->badge_number.' has been assigned.',
             'call_id' => $call->id,
         ]);
 
-        $activeUnit->update(['description' => 'Added to call: ' . $call->id]);
+        $activeUnit->update(['description' => 'Added to call: '.$call->id]);
         $call->touch();
         $activeUnit->touch();
         $this->emit('updated-page');
@@ -118,8 +118,8 @@ class CadScreen extends Component
         $call->attached_units()->detach();
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
-            'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
+            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
+            'text' => 'Call '.$call->id.' has been closed and all units removed from call.',
             'call_id' => $call->id,
         ]);
         $this->emit('updated-page');
@@ -128,37 +128,54 @@ class CadScreen extends Component
     public function hard_offduty(ActiveUnit $activeUnit)
     {
         $activeUnit->calls()->detach();
-        $activeUnit->update(['status' => "OFFDTY", 'description' => 'Forced off duty by dispatch', 'off_duty_at' => now(), 'off_duty_type' => 2]);
+        $activeUnit->update(['status' => 'OFFDTY', 'description' => 'Forced off duty by dispatch', 'off_duty_at' => now(), 'off_duty_type' => 2]);
         $start_timer = $activeUnit->first_on_duty_at;
         $end_timer = $activeUnit->off_duty_at;
-        DiscordAlert::to('https://discord.com/api/webhooks/1212940209310797914/Giu2DCBrfRp1BbckGaXp6ODBjhpW7HRfHcljpdA54c1hZjDOlrMAQ2xxEIUdegqoVyHJ')->message("", [
+
+        DiscordNotification::send(
+            'cad_off_duty',
+            $activeUnit->user->preferred_name.' has went off duty.',
+            'Marked off duty by dispatcher '.auth()->user()->preferred_name,
+            15548997,
             [
-                'title' => $activeUnit->user->preferred_name . ' has been forced off duty by dispatch.',
-                'description' => 'Duration: UNAVAILABLE \n Off duty at ' . $end_timer->format('m/d/y H:i:s') . '\n Type: Forced by Dispatch \n Discord ID: ' . auth()->user()->id,
-                'color' => '#FF0000',
-                'author' => [
-                    'name' => 'CommunityCAD - Forced Off Duty',
-                ]
+                [
+                    'name' => 'Duration',
+                    'value' => 'undefined',
+                ],
+                [
+                    'name' => 'Off Duty At',
+                    'value' => $end_timer->format('m/d/Y H:i:s'),
+                ],
+                [
+                    'name' => 'Discord ID',
+                    'value' => $activeUnit->user->id,
+                ],
             ]
-        ]);
+        );
         $activeUnit->delete();
         $this->emit('updated-page');
     }
 
     public function on_duty(ActiveUnit $activeUnit)
     {
-        $activeUnit->update(['status' => "AVL", 'description' => 'Status Set To: AVL', 'first_on_duty_at' => now()]);
+        $activeUnit->update(['status' => 'AVL', 'description' => 'Status Set To: AVL', 'first_on_duty_at' => now()]);
 
-        DiscordAlert::to('https://discord.com/api/webhooks/1212940209310797914/Giu2DCBrfRp1BbckGaXp6ODBjhpW7HRfHcljpdA54c1hZjDOlrMAQ2xxEIUdegqoVyHJ')->message("", [
+        DiscordNotification::send(
+            'cad_on_duty',
+            auth()->user()->preferred_name.' has went on duty.',
+            'Department: '.$activeUnit->user_department->department->name,
+            5763719,
             [
-                'title' => auth()->user()->preferred_name . ' has went on duty as ' . $activeUnit->user_department->department->name,
-                'description' => 'On duty at ' . date('m/d/Y H:i:s') . '\n Discord ID: ' . auth()->user()->id,
-                'color' => '#00FF00',
-                'author' => [
-                    'name' => 'CommunityCAD - Unit On Duty',
-                ]
+                [
+                    'name' => 'On Duty At',
+                    'value' => date('m/d/Y H:i:s'),
+                ],
+                [
+                    'name' => 'Discord ID',
+                    'value' => auth()->user()->id,
+                ],
             ]
-        ]);
+        );
 
         $this->emit('updated-page');
     }

@@ -5,7 +5,7 @@ return [
      * The webhook URLs that we'll use to send a message to Discord.
      */
     'webhook_urls' => [
-        'default' => "",
+        'default' => '',
     ],
 
     /*

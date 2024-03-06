@@ -58,6 +58,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
+    'discord_bot_token' => env('DISCORD_BOT_TOKEN'),
 
     /*
     |--------------------------------------------------------------------------
