@@ -24,7 +24,8 @@
 
                             <div class="ml-6 border-l-4 border-slate-500 pl-3 pb-3 space-y-3 text-white"
                                 x-show="is_code_open">
-                                <div class="prose text-white">{!! Str::markdown($code->section) !!}</div>
+                                <div class="prose prose-strong:text-white prose-strong:font-bold text-white">
+                                    {!! Str::markdown($code->section) !!}</div>
                                 <div class="">{{ $code->notes }}</div>
                                 <p class="">Penal Code PC -
                                     {{ $title->number }}({{ $code->number }}) is a {{ $code->penal_code_class->name }}
