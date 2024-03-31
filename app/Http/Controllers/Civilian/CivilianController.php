@@ -46,7 +46,7 @@ class CivilianController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['id'] = rand(100000000, 999999999);
 
-        if (! get_setting('allow_same_name_civilians')) {
+        if (!get_setting('allow_same_name_civilians')) {
             if ($this->name_check($data['first_name'], $data['last_name'])) {
                 return redirect()->route('civilian.civilians.create')
                     ->with('alerts', [['message' => 'That name is already in use. Choose a diffrent name.', 'level' => 'error']])
@@ -95,6 +95,20 @@ class CivilianController extends Controller
     public function destroy(Civilian $civilian): RedirectResponse
     {
         abort_if(auth()->user()->id != $civilian->user_id, 403);
+
+        foreach ($civilian->businesses as $bussinessEmployee) {
+            if ($bussinessEmployee->role == 5) {
+                return redirect()->route('civilian.civilians.show', $civilian->id)->with('alerts', [['message' => 'You own a business. You must transfer ownership first.', 'level' => 'error']]);
+            }
+        }
+
+        foreach ($civilian->tickets as $ticket) {
+            $ticket->update(["plea_type" => 1]);
+        }
+
+        foreach ($civilian->businesses as $bussinessEmployee) {
+            $bussinessEmployee->delete();
+        }
 
         foreach ($civilian->vehicles as $vehicle) {
             $vehicle->delete();

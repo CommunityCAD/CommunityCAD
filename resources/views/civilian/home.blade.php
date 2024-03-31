@@ -15,7 +15,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('civilian.civilians.index') }}">
+            <a href="{{ route('civilian.businesses.index') }}">
                 <div class="pill flex items-center hover:bg-opacity-75">
                     <svg class="w-12 h-12" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
