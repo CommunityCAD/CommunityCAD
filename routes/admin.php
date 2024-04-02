@@ -58,3 +58,6 @@ Route::middleware(['can:penal_code_manage'])->name('penalcode.')->prefix('penalc
     Route::resource('class', PenalCodeClassController::class)->except('show')->middleware('can:penal_code_manage');
     Route::resource('code', PenalCodeController::class)->except('show')->middleware('can:penal_code_manage');
 });
+
+Route::view('settings', 'admin.settings.index');
+// Route::post('settings', )
