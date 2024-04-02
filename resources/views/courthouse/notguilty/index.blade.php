@@ -7,40 +7,45 @@
 
         <div class="space-y-3">
             @foreach ($non_guilty as $ticket)
-                <a href="{{ route('courthouse.case.show', $ticket->call_id) }}">
-                    <div class="pill space-y-5">
-                        <div class="md:flex md:justify-around text-center mt-5">
+                {{-- <a href="{{ route('courthouse.case.show', $ticket->call_id) }}"> --}}
+                <div class="pill space-y-5">
+                    <div class="md:flex md:justify-around text-center mt-5">
+                        @if (isset($ticket->call->id))
                             <p>Case No. {{ $ticket->call->id }}</p>
-                            <p>Cause: Non-Guilty Plea</p>
-                            <p></p>
-                        </div>
+                        @else
+                            <p>Case No. Not Linked</p>
+                        @endif
 
-                        <div class="flex justify-between mb-16">
-                            <div>
-                                <p class="underline">Plaintiff</p>
-                                <p>State of San Andreas</p>
-                            </div>
+                        <p>Cause: Non-Guilty Plea</p>
+                        <p></p>
+                    </div>
 
-                            <div>
-                                <p class="underline">Defendant</p>
-                                <p>{{ $ticket->civilian->name }}</p>
-                            </div>
+                    <div class="flex justify-between mb-16">
+                        <div>
+                            <p class="underline">Plaintiff</p>
+                            <p>State of San Andreas</p>
                         </div>
 
                         <div>
-                            <p class="underline">Charges</p>
-
-                            @foreach ($ticket->charges as $charge)
-                                @if (!$loop->last)
-                                    {{ $charge->penal_code->name }},
-                                @else
-                                    {{ $charge->penal_code->name }}
-                                @endif
-                            @endforeach
+                            <p class="underline">Defendant</p>
+                            <p>{{ $ticket->civilian->name }}</p>
                         </div>
-
                     </div>
-                </a>
+
+                    <div>
+                        <p class="underline">Charges</p>
+
+                        @foreach ($ticket->charges as $charge)
+                            @if (!$loop->last)
+                                {{ $charge->penal_code->name }} (x{{ $charge->counts }}),
+                            @else
+                                {{ $charge->penal_code->name }} (x{{ $charge->counts }})
+                            @endif
+                        @endforeach
+                    </div>
+
+                </div>
+                {{-- </a> --}}
             @endforeach
         </div>
     </div>

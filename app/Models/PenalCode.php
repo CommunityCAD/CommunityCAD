@@ -12,7 +12,7 @@ class PenalCode extends Model
 
     protected $guarded = [];
 
-    protected $with = ['penal_code_class'];
+    protected $with = ['penal_code_title', 'penal_code_class'];
 
     public function penal_code_title()
     {

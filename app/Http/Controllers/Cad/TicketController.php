@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cad\TicketRequest;
-use App\Models\Cad\Call;
+use App\Models\Call;
 use App\Models\Charges;
 use App\Models\Civilian;
 use App\Models\Civilian\Vehicle;
@@ -99,6 +99,7 @@ class TicketController extends Controller
             'cad_jail_time' => 'required|numeric',
             'description' => 'required',
             'penal_code_id' => 'required|numeric',
+            'counts' => 'required|numeric',
         ]);
 
         $validated['ticket_id'] = $ticket->id;
@@ -110,7 +111,6 @@ class TicketController extends Controller
 
     public function sign_ticket(Ticket $ticket)
     {
-
         return redirect()->route('cad.ticket.show', $ticket->id);
     }
 }

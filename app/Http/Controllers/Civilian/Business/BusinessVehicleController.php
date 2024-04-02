@@ -7,7 +7,6 @@ use App\Http\Requests\Civilian\VehicleCreateRequest;
 use App\Models\Business;
 use App\Models\Civilian\Vehicle;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class BusinessVehicleController extends Controller
 {

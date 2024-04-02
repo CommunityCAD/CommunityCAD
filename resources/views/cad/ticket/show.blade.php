@@ -1,4 +1,4 @@
-@extends('layouts.cad_reports')
+@extends('layouts.cad_simple')
 
 @section('content')
     <div class="">
@@ -157,13 +157,17 @@
 
             @foreach ($ticket->charges as $charge)
                 <div class="flex">
-                    <div class="border-2 border-black w-full p-2">
+                    <div class="border-2 border-black w-5/6 p-2">
                         <p class="text-gray-500">Charge <span class="block text-black font-bold uppercase">
                                 {{ $charge->penal_code->name }}
                             </span></p>
                     </div>
+                    <div class="border-2 border-black w-1/6 p-2">
+                        <p class="text-gray-500">Counts <span class="block text-black font-bold uppercase">
+                                {{ $charge->counts }}
+                            </span></p>
+                    </div>
                 </div>
-
                 <div class="flex">
                     <div class="border-2 border-black w-2/6 p-2">
                         <p class="text-gray-500">Jail Time (seconds)

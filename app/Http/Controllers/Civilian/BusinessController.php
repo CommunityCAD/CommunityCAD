@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Civilian;
 
-use App\Models\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\BusinessStoreRequest;
+use App\Models\Business;
 use App\Models\BusinessEmployee;
 use App\Models\Civilian;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class BusinessController extends Controller
 {
-
     public function index(): View
     {
         $businesses = Business::with(['employees'])->get();
@@ -24,6 +23,7 @@ class BusinessController extends Controller
     public function create(): View
     {
         $civilians = Civilian::where('user_id', auth()->user()->id)->get(['id', 'first_name', 'last_name']);
+
         return view('civilian.businesses.create', compact('civilians'));
     }
 
@@ -36,6 +36,7 @@ class BusinessController extends Controller
             'civilian_id' => $business->owner_id,
             'role' => 5,
         ]);
+
         return redirect()->route('civilian.businesses.index')->with('alerts', [['message' => 'Business is pending approval.', 'level' => 'success']]);
     }
 
@@ -70,7 +71,7 @@ class BusinessController extends Controller
         }
 
         if ($business->status != 2) {
-            if (!$is_owner) {
+            if (! $is_owner) {
                 return redirect()->route('civilian.businesses.index')->with('alerts', [['message' => 'Business can only be viewed by owner.', 'level' => 'error']]);
             }
             $is_locked = true;
@@ -87,12 +88,14 @@ class BusinessController extends Controller
     public function update(Request $request, Business $business): RedirectResponse
     {
         $business->update($request->validated());
+
         return redirect()->route('businesss.index')->with('success', 'Message');
     }
 
     public function destroy(Business $business): RedirectResponse
     {
         $business->delete();
+
         return redirect()->route('businesss.index')->with('success', 'Message');
     }
 }

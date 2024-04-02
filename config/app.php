@@ -16,9 +16,11 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'version' => 'BETA v1.0.1.4',
+
+    'version' => 'BETA v1.1.1.1',
     'api_key' => env('API_KEY'),
 
+   
 
     /*
     |--------------------------------------------------------------------------
@@ -60,6 +62,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
+    'discord_bot_token' => env('DISCORD_BOT_TOKEN'),
 
     /*
     |--------------------------------------------------------------------------

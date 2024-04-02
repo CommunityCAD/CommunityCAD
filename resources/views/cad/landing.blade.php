@@ -1,7 +1,7 @@
 @extends('layouts.cad_simple')
 
 @section('content')
-    <section x-data="{ modalOpen: true }">
+    <section class="h-screen flex flex-col justify-center items-center" x-data="{ modalOpen: true }">
         <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90"
             x-show="modalOpen" x-transition>
             <div class="w-full max-w-[570px] rounded-[20px] bg-gray-400 py-10 px-6 md:py-[40px] md:px-[50px]">
@@ -57,11 +57,11 @@
             </div>
         @endif
 
-        <div class="admin-card">
+        <div class="card">
             <header>
                 <div class="text-center">
                     <h1 class="text-2xl font-semibold">
-                        Welcome Officer
+                        Welcome Emergency Personnel
                     </h1>
             </header>
 
@@ -70,7 +70,7 @@
                     @csrf
 
                     <div class="w-full">
-                        <label class="block mr-2 text-lg">Patrol Department:</label>
+                        <label class="block mr-2 text-lg">Which department are you going active with?</label>
                         <select class="text-input" name="user_department">
                             @foreach ($available_departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->department->name }}

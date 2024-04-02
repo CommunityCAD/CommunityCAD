@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Supervisor;
 
-use App\Models\Business;
 use App\Http\Controllers\Controller;
+use App\Models\Business;
 use App\Models\History;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 
 class BusinessController extends Controller
 {
-
     public function index($status = 0): View
     {
         $businesses = Business::all();
@@ -44,6 +41,7 @@ class BusinessController extends Controller
     public function show(Business $business): View
     {
         $business->with('employees');
+
         return view('supervisor.businesses.show', compact('business'));
     }
 

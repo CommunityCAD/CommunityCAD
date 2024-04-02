@@ -1,20 +1,20 @@
-INSERT INTO `cad_settings` (`id`, `name`, `value`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'community_logo', 'https://cdn.discordapp.com/attachments/632810626363686922/1132129051411230811/communitycad.png', 'text', '2023-04-02 16:09:08', '2023-07-21 20:56:56', NULL),
-	(2, 'community_name', 'Community CAD', 'text', '2023-04-02 16:09:08', '2023-06-24 16:56:58', NULL),
-	(3, 'minimum_age', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
-	(4, 'days_until_inactive', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
-	(5, 'days_until_reapply', '7', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
-	(6, 'postal_map_link', NULL, 'text', '2023-04-02 16:09:08', '2023-07-21 21:30:58', NULL),
-	(7, 'force_discord_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
-	(8, 'force_steam_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
-	(9, 'application_terms', 'You understand that you may only submit one application per recruitment cycle and that if you are denied you are required to wait until the next recruitment cycle to reapply.\r\n\r\nYou have read over the Application Rules & Regulations and agree to them?', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:46:43', NULL),
-	(10, 'community_intro', 'Community Intro.', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:50:41', NULL),
-	(11, 'members_must_apply', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
-	(12, 'allow_same_name_civilians', 'false', 'bool', '2023-07-21 21:09:34', '2023-07-21 21:32:36', NULL),
-	(13, 'state', 'San Andreas', 'text', '2023-09-25 22:35:53', '2023-09-25 22:35:53', NULL),
-	(14, 'county', 'Blane County', 'text', '2023-09-25 23:06:34', '2023-09-25 23:06:34', NULL),
-	(15, 'city', 'Los Santos', 'text', '2023-09-25 22:36:34', '2023-09-25 22:36:34', NULL),
-	(16, 'officer_name_format', 'F. Last', 'text', '2024-01-20 21:46:05', '2024-01-20 21:46:05', NULL);
+INSERT INTO `cad_settings` (`name`, `value`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	('community_logo', 'https://communitycad.app/images/default_images/communitycad.png', 'text', '2023-04-02 16:09:08', '2023-07-21 20:56:56', NULL),
+	('community_name', 'Community CAD', 'text', '2023-04-02 16:09:08', '2023-06-24 16:56:58', NULL),
+	('minimum_age', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	('days_until_inactive', '14', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	('days_until_reapply', '7', 'number', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	('postal_map_link', NULL, 'text', '2023-04-02 16:09:08', '2023-07-21 21:30:58', NULL),
+	('force_discord_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	('force_steam_link', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	('application_terms', 'You understand that you may only submit one application per recruitment cycle and that if you are denied you are required to wait until the next recruitment cycle to reapply.\r\n\r\nYou have read over the Application Rules & Regulations and agree to them?', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:46:43', NULL),
+	('community_intro', 'Community Intro.', 'markdown', '2023-04-02 16:09:08', '2023-09-25 22:50:41', NULL),
+	('members_must_apply', 'true', 'bool', '2023-04-02 16:09:08', '2023-04-02 16:09:08', NULL),
+	('allow_same_name_civilians', 'false', 'bool', '2023-07-21 21:09:34', '2023-07-21 21:32:36', NULL),
+	('state', 'San Andreas', 'text', '2023-09-25 22:35:53', '2023-09-25 22:35:53', NULL),
+	('county', 'Blane County', 'text', '2023-09-25 23:06:34', '2023-09-25 23:06:34', NULL),
+	('city', 'Los Santos', 'text', '2023-09-25 22:36:34', '2023-09-25 22:36:34', NULL),
+	('officer_name_format', 'F. Last', 'text', '2024-01-20 21:46:05', '2024-01-20 21:46:05', NULL);
 
 INSERT INTO `civilian_levels` (`id`, `name`, `civilian_limit`, `firearm_limit`, `vehicle_limit`, `license_types_allowed`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Default', 99, 99, 99, '"{\\"data\\":[\\"1\\",\\"2\\",\\"3\\",\\"4\\",\\"5\\",\\"6\\",\\"7\\",\\"8\\",\\"12\\"]}"', '2023-02-11 00:07:53', '2023-11-04 20:01:31', NULL);
@@ -30,12 +30,12 @@ INSERT INTO `civilian_statuses` (`id`, `status`, `created_at`, `updated_at`, `de
 
 INSERT INTO `departments` (`id`, `name`, `initials`, `is_open_external`, `is_open_internal`, `slug`, `logo`, `created_at`, `updated_at`, `deleted_at`, `type`) VALUES
 	(7, 'Community Wide', 'CW', 0, 0, 'community-wide', NULL, '2023-06-13 22:09:28', '2023-06-13 22:09:29', NULL, 1),
-	(1, 'Blane County Sheriffs Office', 'BCSO', 1, 1, 'blane-county-sheriffs-office', 'https://media.discordapp.net/attachments/1131390538315218955/1131390563187441674/latest.png', '2023-05-19 17:34:13', '2023-06-17 17:57:25', NULL, 1),
-	(2, 'Los Santos Police Department', 'LSPD', 1, 1, 'los-santos-police-department', 'https://cdn.discordapp.com/attachments/1132425644941246504/1160345906072264714/image.png', '2023-05-19 17:34:14', '2023-10-07 17:40:34', NULL, 1),
+	(1, 'Blane County Sheriffs Office', 'BCSO', 1, 1, 'blane-county-sheriffs-office', 'https://communitycad.app/images/default_images/BCSO-2.png', '2023-05-19 17:34:13', '2023-06-17 17:57:25', NULL, 1),
+	(2, 'Los Santos Police Department', 'LSPD', 1, 1, 'los-santos-police-department', 'https://communitycad.app/images/default_images/Police-6.png', '2023-05-19 17:34:14', '2023-10-07 17:40:34', NULL, 1),
 	(3, 'San Andreas Highway Patrol', 'SAHP', 1, 1, 'san-andreas-highway-patrol', 'https://static.wikia.nocookie.net/alterlifepolicedepartement/images/b/b5/SAHP_logo.png', '2023-05-19 17:34:16', '2023-08-29 21:17:50', NULL, 1),
 	(4, 'Civilian Operations', 'CIV', 1, 1, 'civilian-operations', 'https://content.invisioncic.com/y305077/monthly_2021_03/RCiv_Logo.png.62e84cd49d883db8492dc588c771b8bd.png', '2023-05-19 17:34:17', '2023-07-24 17:32:09', NULL, 3),
 	(5, 'Communications', 'DISP', 1, 1, 'communications', 'https://static.wikia.nocookie.net/ultimate-roleplay/images/c/cb/LCPD-GTA4-logo.png', '2023-05-19 17:34:18', '2023-07-24 17:32:18', NULL, 2),
-	(6, 'San Andreas Fire Rescue', 'SAFR', 1, 1, 'san-andreas-fire-rescue', 'https://cdn.discordapp.com/attachments/1131390538315218955/1131390662479183934/e997a311f79ceb5244645969a0e0f3a6c5_720x720.png', '2023-05-19 17:34:19', '2023-10-07 17:39:06', NULL, 4);
+	(6, 'San Andreas Fire Rescue', 'SAFR', 1, 1, 'san-andreas-fire-rescue', 'https://communitycad.app/images/default_images/Fire Department-4.png', '2023-05-19 17:34:19', '2023-10-07 17:39:06', NULL, 4);
 
 UPDATE departments SET id = 0 WHERE id = 7;
 
@@ -61,7 +61,7 @@ INSERT INTO `license_types` (`id`, `name`, `perm_name`, `prefix`, `created_at`, 
 	(8, 'Pilot License', 'pilot-license', 'PL', NULL, '2023-09-25 22:07:45', NULL),
 	(9, 'Weapons Permit', 'weapons-permit', NULL, '2023-11-04 19:59:57', '2023-11-04 19:59:57', NULL);
 
-	INSERT INTO `penal_code_classes` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `penal_code_classes` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Felony', NULL, '2023-07-23 14:26:24', '2023-08-28 17:21:48', NULL),
 	(4, 'Misdemeanor', NULL, '2023-07-23 14:26:55', '2023-08-28 17:21:54', NULL),
 	(7, 'Infraction', NULL, '2023-07-23 14:27:15', '2023-07-23 14:27:15', NULL),
@@ -242,35 +242,35 @@ INSERT INTO `penal_codes` (`id`, `penal_code_title_id`, `number`, `name`, `secti
 	(159, 13, 15, 'Jaywalking', 'A person who recklessly or intentionally crosses a road in a manner that creates a foreseeable risk of obstructing the flow of traffic, or otherwise creates a hazard to themselves and others.\r\n\r\n- Fine at peace officer\'s discretion. Max $2000', NULL, 7, 2000, 0, 0, 0, '2023-11-03 22:29:22', '2023-11-03 22:29:22', NULL),
 	(160, 13, 16, 'Illegal Parking Of An Aircraft', 'A person who failures to follow the flight protocols as detailed in the State Aviation Act\r\n\r\n- Fine at peace officer\'s discretion. Max $20,000', NULL, 7, 10000, 0, 0, 0, '2023-11-03 22:30:06', '2023-11-03 22:30:06', NULL);
 
-INSERT INTO `permissions` (`id`, `title`, `category`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'admin_access', 'admin', 'Grants access to Admin Area.', '2023-01-19 20:18:19', '2023-01-19 20:18:19', NULL),
-	(2, 'announcement_manage', 'staff', 'Grants access to Announcements.', '2023-01-19 20:34:19', '2023-01-19 20:34:19', NULL),
-	(3, 'application_access', 'staff', 'Grants access to Applications link.', '2023-01-19 21:17:26', '2023-01-19 21:17:27', NULL),
-	(5, 'role_manage', 'admin', 'Grants access to Roles link', '2023-01-19 21:56:40', '2023-01-19 21:56:40', NULL),
-	(6, 'application_staff_review', 'staff', 'Grants access to Flagged for Staff Applications', '2023-01-19 22:01:13', '2023-01-19 22:01:13', NULL),
-	(7, 'application_action', 'staff', 'Grants access to action Applications.', '2023-01-19 22:01:25', '2023-01-19 22:01:25', NULL),
-	(11, 'user_access', 'admin', NULL, '2023-01-27 17:41:34', '2023-01-27 17:41:34', NULL),
-	(14, 'user_view', 'admin', NULL, '2023-01-27 17:41:58', '2023-01-27 17:41:58', NULL),
-	(15, 'user_manage_user_roles', 'admin', 'Grants access to edit User Roles.', '2023-01-29 20:03:03', '2023-01-29 20:03:03', NULL),
-	(16, 'user_edit_user_status', 'admin', 'Grants access to edit User account Status.', '2023-02-03 23:13:44', '2023-02-03 23:13:44', NULL),
-	(17, 'user_manage_user_notes', 'admin', 'Grants access to manage User Notes.', '2023-05-16 15:01:48', '2023-05-16 15:01:50', NULL),
-	(18, 'user_manage_user_accommodations', 'admin', 'Grants access to manage User Accommodations.', '2023-05-16 15:02:05', '2023-05-16 15:02:05', NULL),
-	(19, 'user_manage_user_disciplinary_actions', 'admin', 'Grants access to manage User Disciplinary Actions.', '2023-05-16 15:02:20', '2023-05-16 15:02:20', NULL),
-	(20, 'user_advanced_access', 'admin', 'Grants access to manage non-member Users.', '2023-05-16 15:55:13', '2023-05-16 15:55:13', NULL),
-	(21, 'user_departments_manage', 'staff', 'Grants access to manage Members Departments', '2023-05-16 22:32:37', '2023-05-16 22:32:38', NULL),
-	(22, 'department_manage', 'admin', 'Grants access to manage departments.', '2023-05-25 17:11:08', '2023-05-25 17:11:08', NULL),
-	(23, 'disciplinary_action_type_manage', 'admin', 'Grants access to manage Disciplinary Action Types.', '2023-06-12 19:47:59', '2023-06-12 19:47:59', NULL),
-	(24, 'license_type_manage', 'admin', 'Grants access to manage License Types', '2023-06-12 20:15:40', '2023-06-12 20:15:40', NULL),
-	(25, 'civilian_level_manage', 'admin', 'Grants access to manage Civilian Levels', '2023-06-13 14:59:27', '2023-06-13 14:59:27', NULL),
-	(26, 'staff_access', 'staff', 'Grants access to Staff Area.', '2023-07-22 19:30:14', '2023-07-22 19:30:14', NULL),
-	(27, 'supervisor_access', 'supervisor', 'Grants access to Supervisor Area.', '2023-07-22 19:30:13', '2023-07-22 19:30:13', NULL),
-	(28, 'cad_settings', 'admin', 'Grants access to CAD Settings. Very dangerous permission to give.', '2023-06-13 18:26:03', '2023-06-13 18:26:03', NULL),
-	(29, 'report_type_manage', 'admin', 'Grants access to manage report types.', '2023-07-22 19:30:12', '2023-07-22 19:30:12', NULL),
-	(30, 'penal_code_manage', 'admin', 'Grants access to manage the penal code.', NULL, NULL, NULL),
-	(31, 'impound_lot_manage', 'courthouse', 'Grans access to impound lot and ability to release vehicles', '2023-10-05 19:46:30', '2023-10-05 19:46:30', NULL),
-	(32, 'suspended_license_manage', 'courthouse', 'Grants access to suspended licenses and ability to release them.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL),
-	(33, 'reports_manage', 'supervisor', 'Grants access to reports area in the supervisor screen.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL),
-	(34, 'business_manage', 'supervisor', 'Grants access to business area in the supervisor screen.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL);
+INSERT INTO `permissions` (`title`, `category`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	('admin_access', 'admin', 'Grants access to Admin Area.', '2023-01-19 20:18:19', '2023-01-19 20:18:19', NULL),
+	('announcement_manage', 'staff', 'Grants access to Announcements.', '2023-01-19 20:34:19', '2023-01-19 20:34:19', NULL),
+	('application_access', 'staff', 'Grants access to Applications link.', '2023-01-19 21:17:26', '2023-01-19 21:17:27', NULL),
+	('role_manage', 'admin', 'Grants access to Roles link', '2023-01-19 21:56:40', '2023-01-19 21:56:40', NULL),
+	('application_staff_review', 'staff', 'Grants access to Flagged for Staff Applications', '2023-01-19 22:01:13', '2023-01-19 22:01:13', NULL),
+	('application_action', 'staff', 'Grants access to action Applications.', '2023-01-19 22:01:25', '2023-01-19 22:01:25', NULL),
+	('user_access', 'admin', NULL, '2023-01-27 17:41:34', '2023-01-27 17:41:34', NULL),
+	('user_view', 'admin', NULL, '2023-01-27 17:41:58', '2023-01-27 17:41:58', NULL),
+	('user_manage_user_roles', 'admin', 'Grants access to edit User Roles.', '2023-01-29 20:03:03', '2023-01-29 20:03:03', NULL),
+	('user_edit_user_status', 'admin', 'Grants access to edit User account Status.', '2023-02-03 23:13:44', '2023-02-03 23:13:44', NULL),
+	('user_manage_user_notes', 'admin', 'Grants access to manage User Notes.', '2023-05-16 15:01:48', '2023-05-16 15:01:50', NULL),
+	('user_manage_user_accommodations', 'admin', 'Grants access to manage User Accommodations.', '2023-05-16 15:02:05', '2023-05-16 15:02:05', NULL),
+	('user_manage_user_disciplinary_actions', 'admin', 'Grants access to manage User Disciplinary Actions.', '2023-05-16 15:02:20', '2023-05-16 15:02:20', NULL),
+	('user_advanced_access', 'admin', 'Grants access to manage non-member Users.', '2023-05-16 15:55:13', '2023-05-16 15:55:13', NULL),
+	('user_departments_manage', 'staff', 'Grants access to manage Members Departments', '2023-05-16 22:32:37', '2023-05-16 22:32:38', NULL),
+	('department_manage', 'admin', 'Grants access to manage departments.', '2023-05-25 17:11:08', '2023-05-25 17:11:08', NULL),
+	('disciplinary_action_type_manage', 'admin', 'Grants access to manage Disciplinary Action Types.', '2023-06-12 19:47:59', '2023-06-12 19:47:59', NULL),
+	('license_type_manage', 'admin', 'Grants access to manage License Types', '2023-06-12 20:15:40', '2023-06-12 20:15:40', NULL),
+	('civilian_level_manage', 'admin', 'Grants access to manage Civilian Levels', '2023-06-13 14:59:27', '2023-06-13 14:59:27', NULL),
+	('staff_access', 'staff', 'Grants access to Staff Area.', '2023-07-22 19:30:14', '2023-07-22 19:30:14', NULL),
+	('supervisor_access', 'supervisor', 'Grants access to Supervisor Area.', '2023-07-22 19:30:13', '2023-07-22 19:30:13', NULL),
+	('cad_settings', 'admin', 'Grants access to CAD Settings. Very dangerous permission to give.', '2023-06-13 18:26:03', '2023-06-13 18:26:03', NULL),
+	('report_type_manage', 'admin', 'Grants access to manage report types.', '2023-07-22 19:30:12', '2023-07-22 19:30:12', NULL),
+	('penal_code_manage', 'admin', 'Grants access to manage the penal code.', NULL, NULL, NULL),
+	('impound_lot_manage', 'courthouse', 'Grans access to impound lot and ability to release vehicles', '2023-10-05 19:46:30', '2023-10-05 19:46:30', NULL),
+	('suspended_license_manage', 'courthouse', 'Grants access to suspended licenses and ability to release them.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL),
+	('reports_manage', 'supervisor', 'Grants access to reports area in the supervisor screen.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL),
+	('business_manage', 'supervisor', 'Grants access to business area in the supervisor screen.', '2023-10-05 19:48:24', '2023-10-05 19:48:25', NULL);
 
 
 INSERT INTO `report_types` (`id`, `title`, `is_locked`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES

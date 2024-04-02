@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\User\UserDepartmentStoreRequest;
 use App\Http\Requests\Admin\User\UserDepartmentUpdateRequest;
 use App\Models\Department;
 use App\Models\History;
+use App\Models\Officer;
 use App\Models\User;
 use App\Models\UserDepartment;
 use Illuminate\Contracts\View\View;
@@ -76,7 +77,10 @@ class UserDepartmentController extends Controller
 
     public function destroy(User $user, UserDepartment $user_department): RedirectResponse
     {
-        $user_department->civilian()->update(['is_officer' => 0, 'user_department_id' => null, 'occupation' => 'Unemployed']);
+        $officer = Officer::where('user_department_id', $user_department->id)->get()->first();
+        if ($officer) {
+            $officer->delete();
+        }
         $user_department->delete();
 
         return redirect()->route('staff.user_department.index', $user->id)->with('alerts', [['message' => 'Department deleted.', 'level' => 'success']]);

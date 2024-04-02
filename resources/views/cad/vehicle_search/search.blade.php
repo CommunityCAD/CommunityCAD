@@ -1,5 +1,11 @@
 @extends('layouts.cad')
 
 @section('content')
-    <livewire:cad.vehicle-search-screen />
+    <div class="sticky top-0 z-50">
+        @include('inc.cad.mdt-nav')
+    </div>
+
+    <div class="relative max-w-7xl mx-auto">
+        @livewire('cad.vehicle-search-screen')
+    </div>
 @endsection

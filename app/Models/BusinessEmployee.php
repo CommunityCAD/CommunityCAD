@@ -16,27 +16,26 @@ class BusinessEmployee extends Model
     {
         switch ($this->role) {
             case '1':
-                return "Pending Interview";
+                return 'Pending Interview';
                 break;
             case '2':
-                return "Employee";
+                return 'Employee';
                 break;
             case '3':
-                return "Manager";
+                return 'Manager';
                 break;
             case '4':
-                return "Co-Owner";
+                return 'Co-Owner';
                 break;
             case '5':
-                return "Owner";
+                return 'Owner';
                 break;
 
             default:
-                return "Broken";
+                return 'Broken';
                 break;
         }
     }
-
 
     public function civilian()
     {

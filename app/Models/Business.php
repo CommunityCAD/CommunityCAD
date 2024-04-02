@@ -20,7 +20,6 @@ class Business extends Model
 
     protected $with = ['owner'];
 
-
     public function owner()
     {
         return $this->hasOne(Civilian::class, 'id', 'owner_id')->without(['licenses', 'medical_records', 'vehicles', 'weapons']);

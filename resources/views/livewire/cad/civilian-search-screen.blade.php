@@ -1,5 +1,4 @@
 <div class="flex flex-col uppercase">
-    @include('inc.cad.header')
     <div class="flex flex-row">
         <div class="w-3/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default mx-auto">
             <div class="flex">
@@ -13,142 +12,60 @@
                 </div>
             </div>
             <hr>
-            @forelse ($civilians as $civilian)
-                <a class="block secondary-button-sm"
-                    href="{{ route('cad.name.return', $civilian->id) }}">{{ $civilian->first_name }}
-                    {{ $civilian->last_name }} ({{ $civilian->s_n_n }})</a>
-            @empty
-                <p>No search ran</p>
-            @endforelse
+            <div class="grid grid-cols-2 gap-2">
+                @forelse ($civilians as $civilian)
+                    <a class="" href="{{ route('cad.name.return', $civilian->id) }}">
+                        <div class="bg-gray-200 rounded-lg p-2 text-black text-sm">
+                            <div class="flex justify-between items-center border-b-2 border-blue-600">
+                                <p class="text-lg">{{ strtoupper(get_setting('state')) }}</p>
+                                <p class="text-sm">{{ $civilian->s_n_n }}</p>
+                            </div>
+                            <div class="flex justify-between mt-1">
+                                <div class="h-20 w-20">
+                                    @if (is_null($civilian->picture))
+                                        <svg class="w-20 h-20" fill="none" stroke-width="1.5" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    @else
+                                        <img alt="" src="{{ $civilian->picture }}">
+                                    @endif
+
+                                </div>
+                                <div class="ml-3">
+                                    <p><span class="text-blue-500 text-xs">LN</span>
+                                        {{ $civilian->last_name }}</p>
+                                    <p><span class="text-blue-500 text-xs">FN</span>
+                                        {{ $civilian->first_name }}</p>
+                                    <p>{{ $civilian->postal }} {{ $civilian->street }}
+                                    </p>
+                                    <p>{{ $civilian->city }}</p>
+                                    <p><span class="text-blue-500 text-xs">DOB</span>
+                                        {{ $civilian->date_of_birth->format('m/d/Y') }}</p>
+                                </div>
+                                <div>
+                                    <p><span class="text-blue-500 text-xs">SEX</span>
+                                        {{ $civilian->gender }}</p>
+                                    <p><span class="text-blue-500 text-xs">HGT</span>
+                                        {{ floor($civilian->height / 12) }}'
+                                        {{ $civilian->height % 12 }}"
+                                        ({{ round($civilian->height * 2.54) }}cm)
+                                    </p>
+                                    <p><span class="text-blue-500 text-xs">WGT</span> {{ $civilian->weight }}lb
+                                        ({{ round($civilian->weight / 2.205) }}kg)</p>
+                                </div>
+                            </div>
+                            <div class="border-t-2 border-black flex justify-between">
+
+                            </div>
+                        </div>
+                    </a>
+                @empty
+                    <p>No search ran</p>
+                @endforelse
+            </div>
         </div>
-
-        {{-- <div class="w-2/5 p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
-            @if (!$civilian_return)
-                <p>No search ran</p>
-            @else
-                <div class="flex justify-between">
-                    <p>Return on: {{ $civilian_return->name }} ({{ $civilian_return->s_n_n }})</p>
-                    <a class="text-red-400" href="#" wire:click="clear_return()">Clear Result</a>
-                </div>
-
-                <div class="flex flex-row">
-                    <div class="w-1/2">
-                        @if (!is_null($civilian_return->picture))
-                            <img class="block rounded-md" src="{{ $civilian_return->picture }}">
-                        @else
-                            <img class="block rounded-md"
-                                src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg">
-                        @endif
-                    </div>
-                    <div class="w-1/2 ml-6">
-                        <p><span class="text-gray-300 font-bold underline">Full Name:</span>
-                            {{ $civilian_return->name }}</p>
-                        <p><span class="text-gray-300 font-bold underline">Social Security Number:</span>
-                            {{ $civilian_return->s_n_n }}</p>
-                        <p><span class="text-gray-300 font-bold underline">Date of Birth:</span>
-                            {{ $civilian_return->date_of_birth->format('m/d/Y') }}
-                            ({{ $civilian_return->age }})
-                        </p>
-                        <p><span class="text-gray-300 font-bold underline">Gender:</span>
-                            {{ $civilian_return->gender }}</p>
-                        <p><span class="text-gray-300 font-bold underline">Race:</span>
-                            {{ $civilian_return->race }}</p>
-                        <p><span class="text-gray-300 font-bold underline">Weight:</span>
-                            {{ $civilian_return->weight }}lb</p>
-                        <p><span class="text-gray-300 font-bold underline">Height:</span>
-                            {{ $civilian_return->height }}</p>
-                        <p><span class="text-gray-300 font-bold underline">Address:</span>
-                            {{ $civilian_return->address }}</p>
-                        <p><span class="text-gray-300 font-bold underline">Occupation:</span>
-                            {{ $civilian_return->occupation }}</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="flex flex-row">
-                    <div class="w-1/2">
-                        <p class="text-lg font-bold">Licenses</p>
-                        @foreach ($civilian_return->licenses as $license)
-                            @php
-                                $status = $license->status_name;
-                                if ($license->expires_on < date('Y-m-d')) {
-                                    $status = 'Expired';
-                                }
-                            @endphp
-                            <p>({{ $license->id }}) {{ $license->license_type->name }} -
-                                {{ $status }}</p>
-                        @endforeach
-                    </div>
-                    <div class="w-1/2">
-                        <p class="text-lg font-bold">Vehicles</p>
-                        @foreach ($civilian_return->vehicles as $vehicle)
-                            @php
-                                $v_status = $vehicle->status_name;
-                                if ($vehicle->registration_expire < date('Y-m-d')) {
-                                    $v_status = 'Expired';
-                                }
-                            @endphp
-                            <p><a href="{{ route('cad.vehicle') }}?plate={{ $vehicle->plate }}">({{ $vehicle->plate }})
-                                    {{ $vehicle->make }} {{ $vehicle->color }} -
-                                    {{ $v_status }}</a></p>
-                        @endforeach
-                    </div>
-                </div>
-                <hr>
-                <div class="flex flex-row">
-                    <div class="w-1/2">
-                        <p class="text-lg font-bold">Weapons</p>
-                        @foreach ($civilian_return->weapons as $weapon)
-                            <p>({{ $weapon->serial_number }}) {{ $weapon->model }}</p>
-                        @endforeach
-                    </div>
-                    <div class="w-1/2">
-                        <p class="text-lg font-bold">Medical</p>
-                        @foreach ($civilian_return->medical_records as $record)
-                            <p>{{ $record->name }} - {{ $record->value }}</p>
-                        @endforeach
-                    </div>
-                </div>
-                <hr>
-                <div class="flex flex-row">
-                    <div class="w-full">
-                        <p class="text-lg font-bold">Tickets/Warnings/Arrests</p>
-                        @foreach ($civilian_return->tickets as $ticket)
-                            @php
-                                if ($ticket->type_id == 1) {
-                                    $type = 'Warning';
-                                    $text_color = 'text-yellow-500';
-                                } elseif ($ticket->type_id == 2) {
-                                    $type = 'Ticket';
-                                    $text_color = 'text-orange-500';
-                                } elseif ($ticket->type_id == 3) {
-                                    $type = 'Arrest';
-                                    $text_color = 'text-red-500';
-                                }
-                            @endphp
-                            <a class="block {{ $text_color }}" href="#"
-                                onclick="openExternalWindow('{{ route('cad.ticket.show', $ticket->id) }}')">({{ $ticket->id }})
-                                {{ $type }} on {{ $ticket->offense_occured_at->format('m/d/Y H:i') }} at
-                                {{ $ticket->location_of_offense }} <span class="block ml-5">Offense(s)
-                                    @foreach ($ticket->charges as $charge)
-                                        @if (!$loop->last)
-                                            {{ $charge->penal_code->name }},
-                                        @else
-                                            {{ $charge->penal_code->name }}
-                                        @endif
-                                    @endforeach
-                                </span>
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
-                <hr>
-                <div>
-                    <a class="new-button-sm" href="#"
-                        onclick="openExternalWindow('{{ route('cad.ticket.create', $civilian->id) }}')">New
-                        Warning/Ticket/Arrest</a>
-                </div>
-            @endif
-
-        </div> --}}
     </div>
 </div>
