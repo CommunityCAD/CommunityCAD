@@ -1875,6 +1875,9 @@ video {
 .mt-\[-2px\] {
   margin-top: -2px;
 }
+.mr-12 {
+  margin-right: 3rem;
+}
 .block {
   display: block;
 }
@@ -2071,8 +2074,8 @@ video {
 .w-screen {
   width: 100vw;
 }
-.\!max-w-6xl {
-  max-width: 72rem !important;
+.w-28 {
+  width: 7rem;
 }
 .\!max-w-7xl {
   max-width: 80rem !important;

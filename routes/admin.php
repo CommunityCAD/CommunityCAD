@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PenalCode\PenalCodeController;
 use App\Http\Controllers\Admin\PenalCode\PenalCodeTitleController;
 use App\Http\Controllers\Admin\ReportTypeController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TenCodeController;
 use App\Http\Controllers\Admin\User\NotesController;
 use App\Http\Controllers\Admin\User\UserAccommodationController;
@@ -45,16 +46,28 @@ Route::resource('users', UserController::class)->middleware('can:user_access');
 
 // Setting Pages
 Route::resource('department', DepartmentController::class)->except('show')->middleware('can:department_manage');
-Route::resource('cad_setting', CadSettingController::class)->only('index', 'edit', 'update')->middleware('can:cad_settings');
+// Route::resource('cad_setting', CadSettingController::class)->only('index', 'edit', 'update')->middleware('can:cad_settings');
 Route::resource('disciplinary_action_type', DisciplinaryActionTypeController::class)->except('show')->middleware('can:disciplinary_action_type_manage');
 Route::resource('license_type', LicenseTypeController::class)->except('show')->middleware('can:license_type_manage');
 Route::resource('report_type', ReportTypeController::class)->except('show')->middleware('can:report_type_manage');
 Route::resource('civilian_level', CivilianLevelController::class)->except('show')->middleware('can:civilian_level_manage');
 Route::resource('ten_code', TenCodeController::class)->except('edit', 'update')->middleware('can:ten_code_manage');
-Route::resource('discord_channel', DiscordChannelController::class)->only('index', 'edit', 'update')->middleware('can:cad_settings');
+// Route::resource('discord_channel', DiscordChannelController::class)->only('index', 'edit', 'update')->middleware('can:cad_settings');
 
 Route::middleware(['can:penal_code_manage'])->name('penalcode.')->prefix('penalcode')->group(function () {
     Route::resource('title', PenalCodeTitleController::class)->except('show')->middleware('can:penal_code_manage');
     Route::resource('class', PenalCodeClassController::class)->except('show')->middleware('can:penal_code_manage');
     Route::resource('code', PenalCodeController::class)->except('show')->middleware('can:penal_code_manage');
 });
+
+// Route::view('settings', 'admin.settings.index');
+// Route::post('settings', )
+Route::get('settings/general', [SettingsController::class, 'general'])->name('settings.general')->middleware('can:cad_settings');
+Route::get('settings/roleplay', [SettingsController::class, 'roleplay'])->name('settings.roleplay')->middleware('can:cad_settings');
+Route::get('settings/application', [SettingsController::class, 'application'])->name('settings.application')->middleware('can:cad_settings');
+Route::get('settings/discord', [SettingsController::class, 'discord'])->name('settings.discord')->middleware('can:cad_settings');
+Route::get('settings/api_key', [SettingsController::class, 'api_key'])->name('settings.api_key')->middleware('can:cad_settings');
+Route::get('settings/generate_api_key', [SettingsController::class, 'generate_api_key'])->name('settings.generate_api_key')->middleware('can:cad_settings');
+
+Route::post('settings', [SettingsController::class, 'update'])->name('settings.update')->middleware('can:cad_settings');
+Route::post('settings/update_discord', [SettingsController::class, 'update_discord'])->name('settings.update_discord')->middleware('can:cad_settings');
