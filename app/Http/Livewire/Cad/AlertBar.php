@@ -23,7 +23,7 @@ class AlertBar extends Component
         if (auth()->user()->active_unit->is_panic) {
             $this->active_alerts['is_panic'] = [
                 'color' => 'red',
-                'message' => 'You have activated your panic button',
+                'message' => 'You have activated your panic button at ' . auth()->user()->active_unit->location,
                 'link' => null,
                 'audio' => 'audio/panic_button.mp3',
             ];
@@ -32,11 +32,11 @@ class AlertBar extends Component
         $active_panic_button = ActiveUnit::where('is_panic', '1')->with('user_department')->get();
 
         if ($active_panic_button->count() != 0) {
-            if (! auth()->user()->active_unit->is_panic) {
+            if (!auth()->user()->active_unit->is_panic) {
                 foreach ($active_panic_button as $active_unit) {
                     $this->active_alerts['is_panic'] = [
                         'color' => 'red',
-                        'message' => 'Unit ('.$active_unit->user_department->badge_number.') has activated their panic button',
+                        'message' => 'Unit (' . $active_unit->user_department->badge_number . ') has activated their panic button at ' . $active_unit->location,
                         'link' => null,
                         'model' => null,
                         'audio' => 'audio/panic_button.mp3',
@@ -49,7 +49,7 @@ class AlertBar extends Component
 
         if ($new_calls->count() != 0) {
             foreach ($new_calls as $call) {
-                $this->active_alerts['new_call'.$call->id] = [
+                $this->active_alerts['new_call' . $call->id] = [
                     'color' => 'green',
                     'message' => 'A new call has been created',
                     'link' => null,
@@ -67,7 +67,7 @@ class AlertBar extends Component
                 auth()->user()->active_unit->updated_at->addSeconds(15)->isFuture()
             ) {
                 $call = Call::where('id', $call_info[1])->get()->first();
-                $this->active_alerts['added_to_call'.$call->id] = [
+                $this->active_alerts['added_to_call' . $call->id] = [
                     'color' => 'green',
                     'message' => 'You have been added to a call. Click to see call.',
                     'link' => route('cad.call.show', trim($call_info[1])),
