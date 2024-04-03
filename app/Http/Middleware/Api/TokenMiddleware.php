@@ -15,7 +15,7 @@ class TokenMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->header('token') != config('app.api_key')) {
+        if ($request->header('token') != get_setting('api_key')) {
             return response(['error' => 'Invalid API Key.'], 403, ['Content-Type', 'application/json']);
         }
 
