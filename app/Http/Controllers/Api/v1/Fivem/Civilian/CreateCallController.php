@@ -29,5 +29,3 @@ class CreateCallController extends Controller
         return response($call, 200, ['Content-Type', 'application/json']);
     }
 }
-
-create
