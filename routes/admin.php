@@ -62,12 +62,12 @@ Route::middleware(['can:penal_code_manage'])->name('penalcode.')->prefix('penalc
 
 // Route::view('settings', 'admin.settings.index');
 // Route::post('settings', )
-Route::get('settings/general', [SettingsController::class, 'general'])->name('settings.general');
-Route::get('settings/roleplay', [SettingsController::class, 'roleplay'])->name('settings.roleplay');
-Route::get('settings/application', [SettingsController::class, 'application'])->name('settings.application');
-Route::get('settings/discord', [SettingsController::class, 'discord'])->name('settings.discord');
-Route::get('settings/api_key', [SettingsController::class, 'api_key'])->name('settings.api_key');
-Route::get('settings/generate_api_key', [SettingsController::class, 'generate_api_key'])->name('settings.generate_api_key');
+Route::get('settings/general', [SettingsController::class, 'general'])->name('settings.general')->middleware('can:cad_settings');
+Route::get('settings/roleplay', [SettingsController::class, 'roleplay'])->name('settings.roleplay')->middleware('can:cad_settings');
+Route::get('settings/application', [SettingsController::class, 'application'])->name('settings.application')->middleware('can:cad_settings');
+Route::get('settings/discord', [SettingsController::class, 'discord'])->name('settings.discord')->middleware('can:cad_settings');
+Route::get('settings/api_key', [SettingsController::class, 'api_key'])->name('settings.api_key')->middleware('can:cad_settings');
+Route::get('settings/generate_api_key', [SettingsController::class, 'generate_api_key'])->name('settings.generate_api_key')->middleware('can:cad_settings');
 
-Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
-Route::post('settings/update_discord', [SettingsController::class, 'update_discord'])->name('settings.update_discord');
+Route::post('settings', [SettingsController::class, 'update'])->name('settings.update')->middleware('can:cad_settings');
+Route::post('settings/update_discord', [SettingsController::class, 'update_discord'])->name('settings.update_discord')->middleware('can:cad_settings');
