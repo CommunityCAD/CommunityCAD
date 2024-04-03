@@ -18,8 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('v1/vehicles', function (Request $request) {
-    return $request->header('token');
+// Route::get('v1/vehicles', function (Request $request) {
+//     return $request->header('token');
+// });
+
+Route::get('v1', function (Request $request) {
+    return
+        response(['message' => 'The API is running. Better go catch it.'], 200, ['Content-Type', 'application/json']);
 });
 
 Route::post('v1/fivem/leo/panic', [PanicController::class, 'panic']);
