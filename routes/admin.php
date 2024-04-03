@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PenalCode\PenalCodeController;
 use App\Http\Controllers\Admin\PenalCode\PenalCodeTitleController;
 use App\Http\Controllers\Admin\ReportTypeController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TenCodeController;
 use App\Http\Controllers\Admin\User\NotesController;
 use App\Http\Controllers\Admin\User\UserAccommodationController;
@@ -59,5 +60,14 @@ Route::middleware(['can:penal_code_manage'])->name('penalcode.')->prefix('penalc
     Route::resource('code', PenalCodeController::class)->except('show')->middleware('can:penal_code_manage');
 });
 
-Route::view('settings', 'admin.settings.index');
+// Route::view('settings', 'admin.settings.index');
 // Route::post('settings', )
+Route::get('settings/general', [SettingsController::class, 'general'])->name('settings.general');
+Route::get('settings/roleplay', [SettingsController::class, 'roleplay'])->name('settings.roleplay');
+Route::get('settings/application', [SettingsController::class, 'application'])->name('settings.application');
+Route::get('settings/discord', [SettingsController::class, 'discord'])->name('settings.discord');
+Route::get('settings/api_key', [SettingsController::class, 'api_key'])->name('settings.api_key');
+Route::get('settings/generate_api_key', [SettingsController::class, 'generate_api_key'])->name('settings.generate_api_key');
+
+Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
+Route::post('settings/update_discord', [SettingsController::class, 'update_discord'])->name('settings.update_discord');
