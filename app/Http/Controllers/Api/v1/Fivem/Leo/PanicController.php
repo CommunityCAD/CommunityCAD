@@ -19,6 +19,7 @@ class PanicController extends Controller
 
         $active_unit->status = "PANIC";
         $active_unit->is_panic = 1;
+        $active_unit->location = $request->location;
 
         $active_unit->save();
 
