@@ -25,8 +25,8 @@
                     </div>
                     <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
                         id="force_steam_link" name="force_steam_link">
-                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == 'on') value="on">On</option>
-                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == 'off') value="off">Off</option>
+                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == true) value="on">On</option>
+                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == false) value="off">Off</option>
                     </select>
                 </div>
             </div>
@@ -58,8 +58,8 @@
                     </div>
                     <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
                         id="force_steam_link" name="force_steam_link">
-                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == 'on') value="on">On</option>
-                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == 'off') value="off">Off</option>
+                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == true) value="on">On</option>
+                        <option @selected(old('force_steam_link', get_setting('force_steam_link')) == false) value="off">Off</option>
                     </select>
                 </div>
             </div>

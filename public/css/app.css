@@ -1830,6 +1830,9 @@ video {
 .mr-1 {
   margin-right: 0.25rem;
 }
+.mr-12 {
+  margin-right: 3rem;
+}
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -1874,9 +1877,6 @@ video {
 }
 .mt-\[-2px\] {
   margin-top: -2px;
-}
-.mr-12 {
-  margin-right: 3rem;
 }
 .block {
   display: block;
@@ -2017,6 +2017,9 @@ video {
 .w-24 {
   width: 6rem;
 }
+.w-28 {
+  width: 7rem;
+}
 .w-3 {
   width: 0.75rem;
 }
@@ -2073,9 +2076,6 @@ video {
 }
 .w-screen {
   width: 100vw;
-}
-.w-28 {
-  width: 7rem;
 }
 .\!max-w-7xl {
   max-width: 80rem !important;

@@ -32,8 +32,8 @@
                     </div>
                     <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
                         id="allow_same_name_civilians" name="allow_same_name_civilians">
-                        <option @selected(old('allow_same_name_civilians', get_setting('allow_same_name_civilians')) == 'on') value="on">On</option>
-                        <option @selected(old('allow_same_name_civilians', get_setting('allow_same_name_civilians')) == 'off') value="off">Off</option>
+                        <option @selected(old('allow_same_name_civilians', get_setting('allow_same_name_civilians')) == true) value="on">On</option>
+                        <option @selected(old('allow_same_name_civilians', get_setting('allow_same_name_civilians')) == false) value="off">Off</option>
                     </select>
                 </div>
             </div>
