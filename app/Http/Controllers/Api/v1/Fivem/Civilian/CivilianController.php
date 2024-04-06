@@ -29,12 +29,12 @@ class CivilianController extends Controller
         $civilians = Civilian::where('user_id', $request->user_id);
         $user = User::where('id', $request->user_id)->get()->first();
         if ($user->count() == 0) {
-            return response(["error" => "No user for the user_id provided."], 200, ['Content-Type', 'application/json']);
+            return response(['error' => 'No user for the user_id provided.'], 200, ['Content-Type', 'application/json']);
         }
         $current_civilian_level = CivilianLevel::where('id', $user->civilian_level_id)->get()->first();
 
         if ($current_civilian_level->civilian_limit <= $civilians->count()) {
-            return response(["error" => "You have reached the max civilian count."], 200, ['Content-Type', 'application/json']);
+            return response(['error' => 'You have reached the max civilian count.'], 200, ['Content-Type', 'application/json']);
         }
 
         $data = [
@@ -53,9 +53,9 @@ class CivilianController extends Controller
             'user_id' => $request->user_id,
         ];
 
-        if (!get_setting('allow_same_name_civilians')) {
+        if (! get_setting('allow_same_name_civilians')) {
             if ($this->name_check($data['first_name'], $data['last_name'])) {
-                return response(["error" => "There is already a civilian with that name."], 200, ['Content-Type', 'application/json']);
+                return response(['error' => 'There is already a civilian with that name.'], 200, ['Content-Type', 'application/json']);
             }
         }
         $civilian = Civilian::create($data);

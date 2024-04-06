@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-if (!function_exists('get_setting')) {
+if (! function_exists('get_setting')) {
     function get_setting($setting_name, $default = '')
     {
         $cad_settings = Cache::remember('cad_settings', 5, function () {
@@ -26,7 +26,7 @@ if (!function_exists('get_setting')) {
             }
         }
 
-        if (!isset($settings[$setting_name])) {
+        if (! isset($settings[$setting_name])) {
             return $default;
         }
 

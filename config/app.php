@@ -20,7 +20,6 @@ return [
     'version' => 'BETA v1.2.0',
     'api_key' => env('API_KEY'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Application Environment
