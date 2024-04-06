@@ -47,8 +47,8 @@ class CallController extends Controller
 
         DiscordNotification::send(
             'cad_911_call',
-            'New 911 Call! For: ' . $call->type_name,
-            'There is a new 911 call. Call #' . $call->id,
+            'New 911 Call! For: '.$call->type_name,
+            'There is a new 911 call. Call #'.$call->id,
             15548997,
             [
                 [

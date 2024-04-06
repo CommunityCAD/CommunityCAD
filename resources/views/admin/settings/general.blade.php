@@ -79,8 +79,8 @@
                     </div>
                     <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
                         disabled id="roleplay_enabled" name="roleplay_enabled">
-                        <option @selected(old('roleplay_enabled', get_setting('roleplay_enabled')) == 'on') value="on">On</option>
-                        <option @selected(old('roleplay_enabled', get_setting('roleplay_enabled')) == 'off') value="off">Off</option>
+                        <option @selected(old('roleplay_enabled', get_setting('roleplay_enabled')) == true) value="on">On</option>
+                        <option @selected(old('roleplay_enabled', get_setting('roleplay_enabled')) == false) value="off">Off</option>
                     </select>
                 </div>
             </div>

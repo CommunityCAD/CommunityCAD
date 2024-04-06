@@ -19,7 +19,7 @@ if (! function_exists('get_setting')) {
         $settings = [];
 
         foreach ($cad_settings as $setting) {
-            if ($setting->type == 'bool') {
+            if ($setting->value == 'on' || $setting->value == 'yes' || $setting->value == 'off' || $setting->value == 'no') {
                 $settings[$setting->name] = filter_var($setting->value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             } else {
                 $settings[$setting->name] = $setting->value;

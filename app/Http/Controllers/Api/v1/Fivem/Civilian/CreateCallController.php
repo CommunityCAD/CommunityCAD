@@ -23,13 +23,12 @@ class CreateCallController extends Controller
             'source' => '911 Call',
         ];
 
-
         $call = Call::create($data);
 
         DiscordNotification::send(
             'cad_911_call',
-            'New 911 Call! For: ' . $call->type_name,
-            'There is a new 911 call. Call #' . $call->id,
+            'New 911 Call! For: '.$call->type_name,
+            'There is a new 911 call. Call #'.$call->id,
             15548997,
             [
                 [
@@ -50,7 +49,6 @@ class CreateCallController extends Controller
                 ],
             ]
         );
-
 
         return response($call, 200, ['Content-Type', 'application/json']);
     }
