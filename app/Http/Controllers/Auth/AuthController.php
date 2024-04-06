@@ -15,7 +15,7 @@ class AuthController extends Controller
 
         $user = $this->findOrNewUser($discordUser);
 
-        if (! $user) {
+        if (!$user) {
             return redirect()->route('account.create');
             exit();
         }
@@ -23,8 +23,9 @@ class AuthController extends Controller
         Auth::login($user, true);
 
         $user->touch('last_login');
+        $user->update(['email' => $discordUser->email]);
 
-        return redirect()->intended('account/'.$user->id)->with('success', 'Welcome Back!'); // redirect to site
+        return redirect()->intended('account/' . $user->id)->with('success', 'Welcome Back!'); // redirect to site
     }
 
     protected function findOrNewUser($discordUser)
@@ -34,12 +35,12 @@ class AuthController extends Controller
         if ($discordUser->user['discriminator'] == 0) {
 
             if (is_null($discordUser->avatar)) {
-                $avatar = 'https://ui-avatars.com/api/?name='.urlencode($discordUser->user['global_name']);
+                $avatar = 'https://ui-avatars.com/api/?name=' . urlencode($discordUser->user['global_name']);
             } else {
                 $avatar = $discordUser->avatar;
             }
 
-            if (! is_null($user)) {
+            if (!is_null($user)) {
                 $user->update([
                     'discord_name' => $discordUser->user['global_name'],
                     'discriminator' => $discordUser->user['discriminator'],
@@ -61,12 +62,12 @@ class AuthController extends Controller
             return false;
         } else {
             if (is_null($discordUser->avatar)) {
-                $avatar = 'https://ui-avatars.com/api/?name='.urlencode($discordUser->user['username']);
+                $avatar = 'https://ui-avatars.com/api/?name=' . urlencode($discordUser->user['username']);
             } else {
                 $avatar = $discordUser->avatar;
             }
 
-            if (! is_null($user)) {
+            if (!is_null($user)) {
                 $user->update([
                     'discord_name' => $discordUser->user['username'],
                     'discriminator' => $discordUser->user['discriminator'],

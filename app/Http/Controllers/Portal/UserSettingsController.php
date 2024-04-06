@@ -7,6 +7,8 @@ use App\Models\Loa;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserSettingsController extends Controller
 {
@@ -26,15 +28,15 @@ class UserSettingsController extends Controller
             'officer_name' => 'nullable',
         ]);
 
-        if (! isset($input['ts_name'])) {
+        if (!isset($input['ts_name'])) {
             $input['ts_name'] = null;
         }
 
-        if (! isset($input['display_name'])) {
+        if (!isset($input['display_name'])) {
             $input['display_name'] = null;
         }
 
-        if (! isset($input['officer_name'])) {
+        if (!isset($input['officer_name'])) {
             $input['officer_name'] = null;
         }
 
