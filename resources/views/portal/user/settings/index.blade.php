@@ -20,18 +20,48 @@
                 <input class="text-input" name="display_name" type="text"
                     value="{{ old('display_name', auth()->user()->display_name) }}">
             </div>
-
-            <div>
-                <label for="">Officer Name</label>
-                <span class="text-red-500 text-sm block">This is no longer supported. Please create an officer <a
-                        class="underline" href="{{ route('civilian.officers.index') }}">here</a>.</span>
-                <input class="text-input" disabled name="officer_name" readonly type="text"
-                    value="{{ old('officer_name', auth()->user()->officer_name) }}">
-            </div>
-
             <button class="new-button-md">Save</button>
         </form>
     </div>
+
+    {{-- <div class="card">
+        <h2 class="text-lg font-semibold">In-Game Login</h2>
+        <hr>
+        <p>Email: {{ auth()->user()->email }}</p>
+        <p class="text-sm text-yellow-500">This is the email address connected to your Discord account. If you changed your
+            Discord email address, log out and back in
+            to
+            update email
+            address.</p>
+
+        <form action="{{ route('portal.user.settings.password.update') }}" class="mt-6 space-y-4" method="post">
+            @method('PUT')
+            @csrf
+            @if (auth()->user()->password != null)
+                <div>
+                    <label for="">Current Password</label>
+                    <input class="text-input" name="current_password" type="password" value="{{ old('current_password') }}">
+                    <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+                </div>
+            @else
+                <p>No Password Set</p>
+            @endif
+            <div>
+                <label for="">New Password</label>
+                <input class="text-input" name="password" type="password" value="{{ old('password') }}">
+
+                <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+            </div>
+
+            <div>
+                <label for="">Confirm Password</label>
+                <input class="text-input" name="password_confirmation" type="password"
+                    value="{{ old('papassword_confirmationssword') }}">
+                <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+            </div>
+            <button class="new-button-md">Save</button>
+        </form>
+    </div> --}}
 
     <div class="card">
         <h2 class="text-lg font-semibold">Update Linked Accounts</h2>
