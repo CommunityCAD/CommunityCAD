@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'pages.home')->name('home');
-Route::view('/ingame_login', 'pages.login')->name('ingame_login');
-Route::post('/ingame_login', [IngameLoginController::class, 'login'])->name('ingame_login.login');
+// Route::view('/ingame_login', 'pages.login')->name('ingame_login');
+// Route::post('/ingame_login', [IngameLoginController::class, 'login'])->name('ingame_login.login');
 
 Route::middleware(['auth'])->group(function () {
     // if (get_setting('members_must_apply')) {
