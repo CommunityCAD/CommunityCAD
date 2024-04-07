@@ -25,13 +25,8 @@ class AccountCreateRequest extends FormRequest
     {
         return [
             'display_name' => 'max:255',
-            'officer_name' => 'max:255',
-            'ts_name' => 'max:255',
-
-            'real_name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'birthday' => 'required|date|max:255',
-
         ];
     }
 }
