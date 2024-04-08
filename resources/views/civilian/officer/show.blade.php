@@ -86,21 +86,42 @@
         </div>
     </div>
 
-    <div class="card">
-        <div class="flex justify-between py-2 border-b-2">
-            <h2 class="text-2xl text-white"></h2>
-            <div class="flex">
-                {{-- <a class="new-button-sm" href="#">
+    @if (get_setting('allow_members_to_update_rank') || get_setting('allow_members_to_update_number'))
+        <div class="card">
+            <div class="flex justify-between py-2 border-b-2">
+                <h2 class="text-2xl text-white">Update Department Information</h2>
+                <div class="flex">
+                    {{-- <a class="new-button-sm" href="#">
                     <x-new-button></x-new-button>
                 </a> --}}
+                </div>
             </div>
-        </div>
-        <div class="flex flex-wrap -mx-4">
-            <div class="w-full px-4">
-                <div class="text-white">
-                    Will have things like call history, tickets wrote, reports wrote, etc.
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full px-4">
+                    <form action="{{ route('civilian.officer.update_department_information', $officer->id) }}"
+                        class="text-white space-y-3" method="POST">
+                        @csrf
+                        @if (get_setting('allow_members_to_update_rank'))
+                            <div class="">
+                                <p class="text-lg font-semibold">Department Rank</p>
+                                <input class="text-input" name="rank" type="text"
+                                    value="{{ old('rank', $officer->user_department->rank) }}">
+                            </div>
+                        @endif
+
+                        @if (get_setting('allow_members_to_update_number'))
+                            <div class="">
+                                <p class="text-lg font-semibold">Department Unit Number</p>
+                                <input class="text-input" name="badge_number" type="text"
+                                    value="{{ old('badge_number', $officer->user_department->badge_number) }}">
+                            </div>
+                        @endif
+                        <div class="flex justify-end">
+                            <button class="inline-block secondary-button-md">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection
