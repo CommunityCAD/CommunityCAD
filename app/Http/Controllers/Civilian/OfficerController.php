@@ -9,6 +9,7 @@ use App\Models\Officer;
 use App\Models\UserDepartment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class OfficerController extends Controller
 {
@@ -163,5 +164,28 @@ class OfficerController extends Controller
         $officer->delete();
 
         return redirect()->route('civilian.officers.index')->with('alerts', [['message' => 'Officer Deleted.', 'level' => 'success']]);
+    }
+
+    public function update_department_information(Request $request, Officer $officer)
+    {
+        abort_if(auth()->user()->id != $officer->user_id, 403);
+
+        if (get_setting('allow_members_to_update_rank')) {
+            $rules['rank'] = "required";
+        }
+
+        if (get_setting('allow_members_to_update_number')) {
+            $rules['badge_number'] = "required";
+        }
+
+        if (empty($rules)) {
+            return redirect()->route('civilian.officers.show', $officer->id)->with('alerts', [['message' => 'Option disabled in settings.', 'level' => 'success']]);
+        }
+
+        $validated = $request->validate($rules);
+
+        $officer->user_department->update($validated);
+
+        return redirect()->route('civilian.officers.show', $officer->id)->with('alerts', [['message' => 'Officer Updated.', 'level' => 'success']]);
     }
 }

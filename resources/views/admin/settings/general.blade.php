@@ -66,9 +66,40 @@
                 <select class="select-input" disabled id="community_type" name="community_type">
                     <option @selected(old('community_type', get_setting('community_type')) == 'legacy') value="legacy">Legacy</option>
                     <option @selected(old('community_type', get_setting('community_type')) == 'whitelisted') value="whitelisted">Whitelisted</option>
+                    <option @selected(old('community_type', get_setting('community_type')) == 'approval') value="approval">Approval</option>
                     <option @selected(old('community_type', get_setting('community_type')) == 'semiwhitelisted') value="semiwhitelisted">Semi-Whitelisted</option>
                     <option @selected(old('community_type', get_setting('community_type')) == 'public') value="public">Public</option>
                 </select>
+            </div>
+
+            <div class="pill p-3">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-lg font-semibold">Allow Members To Control Unit Number</p>
+                        <p>This allows members once accepted into a department they can update their unit number.
+                        </p>
+                    </div>
+                    <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                        id="allow_members_to_update_number" name="allow_members_to_update_number">
+                        <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == false) value="off">Off</option>
+                        <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == true) value="on">On</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="pill p-3">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-lg font-semibold">Allow Members To Control Department Rank</p>
+                        <p>This allows members once accepted into a department they can update their rank.
+                        </p>
+                    </div>
+                    <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                        id="allow_members_to_update_rank" name="allow_members_to_update_rank">
+                        <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == false) value="off">Off</option>
+                        <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == true) value="on">On</option>
+                    </select>
+                </div>
             </div>
 
             <div class="pill p-3">

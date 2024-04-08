@@ -57,4 +57,5 @@ Route::resource('businesses', BusinessController::class);
 Route::get('/ticket/{ticket}/plea_guilty', [CivilianPleaController::class, 'plea_guilty'])->name('civlian.plea.guilty');
 Route::get('/ticket/{ticket}/plea_not_guilty', [CivilianPleaController::class, 'plea_not_guilty'])->name('civlian.plea.not_guilty');
 
+Route::post('/officers/{officer}/update_department_information', [OfficerController::class, 'update_department_information'])->name('officer.update_department_information');
 Route::resource('officers', OfficerController::class);
