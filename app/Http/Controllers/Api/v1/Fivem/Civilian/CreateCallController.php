@@ -13,9 +13,9 @@ class CreateCallController extends Controller
     {
         $source = '911 Call';
         $type = 1;
-        $nature = "TEST";
+        $nature = 'TEST';
         if ($request->source && in_array(strtoupper($request->source), [
-            "911 CALL", "NON-EMERGENCY", "OFFICER", "FIRE"
+            '911 CALL', 'NON-EMERGENCY', 'OFFICER', 'FIRE',
         ])) {
             $source = strtoupper($request->source);
         }
@@ -43,8 +43,8 @@ class CreateCallController extends Controller
 
         DiscordNotification::send(
             'cad_911_call',
-            'New 911 Call! For: ' . $call->type_name,
-            'There is a new 911 call. Call #' . $call->id,
+            'New 911 Call! For: '.$call->type_name,
+            'There is a new 911 call. Call #'.$call->id,
             15548997,
             [
                 [

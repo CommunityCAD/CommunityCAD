@@ -20,6 +20,9 @@ class OffDutyController extends Controller
             $call->attached_units()->detach($active_unit->id);
         }
 
+        session()->forget('cad.filters');
+        session()->save();
+
         $active_unit->update(['status' => 'OFFDTY - RPT', 'off_duty_at' => now(), 'off_duty_type' => 1]);
 
         return view('cad.offduty.create');

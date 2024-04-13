@@ -171,11 +171,11 @@ class OfficerController extends Controller
         abort_if(auth()->user()->id != $officer->user_id, 403);
 
         if (get_setting('allow_members_to_update_rank')) {
-            $rules['rank'] = "required";
+            $rules['rank'] = 'required';
         }
 
         if (get_setting('allow_members_to_update_number')) {
-            $rules['badge_number'] = "required";
+            $rules['badge_number'] = 'required';
         }
 
         if (empty($rules)) {

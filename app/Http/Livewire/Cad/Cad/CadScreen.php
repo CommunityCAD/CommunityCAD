@@ -8,6 +8,7 @@ use App\Models\Cad\CallStatuses;
 use App\Models\Call;
 use App\Models\CallLog;
 use App\Notifications\DiscordNotification;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class CadScreen extends Component
@@ -17,6 +18,10 @@ class CadScreen extends Component
     public $online_dispatcher;
 
     public $calls;
+
+    public $type_filters = [1, 2, 3];
+
+    public $nature_filter = '';
 
     public $active_panic = false;
 
@@ -28,13 +33,22 @@ class CadScreen extends Component
 
     public function mount()
     {
+        if (session()->has('cad.type_filters')) {
+            $this->type_filters = session('cad.type_filters');
+        }
     }
 
     public function render()
     {
+
         $this->active_units = ActiveUnit::with(['officer', 'user_department', 'calls'])->get()->sortBy('user_department.department.type')->sortBy('user_department.department.initials');
-        $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
+        $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')
+            ->when(! empty($this->type_filters), fn (Builder $query) => $query->whereIn('type', $this->type_filters))
+            ->when(! empty($this->nature_filter), fn (Builder $query) => $query->where('nature', $this->nature_filter))
+            ->get();
         $this->online_dispatcher = ActiveUnit::where('department_type', 2)->where('status', '!=', 'OFFDTY')->orderBy('created_at')->get()->first();
+
+        session(['cad.type_filters' => $this->type_filters]);
 
         return view('livewire.cad.cad.cad-screen');
     }
