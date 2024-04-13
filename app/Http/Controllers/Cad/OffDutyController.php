@@ -52,7 +52,7 @@ class OffDutyController extends Controller
         if (is_null($start_timer) || is_null($end_timer)) {
             DiscordNotification::send(
                 'cad_off_duty',
-                auth()->user()->preferred_name . ' has went off duty.',
+                auth()->user()->preferred_name.' has went off duty.',
                 null,
                 15548997,
                 [
@@ -79,7 +79,7 @@ class OffDutyController extends Controller
 
             DiscordNotification::send(
                 'cad_off_duty',
-                auth()->user()->preferred_name . ' has went off duty.',
+                auth()->user()->preferred_name.' has went off duty.',
                 null,
                 15548997,
                 [
@@ -118,7 +118,7 @@ class OffDutyController extends Controller
         if (is_null($start_timer) || is_null($end_timer)) {
             DiscordNotification::send(
                 'cad_off_duty',
-                auth()->user()->preferred_name . ' has went off duty.',
+                auth()->user()->preferred_name.' has went off duty.',
                 null,
                 15548997,
                 [
@@ -145,7 +145,7 @@ class OffDutyController extends Controller
 
             DiscordNotification::send(
                 'cad_off_duty',
-                auth()->user()->preferred_name . ' has went off duty.',
+                auth()->user()->preferred_name.' has went off duty.',
                 null,
                 15548997,
                 [

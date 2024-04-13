@@ -30,14 +30,14 @@ class IngameLoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email'   => 'required|email',
-            'password'  => 'required|alphaNum|min:3'
+            'email' => 'required|email',
+            'password' => 'required|alphaNum|min:3',
         ]);
 
-        $user_data = array(
-            'email'  => $request->get('email'),
-            'password' => $request->get('password')
-        );
+        $user_data = [
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
+        ];
 
         if (Auth::attempt($user_data)) {
             return redirect()->route('cad.landing')->with('alerts', [['message' => 'Welcome Back.', 'level' => 'success']]);
@@ -53,6 +53,7 @@ class IngameLoginController extends Controller
                 'steam_hex',
                 'steam_username',
             ]);
+
             return redirect()->route('ingame_login')->with('alerts', [['message' => 'There was an issue with the login.', 'level' => 'error']]);
         }
     }
