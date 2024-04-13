@@ -8,6 +8,7 @@ use App\Models\Cad\CallStatuses;
 use App\Models\Call;
 use App\Models\CallLog;
 use App\Notifications\DiscordNotification;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class CadScreen extends Component
@@ -17,6 +18,10 @@ class CadScreen extends Component
     public $online_dispatcher;
 
     public $calls;
+
+    public $type_filters = [1, 2, 3];
+
+    public $nature_filter = "";
 
     public $active_panic = false;
 
@@ -28,20 +33,29 @@ class CadScreen extends Component
 
     public function mount()
     {
+        if (session()->has('cad.type_filters')) {
+            $this->type_filters = session('cad.type_filters');
+        }
     }
 
     public function render()
     {
+
         $this->active_units = ActiveUnit::with(['officer', 'user_department', 'calls'])->get()->sortBy('user_department.department.type')->sortBy('user_department.department.initials');
-        $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')->get();
+        $this->calls = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->orderBy('priority', 'desc')
+            ->when(!empty($this->type_filters), fn (Builder $query) => $query->whereIn('type', $this->type_filters))
+            ->when(!empty($this->nature_filter), fn (Builder $query) => $query->where('nature', $this->nature_filter))
+            ->get();
         $this->online_dispatcher = ActiveUnit::where('department_type', 2)->where('status', '!=', 'OFFDTY')->orderBy('created_at')->get()->first();
 
+
+        session(['cad.type_filters' => $this->type_filters]);
         return view('livewire.cad.cad.cad-screen');
     }
 
     public function set_status(ActiveUnit $activeUnit, $status)
     {
-        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: '.$status]);
+        $activeUnit->update(['status' => $status, 'description' => 'Status Set To: ' . $status]);
         $this->emit('updated-page');
     }
 
@@ -55,8 +69,8 @@ class CadScreen extends Component
         }
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
-            'text' => 'Call Status Updated To '.$status,
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
+            'text' => 'Call Status Updated To ' . $status,
             'call_id' => $call->id,
         ]);
         $this->emit('updated-page');
@@ -65,8 +79,8 @@ class CadScreen extends Component
     public function set_call_priority(Call $call, $priority)
     {
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
-            'text' => 'Call Priority Updated To '.$priority,
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
+            'text' => 'Call Priority Updated To ' . $priority,
             'call_id' => $call->id,
         ]);
 
@@ -80,12 +94,12 @@ class CadScreen extends Component
         $call->attached_units()->detach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
-            'text' => 'Officer '.$activeUnit->badge_number.' has been unassigned.',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
+            'text' => 'Officer ' . $activeUnit->badge_number . ' has been unassigned.',
             'call_id' => $call->id,
         ]);
 
-        $activeUnit->update(['description' => 'Removed from call: '.$call->id]);
+        $activeUnit->update(['description' => 'Removed from call: ' . $call->id]);
 
         $call->touch();
         $activeUnit->touch();
@@ -97,12 +111,12 @@ class CadScreen extends Component
         $call->attached_units()->attach($activeUnit->id);
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
-            'text' => 'Officer '.$activeUnit->badge_number.' has been assigned.',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
+            'text' => 'Officer ' . $activeUnit->badge_number . ' has been assigned.',
             'call_id' => $call->id,
         ]);
 
-        $activeUnit->update(['description' => 'Added to call: '.$call->id]);
+        $activeUnit->update(['description' => 'Added to call: ' . $call->id]);
         $call->touch();
         $activeUnit->touch();
         $this->emit('updated-page');
@@ -118,8 +132,8 @@ class CadScreen extends Component
         $call->attached_units()->detach();
 
         CallLog::create([
-            'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->user_department->badge_number.')',
-            'text' => 'Call '.$call->id.' has been closed and all units removed from call.',
+            'from' => auth()->user()->active_unit->officer->name . ' (' . auth()->user()->active_unit->user_department->badge_number . ')',
+            'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
             'call_id' => $call->id,
         ]);
         $this->emit('updated-page');
@@ -134,8 +148,8 @@ class CadScreen extends Component
 
         DiscordNotification::send(
             'cad_off_duty',
-            $activeUnit->user->preferred_name.' has went off duty.',
-            'Marked off duty by dispatcher '.auth()->user()->preferred_name,
+            $activeUnit->user->preferred_name . ' has went off duty.',
+            'Marked off duty by dispatcher ' . auth()->user()->preferred_name,
             15548997,
             [
                 [
@@ -162,8 +176,8 @@ class CadScreen extends Component
 
         DiscordNotification::send(
             'cad_on_duty',
-            auth()->user()->preferred_name.' has went on duty.',
-            'Department: '.$activeUnit->user_department->department->name,
+            auth()->user()->preferred_name . ' has went on duty.',
+            'Department: ' . $activeUnit->user_department->department->name,
             5763719,
             [
                 [
