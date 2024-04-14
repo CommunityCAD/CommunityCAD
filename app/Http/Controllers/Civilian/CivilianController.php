@@ -67,7 +67,7 @@ class CivilianController extends Controller
         return view('civilian.civilians.show', compact('civilian', 'current_civilian_level'));
     }
 
-    public function edit(Civilian $civilian): View
+    public function edit(Civilian $civilian)
     {
 
         abort_if(auth()->user()->id != $civilian->user_id, 403);
