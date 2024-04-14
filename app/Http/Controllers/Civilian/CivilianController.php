@@ -72,13 +72,6 @@ class CivilianController extends Controller
 
         abort_if(auth()->user()->id != $civilian->user_id, 403);
 
-        $civilians = Civilian::where('user_id', auth()->user()->id);
-        $current_civilian_level = CivilianLevel::where('id', auth()->user()->civilian_level_id)->get()->first();
-
-        if ($current_civilian_level->civilian_limit <= $civilians->count()) {
-            return redirect()->route('civilian.civilians.index')->with('alerts', [['message' => 'You have reached your max civilians.', 'level' => 'error']]);
-        }
-
         return view('civilian.civilians.edit', compact('civilian'));
     }
 
