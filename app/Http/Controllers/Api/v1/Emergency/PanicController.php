@@ -17,10 +17,8 @@ class PanicController extends Controller
         if (!$active_unit) {
             return response()->json([
                 'success'   => false,
-                'message'   => 'Active unit not found.',
-                'data'      => [
-                    'error' => 'No active unit found for the given user.'
-                ]
+                'message'   => 'No active unit found for the given user.',
+                'data'      => []
             ]);
         }
 
