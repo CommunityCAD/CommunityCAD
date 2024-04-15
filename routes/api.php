@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\Emergency\PanicController;
+use App\Http\Controllers\Api\v1\Emergency\UnitLocationController;
 use App\Http\Controllers\Api\v1\Emergency\UnitStatusController;
 use App\Http\Controllers\Api\v1\Fivem\Civilian\CivilianController;
 use App\Http\Controllers\Api\v1\Fivem\Civilian\CreateCallController;
@@ -38,4 +39,5 @@ Route::post('v1/fivem/civilian/create', [CivilianController::class, 'store']);
 Route::name('v1.emergency.')->prefix('v1/emergency')->group(function () {
     Route::post('/panic', [PanicController::class, 'panic']);
     Route::post('/unit_status', [UnitStatusController::class, 'unit_status']);
+    Route::post('/unit_location', [UnitLocationController::class, 'unit_location']);
 });
