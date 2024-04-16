@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 
 class CallController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function get_calls(GetCallsRequest $request)
     {
 
@@ -32,9 +30,6 @@ class CallController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create_call(CreateCallRequest $request)
     {
         $source = '911 Call';
@@ -107,33 +102,27 @@ class CallController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function get_call(Request $request)
     {
-        //
+        $call = Call::where('id', $request->call_id)->get()->first();
+
+        if (!$request->call_id || !$call) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Call not found.",
+                'data'      => []
+            ]);
+        }
+
+        return response()->json([
+            'success'   => true,
+            'message'   => "",
+            'data'      => [
+                new CallResource($call),
+            ]
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
