@@ -46,7 +46,7 @@ class CivilianController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['id'] = rand(100000000, 999999999);
 
-        if (! get_setting('allow_same_name_civilians')) {
+        if (!get_setting('allow_same_name_civilians')) {
             if ($this->name_check($data['first_name'], $data['last_name'])) {
                 return redirect()->route('civilian.civilians.create')
                     ->with('alerts', [['message' => 'That name is already in use. Choose a diffrent name.', 'level' => 'error']])
@@ -118,6 +118,8 @@ class CivilianController extends Controller
         foreach ($civilian->weapons as $weapon) {
             $weapon->delete();
         }
+
+        $civilian->update(['status' => 4]);
 
         $civilian->delete();
 
