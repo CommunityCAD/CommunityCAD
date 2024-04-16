@@ -4,9 +4,8 @@ namespace App\Http\Resources\Api\v1\Emergency;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CallLogResource extends JsonResource
+class CallVehicleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +16,9 @@ class CallLogResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "from" => $this->from,
-            "text" => $this->text,
-            "created_at" => $this->created_at->format('m/d/Y H:i:s'),
+            "vehicle_id" => $this->vehicle_id,
+            "type" => $this->type,
+            "vehicle" => $this->vehicle,
         ];
     }
 }

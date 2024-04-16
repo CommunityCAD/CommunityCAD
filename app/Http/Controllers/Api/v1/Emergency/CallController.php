@@ -17,7 +17,7 @@ class CallController extends Controller
     {
 
         $open_calls = CallResource::collection(Call::orderBy('id', 'desc')->where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->with(['call_log', 'call_civilians', 'call_vehicles'])->get());
-        $closed_calls = Call::orderBy('id', 'desc')->where('status', '=', 'CLO')->where('status', 'like', 'CLO-%')->limit($request->closed_call_limit)->get();
+        $closed_calls = CallResource::collection(Call::orderBy('updated_at', 'desc')->where('status', '=', 'CLO')->orWhere('status', 'like', 'CLO-%')->with(['call_log', 'call_civilians', 'call_vehicles'])->limit($request->closed_call_limit)->get());
 
         return response()->json([
             'success'   => true,

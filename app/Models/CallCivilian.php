@@ -16,6 +16,6 @@ class CallCivilian extends Model
 
     public function civilian()
     {
-        return $this->hasOne(Civilian::class, 'id', 'civilian_id')->without(['licenses', 'medical_records', 'vehicles', 'weapons']);
+        return $this->hasOne(Civilian::class, 'id', 'civilian_id')->without(['licenses', 'medical_records', 'vehicles', 'weapons'])->withTrashed();
     }
 }

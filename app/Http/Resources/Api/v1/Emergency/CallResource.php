@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\v1\Emergency;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CallResource extends JsonResource
 {
@@ -29,8 +30,8 @@ class CallResource extends JsonResource
             "created_at" => $this->created_at->format('m/d/Y H:i:s'),
             "updated_at" => $this->updated_at->format('m/d/Y H:i:s'),
             "call_log" => CallLogResource::collection($this->call_log),
-            "call_civilians" => $this->call_civilians,
-            "call_vehicles" => $this->call_vehicles
+            "call_civilians" => CallCivilianResource::collection($this->call_civilians),
+            "call_vehicles" => CallVehicleResource::collection($this->call_vehicles)
         ];
     }
 }
