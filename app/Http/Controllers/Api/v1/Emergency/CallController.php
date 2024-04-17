@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\v1\Emergency;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\Emergency\AddCallNoteRequest;
+use App\Http\Requests\Api\v1\Emergency\AttachUnitRequest;
 use App\Http\Requests\Api\v1\Emergency\CreateCallRequest;
 use App\Http\Requests\Api\v1\Emergency\EditCallRequest;
 use App\Http\Requests\Api\v1\Emergency\GetCallsRequest;
 use App\Http\Resources\Api\v1\Emergency\CallResource;
+use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\CallNatures;
 use App\Models\Call;
 use App\Models\CallLog;
@@ -180,6 +182,94 @@ class CallController extends Controller
             'data'      => [
                 new CallResource($call),
             ]
+        ]);
+    }
+
+    function attach_unit(AttachUnitRequest $request)
+    {
+        $call = Call::where('id', $request->call_id)->get()->first();
+        $active_unit = ActiveUnit::where('user_id', $request->user_id)->get()->first();
+
+        if (!$request->call_id || !$call) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Call not found.",
+                'data'      => []
+            ]);
+        }
+
+        if (!$request->user_id || !$active_unit) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "No active unit found for the given user.",
+                'data'      => []
+            ]);
+        }
+
+        if (in_array($request->call_id, array_values($active_unit->calls->pluck('id')->toArray()))) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Unit is already attached to call.",
+                'data'      => []
+            ]);
+        }
+
+        $call->attached_units()->attach($active_unit->id);
+
+        CallLog::create([
+            'from' => $active_unit->officer->name . ' (' . $active_unit->user_department->badge_number . ')',
+            'text' => 'Officer ' . $active_unit->badge_number . ' has been assigned.',
+            'call_id' => $call->id,
+        ]);
+
+        $active_unit->update(['description' => 'Added to call: ' . $call->id]);
+        $call->touch();
+        $active_unit->touch();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => "Unit attached to call.",
+            'data'      => []
+        ]);
+    }
+
+    function detach_unit(AttachUnitRequest $request)
+    {
+        $call = Call::where('id', $request->call_id)->get()->first();
+        $active_unit = ActiveUnit::where('user_id', $request->user_id)->get()->first();
+
+        if (!$request->call_id || !$call) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Call not found.",
+                'data'      => []
+            ]);
+        }
+
+        if (!$request->user_id || !$active_unit) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "No active unit found for the given user.",
+                'data'      => []
+            ]);
+        }
+
+        $call->attached_units()->detach($active_unit->id);
+
+        CallLog::create([
+            'from' => $active_unit->officer->name . ' (' . $active_unit->user_department->badge_number . ')',
+            'text' => 'Officer ' . $active_unit->badge_number . ' has been unassigned.',
+            'call_id' => $call->id,
+        ]);
+
+        $active_unit->update(['description' => 'Removed from call: ' . $call->id]);
+        $call->touch();
+        $active_unit->touch();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => "Unit detached from call.",
+            'data'      => []
         ]);
     }
 

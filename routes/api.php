@@ -48,4 +48,6 @@ Route::name('v1.emergency.')->prefix('v1/emergency')->group(function () {
     Route::post('get_call', [CallController::class, 'get_call']);
     Route::post('add_call_note', [CallController::class, 'add_call_note']);
     Route::post('edit_call', [CallController::class, 'edit_call']);
+    Route::post('attach_unit', [CallController::class, 'attach_unit']);
+    Route::post('detach_unit', [CallController::class, 'detach_unit']);
 });
