@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\Emergency\CallController;
+use App\Http\Controllers\Api\v1\Emergency\GetActiveUnitController;
 use App\Http\Controllers\Api\v1\Emergency\LookupController;
 use App\Http\Controllers\Api\v1\Emergency\PanicController;
 use App\Http\Controllers\Api\v1\Emergency\UnitLocationController;
@@ -34,6 +35,8 @@ Route::name('v1.emergency.')->prefix('v1/emergency')->group(function () {
     Route::post('panic', [PanicController::class, 'panic']);
     Route::post('unit_status', [UnitStatusController::class, 'unit_status']);
     Route::post('unit_location', [UnitLocationController::class, 'unit_location']);
+    Route::post('get_active_unit', [GetActiveUnitController::class, 'get_active_unit']);
+
 
     Route::post('get_calls', [CallController::class, 'get_calls']);
     Route::post('create_call', [CallController::class, 'create_call']);
