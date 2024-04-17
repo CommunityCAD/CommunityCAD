@@ -27,10 +27,10 @@ class CreateCallRequest extends FormRequest
             'narrative' => "required",
             'location' => "required",
             'city' => "required",
-            'type' => "numeric",
-            'source' => "",
+            'type' => "numeric|in:1,2,3",
+            'source' => "in:AVL,ENRUTE,ONSCN,BRK,OFFDTY - RPT",
             'nature' => "alpha",
-            'priority' => "numeric",
+            'priority' => "numeric|in:1,2,3,4,5",
         ];
     }
 
