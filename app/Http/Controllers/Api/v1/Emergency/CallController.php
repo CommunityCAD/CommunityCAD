@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1\Emergency;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\Emergency\AddCallNoteRequest;
 use App\Http\Requests\Api\v1\Emergency\CreateCallRequest;
+use App\Http\Requests\Api\v1\Emergency\EditCallRequest;
 use App\Http\Requests\Api\v1\Emergency\GetCallsRequest;
 use App\Http\Resources\Api\v1\Emergency\CallResource;
 use App\Models\Cad\CallNatures;
@@ -154,9 +155,32 @@ class CallController extends Controller
         ]);
     }
 
-    public function update(Request $request, string $id)
+    public function edit_call(EditCallRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $call = Call::where('id', $data['call_id'])->get()->first();
+
+        if (!$data['call_id'] || !$call) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Call not found.",
+                'data'      => []
+            ]);
+        }
+
+        unset($data['call_id']);
+
+        $call->update($data);
+        $call->touch();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => "",
+            'data'      => [
+                new CallResource($call),
+            ]
+        ]);
     }
 
     /**
