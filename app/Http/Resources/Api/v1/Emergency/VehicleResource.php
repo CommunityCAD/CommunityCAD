@@ -21,7 +21,7 @@ class VehicleResource extends JsonResource
             "color" => $this->color,
             "registration_expire" => $this->registration_expire->format('m/d/Y'),
             "civilian_id" => $this->civilian_id,
-            "vehicle_status" => $this->vehicle_satatus,
+            "vehicle_status" => $this->vehicle_status,
             "status_name" => $this->status_name,
             "created_at" => $this->created_at->format('m/d/Y H:s:i'),
             "updated_at" => $this->updated_at->format('m/d/Y H:s:i'),
