@@ -24,7 +24,7 @@ class GetCallsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'closed_call_limit' => 'numeric',
+            'closed_call_limit' => 'required|numeric',
         ];
     }
 

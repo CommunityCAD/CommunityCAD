@@ -29,14 +29,6 @@ class UnitStatusRequest extends FormRequest
         ];
     }
 
-    // public function messages()
-    // {
-    //     // return [
-    //     //     'user_id.required' => 'The user_id field is required.',
-    //     //     'is_panic.required' => 'The is_panic field is required.',
-    //     // ];
-    // }
-
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

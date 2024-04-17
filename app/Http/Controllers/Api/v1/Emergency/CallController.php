@@ -43,6 +43,8 @@ class CallController extends Controller
         $type = 1;
         $nature = 'OTHER';
         $priority = 3;
+        $status = "RCVD";
+
 
         if ($request->source && in_array(strtoupper($request->source), [
             '911 CALL', 'NON-EMERGENCY', 'OFFICER', 'FIRE',
@@ -52,6 +54,10 @@ class CallController extends Controller
 
         if ($request->nature && in_array(strtoupper($request->nature), array_keys(CallNatures::NATURECODES))) {
             $nature = $request->nature;
+        }
+
+        if ($request->status && in_array(strtoupper($request->status), array_keys(CallStatuses::STATUSCODES))) {
+            $status = $request->status;
         }
 
         if ($request->type && in_array($request->type, [1, 2, 3])) {
@@ -69,7 +75,7 @@ class CallController extends Controller
             'nature' => $nature,
             'priority' => $priority,
             'type' => $type,
-            'status' => 'RCVD',
+            'status' => $status,
             'source' => $source,
         ];
 
