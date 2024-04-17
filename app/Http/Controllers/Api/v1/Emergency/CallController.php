@@ -263,6 +263,14 @@ class CallController extends Controller
             ]);
         }
 
+        if (!in_array($request->call_id, array_values($active_unit->calls->pluck('id')->toArray()))) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Unit is not attached to this call.",
+                'data'      => []
+            ]);
+        }
+
         $call->attached_units()->detach($active_unit->id);
 
         CallLog::create([
