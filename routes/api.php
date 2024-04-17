@@ -46,4 +46,5 @@ Route::name('v1.emergency.')->prefix('v1/emergency')->group(function () {
     Route::post('get_calls', [CallController::class, 'get_calls']);
     Route::post('create_call', [CallController::class, 'create_call']);
     Route::post('get_call', [CallController::class, 'get_call']);
+    Route::post('add_call_note', [CallController::class, 'add_call_note']);
 });

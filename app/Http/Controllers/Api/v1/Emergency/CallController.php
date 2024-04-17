@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\v1\Emergency;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\v1\Emergency\AddCallNoteRequest;
 use App\Http\Requests\Api\v1\Emergency\CreateCallRequest;
 use App\Http\Requests\Api\v1\Emergency\GetCallsRequest;
 use App\Http\Resources\Api\v1\Emergency\CallResource;
 use App\Models\Cad\CallNatures;
 use App\Models\Call;
+use App\Models\CallLog;
 use App\Notifications\DiscordNotification;
 use Illuminate\Http\Request;
 
@@ -120,6 +122,35 @@ class CallController extends Controller
             'data'      => [
                 new CallResource($call),
             ]
+        ]);
+    }
+
+    public function add_call_note(AddCallNoteRequest $request)
+    {
+        $call = Call::where('id', $request->call_id)->get()->first();
+
+        if (!$call) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Call not found.",
+                'data'      => []
+            ]);
+        }
+
+        $data = [
+            'call_id' => $request->call_id,
+            'text' => $request->note,
+            'from' => $request->from,
+        ];
+
+        CallLog::create($data);
+
+        $call->touch();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => "Note added.",
+            'data'      => []
         ]);
     }
 
