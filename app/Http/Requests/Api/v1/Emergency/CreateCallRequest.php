@@ -28,7 +28,7 @@ class CreateCallRequest extends FormRequest
             'location' => "required",
             'city' => "required",
             'type' => "numeric|in:1,2,3",
-            'source' => "in:AVL,ENRUTE,ONSCN,BRK,OFFDTY - RPT",
+            'source' => "in:911 CALL,NON-EMERGENCY,OFFICER,FIRE",
             'nature' => "alpha",
             'priority' => "numeric|in:1,2,3,4,5",
         ];

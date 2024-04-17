@@ -182,6 +182,22 @@ class CallController extends Controller
             ]);
         }
 
+        if ($data['status'] && !in_array(strtoupper($data['status']), array_keys(CallStatuses::STATUSCODES))) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Status code not found.",
+                'data'      => []
+            ]);
+        }
+
+        if ($data['nature'] && !in_array(strtoupper($data['nature']), array_keys(CallNatures::NATURECODES))) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Nature code not found.",
+                'data'      => []
+            ]);
+        }
+
         unset($data['call_id']);
 
         $call->update($data);

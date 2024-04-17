@@ -29,8 +29,9 @@ class EditCallRequest extends FormRequest
             'location' => "string",
             'city' => "string",
             'type' => "numeric|in:1,2,3",
-            'status' => 'in:AVL,ENRUTE,ONSCN,BRK,OFFDTY - RPT',
+            'source' => "in:911 CALL,NON-EMERGENCY,OFFICER,FIRE",
             'nature' => "alpha",
+            'status' => 'alpha',
             'priority' => "numeric|in:1,2,3,4,5",
         ];
     }
