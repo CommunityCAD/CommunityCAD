@@ -42,7 +42,6 @@ Route::name('v1.emergency.')->prefix('v1/emergency')->group(function () {
     Route::post('unit_status', [UnitStatusController::class, 'unit_status']);
     Route::post('unit_location', [UnitLocationController::class, 'unit_location']);
 
-    Route::post('unit_location', [UnitLocationController::class, 'unit_location']);
     Route::post('get_calls', [CallController::class, 'get_calls']);
     Route::post('create_call', [CallController::class, 'create_call']);
     Route::post('get_call', [CallController::class, 'get_call']);
@@ -50,4 +49,5 @@ Route::name('v1.emergency.')->prefix('v1/emergency')->group(function () {
     Route::post('edit_call', [CallController::class, 'edit_call']);
     Route::post('attach_unit', [CallController::class, 'attach_unit']);
     Route::post('detach_unit', [CallController::class, 'detach_unit']);
+    Route::post('close_call', [CallController::class, 'close_call']);
 });

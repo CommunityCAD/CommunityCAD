@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\v1\Emergency;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\Emergency\AddCallNoteRequest;
 use App\Http\Requests\Api\v1\Emergency\AttachUnitRequest;
+use App\Http\Requests\Api\v1\Emergency\CloseCallRequest;
 use App\Http\Requests\Api\v1\Emergency\CreateCallRequest;
 use App\Http\Requests\Api\v1\Emergency\EditCallRequest;
 use App\Http\Requests\Api\v1\Emergency\GetCallsRequest;
 use App\Http\Resources\Api\v1\Emergency\CallResource;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Cad\CallNatures;
+use App\Models\Cad\CallStatuses;
 use App\Models\Call;
 use App\Models\CallLog;
 use App\Notifications\DiscordNotification;
@@ -286,6 +288,49 @@ class CallController extends Controller
         return response()->json([
             'success'   => true,
             'message'   => "Unit detached from call.",
+            'data'      => []
+        ]);
+    }
+
+    public function close_call(CloseCallRequest $request)
+    {
+        $call = Call::where('id', $request->call_id)->get()->first();
+
+        if (!$call) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Call not found.",
+                'data'      => []
+            ]);
+        }
+
+        if (!in_array(strtoupper($request->status), array_keys(CallStatuses::STATUSCODES))) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "Status code not found.",
+                'data'      => []
+            ]);
+        }
+
+        foreach ($call->attached_units as $unit) {
+            $unit->update(['status' => 'AVL']);
+            $call->attached_units()->detach($unit->id);
+        }
+
+        $call->attached_units()->detach();
+
+        CallLog::create([
+            'from' => "SYSTEM",
+            'text' => 'Call ' . $call->id . ' has been closed and all units removed from call.',
+            'call_id' => $call->id,
+        ]);
+
+        $call->update(['status' => strtoupper($request->status)]);
+        $call->touch();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => "Call closed.",
             'data'      => []
         ]);
     }
