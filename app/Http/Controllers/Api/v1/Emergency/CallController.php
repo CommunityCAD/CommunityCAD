@@ -131,6 +131,7 @@ class CallController extends Controller
     public function add_call_note(AddCallNoteRequest $request)
     {
         $call = Call::where('id', $request->call_id)->get()->first();
+        $active_unit = ActiveUnit::where('user_id', $request->user_id)->get()->first();
 
         if (!$call) {
             return response()->json([
@@ -140,10 +141,18 @@ class CallController extends Controller
             ]);
         }
 
+        if (!$request->user_id || !$active_unit) {
+            return response()->json([
+                'success'   => false,
+                'message'   => "No active unit found for the given user.",
+                'data'      => []
+            ]);
+        }
+
         $data = [
             'call_id' => $request->call_id,
             'text' => $request->note,
-            'from' => $request->from,
+            'from' => $active_unit->officer->name . ' (' . $active_unit->user_department->badge_number . ')',
         ];
 
         CallLog::create($data);

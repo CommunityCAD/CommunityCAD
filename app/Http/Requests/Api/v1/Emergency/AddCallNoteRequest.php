@@ -25,8 +25,8 @@ class AddCallNoteRequest extends FormRequest
     {
         return [
             'call_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
             'note' => 'required|string',
-            'from' => 'required|string',
         ];
     }
 
