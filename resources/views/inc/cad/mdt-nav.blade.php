@@ -75,7 +75,8 @@
                         <p>Calls</p>
                     </a>
 
-                    {{-- <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10" href="#">
+                    <a class="flex items-center py-3 px-5 text-white hover:bg-[#131c23] h-10 @if (request()->is('cad/message_center') || request()->is('cad/message_center/*')) font-bold bg-[#131c23] @endif"
+                        href="{{ route('cad.message_center') }}">
                         <svg class="w-6 h-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -84,7 +85,7 @@
                         </svg>
 
                         <p>Messages</p>
-                    </a> --}}
+                    </a>
                 </div>
                 <div class="flex items-center">
                     @livewire('cad.dispatch-status')
@@ -100,14 +101,14 @@
                 <a class="hover:underline" href="#"
                     onclick="openExternalWindow('{{ route('cad.ten_code.index') }}')">10
                     Codes</a>
-                <a class="hover:underline" href="#"
-                    onclick="openExternalWindow('{{ route('cad.stolen_vehicles.index') }}')">Stolen Vehicles</a>
                 <a class="hover:underline @if (request()->is('cad/call/create')) font-bold underline text-white text-xl @endif"
                     href="{{ route('cad.call.create') }}">Create a call</a>
                 <a class="hover:underline @if (request()->is('cad/report/create')) font-bold underline text-white text-xl @endif"
                     href="#" onclick="openExternalWindow('{{ route('cad.report.create') }}')">Create a
                     Report</a>
-
+                <a class="hover:underline @if (request()->is('cad/bolo/create')) font-bold underline text-white text-xl @endif"
+                    href="{{ route('cad.bolo.create') }}">Create a
+                    Bolo</a>
             </div>
             <div class="text-red-600 flex items-baseline">
                 <p class="text-xl" id="running_clock_time"></p>

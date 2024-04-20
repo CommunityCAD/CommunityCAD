@@ -29145,7 +29145,31 @@ class Axios {
    *
    * @returns {Promise} The Promise to be fulfilled
    */
-  request(configOrUrl, config) {
+  async request(configOrUrl, config) {
+    try {
+      return await this._request(configOrUrl, config);
+    } catch (err) {
+      if (err instanceof Error) {
+        let dummy;
+
+        Error.captureStackTrace ? Error.captureStackTrace(dummy = {}) : (dummy = new Error());
+
+        // slice off the Error: ... line
+        const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, '') : '';
+
+        if (!err.stack) {
+          err.stack = stack;
+          // match without the 2 top stack lines
+        } else if (stack && !String(err.stack).endsWith(stack.replace(/^.+\n.+\n/, ''))) {
+          err.stack += '\n' + stack
+        }
+      }
+
+      throw err;
+    }
+  }
+
+  _request(configOrUrl, config) {
     /*eslint no-param-reassign:0*/
     // Allow for axios('example/url'[, config]) a la fetch API
     if (typeof configOrUrl === 'string') {
@@ -29989,7 +30013,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const headersToObject = (thing) => thing instanceof _AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_0__["default"] ? thing.toJSON() : thing;
+const headersToObject = (thing) => thing instanceof _AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_0__["default"] ? { ...thing } : thing;
 
 /**
  * Config-specific merge-function which creates a new config-object
@@ -30254,9 +30278,6 @@ const defaults = {
     const isFormData = _utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].isFormData(data);
 
     if (isFormData) {
-      if (!hasJSONContentType) {
-        return data;
-      }
       return hasJSONContentType ? JSON.stringify((0,_helpers_formDataToJSON_js__WEBPACK_IMPORTED_MODULE_2__["default"])(data)) : data;
     }
 
@@ -30397,7 +30418,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   VERSION: () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.6.5";
+const VERSION = "1.6.8";
 
 /***/ }),
 
@@ -33533,8 +33554,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   history: () => (/* binding */ history),
 /* harmony export */   redo: () => (/* binding */ redo),
 /* harmony export */   redoDepth: () => (/* binding */ redoDepth),
+/* harmony export */   redoNoScroll: () => (/* binding */ redoNoScroll),
 /* harmony export */   undo: () => (/* binding */ undo),
-/* harmony export */   undoDepth: () => (/* binding */ undoDepth)
+/* harmony export */   undoDepth: () => (/* binding */ undoDepth),
+/* harmony export */   undoNoScroll: () => (/* binding */ undoNoScroll)
 /* harmony export */ });
 /* harmony import */ var rope_sequence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rope-sequence */ "./node_modules/rope-sequence/dist/index.js");
 /* harmony import */ var prosemirror_transform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prosemirror-transform */ "./node_modules/prosemirror-transform/dist/index.js");
@@ -33861,16 +33884,16 @@ function mapRanges(ranges, mapping) {
 }
 // Apply the latest event from one branch to the document and shift the event
 // onto the other branch.
-function histTransaction(history, state, dispatch, redo) {
+function histTransaction(history, state, redo) {
     let preserveItems = mustPreserveItems(state);
     let histOptions = historyKey.get(state).spec.config;
     let pop = (redo ? history.undone : history.done).popEvent(state, preserveItems);
     if (!pop)
-        return;
+        return null;
     let selection = pop.selection.resolve(pop.transform.doc);
     let added = (redo ? history.done : history.undone).addTransform(pop.transform, state.selection.getBookmark(), histOptions, preserveItems);
     let newHist = new HistoryState(redo ? added : pop.remaining, redo ? pop.remaining : added, null, 0, -1);
-    dispatch(pop.transform.setSelection(selection).setMeta(historyKey, { redo, historyState: newHist }).scrollIntoView());
+    return pop.transform.setSelection(selection).setMeta(historyKey, { redo, historyState: newHist });
 }
 let cachedPreserveItems = false, cachedPreserveItemsPlugins = null;
 // Check whether any plugin in the given state has a
@@ -33937,28 +33960,37 @@ function history(config = {}) {
         }
     });
 }
+function buildCommand(redo, scroll) {
+    return (state, dispatch) => {
+        let hist = historyKey.getState(state);
+        if (!hist || (redo ? hist.undone : hist.done).eventCount == 0)
+            return false;
+        if (dispatch) {
+            let tr = histTransaction(hist, state, redo);
+            if (tr)
+                dispatch(scroll ? tr.scrollIntoView() : tr);
+        }
+        return true;
+    };
+}
 /**
 A command function that undoes the last change, if any.
 */
-const undo = (state, dispatch) => {
-    let hist = historyKey.getState(state);
-    if (!hist || hist.done.eventCount == 0)
-        return false;
-    if (dispatch)
-        histTransaction(hist, state, dispatch, false);
-    return true;
-};
+const undo = buildCommand(false, true);
 /**
 A command function that redoes the last undone change, if any.
 */
-const redo = (state, dispatch) => {
-    let hist = historyKey.getState(state);
-    if (!hist || hist.undone.eventCount == 0)
-        return false;
-    if (dispatch)
-        histTransaction(hist, state, dispatch, true);
-    return true;
-};
+const redo = buildCommand(true, true);
+/**
+A command function that undoes the last change. Don't scroll the
+selection into view.
+*/
+const undoNoScroll = buildCommand(false, false);
+/**
+A command function that redoes the last undone change. Don't
+scroll the selection into view.
+*/
+const redoNoScroll = buildCommand(true, false);
 /**
 The amount of undoable events available in a given state.
 */
@@ -34039,6 +34071,7 @@ class InputRule {
         this.match = match;
         this.handler = typeof handler == "string" ? stringHandler(handler) : handler;
         this.undoable = options.undoable !== false;
+        this.inCode = options.inCode || false;
     }
 }
 function stringHandler(string) {
@@ -34096,11 +34129,17 @@ function run(view, from, to, text, rules, plugin) {
     if (view.composing)
         return false;
     let state = view.state, $from = state.doc.resolve(from);
-    if ($from.parent.type.spec.code)
-        return false;
     let textBefore = $from.parent.textBetween(Math.max(0, $from.parentOffset - MAX_MATCH), $from.parentOffset, null, "\ufffc") + text;
     for (let i = 0; i < rules.length; i++) {
-        let rule = rules[i], match = rule.match.exec(textBefore);
+        let rule = rules[i];
+        if ($from.parent.type.spec.code) {
+            if (!rule.inCode)
+                continue;
+        }
+        else if (rule.inCode === "only") {
+            continue;
+        }
+        let match = rule.match.exec(textBefore);
         let tr = match && rule.handler(state, match, from - (match[0].length - text.length), to);
         if (!tr)
             continue;
@@ -36856,6 +36895,8 @@ function gatherMarks(schema, marks) {
     return found;
 }
 
+function isTagRule(rule) { return rule.tag != null; }
+function isStyleRule(rule) { return rule.style != null; }
 /**
 A DOM parser represents a strategy for parsing DOM content into a
 ProseMirror document conforming to a given schema. Its behavior is
@@ -36887,9 +36928,9 @@ class DOMParser {
         */
         this.styles = [];
         rules.forEach(rule => {
-            if (rule.tag)
+            if (isTagRule(rule))
                 this.tags.push(rule);
-            else if (rule.style)
+            else if (isStyleRule(rule))
                 this.styles.push(rule);
         });
         // Only normalize list elements when lists in the schema can't directly contain themselves
@@ -40981,6 +41022,9 @@ const textRange = function (node, from, to) {
     range.setStart(node, from || 0);
     return range;
 };
+const clearReusedRange = function () {
+    reusedRange = null;
+};
 // Scans forward and backward through DOM positions equivalent to the
 // given one to see if the two are in the same place (i.e. after a
 // text node vs at the end of that text node)
@@ -41014,6 +41058,44 @@ function scanFor(node, off, targetNode, targetOff, dir) {
 }
 function nodeSize(node) {
     return node.nodeType == 3 ? node.nodeValue.length : node.childNodes.length;
+}
+function textNodeBefore$1(node, offset) {
+    for (;;) {
+        if (node.nodeType == 3 && offset)
+            return node;
+        if (node.nodeType == 1 && offset > 0) {
+            if (node.contentEditable == "false")
+                return null;
+            node = node.childNodes[offset - 1];
+            offset = nodeSize(node);
+        }
+        else if (node.parentNode && !hasBlockDesc(node)) {
+            offset = domIndex(node);
+            node = node.parentNode;
+        }
+        else {
+            return null;
+        }
+    }
+}
+function textNodeAfter$1(node, offset) {
+    for (;;) {
+        if (node.nodeType == 3 && offset < node.nodeValue.length)
+            return node;
+        if (node.nodeType == 1 && offset < node.childNodes.length) {
+            if (node.contentEditable == "false")
+                return null;
+            node = node.childNodes[offset];
+            offset = 0;
+        }
+        else if (node.parentNode && !hasBlockDesc(node)) {
+            offset = domIndex(node) + 1;
+            node = node.parentNode;
+        }
+        else {
+            return null;
+        }
+    }
 }
 function isOnEdge(node, offset, parent) {
     for (let atStart = offset == 0, atEnd = offset == nodeSize(node); atStart || atEnd;) {
@@ -41091,6 +41173,12 @@ const webkit = !!doc && "webkitFontSmoothing" in doc.documentElement.style;
 const webkit_version = webkit ? +(/\bAppleWebKit\/(\d+)/.exec(navigator.userAgent) || [0, 0])[1] : 0;
 
 function windowRect(doc) {
+    let vp = doc.defaultView && doc.defaultView.visualViewport;
+    if (vp)
+        return {
+            left: 0, right: vp.width,
+            top: 0, bottom: vp.height
+        };
     return { left: 0, right: doc.documentElement.clientWidth,
         top: 0, bottom: doc.documentElement.clientHeight };
 }
@@ -42026,6 +42114,7 @@ class ViewDesc {
     }
     get domAtom() { return false; }
     get ignoreForCoords() { return false; }
+    isText(text) { return false; }
 }
 // A widget desc represents a widget decoration, which is a DOM node
 // drawn between the document nodes.
@@ -42288,8 +42377,7 @@ class NodeViewDesc extends ViewDesc {
         let { from, to } = view.state.selection;
         if (!(view.state.selection instanceof prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.TextSelection) || from < pos || to > pos + this.node.content.size)
             return null;
-        let sel = view.domSelectionRange();
-        let textNode = nearbyTextNode(sel.focusNode, sel.focusOffset);
+        let textNode = view.input.compositionNode;
         if (!textNode || !this.dom.contains(textNode.parentNode))
             return null;
         if (this.node.inlineContent) {
@@ -42431,6 +42519,7 @@ class TextViewDesc extends NodeViewDesc {
             this.dirty = NODE_DIRTY;
     }
     get domAtom() { return false; }
+    isText(text) { return this.node.text == text; }
 }
 // A dummy desc used to tag trailing BR or IMG nodes created to work
 // around contentEditable terribleness.
@@ -42998,25 +43087,6 @@ function iosHacks(dom) {
         dom.style.cssText = oldCSS + "; list-style: square !important";
         window.getComputedStyle(dom).listStyle;
         dom.style.cssText = oldCSS;
-    }
-}
-function nearbyTextNode(node, offset) {
-    for (;;) {
-        if (node.nodeType == 3)
-            return node;
-        if (node.nodeType == 1 && offset > 0) {
-            if (node.childNodes.length > offset && node.childNodes[offset].nodeType == 3)
-                return node.childNodes[offset];
-            node = node.childNodes[offset - 1];
-            offset = nodeSize(node);
-        }
-        else if (node.nodeType == 1 && offset < node.childNodes.length) {
-            node = node.childNodes[offset];
-            offset = 0;
-        }
-        else {
-            return null;
-        }
     }
 }
 // Find a piece of text in an inline fragment, overlapping from-to
@@ -43923,6 +43993,7 @@ class InputState {
         this.lastTouch = 0;
         this.lastAndroidDelete = 0;
         this.composing = false;
+        this.compositionNode = null;
         this.composingTimeout = -1;
         this.compositionNodes = [];
         this.compositionEndedAt = -2e8;
@@ -44359,6 +44430,7 @@ editHandlers.compositionend = (view, event) => {
         view.input.composing = false;
         view.input.compositionEndedAt = event.timeStamp;
         view.input.compositionPendingChanges = view.domObserver.pendingRecords().length ? view.input.compositionID : 0;
+        view.input.compositionNode = null;
         if (view.input.compositionPendingChanges)
             Promise.resolve().then(() => view.domObserver.flush());
         view.input.compositionID++;
@@ -44377,6 +44449,25 @@ function clearComposition(view) {
     }
     while (view.input.compositionNodes.length > 0)
         view.input.compositionNodes.pop().markParentsDirty();
+}
+function findCompositionNode(view) {
+    let sel = view.domSelectionRange();
+    if (!sel.focusNode)
+        return null;
+    let textBefore = textNodeBefore$1(sel.focusNode, sel.focusOffset);
+    let textAfter = textNodeAfter$1(sel.focusNode, sel.focusOffset);
+    if (textBefore && textAfter && textBefore != textAfter) {
+        let descAfter = textAfter.pmViewDesc;
+        if (!descAfter || !descAfter.isText(textAfter.nodeValue)) {
+            return textAfter;
+        }
+        else if (view.input.compositionNode == textAfter) {
+            let descBefore = textBefore.pmViewDesc;
+            if (!(!descBefore || !descBefore.isText(textBefore.nodeValue)))
+                return textAfter;
+        }
+    }
+    return textBefore;
 }
 function timestampFromCustomEvent() {
     let event = document.createEvent("Event");
@@ -44980,9 +45071,6 @@ class DecorationSet {
             return this;
         return local.length || children.length ? new DecorationSet(local, children) : empty;
     }
-    /**
-    @internal
-    */
     forChild(offset, node) {
         if (this == empty)
             return this;
@@ -45615,9 +45703,25 @@ function checkCSS(view) {
         cssCheckWarned = true;
     }
 }
+function rangeToSelectionRange(view, range) {
+    let anchorNode = range.startContainer, anchorOffset = range.startOffset;
+    let focusNode = range.endContainer, focusOffset = range.endOffset;
+    let currentAnchor = view.domAtPos(view.state.selection.anchor);
+    // Since such a range doesn't distinguish between anchor and head,
+    // use a heuristic that flips it around if its end matches the
+    // current anchor.
+    if (isEquivalentPosition(currentAnchor.node, currentAnchor.offset, focusNode, focusOffset))
+        [anchorNode, anchorOffset, focusNode, focusOffset] = [focusNode, focusOffset, anchorNode, anchorOffset];
+    return { anchorNode, anchorOffset, focusNode, focusOffset };
+}
 // Used to work around a Safari Selection/shadow DOM bug
 // Based on https://github.com/codemirror/dev/issues/414 fix
-function safariShadowSelectionRange(view) {
+function safariShadowSelectionRange(view, selection) {
+    if (selection.getComposedRanges) {
+        let range = selection.getComposedRanges(view.root)[0];
+        if (range)
+            return rangeToSelectionRange(view, range);
+    }
     let found;
     function read(event) {
         event.preventDefault();
@@ -45632,15 +45736,7 @@ function safariShadowSelectionRange(view) {
     view.dom.addEventListener("beforeinput", read, true);
     document.execCommand("indent");
     view.dom.removeEventListener("beforeinput", read, true);
-    let anchorNode = found.startContainer, anchorOffset = found.startOffset;
-    let focusNode = found.endContainer, focusOffset = found.endOffset;
-    let currentAnchor = view.domAtPos(view.state.selection.anchor);
-    // Since such a range doesn't distinguish between anchor and head,
-    // use a heuristic that flips it around if its end matches the
-    // current anchor.
-    if (isEquivalentPosition(currentAnchor.node, currentAnchor.offset, focusNode, focusOffset))
-        [anchorNode, anchorOffset, focusNode, focusOffset] = [focusNode, focusOffset, anchorNode, anchorOffset];
-    return { anchorNode, anchorOffset, focusNode, focusOffset };
+    return found ? rangeToSelectionRange(view, found) : null;
 }
 
 // Note that all referencing and parsing is done with the
@@ -45783,13 +45879,6 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
             return;
         }
     }
-    // Chrome sometimes leaves the cursor before the inserted text when
-    // composing after a cursor wrapper. This moves it forward.
-    if (chrome && view.cursorWrapper && parse.sel && parse.sel.anchor == view.cursorWrapper.deco.from &&
-        parse.sel.head == parse.sel.anchor) {
-        let size = change.endB - change.start;
-        parse.sel = { anchor: parse.sel.anchor + size, head: parse.sel.anchor + size };
-    }
     view.input.domChangeCount++;
     // Handle the case where overwriting a selection by typing matches
     // the start or end of the selected content, creating a change
@@ -45835,7 +45924,7 @@ function readDOMChange(view, from, to, typeOver, addedNodes) {
     }
     // Same for backspace
     if (view.state.selection.anchor > change.start &&
-        looksLikeJoin(doc, change.start, change.endA, $from, $to) &&
+        looksLikeBackspace(doc, change.start, change.endA, $from, $to) &&
         view.someProp("handleKeyDown", f => f(view, keyEvent(8, "Backspace")))) {
         if (android && chrome)
             view.domObserver.suppressSelectionUpdates(); // #820
@@ -45947,14 +46036,18 @@ function isMarkChange(cur, prev) {
     if (prosemirror_model__WEBPACK_IMPORTED_MODULE_0__.Fragment.from(updated).eq(cur))
         return { mark, type };
 }
-function looksLikeJoin(old, start, end, $newStart, $newEnd) {
-    if (!$newStart.parent.isTextblock ||
-        // The content must have shrunk
-        end - start <= $newEnd.pos - $newStart.pos ||
+function looksLikeBackspace(old, start, end, $newStart, $newEnd) {
+    if ( // The content must have shrunk
+    end - start <= $newEnd.pos - $newStart.pos ||
         // newEnd must point directly at or after the end of the block that newStart points into
         skipClosingAndOpening($newStart, true, false) < $newEnd.pos)
         return false;
     let $start = old.resolve(start);
+    // Handle the case where, rather than joining blocks, the change just removed an entire block
+    if (!$newStart.parent.isTextblock) {
+        let after = $start.nodeAfter;
+        return after != null && end == start + after.nodeSize;
+    }
     // Start must be at the end of a block
     if ($start.parentOffset < $start.parent.content.size || !$start.parent.isTextblock)
         return false;
@@ -46205,8 +46298,10 @@ class EditorView {
                 // tracks that and forces a selection reset when our update
                 // did write to the node.
                 let chromeKludge = chrome ? (this.trackWrites = this.domSelectionRange().focusNode) : null;
+                if (this.composing)
+                    this.input.compositionNode = findCompositionNode(this);
                 if (redraw || !this.docView.update(state.doc, outerDeco, innerDeco, this)) {
-                    this.docView.updateOuterDeco([]);
+                    this.docView.updateOuterDeco(outerDeco);
                     this.docView.destroy();
                     this.docView = docViewDesc(state.doc, outerDeco, innerDeco, this.dom, this);
                 }
@@ -46483,6 +46578,7 @@ class EditorView {
         }
         this.docView.destroy();
         this.docView = null;
+        clearReusedRange();
     }
     /**
     This is true when the view has been
@@ -46518,8 +46614,9 @@ class EditorView {
     @internal
     */
     domSelectionRange() {
-        return safari && this.root.nodeType === 11 && deepActiveElement(this.dom.ownerDocument) == this.dom
-            ? safariShadowSelectionRange(this) : this.domSelection();
+        let sel = this.domSelection();
+        return safari && this.root.nodeType === 11 &&
+            deepActiveElement(this.dom.ownerDocument) == this.dom && safariShadowSelectionRange(this, sel) || sel;
     }
     /**
     @internal
