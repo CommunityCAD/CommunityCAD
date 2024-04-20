@@ -98,19 +98,19 @@ class ActiveUnit extends Model
 
             switch (get_setting('officer_name_format')) {
                 case 'F. Last':
-                    $formatted_name = substr($name_array[0], 0, 1).'. '.$name_array[1];
+                    $formatted_name = substr($name_array[0], 0, 1) . '. ' . $name_array[1];
                     break;
 
                 case 'First Last':
-                    $formatted_name = $name_array[0].' '.$name_array[1];
+                    $formatted_name = $name_array[0] . ' ' . $name_array[1];
                     break;
 
                 case 'First L.':
-                    $formatted_name = $name_array[0].' '.substr($name_array[1], 0, 1).'.';
+                    $formatted_name = $name_array[0] . ' ' . substr($name_array[1], 0, 1) . '.';
                     break;
 
                 default:
-                    $formatted_name = substr($name_array[0], 0, 1).'. '.$name_array[1];
+                    $formatted_name = substr($name_array[0], 0, 1) . '. ' . $name_array[1];
                     break;
             }
         } else {

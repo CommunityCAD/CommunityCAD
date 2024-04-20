@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cad\AddUnitController;
+use App\Http\Controllers\Cad\BoloController;
 use App\Http\Controllers\Cad\CadController;
 use App\Http\Controllers\Cad\CallCivilianController;
 use App\Http\Controllers\Cad\CallController;
@@ -65,4 +66,7 @@ Route::middleware('cad.active_unit_check')->group(function () {
 
     Route::get('mdt/home', [CadController::class, 'mdt_home'])->name('mdt.home');
     Route::get('mdt', [MdtController::class, 'mdt'])->name('mdt');
+
+    Route::get('/message_center', [CadController::class, 'message_center'])->name('message_center');
+    Route::resource('bolo', BoloController::class);
 });

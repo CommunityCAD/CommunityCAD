@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Cad;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bolo;
 use App\Models\Cad\ActiveUnit;
 use App\Models\Call;
+use App\Models\Civilian\Vehicle;
 use App\Models\UserDepartment;
 
 class CadController extends Controller
@@ -32,13 +34,20 @@ class CadController extends Controller
 
     public function home()
     {
-        if (! isset(auth()->user()->active_unit)) {
+        if (!isset(auth()->user()->active_unit)) {
             return redirect(route('cad.landing'));
         }
 
         $call_count = Call::where('status', '!=', 'CLO')->where('status', 'not like', 'CLO-%')->count();
 
         return view('cad.home', compact('call_count'));
+    }
+
+    public function message_center()
+    {
+        $stolen_vehicles = Vehicle::where('vehicle_status', 2)->get();
+        $bolos = Bolo::all();
+        return view('cad.message_center', compact('stolen_vehicles', 'bolos'));
     }
 
     public function panic()

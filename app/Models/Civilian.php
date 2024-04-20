@@ -20,6 +20,7 @@ class Civilian extends Model
 
     protected $casts = [
         'created_at' => 'datetime',
+        'deleted_at' => 'datetime',
         'updated_at' => 'datetime',
         'date_of_birth' => 'date',
     ];
@@ -54,12 +55,12 @@ class Civilian extends Model
 
     public function getNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function getAddressAttribute()
     {
-        return $this->postal.' '.$this->street.' '.$this->city;
+        return $this->postal . ' ' . $this->street . ' ' . $this->city;
     }
 
     public function getAgeAttribute()
