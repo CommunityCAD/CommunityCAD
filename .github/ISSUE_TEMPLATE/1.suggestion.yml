@@ -9,6 +9,7 @@ body:
       options:
         - CAD
         - FiveM
+        - Both
     validations:
       required: true
   - type: textarea
