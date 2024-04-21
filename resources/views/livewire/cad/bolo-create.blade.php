@@ -15,6 +15,7 @@
             <div class="w-2/5 ml-3">
                 <label class="block mr-2">CALL ID:</label>
                 <select class="select-input-sm" name="call_id">
+                    <option value="">Call</option>
                     @foreach ($calls as $call)
                         <option @selected(isset($_GET['call']) && $call->id == $_GET['call']) @selected(old('call_id') == $call->id) value="{{ $call->id }}">
                             {{ $call->status }}: {{ $call->id }}
