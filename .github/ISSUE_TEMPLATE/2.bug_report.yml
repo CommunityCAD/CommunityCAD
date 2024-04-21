@@ -1,0 +1,34 @@
+name: Bug Report
+description: Help improve Community CAD by reporting bugs
+labels: "bug"
+body:
+  - type: input
+    attributes:
+      label: Community CAD Version
+      description: "Enter the version of Community CAD you're currently using (e.g., 1.3.2)"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Operating System
+      description: "Indicate the operating system you're hosting CommunityCAD on? (e.g., Ubuntu, Windows)"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Bug Description
+      description: "Provide a clear and concise description of the bug"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: "Describe what you expected to happen"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: "Detail the steps or commands to reproduce the bug"
+    validations:
+      required: false
