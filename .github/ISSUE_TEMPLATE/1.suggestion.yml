@@ -30,9 +30,17 @@ body:
   - type: textarea
     attributes:
       label: Out of RP or In RP
-      description: Specify if this feature would primarily affect out-of-roleplay (OOC) aspects or in-roleplayinteractions.
+      description: Specify if this feature would primarily affect out-of-roleplay (OOC) aspects or in-roleplay interactions.
     validations:
       required: true
+  - type: dropdown
+    attributes:
+      label: Out of RP or In RP
+      description: Specify if this feature would primarily affect out-of-roleplay (OOC) aspects or in-roleplay interactions.
+      options:
+        - Outside of RP
+        - In Roleplay
+        - Both
   - type: textarea
     attributes:
       label: Additional Context
