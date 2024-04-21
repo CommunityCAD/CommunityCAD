@@ -2,6 +2,17 @@ name: Suggestion
 description: Request a feature or a change to improve CommunityCAD
 labels: "suggestion"
 body:
+  - type: dropdown
+    attributes:
+      label: Type of Suggestion
+      description: "Is this suggestion for CAD or FiveM Integration Script Roleplay Interactions?"
+      options:
+        - label: CAD
+          value: CAD
+          description: "Suggestion related to CAD"
+        - label: FiveM Integration Script Roleplay Interactions
+          value: FiveM
+          description: "Suggestion related to FiveM Integration Script Roleplay Interactions"
   - type: textarea
     attributes:
       label: Describe the feature
