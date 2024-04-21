@@ -29,11 +29,6 @@ body:
       description: Discuss whether this feature would benefit all types of communities.
     validations:
       required: true
-  - type: textarea
-    attributes:
-      label: Out of RP or In RP
-      description: Specify if this feature would primarily affect out-of-roleplay (OOC) aspects or in-roleplay interactions.
-
   - type: dropdown
     attributes:
       label: Out of RP or In RP
