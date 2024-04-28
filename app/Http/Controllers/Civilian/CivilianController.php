@@ -104,6 +104,7 @@ class CivilianController extends Controller
         }
 
         foreach ($civilian->vehicles as $vehicle) {
+            $vehicle->update(['vehicle_status' => 5]);
             $vehicle->delete();
         }
 
