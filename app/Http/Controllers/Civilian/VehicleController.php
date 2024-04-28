@@ -46,6 +46,7 @@ class VehicleController extends Controller
 
     public function destroy(Civilian $civilian, Vehicle $vehicle): RedirectResponse
     {
+        $vehicle->update(['vehicle_status' => 5]);
         $vehicle->delete();
 
         return redirect(route('civilian.civilians.show', $civilian->id))->with('alerts', [['message' => 'Vehicle Deleted.', 'level' => 'success']]);

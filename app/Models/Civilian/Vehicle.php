@@ -49,14 +49,17 @@ class Vehicle extends Model
             case 1:
                 return 'Valid';
                 break;
+            case 2:
+                return 'Stolen';
+                break;
             case 3:
                 return 'Impounded';
                 break;
             case 4:
                 return 'Booted';
                 break;
-            case 2:
-                return 'Stolen';
+            case 5:
+                return 'Deleted';
                 break;
         }
     }
