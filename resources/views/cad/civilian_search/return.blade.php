@@ -23,6 +23,9 @@
                     @if ($civilian->status == 2)
                         <span class="text-red-700">Active Warrent</span>
                     @endif
+                    @if ($civilian->status == 4)
+                        <span class="text-red-700">Deceased</span>
+                    @endif
                     @if ($civilian->is_violent)
                         <span class="text-red-700">History of Violence</span>
                     @endif
@@ -191,12 +194,12 @@
                             <?php
                             $status = $license->status_name;
                             $status_color = 'text-green-700';
-                            
+
                             if ($license->expires_on < date('Y-m-d')) {
                                 $status = 'Expired';
                                 $status_color = 'text-yellow-700';
                             }
-                            
+
                             if ($license->status_name == 'Revoked' || $license->status_name == 'Suspended') {
                                 $status = $license->status_name;
                                 $status_color = 'text-red-700';
@@ -251,12 +254,12 @@
                             <?php
                             $status = $vehicle->status_name;
                             $status_color = 'text-green-700';
-                            
+
                             if ($vehicle->registration_expire < date('Y-m-d')) {
                                 $status = 'Expired';
                                 $status_color = 'text-yellow-700';
                             }
-                            
+
                             if ($vehicle->status_name == 'Revoked' || $vehicle->status_name == 'Suspended') {
                                 $status = $vehicle->status_name;
                                 $status_color = 'text-red-700';

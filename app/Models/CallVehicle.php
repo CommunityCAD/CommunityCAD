@@ -17,6 +17,6 @@ class CallVehicle extends Model
 
     public function vehicle()
     {
-        return $this->hasOne(Vehicle::class, 'id', 'vehicle_id');
+        return $this->hasOne(Vehicle::class, 'id', 'vehicle_id')->withTrashed();
     }
 }
