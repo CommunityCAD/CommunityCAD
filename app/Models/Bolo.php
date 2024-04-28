@@ -15,7 +15,7 @@ class Bolo extends Model
 
     public function civilian()
     {
-        return $this->belongsTo(Civilian::class);
+        return $this->belongsTo(Civilian::class)->withTrashed();
     }
 
     public function vehicle()
