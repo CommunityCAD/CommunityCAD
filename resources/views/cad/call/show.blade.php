@@ -477,7 +477,7 @@
                                     </div>
                                     <div class="border-t-2 border-black flex justify-between">
                                         <p class=""><span class="text-blue-500 text-xs">OFF</span>
-                                            {{ $report->officer->name ?? $report->user->preferred_name }}
+                                            {{ $ticket->officer->name ?? $ticket->user->preferred_name }}
                                         </p>
                                         <p class="ml-3"><span class="text-blue-500 text-xs">ID</span>
                                             {{ $ticket->id }}
