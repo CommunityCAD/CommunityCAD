@@ -171,7 +171,12 @@
                                                         @endif
                                                     </h3>
                                                     <div>
-
+                                                        @if ($bolo->civilian?->status == 4)
+                                                            <p class="bg-red-600 p-3 text-white">deceased</p>
+                                                        @endif
+                                                        @if ($bolo->vehicle?->vehicle_status == 5)
+                                                            <p class="bg-red-600 p-3 text-white">Scrapped</p>
+                                                        @endif
                                                     </div>
                                                 </div>
 

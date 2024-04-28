@@ -24,12 +24,12 @@ class Report extends Model
 
     public function officer()
     {
-        return $this->belongsTo(Officer::class);
+        return $this->belongsTo(Officer::class)->withTrashed();
     }
 
     public function report_type()
     {
-        return $this->belongsTo(ReportType::class);
+        return $this->belongsTo(ReportType::class)->withTrashed();
     }
 
     public static function boot()
@@ -38,8 +38,8 @@ class Report extends Model
         static::creating(
             function ($model) {
                 $new_number = date('ymd');
-                $number = Report::where('id', 'like', $new_number.'%')->count() + 1;
-                $new_number = $new_number.str_pad($number, 3, '0', STR_PAD_LEFT);
+                $number = Report::where('id', 'like', $new_number . '%')->count() + 1;
+                $new_number = $new_number . str_pad($number, 3, '0', STR_PAD_LEFT);
                 $model->id = $new_number;
             }
         );

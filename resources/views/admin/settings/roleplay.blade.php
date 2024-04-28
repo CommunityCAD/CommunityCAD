@@ -39,6 +39,20 @@
             </div>
 
             <div class="pill p-3">
+                <div class="flex justify-between items-center">
+                    <div class="mr-12">
+                        <p class="text-lg font-semibold">Use 10 Codes</p>
+                        <p>This will show the link to the 10 codes on the MDT/CAD.</p>
+                    </div>
+                    <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                        id="use_10_codes" name="use_10_codes">
+                        <option @selected(old('use_10_codes', get_setting('use_10_codes')) == false) value="off">Off</option>
+                        <option @selected(old('use_10_codes', get_setting('use_10_codes')) == true) value="on">On</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="pill p-3">
                 <p class="text-lg font-semibold">State</p>
                 <p>This is the default values for your RP area. State refers to the whole map.</p>
                 <input class="text-input" name="state" type="text" value="{{ old('state', get_setting('state')) }}">

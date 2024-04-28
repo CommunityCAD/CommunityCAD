@@ -23,6 +23,9 @@
                     @if ($vehicle->vehicle_status == 2)
                         <span class="text-red-600">Stolen VEHICLE</span>
                     @endif
+                    @if ($vehicle->vehicle_status == 5)
+                        <span class="text-red-600">Scrapped</span>
+                    @endif
                 </div>
             </div>
 
