@@ -7,6 +7,7 @@ use App\Models\Admin\CadSetting;
 use App\Models\DiscordChannel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class SettingsController extends Controller
 {
@@ -30,6 +31,22 @@ class SettingsController extends Controller
         $discord_channels = DiscordChannel::all()->pluck('channel_id', 'name')->toArray();
 
         return view('admin.settings.discord', compact('discord_channels'));
+    }
+
+    public function discord_roles()
+    {
+        // $discord_channels = DiscordChannel::all()->pluck('channel_id', 'name')->toArray();
+        $discord_roles = '';
+
+        if (get_setting('use_discord_roles')) {
+            $response =
+                Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+
+            $discord_roles = json_decode($response->body());
+        }
+        return view('admin.settings.discord_roles', compact('discord_roles'));
     }
 
     public function api_key()

@@ -51,9 +51,15 @@
                 API and Integration
             </li>
             <li class="ml-4 relative px-6 py-3">
+                <a class="flex items-center @if (request()->is('admin/settings/discord_roles/*') || request()->is('admin/settings/discord_roles')) text-lg text-purple-500 @endif"
+                    href="{{ route('admin.settings.discord_roles') }}">
+                    <span class="ml-4">Discord Roles</span>
+                </a>
+            </li>
+            <li class="ml-4 relative px-6 py-3">
                 <a class="flex items-center @if (request()->is('admin/settings/discord/*') || request()->is('admin/settings/discord')) text-lg text-purple-500 @endif"
                     href="{{ route('admin.settings.discord') }}">
-                    <span class="ml-4">Discord Integration</span>
+                    <span class="ml-4">Discord Logging</span>
                 </a>
             </li>
             @if (in_array(auth()->user()->id, config('cad.owner_ids')))

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class AccountController extends Controller
 {
@@ -25,7 +26,7 @@ class AccountController extends Controller
         $data = $request->validated();
 
         if (get_setting('force_steam_link')) {
-            if (! session()->has('steam_id')) {
+            if (!session()->has('steam_id')) {
                 return redirect()->route('account.create')->with('alerts', [['message' => 'You must link your steam account. Form has been reset.', 'level' => 'error']]);
             }
         }
@@ -48,6 +49,18 @@ class AccountController extends Controller
 
         $user = User::create($data);
         $user->touch('last_login');
+
+        if (get_setting('use_discord_roles')) {
+            $response = Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/members/' . $user->id);
+
+            $user_roles = json_decode($response->body())->roles;
+
+            if (in_array(get_setting('discord_auto_role_id'), array_values($user_roles))) {
+                $user->update(['account_status' => 3]);
+            }
+        }
 
         Auth::logout();
 
