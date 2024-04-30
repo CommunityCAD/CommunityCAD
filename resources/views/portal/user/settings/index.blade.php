@@ -24,7 +24,7 @@
         </form>
     </div>
 
-    {{-- <div class="card">
+    <div class="card">
         <h2 class="text-lg font-semibold">In-Game Login</h2>
         <hr>
         <p>Email: {{ auth()->user()->email }}</p>
@@ -61,7 +61,7 @@
             </div>
             <button class="new-button-md">Save</button>
         </form>
-    </div> --}}
+    </div>
 
     <div class="card">
         <h2 class="text-lg font-semibold">Update Linked Accounts</h2>

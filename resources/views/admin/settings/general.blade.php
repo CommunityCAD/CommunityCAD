@@ -65,10 +65,10 @@
                 <p>The type of community will detrumine how new members are handled.</p>
                 <select class="select-input" disabled id="community_type" name="community_type">
                     <option @selected(old('community_type', get_setting('community_type')) == 'legacy') value="legacy">Legacy</option>
-                    <option @selected(old('community_type', get_setting('community_type')) == 'whitelisted') value="whitelisted">Whitelisted</option>
+                    {{-- <option @selected(old('community_type', get_setting('community_type')) == 'whitelisted') value="whitelisted">Whitelisted</option> --}}
                     <option @selected(old('community_type', get_setting('community_type')) == 'approval') value="approval">Approval</option>
-                    <option @selected(old('community_type', get_setting('community_type')) == 'semiwhitelisted') value="semiwhitelisted">Semi-Whitelisted</option>
-                    <option @selected(old('community_type', get_setting('community_type')) == 'public') value="public">Public</option>
+                    {{-- <option @selected(old('community_type', get_setting('community_type')) == 'semiwhitelisted') value="semiwhitelisted">Semi-Whitelisted</option> --}}
+                    {{-- <option @selected(old('community_type', get_setting('community_type')) == 'public') value="public">Public</option> --}}
                 </select>
             </div>
 
@@ -141,6 +141,21 @@
                         <p class="text-lg font-semibold">Use Discord Roles</p>
                         <p>Manage CAD Roles with Discord Roles. It is best not to switch this alot. Pick one and stick with
                             it. Bugs may appear if you switch between using Discord roles and back to CAD roles. <span
+                                class="text-red-500">Discord Guild ID must be set above.</span></p>
+                    </div>
+                    <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                        id="use_discord_roles" name="use_discord_roles">
+                        <option @selected(old('use_discord_roles', get_setting('use_discord_roles')) == false) value="off">Off</option>
+                        <option @selected(old('use_discord_roles', get_setting('use_discord_roles')) == true) value="on">On</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="pill p-3">
+                <div class="flex justify-between items-center">
+                    <div class="mr-3">
+                        <p class="text-lg font-semibold">Discord Auto Approve Role</p>
+                        <p>This role will be auto approved into the CAD if your community type is Approval. <span
                                 class="text-red-500">Discord Guild ID must be set above.</span></p>
                     </div>
                     <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"

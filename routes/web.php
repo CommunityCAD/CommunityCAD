@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'pages.home')->name('home');
-// Route::view('/ingame_login', 'pages.login')->name('ingame_login');
-// Route::post('/ingame_login', [IngameLoginController::class, 'login'])->name('ingame_login.login');
+Route::view('/ingame_login', 'pages.login')->name('ingame_login');
+Route::post('/ingame_login', [IngameLoginController::class, 'login'])->name('ingame_login.login');
 
 Route::middleware(['auth'])->group(function () {
     // if (get_setting('members_must_apply')) {
@@ -51,31 +51,31 @@ Route::middleware(['auth', 'member.check'])->group(function () {
     });
 
     Route::name('cad.')->prefix('cad')->middleware(['cad.activity_check'])->group(function () {
-        require __DIR__.'/cad-mdt.php';
+        require __DIR__ . '/cad-mdt.php';
     });
 
     Route::name('civilian.')->prefix('civilian')->group(function () {
-        require __DIR__.'/civilian.php';
+        require __DIR__ . '/civilian.php';
     });
 
     Route::name('courthouse.')->prefix('courthouse')->group(function () {
-        require __DIR__.'/courthouse.php';
+        require __DIR__ . '/courthouse.php';
     });
 
     Route::middleware(['auth', 'can:supervisor_access'])->name('supervisor.')->prefix('supervisor')->group(function () {
         Route::get('/', [SupervisorPageController::class, 'index'])->name('index');
-        require __DIR__.'/supervisor.php';
+        require __DIR__ . '/supervisor.php';
     });
 
     Route::middleware(['auth', 'can:staff_access'])->name('staff.')->prefix('staff')->group(function () {
         Route::get('/', [StaffPageController::class, 'index'])->name('index');
-        require __DIR__.'/staff.php';
+        require __DIR__ . '/staff.php';
     });
 
     Route::middleware(['auth', 'can:admin_access'])->name('admin.')->prefix('admin')->group(function () {
         Route::get('/', [AdminPageController::class, 'index'])->name('index');
-        require __DIR__.'/admin.php';
+        require __DIR__ . '/admin.php';
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
