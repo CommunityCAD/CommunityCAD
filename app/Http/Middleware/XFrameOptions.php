@@ -32,8 +32,8 @@ class XFrameOptions
             }
         }
 
-        $response->header('X-Frame-Options', $xframeOptions);
+        return $response->header('X-Frame-Options', $xframeOptions);
 
-        return $next($request);
+        // return $next($request);
     }
 }
