@@ -5,13 +5,13 @@ body:
   - type: input
     attributes:
       label: Community CAD Version
-      description: "Enter the version of Community CAD you're currently using (e.g., 1.3.2)"
+      description: "Enter the version of Community CAD you're currently using (e.g., Hosted, 1.3.2)"
     validations:
       required: true
   - type: input
     attributes:
       label: Operating System
-      description: "Indicate the operating system you're hosting CommunityCAD on? (e.g., Ubuntu, Windows)"
+      description: "Indicate the operating system you're hosting CommunityCAD on? (e.g., Hosted, Ubuntu, Windows)"
     validations:
       required: true
   - type: textarea
