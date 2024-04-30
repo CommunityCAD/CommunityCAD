@@ -27,7 +27,7 @@ class RoleController extends Controller
             $response =
                 Http::accept('application/json')
                 ->withHeaders(['Authorization' => config('app.discord_bot_token')])
-                ->get('https://discord.com/api/guilds/632804813750665234/roles');
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
 
             $discord_roles = json_decode($response->body());
         }
