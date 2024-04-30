@@ -3,6 +3,10 @@
     @apply bg-[#131c23] w-full mx-auto px-6 py-3 my-6 border-[#273345] border-4 sm:max-w-4xl rounded-lg text-white;
 }
 
+.card-lg {
+    @apply bg-[#131c23] w-full mx-auto px-6 py-3 my-6 border-[#273345] border-4 sm:max-w-6xl rounded-lg text-white;
+}
+
 .admin-pill,
 .pill {
     @apply bg-[#2e3547] px-3 py-1 m-4 rounded-2xl;

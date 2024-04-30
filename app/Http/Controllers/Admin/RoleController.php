@@ -7,6 +7,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class RoleController extends Controller
 {
@@ -20,8 +21,17 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::orderBy('category', 'asc')->orderBy('title', 'asc')->get(['title', 'id', 'category', 'description']);
+        $discord_roles = '';
 
-        return view('admin.roles.create', compact('permissions'));
+        if (get_setting('use_discord_roles')) {
+            $response =
+                Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/632804813750665234/roles');
+
+            $discord_roles = json_decode($response->body());
+        }
+        return view('admin.roles.create', compact('permissions', 'discord_roles'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -29,9 +39,10 @@ class RoleController extends Controller
         $validated = $request->validate([
             'title' => 'required|string',
             'permissions' => 'required|array',
+            'discord_role_id' => 'numeric|nullable',
         ]);
 
-        $role = Role::create(['title' => $validated['title']]);
+        $role = Role::create(['title' => $validated['title'], 'discord_role_id' => $validated['discord_role_id']]);
         $role->permissions()->sync($validated['permissions']);
 
         return redirect()->route('admin.roles.index')->with('alerts', [['message' => 'Role Created.', 'level' => 'success']]);
@@ -41,7 +52,18 @@ class RoleController extends Controller
     {
         $permissions = Permission::orderBy('category', 'asc')->orderBy('title', 'asc')->get(['title', 'id', 'category', 'description']);
 
-        return view('admin.roles.edit', compact('role', 'permissions'));
+        $discord_roles = '';
+
+        if (get_setting('use_discord_roles')) {
+            $response =
+                Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+
+            $discord_roles = json_decode($response->body());
+        }
+
+        return view('admin.roles.edit', compact('role', 'permissions', 'discord_roles'));
     }
 
     public function update(Request $request, Role $role): RedirectResponse
@@ -49,9 +71,10 @@ class RoleController extends Controller
         $validated = $request->validate([
             'title' => 'required|string',
             'permissions' => 'required|array',
+            'discord_role_id' => 'numeric|nullable',
         ]);
 
-        $role->update(['title' => $validated['title']]);
+        $role->update(['title' => $validated['title'], 'discord_role_id' => $validated['discord_role_id']]);
         $role->permissions()->sync($validated['permissions']);
 
         return redirect()->route('admin.roles.index')->with('alerts', [['message' => 'Role Updated.', 'level' => 'success']]);

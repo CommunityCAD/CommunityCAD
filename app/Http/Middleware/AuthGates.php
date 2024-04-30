@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Http;
 
 class AuthGates
 {
@@ -13,23 +14,43 @@ class AuthGates
     {
         $user = auth()->user();
 
-        if (! $user) {
+        if (!$user) {
             return $next($request);
+        }
+
+        if (get_setting('use_discord_roles', false)) {
+            $response = Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/members/' . $user->id);
+
+            $user_roles = json_decode($response->body())->roles;
         }
 
         $roles = Role::with('permissions')->get();
         $permissionsArray = [];
 
         foreach ($roles as $role) {
-            foreach ($role->permissions as $permissions) {
-                $permissionsArray[$permissions->title][] = $role->id;
+            if (get_setting('use_discord_roles', false)) {
+                foreach ($role->permissions as $permissions) {
+                    $permissionsArray[$permissions->title][] = $role->discord_role_id;
+                }
+            } else {
+                foreach ($role->permissions as $permissions) {
+                    $permissionsArray[$permissions->title][] = $role->id;
+                }
             }
         }
 
         foreach ($permissionsArray as $title => $roles) {
-            Gate::define($title, function (User $user) use ($roles) {
-                return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
-            });
+            if (get_setting('use_discord_roles', false)) {
+                Gate::define($title, function (User $user) use ($roles, $user_roles) {
+                    return count(array_intersect($user_roles, $roles)) > 0;
+                });
+            } else {
+                Gate::define($title, function (User $user) use ($roles) {
+                    return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
+                });
+            }
         }
 
         Gate::define('is_super_user', function (User $user) {
