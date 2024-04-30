@@ -33,5 +33,7 @@ class XFrameOptions
         }
 
         $response->header('X-Frame-Options', $xframeOptions);
+
+        return $next($request);
     }
 }
