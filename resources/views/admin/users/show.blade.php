@@ -126,25 +126,33 @@
                     <li class="py-3">
                         <p class="flex items-center justify-between">
                             <span>Roles</span>
-                            @can('user_manage_user_roles')
-                                @if ($user->account_status == 3)
-                                    <a @click="rolesModal = true" class="edit-button-sm">
-                                        <x-edit-button></x-edit-button>
-                                    </a>
-                                @endif
-                            @endcan
+                            @if (!get_setting('use_discord_roles'))
+                                @can('user_manage_user_roles')
+                                    @if ($user->account_status == 3)
+                                        <a @click="rolesModal = true" class="edit-button-sm">
+                                            <x-edit-button></x-edit-button>
+                                        </a>
+                                    @endif
+                                @endcan
+                            @endif
 
                         </p>
-                        @foreach ($user->roles as $role)
+                        @if (get_setting('use_discord_roles'))
                             <p class="text-sm text-black bg-gray-400 cursor-default button-sm">
-                                {{ $role->title }}</p>
-                        @endforeach
+                                Roles are managed by Discord roles.</p>
+                        @else
+                            @foreach ($user->roles as $role)
+                                <p class="text-sm text-black bg-gray-400 cursor-default button-sm">
+                                    {{ $role->title }}</p>
+                            @endforeach
+                        @endif
+
                     </li>
 
                     <li class="flex items-center justify-between">
                         <p class="">Protected User <br>
                             <span class="text-sm italic">Makes it so only super users and owners can view this
-                                user.</span>
+                                user. Can only be changed by an owner.</span>
                             <br>
                             @if ($user->is_protected_user)
                                 <span class="font-bold text-green-600">Yes</span>
@@ -153,7 +161,7 @@
                             @endif
                         </p>
 
-                        @can('is_super_user')
+                        @can('is_owner_user')
                             @if ($user->account_status == 3)
                                 <form action="{{ route('admin.users.protected_user.update', $user->id) }}" class="block"
                                     method="POST">
@@ -171,7 +179,7 @@
                     <li class="flex items-center justify-between">
                         <p class="">Super User <br>
                             <span class="text-sm italic">Makes this user bypass permissions and roles and can access
-                                everything by default.</span>
+                                everything by default. Can only be changed by an owner.</span>
                             <br>
                             @if ($user->is_super_user)
                                 <span class="font-bold text-green-600">Yes</span>
@@ -180,7 +188,7 @@
                             @endif
                         </p>
 
-                        @can('is_super_user')
+                        @can('is_owner_user')
                             @if ($user->account_status == 3)
                                 <form action="{{ route('admin.users.super_user.update', $user->id) }}" class="block"
                                     method="POST">
