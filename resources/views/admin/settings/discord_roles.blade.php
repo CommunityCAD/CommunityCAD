@@ -49,7 +49,7 @@
                     <option value="0">None</option>
                     @foreach ($discord_roles as $id => $discord_role)
                         @if ($id != 0 && $discord_role->managed != true)
-                            <option @selected(old('discord_auto_role_id') == $discord_role->id) value="{{ $discord_role->id }}">
+                            <option @selected(old('discord_auto_role_id', get_setting('discord_auto_role_id')) == $discord_role->id) value="{{ $discord_role->id }}">
                                 {{ $discord_role->name }}</option>
                         @endif
                     @endforeach

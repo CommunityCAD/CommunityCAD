@@ -21,6 +21,11 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::orderBy('category', 'asc')->orderBy('title', 'asc')->get(['title', 'id', 'category', 'description']);
+        $admin_permissions = $permissions->where('category', 'admin');
+        $staff_permissions = $permissions->where('category', 'staff');
+        $supervisor_permissions = $permissions->where('category', 'supervisor');
+        $courthouse_permissions = $permissions->where('category', 'courthouse');
+
         $discord_roles = '';
 
         if (get_setting('use_discord_roles')) {
@@ -31,7 +36,7 @@ class RoleController extends Controller
 
             $discord_roles = json_decode($response->body());
         }
-        return view('admin.roles.create', compact('permissions', 'discord_roles'));
+        return view('admin.roles.create', compact('admin_permissions', 'staff_permissions', 'supervisor_permissions', 'courthouse_permissions', 'discord_roles'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,6 +57,11 @@ class RoleController extends Controller
     {
         $permissions = Permission::orderBy('category', 'asc')->orderBy('title', 'asc')->get(['title', 'id', 'category', 'description']);
 
+        $admin_permissions = $permissions->where('category', 'admin');
+        $staff_permissions = $permissions->where('category', 'staff');
+        $supervisor_permissions = $permissions->where('category', 'supervisor');
+        $courthouse_permissions = $permissions->where('category', 'courthouse');
+
         $discord_roles = '';
 
         if (get_setting('use_discord_roles')) {
@@ -63,7 +73,7 @@ class RoleController extends Controller
             $discord_roles = json_decode($response->body());
         }
 
-        return view('admin.roles.edit', compact('role', 'permissions', 'discord_roles'));
+        return view('admin.roles.edit', compact('role', 'admin_permissions', 'staff_permissions', 'supervisor_permissions', 'courthouse_permissions', 'discord_roles'));
     }
 
     public function update(Request $request, Role $role): RedirectResponse
