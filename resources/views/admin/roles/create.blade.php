@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-white">Create Role</h1>
         <p class="text-sm text-white"></p>
     </header>
-    <div class="admin-card">
+    <div class="card-lg">
 
         <form action="{{ route('admin.roles.store') }}" method="POST">
             @csrf
@@ -35,6 +35,64 @@
 
             <label class="block mt-3 text-black-500" for="title">Permissions</label>
             <div class="mt-3 space-y-2">
+                <h3 class="text-lg font-semibold">Admin</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="flex items-center cursor-pointer" for="1">
+                            <div class="relative">
+                                <input class="hidden checkbox" id="1" name="permissions[]" type="checkbox"
+                                    value="1">
+                                <div class="block border-[1px] border-white w-14 h-8 rounded-full">
+                                </div>
+                                <div class="absolute w-6 h-6 transition bg-white rounded-full dot left-1 top-1">
+                                </div>
+                            </div>
+                            <div class="ml-3 font-medium flex">
+                                <p class="">Title</p>
+                                <x-tooltip>This is a tool tip.This is a tool tip.This is a tool tip.This is a tool tip.This
+                                    is a tool tip.This is a tool tip.This is a tool tip.This is a tool tip.This is a tool
+                                    tip.This is a tool tip.This is a tool tip.This is a tool tip.This is a tool tip.This is
+                                    a tool tip.This is a tool tip.</x-tooltip>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="flex items-center cursor-pointer" for="1">
+                            <div class="relative">
+                                <input class="hidden checkbox" id="1" name="permissions[]" type="checkbox"
+                                    value="1">
+                                <div class="block border-[1px] border-white w-14 h-8 rounded-full">
+                                </div>
+                                <div class="absolute w-6 h-6 transition bg-white rounded-full dot left-1 top-1">
+                                </div>
+                            </div>
+                            <div class="ml-3 font-medium">
+                                <p class="">Title
+                                </p>
+                                <p class="text-sm text-slate-500">Description</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="flex items-center cursor-pointer" for="1">
+                            <div class="relative">
+                                <input class="hidden checkbox" id="1" name="permissions[]" type="checkbox"
+                                    value="1">
+                                <div class="block border-[1px] border-white w-14 h-8 rounded-full">
+                                </div>
+                                <div class="absolute w-6 h-6 transition bg-white rounded-full dot left-1 top-1">
+                                </div>
+                            </div>
+                            <div class="ml-3 font-medium">
+                                <p class="">Title
+                                </p>
+                                <p class="text-sm text-slate-500">Description</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <hr>
                 @foreach ($permissions as $permission)
                     @php
                         switch ($permission->category) {
