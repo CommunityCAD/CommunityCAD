@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\AccountStatusCheck::class,
             \App\Http\Middleware\AuthGates::class,
             \App\Http\Middleware\LastLoginCheckMiddleware::class,
+            \App\Http\Middleware\XFrameOptions::class,
         ],
 
         'api' => [
