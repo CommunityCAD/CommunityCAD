@@ -142,7 +142,7 @@
             <a class="text-sm underline text-slate-400" href="https://communitycad.app">Community CAD
                 {{ config('app.version') }}</a>
 
-            <a class="text-sm underline text-slate-400" href="{{ route('ingame_login') }}">Ingame Login</a>
+            {{-- <a class="text-sm underline text-slate-400" href="{{ route('ingame_login') }}">Ingame Login</a> --}}
         </div>
     </main>
 

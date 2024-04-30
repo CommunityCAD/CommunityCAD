@@ -101,7 +101,7 @@
             </div>
         @endauth
 
-        @guest
+        {{-- @guest
             <div class="space-y-2">
                 <form action="{{ route('ingame_login.login') }}" class="space-y-2" method="POST">
                     @csrf
@@ -121,7 +121,7 @@
                     <button class="new-button-md">Login</button>
                 </form>
             </div>
-        @endguest
+        @endguest --}}
 
         <div class="flex justify-between pt-2 mt-3 space-x-2 border-t">
             {{-- <x-simple-theme-switch class="text-sm text-gray-300 underline">Change Theme</x-simple-theme-switch> --}}
