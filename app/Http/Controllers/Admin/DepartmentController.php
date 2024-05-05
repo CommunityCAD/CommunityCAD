@@ -11,6 +11,7 @@ use App\Notifications\DiscordNotification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
@@ -26,7 +27,18 @@ class DepartmentController extends Controller
 
     public function create(): View
     {
-        return view('admin.departments.create');
+        $discord_roles = '';
+
+        if (get_setting('use_discord_department_roles')) {
+            $response =
+                Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+
+            $discord_roles = json_decode($response->body());
+        }
+
+        return view('admin.departments.create', compact('discord_roles'));
     }
 
     public function store(DepartmentRequest $request): RedirectResponse
@@ -73,7 +85,16 @@ class DepartmentController extends Controller
 
     public function edit(Department $department): View
     {
-        return view('admin.departments.edit', compact('department'));
+        if (get_setting('use_discord_department_roles')) {
+            $response =
+                Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+
+            $discord_roles = json_decode($response->body());
+        }
+
+        return view('admin.departments.edit', compact('department', 'discord_roles'));
     }
 
     public function update(DepartmentRequest $request, Department $department): RedirectResponse

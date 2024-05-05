@@ -58,4 +58,5 @@ Route::get('/ticket/{ticket}/plea_guilty', [CivilianPleaController::class, 'plea
 Route::get('/ticket/{ticket}/plea_not_guilty', [CivilianPleaController::class, 'plea_not_guilty'])->name('civlian.plea.not_guilty');
 
 Route::post('/officers/{officer}/update_department_information', [OfficerController::class, 'update_department_information'])->name('officer.update_department_information');
+Route::get('officer/sync_discord_roles', [OfficerController::class, 'sync_discord_roles'])->name('officer.sync_discord_roles');
 Route::resource('officers', OfficerController::class);

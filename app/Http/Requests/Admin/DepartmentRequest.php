@@ -29,6 +29,7 @@ class DepartmentRequest extends FormRequest
             'is_open_external' => '',
             'is_open_internal' => '',
             'type' => 'required|numeric',
+            'discord_role_id' => 'nullable|numeric',
         ];
     }
 }
