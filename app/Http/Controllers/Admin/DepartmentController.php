@@ -27,7 +27,7 @@ class DepartmentController extends Controller
 
     public function create(): View
     {
-        $discord_roles = '';
+        $discord_roles = [];
 
         if (get_setting('use_discord_department_roles')) {
             $response =
