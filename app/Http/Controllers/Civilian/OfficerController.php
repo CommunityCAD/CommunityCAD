@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Civilian;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\OfficerStoreRequest;
 use App\Http\Requests\Civilian\OfficerUpdateRequest;
+use App\Models\Department;
 use App\Models\Officer;
 use App\Models\UserDepartment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class OfficerController extends Controller
 {
@@ -187,5 +189,46 @@ class OfficerController extends Controller
         $officer->user_department->update($validated);
 
         return redirect()->route('civilian.officers.show', $officer->id)->with('alerts', [['message' => 'Officer Updated.', 'level' => 'success']]);
+    }
+
+    public function sync_discord_roles()
+    {
+        if (get_setting('use_discord_department_roles')) {
+            $response = Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/members/' . auth()->user()->id);
+
+            $user_roles = json_decode($response->body())->roles;
+
+            $department_role_ids = Department::get(['id', 'discord_role_id'])->pluck('discord_role_id', 'id')->toArray();
+
+            foreach ($department_role_ids as $department_id => $discord_role_id) {
+                if (!is_null($discord_role_id) && in_array($discord_role_id, array_values($user_roles))) {
+                    $user_department = UserDepartment::where('user_id', auth()->user()->id)
+                        ->where('department_id', $department_id)->get()->first();
+
+                    if (!$user_department) {
+                        $new_user_department = UserDepartment::create([
+                            'user_id' => auth()->user()->id,
+                            'department_id' => $department_id,
+                            'rank' => 'NEEDS SET',
+                            'badge_number' => 'NEEDS SET',
+                        ]);
+                    }
+                } else {
+                    $user_department = UserDepartment::where('user_id', auth()->user()->id)
+                        ->where('department_id', $department_id)->get()->first();
+
+                    if ($user_department) {
+                        $officer = Officer::where('user_department_id', $user_department->id)->get()->first();
+                        if ($officer) {
+                            $officer->delete();
+                        }
+                        $user_department->delete();
+                    }
+                }
+            }
+            return redirect()->route('civilian.officers.index')->with('alerts', [['message' => 'Discord Roles Synced.', 'level' => 'success']]);
+        }
     }
 }

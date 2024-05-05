@@ -7,9 +7,11 @@ use App\Http\Requests\Admin\DepartmentRequest;
 use App\Models\Department;
 use App\Models\Officer;
 use App\Models\UserDepartment;
+use App\Notifications\DiscordNotification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
@@ -25,7 +27,18 @@ class DepartmentController extends Controller
 
     public function create(): View
     {
-        return view('admin.departments.create');
+        $discord_roles = '';
+
+        if (get_setting('use_discord_department_roles')) {
+            $response =
+                Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+
+            $discord_roles = json_decode($response->body());
+        }
+
+        return view('admin.departments.create', compact('discord_roles'));
     }
 
     public function store(DepartmentRequest $request): RedirectResponse
@@ -37,21 +50,51 @@ class DepartmentController extends Controller
             return redirect()->route('admin.department.create')->with('alerts', [['message' => 'Department name is already taken.', 'level' => 'error']]);
         }
 
-        if (! isset($input['is_open_external'])) {
+        if (!isset($input['is_open_external'])) {
             $input['is_open_external'] = 0;
         }
-        if (! isset($input['is_open_internal'])) {
+        if (!isset($input['is_open_internal'])) {
             $input['is_open_internal'] = 0;
         }
 
-        Department::create($input);
+        $department = Department::create($input);
+
+        DiscordNotification::send(
+            'audit_log',
+            'Department has been created.',
+            '',
+            15548997,
+            [
+                [
+                    'name' => 'Name',
+                    'value' => $department->name,
+                ],
+                [
+                    'name' => 'Created by',
+                    'value' => auth()->user()->id . ' (' . auth()->user()->preferred_name . ')',
+                ],
+                [
+                    'name' => 'Created at',
+                    'value' => $department->created_at->format('m/d/Y H:i:s'),
+                ],
+            ]
+        );
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department created.', 'level' => 'success']]);
     }
 
     public function edit(Department $department): View
     {
-        return view('admin.departments.edit', compact('department'));
+        if (get_setting('use_discord_department_roles')) {
+            $response =
+                Http::accept('application/json')
+                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+
+            $discord_roles = json_decode($response->body());
+        }
+
+        return view('admin.departments.edit', compact('department', 'discord_roles'));
     }
 
     public function update(DepartmentRequest $request, Department $department): RedirectResponse
@@ -65,13 +108,35 @@ class DepartmentController extends Controller
             }
         }
 
-        if (! isset($input['is_open_external'])) {
+        if (!isset($input['is_open_external'])) {
             $input['is_open_external'] = 0;
         }
-        if (! isset($input['is_open_internal'])) {
+        if (!isset($input['is_open_internal'])) {
             $input['is_open_internal'] = 0;
         }
         $department->update($input);
+        $department->touch('updated_at');
+
+        DiscordNotification::send(
+            'audit_log',
+            'Department has been Updated.',
+            '',
+            15548997,
+            [
+                [
+                    'name' => 'Name',
+                    'value' => $department->name,
+                ],
+                [
+                    'name' => 'Updated by',
+                    'value' => auth()->user()->id . ' (' . auth()->user()->preferred_name . ')',
+                ],
+                [
+                    'name' => 'Updated at',
+                    'value' => $department->updated_at->format('m/d/Y H:i:s'),
+                ],
+            ]
+        );
 
         return redirect()->route('admin.department.index')->with('alerts', [['message' => 'Department updated.', 'level' => 'success']]);
     }
@@ -85,6 +150,29 @@ class DepartmentController extends Controller
             Officer::where('user_department_id', $member->id)->get()->first()->delete();
             $member->delete();
         }
+
+        $department->touch('updated_at');
+
+        DiscordNotification::send(
+            'audit_log',
+            'Department has been deleted.',
+            '',
+            15548997,
+            [
+                [
+                    'name' => 'Name',
+                    'value' => $department->name,
+                ],
+                [
+                    'name' => 'deleted by',
+                    'value' => auth()->user()->id . ' (' . auth()->user()->preferred_name . ')',
+                ],
+                [
+                    'name' => 'Updated at',
+                    'value' => $department->updated_at->format('m/d/Y H:i:s'),
+                ],
+            ]
+        );
 
         $department->delete();
 

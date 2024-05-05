@@ -65,10 +65,10 @@
                 <p>The type of community will detrumine how new members are handled.</p>
                 <select class="select-input" disabled id="community_type" name="community_type">
                     <option @selected(old('community_type', get_setting('community_type')) == 'legacy') value="legacy">Legacy</option>
-                    <option @selected(old('community_type', get_setting('community_type')) == 'whitelisted') value="whitelisted">Whitelisted</option>
+                    {{-- <option @selected(old('community_type', get_setting('community_type')) == 'whitelisted') value="whitelisted">Whitelisted</option> --}}
                     <option @selected(old('community_type', get_setting('community_type')) == 'approval') value="approval">Approval</option>
-                    <option @selected(old('community_type', get_setting('community_type')) == 'semiwhitelisted') value="semiwhitelisted">Semi-Whitelisted</option>
-                    <option @selected(old('community_type', get_setting('community_type')) == 'public') value="public">Public</option>
+                    {{-- <option @selected(old('community_type', get_setting('community_type')) == 'semiwhitelisted') value="semiwhitelisted">Semi-Whitelisted</option> --}}
+                    {{-- <option @selected(old('community_type', get_setting('community_type')) == 'public') value="public">Public</option> --}}
                 </select>
             </div>
 
@@ -78,12 +78,25 @@
                         <p class="text-lg font-semibold">Allow Members To Control Unit Number</p>
                         <p>This allows members once accepted into a department they can update their unit number.
                         </p>
+                        @if (get_setting('use_discord_department_roles'))
+                            <p class="text-red-600">This setting is locked on due to the Use Discord Department Roles
+                                being set to "On"</p>
+                        @endif
                     </div>
-                    <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
-                        id="allow_members_to_update_number" name="allow_members_to_update_number">
-                        <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == false) value="off">Off</option>
-                        <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == true) value="on">On</option>
-                    </select>
+                    @if (get_setting('use_discord_department_roles'))
+                        <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                            disabled id="allow_members_to_update_number" name="allow_members_to_update_number">
+                            {{-- <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == false) value="off">Off</option> --}}
+                            <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == true) value="on">On</option>
+                        </select>
+                    @else
+                        <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                            id="allow_members_to_update_number" name="allow_members_to_update_number">
+                            <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == false) value="off">Off</option>
+                            <option @selected(old('allow_members_to_update_number', get_setting('allow_members_to_update_number')) == true) value="on">On</option>
+                        </select>
+                    @endif
+
                 </div>
             </div>
 
@@ -93,12 +106,25 @@
                         <p class="text-lg font-semibold">Allow Members To Control Department Rank</p>
                         <p>This allows members once accepted into a department they can update their rank.
                         </p>
+                        @if (get_setting('use_discord_department_roles'))
+                            <p class="text-red-600">This setting is locked on due to the Use Discord Department Roles
+                                being set to "On"</p>
+                        @endif
                     </div>
-                    <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
-                        id="allow_members_to_update_rank" name="allow_members_to_update_rank">
-                        <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == false) value="off">Off</option>
-                        <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == true) value="on">On</option>
-                    </select>
+                    @if (get_setting('use_discord_department_roles'))
+                        <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                            disabled id="allow_members_to_update_rank" name="allow_members_to_update_rank">
+                            {{-- <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == false) value="off">Off</option> --}}
+                            <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == true) value="on">On</option>
+                        </select>
+                    @else
+                        <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                            id="allow_members_to_update_rank" name="allow_members_to_update_rank">
+                            <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == false) value="off">Off</option>
+                            <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == true) value="on">On</option>
+                        </select>
+                    @endif
+
                 </div>
             </div>
 

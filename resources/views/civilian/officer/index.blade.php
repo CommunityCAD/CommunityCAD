@@ -7,11 +7,18 @@
                 <span class="text-base">
                     ({{ $officers->count() }})</span>
             </h2>
-            @if (!empty($available_user_departments))
-                <a class="new-button-sm" href="{{ route('civilian.officers.create') }}">
-                    <x-new-button></x-new-button>
-                </a>
-            @endif
+            <div class="flex items-center space-x-2">
+                @if (get_setting('use_discord_department_roles'))
+                    <a class="edit-button-sm" href="{{ route('civilian.officer.sync_discord_roles') }}">
+                        Sync Roles
+                    </a>
+                @endif
+                @if (!empty($available_user_departments))
+                    <a class="new-button-sm" href="{{ route('civilian.officers.create') }}">
+                        <x-new-button></x-new-button>
+                    </a>
+                @endif
+            </div>
         </div>
         <div class="space-x-4 space-y-4">
             {{-- <a class="secondary-button-md" href="#">Create 911 Call</a> --}}

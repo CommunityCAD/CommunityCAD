@@ -37,6 +37,13 @@
                     value="{{ old('cad_911_call', $discord_channels['cad_911_call']) }}">
             </div>
 
+            <div class="pill p-3">
+                <p class="text-lg font-semibold">Audit Log</p>
+                <p>Channel to send a logs when ever something happens in the CAD. This only includes the Admin side.</p>
+                <input class="text-input" name="audit_log" type="number"
+                    value="{{ old('audit_log', $discord_channels['audit_log'] ?? '') }}">
+            </div>
+
             <div class="flex justify-end">
                 <button class="inline-block secondary-button-md">Save</button>
             </div>

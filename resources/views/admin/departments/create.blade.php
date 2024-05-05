@@ -45,6 +45,23 @@
                 <x-input-error :messages="$errors->get('logo')" class="mt-2" />
             </div>
 
+            @if (get_setting('use_discord_department_roles'))
+                <div>
+                    <p class="block text-black-500">Discord Role</p>
+                    <select class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" id="discord_role_id"
+                        name="discord_role_id">
+                        <option value="">-- Choose One --</option>
+                        <option selected value="0">None</option>
+                        @foreach ($discord_roles as $id => $discord_role)
+                            @if ($id != 0 && $discord_role->managed != true)
+                                <option @selected(old('discord_role_id') == $discord_role->id) value="{{ $discord_role->id }}">
+                                    {{ $discord_role->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            @endif
+
             <div class="justify-between space-y-4 md:flex md:space-y-0">
 
                 <label class="flex items-center cursor-pointer" for="is_open_external">

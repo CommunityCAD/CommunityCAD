@@ -16,6 +16,7 @@ class Role extends Model
 
     protected $fillable = [
         'title',
+        'discord_role_id'
     ];
 
     protected $dates = [

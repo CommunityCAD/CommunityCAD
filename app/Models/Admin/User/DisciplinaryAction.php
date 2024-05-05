@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\User;
 
+use App\Models\DisciplinaryActionType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,5 +27,10 @@ class DisciplinaryAction extends Model
     public function receiver_user()
     {
         return $this->hasOne(User::class, 'id', 'receiver_id');
+    }
+
+    public function disciplinary_action_type()
+    {
+        return $this->hasOne(DisciplinaryActionType::class, 'id', 'disciplinary_action_type_id');
     }
 }
