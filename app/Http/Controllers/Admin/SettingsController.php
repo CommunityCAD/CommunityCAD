@@ -36,7 +36,7 @@ class SettingsController extends Controller
     public function discord_roles()
     {
         // $discord_channels = DiscordChannel::all()->pluck('channel_id', 'name')->toArray();
-        $discord_roles = '';
+        $discord_roles = [];
 
         if (get_setting('use_discord_roles')) {
             $response =

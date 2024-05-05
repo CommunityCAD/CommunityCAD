@@ -27,7 +27,7 @@ class RoleController extends Controller
         $supervisor_permissions = $permissions->where('category', 'supervisor');
         $courthouse_permissions = $permissions->where('category', 'courthouse');
 
-        $discord_roles = '';
+        $discord_roles = [];
 
         if (get_setting('use_discord_roles')) {
             $response =
@@ -88,7 +88,7 @@ class RoleController extends Controller
         $supervisor_permissions = $permissions->where('category', 'supervisor');
         $courthouse_permissions = $permissions->where('category', 'courthouse');
 
-        $discord_roles = '';
+        $discord_roles = [];
 
         if (get_setting('use_discord_roles')) {
             $response =
