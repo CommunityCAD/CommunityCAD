@@ -8,10 +8,17 @@
 
     <div class="card">
         <div class="text-right">
-            <a class="new-button-sm" href="{{ route('staff.user_department.create', $user->id) }}">
-                <x-new-button></x-new-button>
-            </a>
+            @if (!get_setting('use_discord_department_roles'))
+                <a class="new-button-sm" href="{{ route('staff.user_department.create', $user->id) }}">
+                    <x-new-button></x-new-button>
+                </a>
+            @endif
         </div>
+        @if (get_setting('use_discord_department_roles'))
+            <p class="text-red-600 text-lg">Departments are controlled by Discord Roles. Update the members roles in Discord
+                to add/remove from
+                departments.</p>
+        @endif
         <div class="grid grid-cols-1 gap-5 mt-5 lg:grid-cols-2">
             @foreach ($user_departments as $user_department)
                 <div class="pill">

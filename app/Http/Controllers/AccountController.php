@@ -50,7 +50,7 @@ class AccountController extends Controller
         $user = User::create($data);
         $user->touch('last_login');
 
-        if (get_setting('use_discord_roles')) {
+        if (get_setting('discord_auto_role_id', 0) != 0) {
             $response = Http::accept('application/json')
                 ->withHeaders(['Authorization' => config('app.discord_bot_token')])
                 ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/members/' . $user->id);

@@ -17,6 +17,14 @@
         <form action="{{ route('admin.settings.update') }}" id="mdeditor" method="POST">
             @csrf
             <div class="pill p-3">
+                <p class="text-lg font-semibold">Discord Guild ID</p>
+                <p>Discord Guild ID for the server used for Discord Integration. Only one server ID accepted. You can find
+                    this by right clicking on your server icon and select "Copy server ID"</p>
+                <input class="text-input" name="discord_guild_id" type="text"
+                    value="{{ old('discord_guild_id', get_setting('discord_guild_id')) }}">
+            </div>
+
+            <div class="pill p-3">
                 <div class="flex justify-between items-center">
                     <div class="mr-3">
                         <p class="text-lg font-semibold">Use Discord Roles</p>
@@ -33,15 +41,9 @@
             </div>
 
             <div class="pill p-3">
-                <p class="text-lg font-semibold">Discord Guild ID</p>
-                <p>Discord Guild ID for the server used for Discord Integration. Only one server ID accepted.</p>
-                <input class="text-input" name="discord_guild_id" type="text"
-                    value="{{ old('discord_guild_id', get_setting('discord_guild_id')) }}">
-            </div>
-
-            <div class="pill p-3">
                 <p class="text-lg font-semibold">Discord Auto Approve Role</p>
-                <p>This role will be auto approved into the CAD if you are using Discord Roles. If you do not want to use
+                <p>This will allow new members immediate access to Member if they have this role in your Discord Server. If
+                    you do not want to use
                     Auto Role leave as 'None'. This only applies to new
                     members. <span class="text-red-500">Discord Guild ID must be set.</span></p>
                 <select class="w-full p-1 mt-2 text-black border rounded-md focus:outline-none" id="discord_auto_role_id"

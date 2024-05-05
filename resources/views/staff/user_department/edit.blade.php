@@ -7,16 +7,23 @@
     </header>
 
     <div class="card">
-        <form
-            action="{{ route('staff.user_department.destroy', ['user' => $user->id, 'user_department' => $user_department->id]) }}"
-            class="text-right" method="POST"
-            onsubmit="return confirm('Are you sure you wish to delete this department? This can\'t be undone!');">
-            @csrf
-            @method('DELETE')
-            <button class="delete-button-md">
-                <x-delete-button></x-delete-button>
-            </button>
-        </form>
+        @if (!get_setting('use_discord_department_roles'))
+            <form
+                action="{{ route('staff.user_department.destroy', ['user' => $user->id, 'user_department' => $user_department->id]) }}"
+                class="text-right" method="POST"
+                onsubmit="return confirm('Are you sure you wish to delete this department? This can\'t be undone!');">
+                @csrf
+                @method('DELETE')
+                <button class="delete-button-md">
+                    <x-delete-button></x-delete-button>
+                </button>
+            </form>
+        @endif
+        @if (get_setting('use_discord_department_roles'))
+            <p class="text-red-600 text-lg">Departments are controlled by Discord Roles. Update the members roles in Discord
+                to add/remove from
+                departments.</p>
+        @endif
         <form
             action="{{ route('staff.user_department.update', ['user' => $user->id, 'user_department' => $user_department->id]) }}"
             class="flex flex-wrap -mx-4" method="POST">
