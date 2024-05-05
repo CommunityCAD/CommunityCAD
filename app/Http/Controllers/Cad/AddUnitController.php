@@ -21,8 +21,6 @@ class AddUnitController extends Controller
             return redirect()->route('cad.home');
         }
 
-        $this->sync_discord_roles();
-
         $validated = $request->validate([
             'user_department' => 'required|numeric',
         ]);
