@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\v1\Civilian\CivilianController;
 use App\Http\Controllers\Api\v1\Emergency\CallController;
 use App\Http\Controllers\Api\v1\Emergency\GetActiveUnitController;
 use App\Http\Controllers\Api\v1\Emergency\LookupController;
 use App\Http\Controllers\Api\v1\Emergency\PanicController;
 use App\Http\Controllers\Api\v1\Emergency\UnitLocationController;
 use App\Http\Controllers\Api\v1\Emergency\UnitStatusController;
-use App\Http\Controllers\Api\v1\Fivem\Civilian\CivilianController;
-use App\Http\Controllers\Api\v1\Fivem\Civilian\CreateCallController;
 // use App\Http\Controllers\Api\v1\Fivem\Leo\PanicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +21,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Route::get('v1/vehicles', function (Request $request) {
-//     return $request->header('token');
-// });
 
 Route::get('v1', function (Request $request) {
     return response(['message' => 'The API is running. Better go catch it.'], 200, ['Content-Type', 'application/json']);
@@ -49,4 +44,14 @@ Route::name('v1.emergency.')->prefix('v1/emergency')->group(function () {
 
     Route::post('vehicle_lookup', [LookupController::class, 'vehicle_lookup']);
     Route::post('civilian_lookup', [LookupController::class, 'civilian_lookup']);
+});
+
+Route::name('v1.civilian.')->prefix('v1/civilian')->group(function () {
+    Route::post('set_active_civilian', [CivilianController::class, 'set_active_civilian']);
+    Route::post('get_active_civilian', [CivilianController::class, 'get_active_civilian']);
+    Route::post('get_civilians', [CivilianController::class, 'get_civilians']);
+    Route::post('get_civilian', [CivilianController::class, 'get_civilian']);
+    Route::post('create_civilian', [CivilianController::class, 'create_civilian']);
+    Route::post('edit_civilian', [CivilianController::class, 'edit_civilian']);
+    Route::post('register_vehicle', [CivilianController::class, 'register_vehicle']);
 });
