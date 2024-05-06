@@ -12,7 +12,7 @@
 
         <ul class="flex items-center flex-shrink-0 space-x-6">
             <!-- Notifications menu -->
-            <li class="relative" x-data="{ open: false }">
+            {{-- <li class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @keydown.escape="open = false" aria-haspopup="true"
                     aria-label="Notifications"
                     class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
@@ -62,7 +62,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             <!-- Profile menu -->
 
             <li class="relative" x-data="{ open: false }">
