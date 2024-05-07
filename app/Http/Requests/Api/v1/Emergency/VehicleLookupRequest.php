@@ -25,6 +25,8 @@ class VehicleLookupRequest extends FormRequest
     {
         return [
             'plate' => 'required',
+            'user_id' => 'nullable|numeric',
+            'save_plate' => 'boolean|nullable'
         ];
     }
 
