@@ -30,6 +30,7 @@ class OfficerUpdateRequest extends FormRequest
             'height' => 'required|numeric',
             'weight' => 'required|numeric',
             'user_department_id' => 'required|numeric',
+            'phone_number' => 'string|nullable',
         ];
     }
 }

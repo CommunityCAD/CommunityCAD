@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\v1\Emergency;
+namespace App\Http\Requests\Api\v1\Civilian;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class VehicleLookupRequest extends FormRequest
+class GetCiviliansRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class VehicleLookupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'plate' => 'required',
-            'user_id' => 'nullable|numeric',
-            'save_plate' => 'boolean|nullable'
+            'user_id' => 'required|numeric'
         ];
     }
 

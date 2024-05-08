@@ -27,7 +27,8 @@ class VehicleResource extends JsonResource
             "updated_at" => $this->updated_at->format('m/d/Y H:s:i'),
             "impound_ticket_id" => $this->impound_ticket_id,
             "picture" => $this->picture,
-            "business_id" => $this->business_id
+            "business_id" => $this->business_id,
+            "civilian" => new CivilianResource($this->civilian)
         ];
     }
 }

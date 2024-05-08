@@ -1,11 +1,18 @@
 <div class="flex flex-col uppercase">
     <div class="flex flex-row">
         <div class="w-3/5 mx-auto p-4 mt-5 space-y-3 text-white border border-white rounded cursor-default">
-            <div class="flex">
+            <div class="flex items-center">
                 <div class="w-3/5">
                     <label class="block mr-2 text-lg">Plate:</label>
                     <input class="text-input" type="text" wire:model.debounce.800ms='search_plate'>
                 </div>
+                @if (auth()->user()->active_unit->alpr)
+                    <div class="w-2/5 text-center">
+                        <a class="delete-button-md"
+                            href="{{ route('cad.vehicle.return', auth()->user()->active_unit->alpr) }}">ALPR:
+                            {{ auth()->user()->active_unit->alpr }}</a>
+                    </div>
+                @endif
             </div>
             <hr>
             <div class="grid grid-cols-2 gap-2">

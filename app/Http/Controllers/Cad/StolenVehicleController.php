@@ -13,4 +13,11 @@ class StolenVehicleController extends Controller
 
         return view('cad.stolen_vehicles.index', compact('vehicles'));
     }
+
+    public function clear(Vehicle $vehicle)
+    {
+        // dd($vehicle);
+        $vehicle->update(['vehicle_status' => 1]);
+        return redirect()->route('cad.message_center');
+    }
 }

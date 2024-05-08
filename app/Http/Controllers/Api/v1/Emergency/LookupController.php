@@ -7,6 +7,7 @@ use App\Http\Requests\Api\v1\Emergency\CivilianLookupRequest;
 use App\Http\Requests\Api\v1\Emergency\VehicleLookupRequest;
 use App\Http\Resources\Api\v1\Emergency\CivilianResource;
 use App\Http\Resources\Api\v1\Emergency\VehicleResource;
+use App\Models\Cad\ActiveUnit;
 use App\Models\Civilian;
 use App\Models\Civilian\Vehicle;
 use Illuminate\Http\Request;
@@ -16,6 +17,20 @@ class LookupController extends Controller
     public function vehicle_lookup(VehicleLookupRequest $request)
     {
         $vehicle = Vehicle::where('plate', $request->plate)->get()->first();
+
+        if ($request->user_id && $request->save_plate) {
+            $active_unit = ActiveUnit::where('user_id', $request->user_id)->get()->first();
+
+            if (!$active_unit) {
+                return response()->json([
+                    'success'   => false,
+                    'message'   => 'No active unit found for the given user.',
+                    'data'      => []
+                ]);
+            }
+
+            $active_unit->update(['alpr' => $request->plate]);
+        }
 
         if (!$vehicle) {
             return response()->json([

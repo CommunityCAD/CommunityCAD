@@ -17,7 +17,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    'version' => 'BETA v1.4.0.2',
+    'version' => 'BETA v1.4.1',
     'api_key' => env('API_KEY'),
 
     /*

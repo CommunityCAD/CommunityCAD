@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Civilian;
+namespace App\Http\Requests\Api\v1\Civilian;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
-class OfficerStoreRequest extends FormRequest
+class CreateCivilianRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +24,11 @@ class OfficerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => 'required|numeric',
             'first_name' => 'required|alpha|max:255',
             'last_name' => 'required|max:255',
             'date_of_birth' => 'required|date',
-            'height' => 'required',
+            'height' => 'required|numeric',
             'weight' => 'required|numeric',
             'occupation' => 'nullable',
             'gender' => 'required',
@@ -34,8 +37,15 @@ class OfficerStoreRequest extends FormRequest
             'street' => 'required',
             'city' => 'required',
             'picture' => 'url|nullable',
-            'user_department_id' => 'required|numeric',
-            'phone_number' => 'string|nullable',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Validation errors',
+            'data'      => $validator->errors()
+        ]));
     }
 }
