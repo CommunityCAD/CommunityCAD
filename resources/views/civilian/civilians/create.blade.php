@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="w-full px-4">
+            <div class="w-full px-4 md:w-2/3">
                 <div class="mb-6">
                     <label class="block text-base font-medium text-white" for="picture">
                         Image URL <span class="text-gray-400">(optional)</span>
@@ -49,6 +49,17 @@
                     <input class="text-input" name="picture" placeholder="https://cdn.discordapp.com/..." type="text"
                         value="{{ old('picture') }}" />
                     <x-input-error :messages="$errors->get('picture')" class="mt-2" />
+                </div>
+            </div>
+
+            <div class="w-full px-4 md:w-1/3">
+                <div class="mb-6">
+                    <label class="block text-base font-medium text-white" for="phone_number">
+                        Phone Number <span class="text-gray-400">(optional)</span>
+                    </label>
+                    <input class="text-input" name="phone_number" placeholder="" type="text"
+                        value="{{ old('phone_number') }}" />
+                    <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                 </div>
             </div>
 

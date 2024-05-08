@@ -35,6 +35,7 @@ class OfficerStoreRequest extends FormRequest
             'city' => 'required',
             'picture' => 'url|nullable',
             'user_department_id' => 'required|numeric',
+            'phone_number' => 'string|nullable',
         ];
     }
 }

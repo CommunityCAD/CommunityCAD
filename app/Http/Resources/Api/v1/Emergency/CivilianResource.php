@@ -22,6 +22,7 @@ class CivilianResource extends JsonResource
             "full_name" => $this->first_name . ' ' . $this->last_name,
             "picture" => $this->picture,
             "date_of_birth" => $this->date_of_birth->format('m/d/Y'),
+            "phone_number" => $this->phone_number,
             "gender" => $this->gender,
             "race" => $this->race,
             "postal" => $this->postal,
