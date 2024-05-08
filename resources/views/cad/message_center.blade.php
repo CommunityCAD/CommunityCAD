@@ -122,9 +122,16 @@
                                                             <p>No Image on file</p>
                                                         @endif
                                                     </div>
+
+                                                </div>
+                                                <div class="flex justify-between">
                                                     <a class="text-blue-600 underline"
                                                         href="{{ route('cad.name.return', $vehicle->civilian->id) }}">Run
                                                         Name</a>
+                                                    <div class="">
+                                                        <a class="delete-button-md"
+                                                            href="{{ route('cad.stolen_vehicles.clear', $vehicle->id) }}">Clear</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>

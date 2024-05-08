@@ -56,6 +56,8 @@ Route::middleware('cad.active_unit_check')->group(function () {
     Route::get('penal_code', PenalCodeController::class)->name('penal_code');
     Route::get('ten_codes', [TenCodeController::class, 'index'])->name('ten_code.index');
     Route::get('stolen_vehicles', [StolenVehicleController::class, 'index'])->name('stolen_vehicles.index');
+    Route::get('stolen_vehicle/clear/{vehicle}', [StolenVehicleController::class, 'clear'])->name('stolen_vehicles.clear');
+
 
     Route::get('civilan/{civilian}/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
     Route::post('civilan/{civilian}/ticket', [TicketController::class, 'store'])->name('ticket.store');
