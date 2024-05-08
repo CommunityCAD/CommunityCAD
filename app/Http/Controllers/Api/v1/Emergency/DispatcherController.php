@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1\Emergency;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\v1\Emergency\ActiveUnitResource;
 use App\Models\Cad\ActiveUnit;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class DispatcherController extends Controller
             'success'   => true,
             'message'   => 'Active Dispatcher on duty.',
             'data'      => [
-                $active_dispatch
+                new ActiveUnitResource($active_dispatch)
             ]
         ]);
     }
