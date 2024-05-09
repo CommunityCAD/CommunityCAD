@@ -58,7 +58,7 @@
                     ({{ round($officer->height * 2.54) }}cm)</p>
                 <p><span class="text-gray-300">Address:</span> {{ $officer->address }}</p>
                 <p><span class="text-gray-300">Occupation:</span> {{ $officer->occupation }}</p>
-                <p><span class="text-gray-300">Phone Number:</span> {{ $civilian->phone_number }}</p>
+                <p><span class="text-gray-300">Phone Number:</span> {{ $officer->phone_number }}</p>
             </div>
         </div>
     </div>
