@@ -26,9 +26,8 @@
             <div class="pill p-3">
                 <div class="flex justify-between items-center">
                     <div class="mr-12">
-                        <p class="text-lg font-semibold">Allow Same Name Civilians</p>
-                        <p>If you will allow members to create same name civilians. If on you CAN have two John Does. If off
-                            there will only ever be one John Doe.</p>
+                        <p class="text-lg font-semibold">Allow Duplicate Citizen Names</p>
+                        <p>When enabled, this will allow users to create citizens with the same name (name and surname).</p>
                     </div>
                     <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
                         id="allow_same_name_civilians" name="allow_same_name_civilians">
