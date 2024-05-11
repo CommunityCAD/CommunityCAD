@@ -160,8 +160,12 @@
                                                     Unknown
                                                 @endif
                                             @elseif($bolo->type == 'Vehicle')
-                                                {{ $bolo->vehicle->plate }} //
-                                                {{ $bolo->vehicle->model }} // {{ $bolo->vehicle->color }}
+                                                @if ($bolo->vehicle)
+                                                    {{ $bolo->vehicle->plate }} //
+                                                    {{ $bolo->vehicle->model }} // {{ $bolo->vehicle->color }}
+                                                @else
+                                                    Unknown
+                                                @endif
                                             @endif
                                         </td>
                                         <td class="border border-black">
@@ -181,8 +185,12 @@
                                                                 Unknown
                                                             @endif
                                                         @elseif($bolo->type == 'Vehicle')
-                                                            {{ $bolo->vehicle?->plate }} //
-                                                            {{ $bolo->vehicle?->model }} // {{ $bolo->vehicle->color }}
+                                                            @if ($bolo->vehicle)
+                                                                {{ $bolo->vehicle->plate }} //
+                                                                {{ $bolo->vehicle->model }} // {{ $bolo->vehicle->color }}
+                                                            @else
+                                                                Unknown
+                                                            @endif
                                                         @endif
                                                     </h3>
                                                     <div>
