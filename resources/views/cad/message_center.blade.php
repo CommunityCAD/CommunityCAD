@@ -154,7 +154,11 @@
                                         <td class="border border-black">BOLO System</td>
                                         <td class="border border-black">{{ $bolo->type }} BOLO:
                                             @if ($bolo->type == 'Person')
-                                                {{ $bolo->civilian?->name }}
+                                                @if ($bolo->civilian)
+                                                    {{ $bolo->civilian?->name }}
+                                                @else
+                                                    Unknown
+                                                @endif
                                             @elseif($bolo->type == 'Vehicle')
                                                 {{ $bolo->vehicle->plate }} //
                                                 {{ $bolo->vehicle->model }} // {{ $bolo->vehicle->color }}
@@ -171,7 +175,11 @@
                                                     <h3 class="text-xl">
                                                         {{ $bolo->type }} BOLO:
                                                         @if ($bolo->type == 'Person')
-                                                            {{ $bolo->civilian?->name }}
+                                                            @if ($bolo->civilian)
+                                                                {{ $bolo->civilian?->name }}
+                                                            @else
+                                                                Unknown
+                                                            @endif
                                                         @elseif($bolo->type == 'Vehicle')
                                                             {{ $bolo->vehicle?->plate }} //
                                                             {{ $bolo->vehicle?->model }} // {{ $bolo->vehicle->color }}
