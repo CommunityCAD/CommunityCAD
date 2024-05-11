@@ -99,6 +99,12 @@
                                 </a>
                             </form>
                         </li>
+                        <li class="flex">
+                            <a class="inline-flex items-center justify-between w-full px-2 py-1 text-xs font-semibold transition-colors duration-150 rounded-md"
+                                href="#">
+                                {{ config('app.version') }}
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
