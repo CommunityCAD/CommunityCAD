@@ -66,7 +66,7 @@
                 <select class="select-input" disabled id="community_type" name="community_type">
                     <option @selected(old('community_type', get_setting('community_type')) == 'legacy') value="legacy">Legacy</option>
                     {{-- <option @selected(old('community_type', get_setting('community_type')) == 'whitelisted') value="whitelisted">Whitelisted</option> --}}
-                    <option @selected(old('community_type', get_setting('community_type')) == 'approval') value="approval">Approval</option>
+                    {{-- <option @selected(old('community_type', get_setting('community_type')) == 'approval') value="approval">Approval</option> --}}
                     {{-- <option @selected(old('community_type', get_setting('community_type')) == 'semiwhitelisted') value="semiwhitelisted">Semi-Whitelisted</option> --}}
                     {{-- <option @selected(old('community_type', get_setting('community_type')) == 'public') value="public">Public</option> --}}
                 </select>
@@ -124,6 +124,22 @@
                             <option @selected(old('allow_members_to_update_rank', get_setting('allow_members_to_update_rank')) == true) value="on">On</option>
                         </select>
                     @endif
+
+                </div>
+            </div>
+
+            <div class="pill p-3">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-lg font-semibold">Allow Members To Submit LOA Requests</p>
+                        <p>This will allow memebers to submit LOA requests through the portal.
+                        </p>
+                    </div>
+                    <select class="w-28 px-1 py-1 mt-2 text-black border rounded-md cursor-pointer focus:outline-none"
+                        id="allow_members_to_submit_loa_requests" name="allow_members_to_submit_loa_requests">
+                        <option @selected(old('allow_members_to_submit_loa_requests', get_setting('allow_members_to_submit_loa_requests')) == false) value="off">Off</option>
+                        <option @selected(old('allow_members_to_submit_loa_requests', get_setting('allow_members_to_submit_loa_requests')) == true) value="on">On</option>
+                    </select>
 
                 </div>
             </div>

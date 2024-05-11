@@ -26,6 +26,11 @@ class SettingsController extends Controller
         return view('admin.settings.application');
     }
 
+    public function cad()
+    {
+        return view('admin.settings.cad');
+    }
+
     public function discord()
     {
         $discord_channels = DiscordChannel::all()->pluck('channel_id', 'name')->toArray();

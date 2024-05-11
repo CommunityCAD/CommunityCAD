@@ -47,6 +47,12 @@
                     <span class="ml-4">Application Settings</span>
                 </a>
             </li>
+            <li class="ml-4 relative px-6 py-3">
+                <a class="flex items-center @if (request()->is('admin/settings/cad/*') || request()->is('admin/settings/cad')) text-lg text-purple-500 @endif"
+                    href="{{ route('admin.settings.cad') }}">
+                    <span class="ml-4">CAD/MDT Settings</span>
+                </a>
+            </li>
             <li class="relative px-6 py-3 text-xl">
                 API and Integration
             </li>

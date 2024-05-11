@@ -71,57 +71,56 @@
 
         {{-- <a class="edit-button-md mt-6" href="#">Update Discord Information</a> --}}
     </div>
+    @if (get_setting('allow_members_to_submit_loa_requests'))
+        <div class="card">
+            <h2 class="text-lg font-semibold">Request LOA</h2>
+            <hr>
 
-    <div class="card">
-        <h2 class="text-lg font-semibold">Request LOA</h2>
-        <hr>
+            <form action="{{ route('portal.user.loa.store') }}" class="mt-6 space-y-4" method="post">
+                @csrf
 
-        <form action="{{ route('portal.user.loa.store') }}" class="mt-6 space-y-4" method="post">
-            @csrf
+                <div>
+                    <label for="">LOA Start Date</label>
+                    <span class="text-gray-500 text-sm block">Date to start your LOA.</span>
+                    <input class="text-input" name="start_date" required type="date" value="{{ old('start_date') }}">
+                    <x-input-error :messages="$errors->get('start_date')" class="mt-2" />
+                </div>
 
-            <div>
-                <label for="">LOA Start Date</label>
-                <span class="text-gray-500 text-sm block">Date to start your LOA.</span>
-                <input class="text-input" name="start_date" required type="date" value="{{ old('start_date') }}">
-                <x-input-error :messages="$errors->get('start_date')" class="mt-2" />
-            </div>
+                <div>
+                    <label for="">LOA End Date</label>
+                    <span class="text-gray-500 text-sm block">Estimated date to end your LOA.</span>
+                    <input class="text-input" name="end_date" required type="date" value="{{ old('end_date') }}">
+                    <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
+                </div>
 
-            <div>
-                <label for="">LOA End Date</label>
-                <span class="text-gray-500 text-sm block">Estimated date to end your LOA.</span>
-                <input class="text-input" name="end_date" required type="date" value="{{ old('end_date') }}">
-                <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
-            </div>
+                <div>
+                    <label for="">Reason</label>
+                    <span class="text-gray-500 text-sm block">Why do you need this LOA?</span>
+                    <textarea class="textarea-input" name="reason" required type="text" value="">{{ old('reason') }}</textarea>
+                    <x-input-error :messages="$errors->get('reason')" class="mt-2" />
 
-            <div>
-                <label for="">Reason</label>
-                <span class="text-gray-500 text-sm block">Why do you need this LOA?</span>
-                <textarea class="textarea-input" name="reason" required type="text" value="">{{ old('reason') }}</textarea>
-                <x-input-error :messages="$errors->get('reason')" class="mt-2" />
+                </div>
 
-            </div>
-
-            <button class="new-button-md">Submit Request</button>
-        </form>
-    </div>
-
-    <div class="card">
-        <h2 class="text-lg font-semibold">LOA Requests</h2>
-        <hr>
-        <div class="space-y-3">
-            @forelse ($loa_requests as $request)
-                <a href="{{ route('portal.user.loa.show', $request->id) }}">
-                    <div class="pill p-3">
-                        Start Date: {{ $request->start_date->format('m/d/Y') }} | End Date:
-                        {{ $request->end_date->format('m/d/Y') }} | Status:
-                        {{ $request->status }}
-                    </div>
-                </a>
-            @empty
-                <p>You have no LOA requests.</p>
-            @endforelse
-
+                <button class="new-button-md">Submit Request</button>
+            </form>
         </div>
 
-    </div>
+        <div class="card">
+            <h2 class="text-lg font-semibold">LOA Requests</h2>
+            <hr>
+            <div class="space-y-3">
+                @forelse ($loa_requests as $request)
+                    <a href="{{ route('portal.user.loa.show', $request->id) }}">
+                        <div class="pill p-3">
+                            Start Date: {{ $request->start_date->format('m/d/Y') }} | End Date:
+                            {{ $request->end_date->format('m/d/Y') }} | Status:
+                            {{ $request->status }}
+                        </div>
+                    </a>
+                @empty
+                    <p>You have no LOA requests.</p>
+                @endforelse
+            </div>
+        </div>
+    @endif
 @endsection

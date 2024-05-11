@@ -12,23 +12,38 @@
                     @if (auth()->user()->active_unit)
                         @if (auth()->user()->active_unit->status == 'OFFDTY')
                             <a class="new-button-md" href="#"
-                                wire:click="on_duty({{ auth()->user()->active_unit->id }})">ON DUTY</a>
-                            <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY REPORT</a>
+                                wire:click="on_duty({{ auth()->user()->active_unit->id }})">
+                                {{ strtoupper(get_setting('on_duty_button_text', 'ON DUTY')) }}
+                            </a>
+                            <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">
+                                {{ strtoupper(get_setting('off_duty_button_text', 'OFF DUTY')) }}
+                            </a>
                         @else
                             <a class="new-button-md" href="#"
-                                wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">AVAILABLE</a>
+                                wire:click="set_status({{ auth()->user()->active_unit->id }}, 'AVL')">
+                                {{ strtoupper(get_setting('available_button_text', 'AVAILABLE')) }}
+                            </a>
                             <a class="bg-yellow-600 hover:bg-yellow-500 button-md" href="#"
-                                wire:click="set_status({{ auth()->user()->active_unit->id }}, 'CALL')">911 Call</a>
+                                wire:click="set_status({{ auth()->user()->active_unit->id }}, 'CALL')">
+                                {{ strtoupper(get_setting('break_button_text', '911 Call (Busy)')) }}
+                            </a>
                             <a class="delete-button-md" href="#"
-                                wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">BREAK</a>
-                            <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY</a>
+                                wire:click="set_status({{ auth()->user()->active_unit->id }}, 'BRK')">
+                                {{ strtoupper(get_setting('break_button_text', 'BREAK')) }}
+                            </a>
+                            <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">
+                                {{ strtoupper(get_setting('off_duty_button_text', 'OFF DUTY')) }}
+                            </a>
                         @endif
                     @endif
                 @endif
             @else
-                <a class="new-button-md" href="#" wire:click="on_duty({{ auth()->user()->active_unit->id }})">ON
-                    DUTY</a>
-                <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">OFF DUTY REPORT</a>
+                <a class="new-button-md" href="#" wire:click="on_duty({{ auth()->user()->active_unit->id }})">
+                    {{ strtoupper(get_setting('on_duty_button_text', 'ON DUTY')) }}
+                </a>
+                <a class="delete-button-md" href="{{ route('cad.offduty.create') }}">
+                    {{ strtoupper(get_setting('off_duty_button_text', 'OFF DUTY')) }}
+                </a>
             @endif
         </div>
         @include('inc.cad.cad.active_units')

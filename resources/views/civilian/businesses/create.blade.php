@@ -21,7 +21,7 @@
                     <label class="block text-base font-medium text-white" for="logo">
                         Logo
                     </label>
-                    <input class="text-input" name="logo" placeholder="https://cdn.discordapp.com/..." type="url"
+                    <input class="text-input" name="logo" placeholder="https://www.fivemanage.com/upload..." type="url"
                         value="{{ old('logo') }}" />
                     <x-input-error :messages="$errors->get('logo')" class="mt-2" />
 

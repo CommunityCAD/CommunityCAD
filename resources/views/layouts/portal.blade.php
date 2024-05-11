@@ -3,15 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>{{ get_setting('community_name') }} | Portal</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link href="{{ get_setting('community_logo', 'https://communitycad.app/images/default_images/communitycad.png') }}"
+        rel="icon" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <script src="{{ mix('js/app.js') }}" defer></script>
 
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
@@ -20,7 +18,7 @@
 </head>
 
 <body class="bg-[#101825] text-white" x-data="{ sideMenu: false }">
-    <div class="flex h-screen" :class="{ 'overflow-hidden': sideMenu }">
+    <div :class="{ 'overflow-hidden': sideMenu }" class="flex h-screen">
         @include('inc.portal.sidebar')
         <div class="flex flex-col flex-1">
             @include('inc.portal.navbar')
