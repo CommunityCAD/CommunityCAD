@@ -171,10 +171,10 @@
                                                     <h3 class="text-xl">
                                                         {{ $bolo->type }} BOLO:
                                                         @if ($bolo->type == 'Person')
-                                                            {{ $bolo->civilian->name }}
+                                                            {{ $bolo->civilian?->name }}
                                                         @elseif($bolo->type == 'Vehicle')
-                                                            {{ $bolo->vehicle->plate }} //
-                                                            {{ $bolo->vehicle->model }} // {{ $bolo->vehicle->color }}
+                                                            {{ $bolo->vehicle?->plate }} //
+                                                            {{ $bolo->vehicle?->model }} // {{ $bolo->vehicle->color }}
                                                         @endif
                                                     </h3>
                                                     <div>
