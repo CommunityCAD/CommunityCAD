@@ -85,6 +85,7 @@ class DepartmentController extends Controller
 
     public function edit(Department $department): View
     {
+        $discord_roles = [];
         if (get_setting('use_discord_department_roles')) {
             $response =
                 Http::accept('application/json')
