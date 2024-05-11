@@ -46,7 +46,7 @@
                     <label class="block text-base font-medium text-white" for="picture">
                         Image URL <span class="text-gray-400">(optional)</span>
                     </label>
-                    <input class="text-input" name="picture" placeholder="https://cdn.discordapp.com/..." type="text"
+                    <input class="text-input" name="picture" placeholder="https://www.fivemanage.com/upload..." type="text"
                         value="{{ old('picture') }}" />
                     <x-input-error :messages="$errors->get('picture')" class="mt-2" />
                 </div>
