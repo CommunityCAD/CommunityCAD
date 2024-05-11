@@ -58,6 +58,13 @@
                     value="{{ old('off_duty_button_text', get_setting('off_duty_button_text')) }}">
             </div>
 
+            <div class="pill p-3">
+                <p class="text-lg font-semibold">Dispatch 911 Call (Busy) Button</p>
+                <p>Text for dispatch 911 call busy button.</p>
+                <input class="text-input" name="911_call_busy_button_text" type="text"
+                    value="{{ old('911_call_busy_button_text', get_setting('911_call_busy_button_text')) }}">
+            </div>
+
             <div class="flex justify-end">
                 <button class="inline-block secondary-button-md">Save</button>
             </div>
