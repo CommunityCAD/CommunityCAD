@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'pages.home')->name('home');
+Route::view('/new_ticket', 'new_ticket')->name('');
+
 // Route::view('/ingame_login', 'pages.login')->name('ingame_login');
 // Route::post('/ingame_login', [IngameLoginController::class, 'login'])->name('ingame_login.login');
 
