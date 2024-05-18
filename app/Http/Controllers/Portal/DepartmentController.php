@@ -20,7 +20,7 @@ class DepartmentController extends Controller
 
     public function roster_index(Department $department)
     {
-        $roster = UserDepartment::where('department_id', $department->id)->orderBy('badge_number', 'asc')->get();
+        $roster = UserDepartment::where('department_id', $department->id)->orderBy('badge_number', 'asc')->with('officer')->get();
 
         return view('portal.department.roster.index', compact('department', 'roster'));
     }
