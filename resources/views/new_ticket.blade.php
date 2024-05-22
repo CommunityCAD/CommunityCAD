@@ -59,7 +59,14 @@
                         <div class="grid grid-cols-12 divide-x-2 divide-black text-center">
                             <div class="col-span-2">
                                 <span class="text-xs italic">Drivers License No</span>
-                                <p class="font-semibold">182875</p>
+                                <select
+                                    class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
+                                    id="" name="">
+                                    <option value="bg-inherit">18287518287518287 5182875182875182875</option>
+                                    <option value="bg-inherit">182875</option>
+                                    <option value="bg-inherit">182875</option>
+                                    <option value="bg-inherit">182875</option>
+                                </select>
                             </div>
                             <div class="col-span-2">
                                 <span class="text-xs italic">State</span>
@@ -68,6 +75,9 @@
                             <div class="col-span-4">
                                 <span class="text-xs italic">Name</span>
                                 <p class="font-semibold">Byron Ragusa</p>
+                                {{-- <input
+                                    class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
+                                    type="text"> --}}
                             </div>
                             <div class="col-span-2">
                                 <span class="text-xs italic">Race</span>
@@ -139,7 +149,10 @@
                         <div class="grid grid-cols-12 divide-x-2 divide-black text-center">
                             <div class="col-span-3">
                                 <span class="text-xs italic">Plate</span>
-                                <p class="font-semibold">ABC123</p>
+                                {{-- <p class="font-semibold">ABC123</p> --}}
+                                <input
+                                    class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
+                                    type="text">
                             </div>
                             <div class="col-span-3">
                                 <span class="text-xs italic">Make</span>

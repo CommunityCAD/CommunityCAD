@@ -17,7 +17,7 @@ class Ticket extends Component
 
     public $chosen_license = false;
 
-    public $vehicleId;
+    public $vehicle_plate;
 
     public $chosen_vehicle = false;
 
@@ -33,7 +33,7 @@ class Ticket extends Component
     public function render()
     {
         $this->chosen_license = License::where('id', $this->licenseId)->get()->first();
-        $this->chosen_vehicle = Vehicle::where('id', $this->vehicleId)->get()->first();
+        $this->chosen_vehicle = Vehicle::where('plate', $this->vehicle_plate)->get()->first();
 
         return view('livewire.cad.ticket');
     }
