@@ -1,0 +1,48 @@
+name: Suggestion
+description: Request a feature or a change to improve CommunityCAD
+labels: "suggestion"
+body:
+  - type: dropdown
+    attributes:
+      label: Type of Suggestion
+      description: "Is this suggestion for CAD or FiveM Integration Script Roleplay Interactions?"
+      options:
+        - CAD
+        - FiveM
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the feature
+      description: Describe the feature you'd like to get added.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: How would this improve RP
+      description: Explain how this feature would enhance the roleplay experience.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Would this help all communities
+      description: Discuss whether this feature would benefit all types of communities.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Out of RP or In RP
+      description: Specify if this feature would primarily affect out-of-roleplay (OOC) aspects or in-roleplay interactions.
+      options:
+        - Outside of RP
+        - In Roleplay
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Provide any additional context such as images, videos, etc. (optional)
+    validations:
+      required: false

@@ -5,8 +5,10 @@ namespace App\Http\Middleware;
 use App\Models\Role;
 use App\Models\User;
 use Closure;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AuthGates
 {
@@ -19,11 +21,15 @@ class AuthGates
         }
 
         if (get_setting('use_discord_roles', false)) {
-            $response = Http::accept('application/json')
-                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
-                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/members/' . $user->id);
 
-            $user_roles = json_decode($response->body())->roles;
+            $user_roles = Cache::remember('user_discord_roles_' . auth()->user()->id, 150, function () use ($user) {
+                $response = Http::accept('application/json')
+                    ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                    ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/members/' . $user->id);
+                Log::debug($response->status());
+
+                return json_decode($response->body())->roles;
+            });
         }
 
         $roles = Role::with('permissions')->get();
