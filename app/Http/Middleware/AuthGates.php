@@ -7,6 +7,7 @@ use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AuthGates
 {
@@ -22,6 +23,9 @@ class AuthGates
             $response = Http::accept('application/json')
                 ->withHeaders(['Authorization' => config('app.discord_bot_token')])
                 ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/members/' . $user->id);
+
+            Log::debug($response->status());
+            Log::debug($response->body());
 
             $user_roles = json_decode($response->body())->roles;
         }
