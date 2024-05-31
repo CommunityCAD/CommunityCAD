@@ -10,7 +10,7 @@
                     <div>
                         <p class="">Non-Guilty Plea | {{ $ticket->id }} |
                             {{ $ticket->type_name }} | Submitted: {{ $ticket->updated_at->format('m/d/Y') }} | Defendent:
-                            {{ $ticket->civilian->name }} | Officer: {{ $ticket->officer->name }}
+                            {{ $ticket->civilian?->name }} | Officer: {{ $ticket->officer?->name }}
                         </p>
 
                         <p>
