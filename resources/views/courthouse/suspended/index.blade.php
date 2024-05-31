@@ -16,7 +16,7 @@
                         <p>License was suspended due to this ticket:
                             @if ($license->ticket)
                                 <a class="text-blue-500 underline hover:text-blue-400 flex items-center" href="#"
-                                    onclick="openExternalWindow('{{ route('cad.ticket.show', $license->ticket->id) }}')">Ticket
+                                    onclick="openExternalWindow('{{ route('courthouse.ticket.show', $license->ticket->id) }}')">Ticket
                                     {{ $license->ticket->id }} <svg class="ml-1 w-4 h-4" fill="none" stroke-width="1.5"
                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path

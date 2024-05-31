@@ -23,4 +23,9 @@ class UserDepartment extends Model
     {
         return $this->hasOne(Department::class, 'id', 'department_id');
     }
+
+    public function officer()
+    {
+        return $this->belongsTo(Officer::class, 'id', 'user_department_id');
+    }
 }

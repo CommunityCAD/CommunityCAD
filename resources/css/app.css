@@ -28,10 +28,16 @@
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .sidebar-link-active {
     @apply !text-white !font-bold !tracking-wider !text-base;
+}
+
+.text-link {
+    @apply font-semibold text-blue-400 hover:underline;
 }

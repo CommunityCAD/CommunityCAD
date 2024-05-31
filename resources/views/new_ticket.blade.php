@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="">
-        <div class="bg-blue-300 flex justify-between items-center" id="top">
+        <div class="bg-blue-300 flex justify-between items-center">
             <p class="text-sm ml-5 normal-case">Uniform Citation, Summons and Accusation</p>
             <a class="bg-red-500 px-2 py-1 text-sm text-white font-bold" href="#" onclick="window.close();">X</a>
         </div>
@@ -13,34 +13,22 @@
                         <p>NEW</p>
                         <p>Blaine County Sheriff's Office</p>
                     </div>
-                    @csrf
+
                     <div class="grid grid-cols-3 gap-3">
                         <div class="flex">
                             <div class="mr-2">
                                 <p>Related Case #</p>
+                                {{-- <p class="text-xs text-red-600">Required.</p> --}}
                             </div>
                             <div>
-                                <select class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none w-full ring-1"
-                                    disabled id="" name="call_id">
-                                    <option value="">{{ $ticket->call?->id }} |
-                                        {{ $ticket->call->nature_info['name'] }}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="mr-2">
-                                <p>Type</p>
-                            </div>
-                            <div>
-                                <select class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none w-full ring-1"
-                                    disabled id="" name="type_id">
-                                    <option value=""></option>
-                                    <option @selected($ticket->type_id == 1) value="1">Warning</option>
-                                    <option @selected($ticket->type_id == 2) value="2">Ticket</option>
-                                    <option @selected($ticket->type_id == 3) value="3">Arrest</option>
-                                </select>
+                                <input autofocus class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="number">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
+                        </div>
+                        <div class="text-center">
+                            <input id="warning" name="" type="checkbox">
+                            <label class="font-bold" for="warning">* * Warning * *</label>
                         </div>
                         <div class="flex">
                             <div class="mr-2">
@@ -48,7 +36,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->id }}">
+                                    type="text" value="PENDING">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -58,15 +46,13 @@
                                 <p>Upon:</p>
                                 <p>Date</p>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1 w-32"
-                                    disabled name="date" type="date"
-                                    value="{{ $ticket->offense_occured_at->format('Y-m-d') }}">
-                                <p class="font-bold">{{ $ticket->offense_occured_at->format('l') }}</p>
+                                    type="date" value="{{ date('Y-m-d') }}">
+                                <p class="font-bold">Friday</p>
                             </div>
                             <div class="flex space-x-3 items-center">
                                 <p>Time:</p>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1 w-16"
-                                    disabled name="time" type="text"
-                                    value="{{ $ticket->offense_occured_at->format('H:i') }}">
+                                    type="text" value="19:21">
                             </div>
                         </div>
                     </div>
@@ -76,26 +62,48 @@
                     </div>
 
                     <div class="grid grid-cols-6 gap-3">
-                        <div class="">
-                            <div class="mr-2">
-                                <p class="text-xs italic">License No.</p>
-                                {{-- <p class="text-xs text-red-600">Required.</p> --}}
+                        <div class="col-span-6 text-sm" x-data="{ open: false }">
+                            <div @click="open = !open" class="cursor-pointer select-none flex">
+                                <p>Available Licenses</p>
+
+                                <svg class="h-4 w-4 ml-3" fill="none" stroke-width="1.5" stroke="currentColor"
+                                    viewBox="0 0 24 24" x-show="open == false" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                                <svg class="h-4 w-4 ml-3" fill="none" stroke-width="1.5" stroke="currentColor"
+                                    viewBox="0 0 24 24" x-show="open == true" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m4.5 15.75 7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
                             </div>
-                            <div>
-                                <select class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none w-full ring-1"
-                                    disabled id="licenseId" name="license_id">
-                                    <option value="">{{ $ticket->license?->id }}</option>
-                                </select>
-                                {{-- Input Error: ring-red-600 ring-2 --}}
+                            <div x-show="open">
+                                <p>123456 - Drivers License License - <a class="text-blue-600" href="#">Choose
+                                        License</a>
+                                </p>
+                                <p>123456 - Drivers License License</p>
+                                <p>123456 - Drivers License License</p>
+                                <p>123456 - Drivers License License</p>
                             </div>
                         </div>
                         <div class="col-span-2">
+                            <div class="mr-2">
+                                <p class="text-xs italic">Operator License No.</p>
+                                {{-- <p class="text-xs text-red-600">Required.</p> --}}
+                            </div>
+                            <div>
+                                <input autofocus class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="number">
+                                {{-- Input Error: ring-red-600 ring-2 --}}
+                            </div>
+                        </div>
+                        <div class="">
                             <div class="mr-2">
                                 <p class="text-xs italic">Class/Type</p>
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->license?->license_type->name ?? '' }}">
+                                    type="text" value="Drivers License">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -105,7 +113,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->license ? get_setting('state') : '' }}">
+                                    type="text" value="{{ get_setting('state') }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -115,7 +123,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->license?->expires_on->format('m/d/Y') ?? '' }}">
+                                    type="text" value="05/29/2024">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -129,7 +137,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->name }} ({{ $ticket->civilian->s_n_n }})">
+                                    type="text" value="Mike Jones (123456789)">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -139,7 +147,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->date_of_birth->format('m/d/Y') }}">
+                                    type="text" value="08/39/2003">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -149,7 +157,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="number" value="{{ $ticket->civilian->age }}">
+                                    type="number" value="21">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -163,7 +171,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->postal }}">
+                                    type="text" value="1234">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -173,7 +181,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->street }}">
+                                    type="text" value="Route 68">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -183,7 +191,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->city }}">
+                                    type="text" value="Sandy Shores">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -208,7 +216,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->phone_number }}">
+                                    type="text" value="123-456-7890">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -218,7 +226,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->race }}">
+                                    type="text" value="White">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -228,7 +236,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->gender }}">
+                                    type="text" value="Male">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -239,7 +247,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->height }} inch">
+                                    type="text" value="6'11">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -250,7 +258,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->civilian->weight }}lbs">
+                                    type="text" value="245lbs">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -258,18 +266,47 @@
                     </div>
 
                     <div class="grid grid-cols-6 gap-3 mt-3">
+                        <div class="col-span-6 text-sm" x-data="{ open: false }">
+                            <div @click="open = !open" class="cursor-pointer select-none flex">
+                                <p>Vehicle Search</p>
+
+                                <svg class="h-4 w-4 ml-3" fill="none" stroke-width="1.5" stroke="currentColor"
+                                    viewBox="0 0 24 24" x-show="open == false" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                                <svg class="h-4 w-4 ml-3" fill="none" stroke-width="1.5" stroke="currentColor"
+                                    viewBox="0 0 24 24" x-show="open == true" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m4.5 15.75 7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                            </div>
+                            <div x-show="open">
+                                <div class="">
+                                    <p>Plate:</p>
+                                    <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1 w-32"
+                                        type="text">
+                                </div>
+                                <p>123456 - Green Ford F150 - RO: Mike Jones -
+                                    <a class="text-blue-600" href="#">Choose
+                                        Vehcile</a>
+                                </p>
+                                <p>123456 - Drivers License License</p>
+                                <p>123456 - Drivers License License</p>
+                                <p>123456 - Drivers License License</p>
+                            </div>
+                        </div>
                         <div class="col-span-2">
                             <div class="mr-2">
                                 <p class="text-xs italic">Plate No.</p>
                                 {{-- <p class="text-xs text-red-600">Required.</p> --}}
                             </div>
-                            <div class="flex items-center">
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="plate" type="text" value="{{ $ticket->vehicle?->plate }}">
-
+                            <div>
+                                <input autofocus
+                                    class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="number">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
-
                         </div>
                         <div class="">
                             <div class="mr-2">
@@ -277,9 +314,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->vehicle?->model }}">
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                    name="vehicle_id" type="hidden" value="{{ $ticket->vehicle?->id }}">
+                                    type="text" value="Ford F150">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -289,7 +324,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->vehicle?->color }}">
+                                    type="text" value="Green">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -299,7 +334,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->vehicle?->status_name }}">
+                                    type="text" value="Valid">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -309,7 +344,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket->vehicle?->registration_expire->format('m/d/Y') }}">
+                                    type="text" value="05/29/2024">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -327,10 +362,10 @@
                             </div>
                             <div class="flex space-x-2 items-center">
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1 w-16"
-                                    disabled name="speed" type="number" value="{{ $ticket->speed }}">
+                                    type="number" value="">
                                 <p>mph in a</p>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1 w-16"
-                                    disabled name="speed_zone" type="number" value="{{ $ticket->speed_zone }}">
+                                    type="number" value="">
                                 <p>Zone</p>
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
@@ -341,29 +376,23 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="speed_clocked_mode" type="text" value="{{ $ticket->speed_clocked_mode }}">
+                                    type="text" value="Radar">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-7 gap-3 mt-3">
-                        <div class="col-span-2">
+                    <div class="grid grid-cols-6 gap-3 mt-3">
+                        <div class="">
                             <div class="mr-2">
                                 <p class="text-xs italic">DUI/Drugs</p>
                                 {{-- <p class="text-xs text-red-600">Required.</p> --}}
                             </div>
-                            <div class="flex items-center">
-                                <select class="select-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                    disabled id="is_dui" name="is_dui">
-                                    <option @selected($ticket->is_dui == 0) value="0">No</option>
-                                    <option @selected($ticket->is_dui == 1) value="1">Yes</option>
-                                </select>
-                                <select class="ml-2 select-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                    disabled id="is_drugs" name="is_drugs">
-                                    <option @selected($ticket->is_drugs == 0) value="0">No</option>
-                                    <option @selected($ticket->is_drugs == 1) value="1">Yes</option>
-                                </select>
+                            <div class="">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1 w-5"
+                                    maxlength="1" type="Text" value="Y">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1 w-5"
+                                    maxlength="1" type="Text" value="N">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -372,8 +401,8 @@
                                 <p class="text-xs italic">Test Method</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="dui_test_method" type="text" value="{{ $ticket->dui_test_method }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Blood">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -382,8 +411,8 @@
                                 <p class="text-xs italic">Test Result</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="dui_test_result" type="text" value="{{ $ticket->dui_test_result }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value=".13">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -392,118 +421,15 @@
                                 <p class="text-xs italic">Test Administered By</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="dui_test_by" type="text" value="{{ $ticket->dui_test_by }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Ron Swanson">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 mt-3">
-                        <div class="">
-                            <div class="mr-2">
-                                <p class="text-xs italic">Impound Vehicle</p>
-                                {{-- <p class="text-xs text-red-600">Required.</p> --}}
-                            </div>
-                            <div class="flex items-center">
-                                <select class="select-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                    disabled id="is_dui" name="vehicle_was_impounded">
-                                    <option value="0"@selected($ticket->vehicle_was_impounded == 0)>No</option>
-                                    <option value="1"@selected($ticket->vehicle_was_impounded == 1)>Yes</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="mr-2">
-                                <p class="text-xs italic">Suspend License</p>
-                                {{-- <p class="text-xs text-red-600">Required.</p> --}}
-                            </div>
-                            <div class="flex items-center">
-                                <select class="select-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                    disabled id="is_dui" name="license_was_suspended">
-                                    <option value="0"@selected($ticket->license_was_suspended == 0)>No</option>
-                                    <option value="1"@selected($ticket->license_was_suspended == 1)>Yes</option>
-                                </select>
-                                {{-- Input Error: ring-red-600 ring-2 --}}
-                            </div>
-                        </div>
-                        <div class="col-span-2" x-data="{ open: false }">
-                            <div class="w-full">
-                                <div @click="open = !open" class="cursor-pointer select-none flex items-center">
-                                    <p>Charges: {{ $ticket->charges->count() }}</p>
-
-                                    <svg class="h-4 w-4 ml-3" fill="none" stroke-width="1.5" stroke="currentColor"
-                                        viewBox="0 0 24 24" x-show="open == false" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-
-                                    <svg class="h-4 w-4 ml-3" fill="none" stroke-width="1.5" stroke="currentColor"
-                                        viewBox="0 0 24 24" x-show="open == true" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="m4.5 15.75 7.5-7.5 7.5 7.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-
-                                </div>
-                            </div>
-                            <div class="w-full" x-show="open">
-                                @foreach ($ticket->charges as $charge)
-                                    <div class="grid grid-cols-4 gap-3 mt-3">
-                                        <div class="col-span-3">
-                                            <p class="text-xs italic">Charge</p>
-                                            <input
-                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                                disabled name="dui_test_by" type="text"
-                                                value="{{ $charge->penal_code->name }}">
-                                        </div>
-                                        <div class="">
-                                            <p class="text-xs italic">Counts</p>
-                                            <input
-                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                                disabled name="dui_test_by" type="text"
-                                                value="{{ $charge->counts }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="grid grid-cols-3 gap-3 mt-3">
-                                        <div class="">
-                                            <p class="text-xs italic">Jail Time (seconds)</p>
-                                            <input
-                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                                disabled name="dui_test_by" type="text"
-                                                value="{{ $charge->in_game_jail_time }}">
-                                        </div>
-                                        <div class="">
-                                            <p class="text-xs italic">Fine ($)</p>
-                                            <input
-                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                                disabled name="dui_test_by" type="text" value="{{ $charge->fine }}">
-                                        </div>
-                                        <div class="">
-                                            <p class="text-xs italic">CAD Jail Time (hours)</p>
-                                            <input
-                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                                disabled name="dui_test_by" type="text"
-                                                value="{{ $charge->cad_jail_time }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="grid grid-cols-1 mt-3 gap-3">
-                                        <div class="">
-                                            <p class="text-xs italic">Description</p>
-                                            <input
-                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                                disabled name="dui_test_by" type="text"
-                                                value="{{ $charge->description }}">
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="col-span-2">
-                            @livewire('cad.add-charges-to-ticket', ['ticket' => $ticket])
-                        </div>
+                    <div class="grid grid-cols-6 gap-3 mt-3">
+                        <div class="col-span-6">Add Charges Section</div>
                     </div>
 
                     <div class="border-y-2 text-center border-blue-600 text-blue-600 font-bold my-3">
@@ -517,8 +443,8 @@
                                 {{-- <p class="text-xs text-red-600">Required.</p> --}}
                             </div>
                             <div class="">
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="highway_street" type="text" value="{{ $ticket->highway_street }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Route 68">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -527,8 +453,8 @@
                                 <p class="text-xs italic">Near Intersection</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="at_intersection" type="text" value="{{ $ticket->at_intersection }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Panarama">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -537,8 +463,8 @@
                                 <p class="text-xs italic">In/Near the City of</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="in_city_of" type="text" value="{{ $ticket->in_city_of }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Grapeseed">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -551,8 +477,8 @@
                                 {{-- <p class="text-xs text-red-600">Required.</p> --}}
                             </div>
                             <div class="">
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="weather" type="text" value="{{ $ticket->weather }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Clear">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -561,8 +487,8 @@
                                 <p class="text-xs italic">Traffic</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="traffic" type="text" value="{{ $ticket->traffic }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Medium">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -574,8 +500,7 @@
                                 <p class="text-xs italic">Officer Notes (Not Printed)</p>
                             </div>
                             <div>
-                                <textarea class="textarea-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="officer_comments">{{ $ticket->officer_comments }}</textarea>
+                                <textarea class="textarea-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" type="text">Driver was a dick</textarea>
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -586,46 +511,46 @@
                     </div>
 
                     <div class="grid grid-cols-6 gap-3 mt-3">
-                        {{-- <div class="">
+                        <div class="">
                             <div class="mr-2">
                                 <p class="text-xs italic">Day</p>
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
                                     type="text" value="Friday">
+                                {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
                         <div class="col-span-2">
                             <div class="mr-2">
                                 <p class="text-xs italic">Court Date/Time</p>
-                    </div>
-                    <div class="">
-                        <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                            type="text" value="06/29/2024 @ 20:18">
-                    </div>
-            </div>
-            <div class="col-span-2">
-                <div class="mr-2">
-                    <p class="text-xs italic">Court Location</p>
-                </div>
-                <div>
-                    <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" type="text"
-                        value="Sandy Shores Courthouse">
-                </div>
-            </div>
-            <div class="">
-                <div class="mr-2">
-                    <p class="text-xs italic">Room</p>
-                </div>
-                <div>
-                    <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" type="text"
-                        value="4A">
-                </div>
-            </div> --}}
-
-                        <div class="col-span-6">
-                            <p class="font-bold text-center">Court Information will be provided after ticket is signed.
-                            </p>
+                                {{-- <p class="text-xs text-red-600">Required.</p> --}}
+                            </div>
+                            <div class="">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="06/29/2024 @ 20:18">
+                                {{-- Input Error: ring-red-600 ring-2 --}}
+                            </div>
+                        </div>
+                        <div class="col-span-2">
+                            <div class="mr-2">
+                                <p class="text-xs italic">Court Location</p>
+                            </div>
+                            <div>
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Sandy Shores Courthouse">
+                                {{-- Input Error: ring-red-600 ring-2 --}}
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="mr-2">
+                                <p class="text-xs italic">Room</p>
+                            </div>
+                            <div>
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="4A">
+                                {{-- Input Error: ring-red-600 ring-2 --}}
+                            </div>
                         </div>
 
                     </div>
@@ -641,8 +566,8 @@
                                 {{-- <p class="text-xs text-red-600">Required.</p> --}}
                             </div>
                             <div class="">
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="PENDING">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="05/29/2024 @ 20:18">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -651,8 +576,8 @@
                                 <p class="text-xs italic">Officer Signature</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ auth()->user()->active_unit->officer->name }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="Austin Hayden">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -661,9 +586,8 @@
                                 <p class="text-xs italic">Badge Number</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text"
-                                    value="{{ auth()->user()->active_unit->user_department->badge_number }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="1A-1">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -672,25 +596,22 @@
                                 <p class="text-xs italic">Agency</p>
                             </div>
                             <div>
-                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text"
-                                    value="{{ auth()->user()->active_unit->user_department->department->initials }}">
+                                <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                    type="text" value="BCSO">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
                 <div class="w-1/6 text-center space-y-4">
-                    @if ($allow_sign)
-                        <a href="{{ route('cad.ticket.sign_ticket', $ticket->id) }}">
-                            <button
-                                class="w-full py-1 text-blue-600 bg-gray-300 rounded-lg font-bold hover:bg-gray-400">Sign
-                                Ticket</button>
-                        </a>
-                    @else
-                        <p>You must add charges before signing the ticket.</p>
-                    @endif
+                    <button
+                        class="w-full py-1 text-blue-600 bg-gray-300 rounded-lg font-bold hover:bg-gray-400">Save</button>
+                    <button
+                        class="w-full py-1 text-blue-600 bg-gray-300 rounded-lg font-bold hover:bg-gray-400">Cancel</button>
+                    <button
+                        class="w-full py-1 text-blue-600 bg-gray-300 rounded-lg font-bold hover:bg-gray-400">Delete</button>
+                    <button class="w-full py-1 text-blue-600 bg-gray-300 rounded-lg font-bold hover:bg-gray-400">Rdy To
+                        Submit</button>
                 </div>
             </div>
         </div>
