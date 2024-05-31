@@ -2,18 +2,13 @@
 
 @section('content')
     <div class="">
-        <div class="bg-pink-200 uppercase max-w-4xl rounded-lg mx-auto p-4 mt-5">
+        <div class="bg-yellow-200 uppercase max-w-4xl rounded-lg mx-auto p-4 mt-5">
             <div class="border-2 border-black p-2">
                 <p class="text-center font-bold text-2xl">{{ get_setting('state') }} UNIFORM CITATION - Copy</p>
                 <div class="flex justify-between">
                     <p class="text-lg">State of {{ get_setting('state') }} <span class="underline font-semibold">
                             District Court</p>
-                    <div class="">
-                        <p class="text-base">Citation No. <span class="underline font-semibold">{{ $ticket->id }}</span></p>
-                        <p>
-
-                        </p>
-                    </div>
+                    <p class="text-base">Citation No. <span class="underline font-semibold">{{ $ticket->id }}</span></p>
                 </div>
             </div>
 
@@ -101,7 +96,7 @@
                         </div>
                         <div class="col-span-2">
                             <span class="text-xs italic">Type</span>
-                            <p class="font-semibold">{{ $ticket?->license->license_type->name }}</p>
+                            <p class="font-semibold">{{ $ticket->license?->license_type->name }}</p>
                         </div>
                         <div class="col-span-4">
                             <span class="text-xs italic">Address</span>
@@ -169,6 +164,7 @@
                             <span class="text-xs italic">Charges</span>
                             @foreach ($ticket->charges as $charge)
                                 <p class="font-semibold">{{ $charge->penal_code->name }} (x{{ $charge->counts }})</p>
+                                <p class="ml-3">{{ $charge->description }}</p>
                             @endforeach
                         </div>
                     </div>

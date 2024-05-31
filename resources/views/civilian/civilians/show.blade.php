@@ -465,6 +465,14 @@
                                             @endif
                                         @break
 
+                                        @case(3)
+                                            Court Found Not Guilty
+                                        @break
+
+                                        @case(4)
+                                            Court Found Guilty
+                                        @break
+
                                         @default
                                     @endswitch
 

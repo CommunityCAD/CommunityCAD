@@ -22,7 +22,7 @@
                             <div>
                                 <select class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none w-full ring-1"
                                     disabled id="" name="call_id">
-                                    <option value="">{{ $ticket->call->id }} |
+                                    <option value="">{{ $ticket->call?->id }} |
                                         {{ $ticket->call->nature_info['name'] }}</option>
                                 </select>
                             </div>
@@ -84,7 +84,7 @@
                             <div>
                                 <select class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none w-full ring-1"
                                     disabled id="licenseId" name="license_id">
-                                    <option value="">{{ $ticket?->license->id }}</option>
+                                    <option value="">{{ $ticket->license?->id }}</option>
                                 </select>
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
@@ -95,7 +95,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->license->license_type->name ?? '' }}">
+                                    type="text" value="{{ $ticket->license?->license_type->name ?? '' }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->license ? get_setting('state') : '' }}">
+                                    type="text" value="{{ $ticket->license ? get_setting('state') : '' }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->license->expires_on->format('m/d/Y') ?? '' }}">
+                                    type="text" value="{{ $ticket->license?->expires_on->format('m/d/Y') ?? '' }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -265,7 +265,7 @@
                             </div>
                             <div class="flex items-center">
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="plate" type="text" value="{{ $ticket?->vehicle->plate }}">
+                                    name="plate" type="text" value="{{ $ticket->vehicle?->plate }}">
 
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
@@ -277,9 +277,9 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->model }}">
+                                    type="text" value="{{ $ticket->vehicle?->model }}">
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                    name="vehicle_id" type="hidden" value="{{ $ticket?->vehicle->id }}">
+                                    name="vehicle_id" type="hidden" value="{{ $ticket->vehicle?->id }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -289,7 +289,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->color }}">
+                                    type="text" value="{{ $ticket->vehicle?->color }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -299,7 +299,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->status_name }}">
+                                    type="text" value="{{ $ticket->vehicle?->status_name }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -309,7 +309,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->registration_expire->format('m/d/Y') }}">
+                                    type="text" value="{{ $ticket->vehicle?->registration_expire->format('m/d/Y') }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -580,53 +580,66 @@
                     <div class="border-y-2 text-center border-blue-600 text-blue-600 font-bold my-3">
                         Section IV - Summons
                     </div>
-                    @if ($ticket->plea_type == 1)
-                        <div class="my-3">
-                            <p>Ticket was plead guilty. No courtdate.</p>
-                        </div>
-                    @elseif(!$ticket->court_at)
-                        <p>Old Ticket. Contact the court directly to find out information</p>
-                    @else
-                        <div class="grid grid-cols-6 gap-3 mt-3">
-                            <div class="">
-                                <div class="mr-2">
-                                    <p class="text-xs italic">Day</p>
-                                </div>
-                                <div>
-                                    <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                        disabled type="text" value="{{ $ticket->court_at->format('l') }}">
-                                </div>
+                    <div class="mt-3">
+                        @if ($ticket->plea_type == 1)
+                            <div class="my-3">
+                                <p>Ticket was plead guilty. No courtdate.</p>
                             </div>
-                            <div class="col-span-2">
-                                <div class="mr-2">
-                                    <p class="text-xs italic">Court Date/Time</p>
-                                </div>
-                                <div class="">
-                                    <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                        disabled type="text" value="{{ $ticket->court_at->format('m/d/Y @ H:i') }}">
-                                </div>
-                            </div>
-                            <div class="col-span-2">
-                                <div class="mr-2">
-                                    <p class="text-xs italic">Court Location</p>
-                                </div>
-                                <div>
-                                    <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                        disabled type="text" value="TBD">
-                                </div>
-                            </div>
-                            <div class="">
-                                <div class="mr-2">
-                                    <p class="text-xs italic">Room</p>
-                                </div>
-                                <div>
-                                    <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                        disabled type="text" value="TBD">
-                                </div>
-                            </div>
+                        @elseif($ticket->plea_type == 3)
+                            <p>Court found Not Guilty.</p>
+                        @elseif($ticket->plea_type == 4)
+                            <p>Court found Guilty.</p>
+                        @elseif($ticket->plea_type == 2 || $ticket->plea_type == 0)
+                            @if (!$ticket->court_at)
+                                <p>Old Ticket. Contact the court directly to find out court date</p>
+                            @else
+                                <div class="grid grid-cols-6 gap-3 mt-3">
+                                    <div class="">
+                                        <div class="mr-2">
+                                            <p class="text-xs italic">Day</p>
+                                        </div>
+                                        <div>
+                                            <input
+                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                                disabled type="text" value="{{ $ticket?->court_at->format('l') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <div class="mr-2">
+                                            <p class="text-xs italic">Court Date/Time</p>
+                                        </div>
+                                        <div class="">
+                                            <input
+                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                                disabled type="text"
+                                                value="{{ $ticket?->court_at->format('m/d/Y @ H:i') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <div class="mr-2">
+                                            <p class="text-xs italic">Court Location</p>
+                                        </div>
+                                        <div>
+                                            <input
+                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                                disabled type="text" value="TBD">
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="mr-2">
+                                            <p class="text-xs italic">Room</p>
+                                        </div>
+                                        <div>
+                                            <input
+                                                class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
+                                                disabled type="text" value="TBD">
+                                        </div>
+                                    </div>
 
-                        </div>
-                    @endif
+                                </div>
+                            @endif
+                        @endif
+                    </div>
                     <div class="border-y-2 text-center border-blue-600 text-blue-600 font-bold my-3">
                         Section V - Officer Certification
                     </div>
@@ -649,7 +662,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ auth()->user()->active_unit->officer->name }}">
+                                    type="text" value="{{ $ticket->officer->name }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -659,8 +672,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text"
-                                    value="{{ auth()->user()->active_unit->user_department->badge_number }}">
+                                    type="text" value="{{ $ticket->officer->user_department->badge_number }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -670,8 +682,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text"
-                                    value="{{ auth()->user()->active_unit->user_department->department->initials }}">
+                                    type="text" value="{{ $ticket->officer->user_department->department->initials }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
