@@ -378,13 +378,6 @@
             <h2 class="text-2xl text-white">
                 Charges
             </h2>
-            {{-- <div class="flex">
-                @if ($current_civilian_level->firearm_limit > $civilian->weapons->count())
-                    <a class="new-button-sm" href="{{ route('civilian.weapon.create', $civilian->id) }}">
-                        <x-new-button></x-new-button>
-                    </a>
-                @endif
-            </div> --}}
         </div>
         <div class="flex flex-wrap -mx-4">
             <div class="w-full px-4">
@@ -437,9 +430,9 @@
                             </a> --}}
 
                             <a class="block {{ $text_color }}" href="#"
-                                onclick="openExternalWindow('{{ route('cad.ticket.show', $ticket->id) }}')">({{ $ticket->id }})
-                                {{ $type }} on {{ $ticket->offense_occured_at->format('m/d/Y H:i') }} at
-                                {{ $ticket->location_of_offense }} <span class="block ml-5">Offense(s)
+                                onclick="openExternalWindow('{{ route('civilian.ticket.show', $ticket->id) }}')">({{ $ticket->id }})
+                                {{ $type }} on {{ $ticket->offense_occured_at->format('m/d/Y H:i') }}
+                                <span class="block ml-5">Offense(s)
                                     @foreach ($ticket->charges as $charge)
                                         @if (!$loop->last)
                                             {{ $charge->penal_code->name }} (x{{ $charge->counts }}),
@@ -448,14 +441,42 @@
                                         @endif
                                     @endforeach
                                 </span>
+                                <span class="block ml-5">Plea:
+                                    @switch($ticket->plea_type)
+                                        @case(0)
+                                            Pending Decision from Civilian. Courtdate:
+                                            @if ($ticket->court_at)
+                                                {{ $ticket->court_at->format('m/d/Y') }}
+                                            @else
+                                                Contact court directly
+                                            @endif
+                                        @break
+
+                                        @case(1)
+                                            Guilty
+                                        @break
+
+                                        @case(2)
+                                            Not-Guilty. Courtdate:
+                                            @if ($ticket->court_at)
+                                                {{ $ticket->court_at->format('m/d/Y') }}
+                                            @else
+                                                Contact court directly
+                                            @endif
+                                        @break
+
+                                        @default
+                                    @endswitch
+
+                                </span>
                             </a>
                         </div>
                         <hr>
-                    @empty
-                        <p class="">No Charges</p>
-                    @endforelse
+                        @empty
+                            <p class="">No Charges</p>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

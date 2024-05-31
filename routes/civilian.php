@@ -32,6 +32,8 @@ Route::post('/civilians/{civilian}/911', [CallController::class, 'store'])->name
 
 Route::resource('civilians', CivilianController::class);
 
+Route::get('/civilian/ticket/{ticket}', [CivilianPageController::class, 'show_ticket'])->name('ticket.show');
+
 Route::get('/businesses/{business}/approve_interview/{businessEmployee}', [BusinessEmployeeController::class, 'approve_interview'])->name('business.approve_interview');
 Route::get('/businesses/{business}/deny_interview/{businessEmployee}', [BusinessEmployeeController::class, 'deny_interview'])->name('business.deny_interview');
 
