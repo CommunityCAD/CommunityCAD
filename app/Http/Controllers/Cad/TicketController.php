@@ -44,31 +44,27 @@ class TicketController extends Controller
     public function store(Civilian $civilian, TicketRequest $request): RedirectResponse
     {
         $data = $request->validated();
+
+
         $data['user_id'] = auth()->user()->id;
         $data['officer_id'] = auth()->user()->active_unit->officer_id;
         $data['civilian_id'] = $civilian->id;
-        $data['offense_occured_at'] = $data['date'].' '.$data['time'].':00';
+        $data['offense_occured_at'] = $data['date'] . ' ' . $data['time'] . ':00';
+        $data['location_of_offense'] = 'new';
 
-        unset($data['time'], $data['date']);
+        $data['court_at'] = date('Y-m-d H:i:s', strtotime('+14 Days'));
 
-        if (isset($data['license_was_suspended'])) {
-            $data['license_was_suspended'] = true;
+
+        unset($data['time'], $data['date'], $data['plate']);
+
+        if ($data['license_was_suspended']) {
             $license = License::where('id', $data['license_id']);
             $license->update(['license_status' => 3]);
         }
 
-        if (isset($data['vehicle_was_impounded'])) {
-            $data['vehicle_was_impounded'] = true;
+        if ($data['vehicle_was_impounded']) {
             $vehicle = Vehicle::where('id', $data['vehicle_id']);
             $vehicle->update(['vehicle_status' => 3]);
-        }
-
-        if (isset($data['showed_id'])) {
-            $data['showed_id'] = true;
-        }
-
-        if ($data['call_id'] == 0) {
-            unset($data['call_id']);
         }
 
         $ticket = Ticket::create($data);
@@ -111,6 +107,7 @@ class TicketController extends Controller
 
     public function sign_ticket(Ticket $ticket)
     {
+        $ticket->touch('updated_at');
         return redirect()->route('cad.ticket.show', $ticket->id);
     }
 }

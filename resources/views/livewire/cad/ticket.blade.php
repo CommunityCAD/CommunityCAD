@@ -1,199 +1,16 @@
-{{-- <div class="bg-yellow-100 max-w-3xl rounded-lg mx-auto p-4 mt-5">
-    <form action="{{ route('cad.ticket.store', $civilian->id) }}" id="mdeditor" method="POST">
-        @csrf
-
-        <div class="border-2 border-black w-full">
-            <div class="flex">
-                <div class="border-2 border-black w-full p-2">
-                    <p class="text-gray-500">Type
-                        <select class="block text-black p-3 w-full font-bold uppercase" id="" name="type_id">
-                            <option value="1">Warning</option>
-                            <option value="2">Ticket</option>
-                            <option value="3">Arrest</option>
-                        </select>
-                    </p>
-                </div>
-            </div>
-            <div class="flex">
-                <div class="border-2 border-black w-full p-2">
-                    <p class="text-gray-500">Call
-                        <select class="select-input" id="call_id" name="call_id">
-                            <option value="0">Choose a Call #</option>
-                            @foreach ($calls as $call)
-                                <option value="{{ $call->id }}">{{ $call->id }} - {{ $call->nature }} @
-                                    {{ $call->location }}, {{ $call->city }} on
-                                    {{ $call->created_at->format('m/d/Y') }}</option>
-                            @endforeach
-                        </select>
-                    </p>
-                </div>
-            </div>
-            <div class="flex">
-                <div class="border-2 border-black w-4/6 p-2">
-                    <p class="text-gray-500">Last Name (Defendant) <span
-                            class="block text-black font-bold uppercase">{{ $civilian->last_name }}</span></p>
-                </div>
-                <div class="border-2 border-black w-2/6 p-2">
-                    <p class="text-gray-500">First Name <span
-                            class="block text-black font-bold uppercase">{{ $civilian->first_name }}</span></p>
-                </div>
-            </div>
-            <div class="flex">
-                <div class="border-2 border-black w-5/6 p-2">
-                    <p class="text-gray-500">Address <span
-                            class="block text-black font-bold uppercase">{{ $civilian->address }}</span></p>
-                </div>
-                <div class="border-2 border-black w-1/6 p-2">
-                    <p class="text-gray-500">Showed ID <span class="block text-black font-bold uppercase">
-                            <input class="mx-auto text-center w-full h-6" name="showed_id" type="checkbox">
-                        </span></p>
-                </div>
-            </div>
-            <div class="flex">
-                <div class="border-2 border-black w-3/6 p-2">
-                    <p class="text-gray-500">SSN <span
-                            class="block text-black font-bold uppercase">{{ $civilian->s_n_n }}</span></p>
-                </div>
-                <div class="border-2 border-black w-1/6 p-2">
-                    <p class="text-gray-500">Sex <span
-                            class="block text-black font-bold uppercase">{{ $civilian->gender }}</span></p>
-                </div>
-                <div class="border-2 border-black w-2/6 p-2">
-                    <p class="text-gray-500">Race <span
-                            class="block text-black font-bold uppercase">{{ $civilian->race }}</span></p>
-                </div>
-            </div>
-
-            <div class="flex">
-                <div class="border-2 border-black w-full p-2">
-                    <p class="text-gray-500">License Search
-                    <div class="flex">
-                        <select class="select-input" id="licenseId" name="license_id" wire:model="licenseId">
-                            <option value="">Choose One</option>
-                            @foreach ($civilian->licenses as $license)
-                                <option value="{{ $license->id }}">{{ $license->license_type->name }} -
-                                    {{ $license->id }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    </p>
-                </div>
-            </div>
-            <div class="flex">
-                @if ($chosen_license)
-                    <div class="border-2 border-black w-2/6 p-2">
-                        <p class="text-gray-500">License No. <span
-                                class="block text-black font-bold uppercase">{{ $chosen_license->id }}</span></p>
-                    </div>
-                    <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Expires <span
-                                class="block text-black font-bold uppercase">{{ $chosen_license->expires_on->format('m/d/Y') }}</span>
-                        </p>
-                    </div>
-                    <div class="border-2 border-black w-2/6 p-2">
-                        <p class="text-gray-500">Type <span
-                                class="block text-black font-bold uppercase">{{ $chosen_license->license_type->name }}</span>
-                        </p>
-                    </div>
-                    <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Suspend <span class="block text-black font-bold uppercase">
-                                <input class="mx-auto text-center w-full h-6" name="license_was_suspended"
-                                    type="checkbox">
-                            </span></p>
-                    </div>
-                @else
-                    <div class="border-2 border-black w-full p-2">
-                        <p class="text-gray-500">No License Linked</p>
-                    </div>
-                @endif
-            </div>
-
-            <div class="flex">
-                <div class="border-2 border-black w-full p-2">
-                    <p class="text-gray-500">Vehicle Search
-                    <div class="flex">
-                        <select class="select-input" id="vehicleId" name="vehicle_id" wire:model="vehicleId">
-                            <option value="">Choose One</option>
-                            @foreach ($civilian->vehicles as $vehicle)
-                                <option value="{{ $vehicle->id }}">{{ $vehicle->plate }} -
-                                    {{ $vehicle->color }} {{ $vehicle->model }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    </p>
-                </div>
-            </div>
-            <div class="flex">
-                @if ($chosen_vehicle)
-                    <div class="border-2 border-black w-2/6 p-2">
-                        <p class="text-gray-500">Plate <span
-                                class="block text-black font-bold uppercase">{{ $chosen_vehicle->plate }}</span></p>
-                    </div>
-                    <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Make <span
-                                class="block text-black font-bold uppercase">{{ $chosen_vehicle->model }}</span>
-                        </p>
-                    </div>
-                    <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Color <span
-                                class="block text-black font-bold uppercase">{{ $chosen_vehicle->color }}</span>
-                        </p>
-                    </div>
-                    <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Expires <span class="block text-black font-bold uppercase">
-                                {{ $chosen_vehicle->registration_expire->format('m/d/Y') }}
-                            </span></p>
-                    </div>
-                    <div class="border-2 border-black w-1/6 p-2">
-                        <p class="text-gray-500">Impound <span class="block text-black font-bold uppercase">
-                                <input class="mx-auto text-center w-full h-6" name="vehicle_was_impounded"
-                                    type="checkbox">
-                            </span></p>
-                    </div>
-                @else
-                    <div class="border-2 border-black w-full p-2">
-                        <p class="text-gray-500">No Vehicle Linked</p>
-                    </div>
-                @endif
-            </div>
-
-            <div class="flex">
-                <div class="border-2 border-black w-3/6 p-2">
-                    <p class="text-gray-500">Time
-                        <input class="block text-black p-3 w-full font-bold uppercase" name="time" type="time"
-                            value="{{ date('H:i') }}">
-                    </p>
-                </div>
-                <div class="border-2 border-black w-3/6 p-2">
-                    <p class="text-gray-500">Date
-                        <input class="block text-black p-3 w-full font-bold uppercase" name="date" type="date"
-                            value="{{ date('Y-m-d') }}">
-                    </p>
-                </div>
-            </div>
-            <div class="flex">
-                <div class="border-2 border-black w-full p-2">
-                    <p class="text-gray-500">Location
-                        <input class="block text-black p-3 w-full font-bold uppercase" name="location_of_offense"
-                            type="text">
-                    </p>
-                </div>
-            </div>
-
-        </div>
-        <button class="new-button-md mt-5">Save and add charges</button>
-    </form>
-</div> --}}
-
 <div class="">
     {{-- <div class="max-w-3xl mx-auto">
             <a class="delete-button-md" href="#" onclick="window.close();">Exit Without Saving</a>
         </div> --}}
+    <div class="w-full">
+        @foreach ($errors->all() as $error)
+            <p class="text-red-600">{{ $error }}</p>
+        @endforeach
+    </div>
 
     <div class="bg-gray-200 uppercase max-w-4xl rounded-lg mx-auto p-4 mt-5">
-        <form action="" id="mdeditor" method="POST">
+
+        <form action="{{ route('cad.ticket.store', $civilian->id) }}" id="mdeditor" method="POST">
             @csrf
             <div class="border-2 border-black p-2">
                 <p class="text-center font-bold text-2xl">{{ get_setting('state') }} UNIFORM CITATION - Officer Copy</p>
@@ -231,14 +48,21 @@
                             <p class="font-semibold">Pending</p>
                         </div>
                         <div class="col-span-2">
-                            <span class="text-xs italic">Agency Case Number</span>
+                            <span
+                                class="text-xs italic @error('call_id')
+                                        text-red-600
+                                    @enderror">Agency
+                                Case Number<span class="text-lg text-red-600">*</span></span>
                             <p class="font-semibold">
                                 <select
-                                    class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
+                                    class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black @error('call_id')
+                                        border-red-600
+                                    @enderror w-full"
                                     id="call_id" name="call_id">
                                     <option value="">Choose one</option>
                                     @foreach ($calls as $call)
-                                        <option value="{{ $call->id }}">{{ $call->id }} - {{ $call->nature }} @
+                                        <option @selected($call->id == old('call_id')) value="{{ $call->id }}">
+                                            {{ $call->id }} - {{ $call->nature }} @
                                             {{ $call->location }}, {{ $call->city }} on
                                             {{ $call->created_at->format('m/d/Y') }}</option>
                                     @endforeach
@@ -255,13 +79,20 @@
                 <div class="border-2 border-black border-collapse">
                     <div class="grid grid-cols-12 divide-x-2 divide-black text-center">
                         <div class="col-span-2">
-                            <span class="text-xs italic">Drivers License No</span>
+                            <span
+                                class="text-xs italic @error('license_id')
+                                        text-red-600
+                                    @enderror">Drivers
+                                License No<span class="text-lg text-red-600">*</span></span>
                             <select
-                                class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
+                                class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black @error('license_id')
+                                        border-red-600
+                                    @enderror w-full"
                                 id="licenseId" name="license_id" wire:model="licenseId">
-                                <option value="bg-inherit">Licenses</option>
+                                <option value="0">Licenses</option>
                                 @foreach ($civilian->licenses as $license)
-                                    <option value="{{ $license->id }}">{{ $license->id }} -
+                                    <option @selected($license->id == old('license_id')) value="{{ $license->id }}">
+                                        {{ $license->id }} -
                                         {{ $license->license_type->name }}
                                     </option>
                                 @endforeach
@@ -288,13 +119,23 @@
                 <div class="border-2 border-black border-collapse">
                     <div class="grid grid-cols-12 divide-x-2 divide-black text-center">
                         <div class="col-span-2">
-                            <span class="text-xs italic">Suspend License</span>
-                            <p class="font-semibold"><input class="mx-auto text-center w-full h-6"
-                                    name="license_was_suspended" type="checkbox"></p>
+                            <span class="text-xs italic ">Suspend License</span>
+                            @if ($chosen_license)
+                                <p class="font-semibold"><input @checked(old('license_was_suspended') == 'on')
+                                        class="mx-auto text-center w-full h-6" name="license_was_suspended"
+                                        type="checkbox"></p>
+                            @else
+                                <p class="font-semibold text-red-600">None</p>
+                            @endif
                         </div>
                         <div class="col-span-2">
                             <span class="text-xs italic">Type</span>
-                            <p class="font-semibold">{{ $chosen_license?->license_type->name }}</p>
+                            @if ($chosen_license)
+                                <p class="font-semibold">{{ $chosen_license?->license_type->name }}</p>
+                            @else
+                                <p class="font-semibold text-red-600">None</p>
+                            @endif
+
                         </div>
                         <div class="col-span-4">
                             <span class="text-xs italic">Address</span>
@@ -345,23 +186,44 @@
                 <div class="border-2 border-black border-collapse">
                     <div class="grid grid-cols-12 divide-x-2 divide-black text-center">
                         <div class="col-span-3">
-                            <span class="text-xs italic">Plate</span>
+                            <span
+                                class="text-xs italic @error('license_id')
+                                        text-red-600
+                                    @enderror">Plate<span
+                                    class="text-lg text-red-600">*</span></span>
                             <input
-                                class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
+                                class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 @error('vehicle_id')
+                                        border-red-600
+                                    @enderror border-black w-full"
                                 name="vehicle_plate" type="text" wire:model="vehicle_plate">
-                            <input name="vehicle_id" type="hidden" value="{{ $chosen_vehicle?->id }}">
+                            <input name="vehicle_id" type="hidden"
+                                value="{{ old('vehicle_id', $chosen_vehicle?->id) }}">
                         </div>
                         <div class="col-span-3">
                             <span class="text-xs italic">Make</span>
-                            <p class="font-semibold">{{ $chosen_vehicle?->model }}</p>
+                            @if ($chosen_vehicle)
+                                <p class="font-semibold">{{ $chosen_vehicle?->model }}</p>
+                            @else
+                                <p class="font-semibold text-red-600">None</p>
+                            @endif
                         </div>
                         <div class="col-span-3">
                             <span class="text-xs italic">Color</span>
-                            <p class="font-semibold">{{ $chosen_vehicle?->color }}</p>
+                            @if ($chosen_vehicle)
+                                <p class="font-semibold">{{ $chosen_vehicle?->color }}</p>
+                            @else
+                                <p class="font-semibold text-red-600">None</p>
+                            @endif
                         </div>
                         <div class="col-span-3">
                             <span class="text-xs italic">Impound Vehicle</span>
-                            <p class="font-semibold">No</p>
+                            @if ($chosen_vehicle)
+                                <p class="font-semibold"><input @checked(old('vehicle_was_impounded') == 'on')
+                                        class="mx-auto text-center w-full h-6" name="vehicle_was_impounded"
+                                        type="checkbox"></p>
+                            @else
+                                <p class="font-semibold text-red-600">None</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -372,35 +234,60 @@
                 <div class="border-2 border-black border-collapse">
                     <div class="grid grid-cols-12 divide-x-2 divide-black text-center">
                         <div class="col-span-2">
-                            <span class="text-xs italic">Area</span>
+                            <span
+                                class="text-xs italic @error('area')
+                                        text-red-600
+                                    @enderror">Area<span
+                                    class="text-lg text-red-600">*</span></span>
                             <input
                                 class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
                                 name="area" type="text">
                         </div>
                         <div class="col-span-1">
-                            <span class="text-xs italic">Weather</span>
+                            <span
+                                class="text-xs italic @error('weather')
+                                        text-red-600
+                                    @enderror">Weather<span
+                                    class="text-lg text-red-600">*</span></span>
                             <input
                                 class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
                                 name="weather" type="text">
                         </div>
                         <div class="col-span-2">
-                            <span class="text-xs italic">Traffic</span>
+                            <span
+                                class="text-xs italic @error('traffic')
+                                        text-red-600
+                                    @enderror">Traffic<span
+                                    class="text-lg text-red-600">*</span></span>
                             <input
                                 class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
                                 name="traffic" type="text">
                         </div>
                         <div class="col-span-1">
-                            <span class="text-xs italic">Accident</span>
-                            <p class="font-semibold">No</p>
+                            <span
+                                class="text-xs italic @error('accident')
+                                        text-red-600
+                                    @enderror">Accident<span
+                                    class="text-lg text-red-600">*</span></span>
+                            <p class="font-semibold"><input @checked(old('accident') == 'on')
+                                    class="mx-auto text-center w-full h-6" name="accident" type="checkbox"></p>
                         </div>
                         <div class="col-span-2">
-                            <span class="text-xs italic">Speed</span>
+                            <span
+                                class="text-xs italic @error('speed')
+                                        text-red-600
+                                    @enderror">Speed<span
+                                    class="text-lg text-red-600">*</span></span>
                             <input
                                 class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
                                 name="speed" type="number">
                         </div>
                         <div class="col-span-3">
-                            <span class="text-xs italic">on Highway/Street</span>
+                            <span
+                                class="text-xs italic @error('highway_street')
+                                        text-red-600
+                                    @enderror">on
+                                Highway/Street<span class="text-lg text-red-600">*</span></span>
                             <input
                                 class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
                                 name="highway_street" type="text">
@@ -412,24 +299,34 @@
                     <div class="grid grid-cols-12 divide-x-2 divide-black text-center">
                         <div class="col-span-4 text-left pl-2">
                             <p>
-                                <input id="" name="" type="checkbox"> <label for="">Injury
+                                <input @checked(old('is_injury')) id="is_injury" name="is_injury" type="checkbox">
+                                <label for="is_injury">Injury
                                     or
                                     Serious Injury</label>
                             </p>
                             <p>
-                                <input id="" name="" type="checkbox"> <label
-                                    for="">Passengers
+                                <input @checked(old('is_passenger_under_16')) id="is_passenger_under_16"
+                                    name="is_passenger_under_16" type="checkbox">
+                                <label for="is_passenger_under_16">Passengers
                                     under 16</label>
                             </p>
                         </div>
                         <div class="col-span-4">
-                            <span class="text-xs italic">In Vicinity/City Of</span>
+                            <span
+                                class="text-xs italic @error('in_city_of')
+                                        text-red-600
+                                    @enderror">In
+                                Vicinity/City Of<span class="text-lg text-red-600">*</span></span>
                             <input
                                 class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
                                 name="in_city_of" type="text">
                         </div>
                         <div class="col-span-4">
-                            <span class="text-xs italic">At/Near Intersection</span>
+                            <span
+                                class="text-xs italic @error('at_intersection')
+                                        text-red-600
+                                    @enderror">At/Near
+                                Intersection<span class="text-lg text-red-600">*</span></span>
                             <input
                                 class="bg-inherit ring-0 border-b-2 uppercase focus:outline-0 font-semibold px-2 my-2 border-black w-full"
                                 name="at_intersection" type="text">
