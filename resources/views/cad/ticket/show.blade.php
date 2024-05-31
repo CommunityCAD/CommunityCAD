@@ -23,7 +23,7 @@
                                 <select class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none w-full ring-1"
                                     disabled id="" name="call_id">
                                     <option value="">{{ $ticket->call?->id }} |
-                                        {{ $ticket->call->nature_info['name'] }}</option>
+                                        {{ $ticket->call?->nature_info['name'] }}</option>
                                 </select>
                             </div>
                         </div>
