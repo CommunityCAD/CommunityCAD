@@ -84,7 +84,7 @@
                             <div>
                                 <select class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none w-full ring-1"
                                     disabled id="licenseId" name="license_id">
-                                    <option value="">{{ $ticket?->license->id }}</option>
+                                    <option value="">{{ optional($ticket->license)->id }}</option>
                                 </select>
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
@@ -95,7 +95,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->license->license_type->name ?? '' }}">
+                                    type="text" value="{{ optional($ticket->license)->license_type->name ?? '' }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->license ? get_setting('state') : '' }}">
+                                    type="text" value="{{ $ticket->license ? get_setting('state') : '' }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -115,7 +115,8 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->license->expires_on->format('m/d/Y') ?? '' }}">
+                                    type="text"
+                                    value="{{ optional($ticket->license)->expires_on->format('m/d/Y') ?? '' }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -265,7 +266,7 @@
                             </div>
                             <div class="flex items-center">
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    name="plate" type="text" value="{{ $ticket?->vehicle->plate }}">
+                                    name="plate" type="text" value="{{ optional($ticket->vehicle)->plate }}">
 
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
@@ -277,9 +278,9 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->model }}">
+                                    type="text" value="{{ optional($ticket->vehicle)->model }}">
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1"
-                                    name="vehicle_id" type="hidden" value="{{ $ticket?->vehicle->id }}">
+                                    name="vehicle_id" type="hidden" value="{{ optional($ticket->vehicle)->id }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -289,7 +290,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->color }}">
+                                    type="text" value="{{ optional($ticket->vehicle)->color }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -299,7 +300,7 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->status_name }}">
+                                    type="text" value="{{ optional($ticket->vehicle)->status_name }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
@@ -309,7 +310,8 @@
                             </div>
                             <div>
                                 <input class="text-input-sm ring-gray-900 focus:ring-blue-600 rounded-none ring-1" disabled
-                                    type="text" value="{{ $ticket?->vehicle->registration_expire->format('m/d/Y') }}">
+                                    type="text"
+                                    value="{{ optional($ticket->vehicle)->registration_expire->format('m/d/Y') }}">
                                 {{-- Input Error: ring-red-600 ring-2 --}}
                             </div>
                         </div>
