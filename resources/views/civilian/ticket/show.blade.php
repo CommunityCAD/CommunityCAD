@@ -255,7 +255,7 @@
                         <p class="font-semibold">{{ $ticket->officer->user_department->badge_number }}</p>
                     </div>
                     <div class="">
-                        <span class="text-xs italic">Badge Number</span>
+                        <span class="text-xs italic">Agency</span>
                         <p class="font-semibold">{{ $ticket->officer->user_department->department->initials }}</p>
                     </div>
                 </div>
