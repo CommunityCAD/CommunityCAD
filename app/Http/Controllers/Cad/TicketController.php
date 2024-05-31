@@ -54,10 +54,8 @@ class TicketController extends Controller
 
         $data['court_at'] = date('Y-m-d H:i:s', strtotime('+14 Days'));
 
-        $ticket = Ticket::create($data);
-
-
         unset($data['time'], $data['date'], $data['plate']);
+        $ticket = Ticket::create($data);
 
         if ($data['license_was_suspended']) {
             $license = License::where('id', $data['license_id']);
