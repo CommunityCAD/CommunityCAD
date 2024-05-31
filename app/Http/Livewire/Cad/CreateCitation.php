@@ -36,8 +36,6 @@ class CreateCitation extends Component
 
         $this->chosen_vehicle = Vehicle::where('id', old('vehicle_id'))->get()->first();
         $this->vehicle_plate = old('plate');
-        debug($this->vehicle_plate);
-        debug(old('vehicle_id'));
     }
 
     public function render()
