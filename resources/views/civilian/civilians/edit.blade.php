@@ -7,13 +7,36 @@
             @csrf
             @method('put')
 
+            <div class="w-full px-4 md:w-1/2">
+                <div class="mb-6">
+                    <label class="block text-base font-medium text-white" for="first_name">
+                        First Name
+                    </label>
+                    <input class="text-input" name="first_name" placeholder="John" type="text"
+                        value="{{ old('first_name') }}" />
+                    <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+                </div>
+            </div>
+
+            <div class="w-full px-4 md:w-1/2">
+                <div class="mb-6">
+                    <label class="block text-base font-medium text-white" for="last_name">
+                        Last Name
+                    </label>
+                    <input class="text-input" name="last_name" placeholder="Doe" type="text"
+                        value="{{ old('last_name') }}" />
+                    <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+
+                </div>
+            </div>
+
             <div class="w-full px-4 md:w-2/3">
                 <div class="mb-6">
                     <label class="block text-base font-medium text-white" for="picture">
                         Image URL <span class="text-gray-400">(optional)</span>
                     </label>
-                    <input class="text-input" name="picture" placeholder="https://www.fivemanage.com/upload..." type="text"
-                        value="{{ old('picture') }}" />
+                    <input class="text-input" name="picture" placeholder="https://www.fivemanage.com/upload..."
+                        type="text" value="{{ old('picture') }}" />
                     <x-input-error :messages="$errors->get('picture')" class="mt-2" />
                 </div>
             </div>

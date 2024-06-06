@@ -22,6 +22,8 @@ class CivilianUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'first_name' => 'required|alpha|max:255',
+            'last_name' => 'required|max:255',
             'occupation' => 'nullable',
             'postal' => 'required|numeric',
             'street' => 'required',
