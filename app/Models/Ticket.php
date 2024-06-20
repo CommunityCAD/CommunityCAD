@@ -47,7 +47,7 @@ class Ticket extends Model
 
     public function charges()
     {
-        return $this->hasMany(Charges::class);
+        return $this->hasMany(Charges::class)->withTrashed();
     }
 
     public function call()
@@ -61,8 +61,8 @@ class Ticket extends Model
         static::creating(
             function ($model) {
                 $new_number = date('ymd');
-                $number = Ticket::where('id', 'like', $new_number . '%')->count() + 1;
-                $new_number = $new_number . str_pad($number, 3, '0', STR_PAD_LEFT);
+                $number = Ticket::where('id', 'like', $new_number.'%')->count() + 1;
+                $new_number = $new_number.str_pad($number, 3, '0', STR_PAD_LEFT);
                 $model->id = $new_number;
             }
         );
