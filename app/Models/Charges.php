@@ -14,11 +14,11 @@ class Charges extends Model
 
     public function ticket()
     {
-        return $this->belongsTo(Ticket::class);
+        return $this->belongsTo(Ticket::class)->withTrashed();
     }
 
     public function penal_code()
     {
-        return $this->belongsTo(PenalCode::class);
+        return $this->belongsTo(PenalCode::class)->withTrashed();
     }
 }

@@ -16,11 +16,11 @@ class PenalCode extends Model
 
     public function penal_code_title()
     {
-        return $this->hasOne(PenalCodeTitle::class, 'id', 'penal_code_title_id');
+        return $this->hasOne(PenalCodeTitle::class, 'id', 'penal_code_title_id')->withTrashed();
     }
 
     public function penal_code_class()
     {
-        return $this->hasOne(PenalCodeClass::class, 'id', 'penal_code_class_id');
+        return $this->hasOne(PenalCodeClass::class, 'id', 'penal_code_class_id')->withTrashed();
     }
 }
