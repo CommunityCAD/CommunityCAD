@@ -53,8 +53,6 @@ class RoleController extends Controller
             $validated['discord_role_id'] = null;
         }
 
-        dd($validated);
-
         $role = Role::create(['title' => $validated['title'], 'discord_role_id' => $validated['discord_role_id']]);
         $role->permissions()->sync($validated['permissions']);
 
