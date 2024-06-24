@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\CadSettingController;
 use App\Http\Controllers\Admin\CivilianLevelController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DisciplinaryActionTypeController;
-use App\Http\Controllers\Admin\DiscordChannelController;
 use App\Http\Controllers\Admin\LicenseTypeController;
 use App\Http\Controllers\Admin\PenalCode\PenalCodeClassController;
 use App\Http\Controllers\Admin\PenalCode\PenalCodeController;
@@ -25,8 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/roles', RoleController::class)->middleware('can:role_manage');
 
 Route::put('/user/{user}/roles', [UserRoleController::class, 'update'])->name('users.roles.update')->middleware('can:user_manage_user_roles');
-Route::get('/user/{user}/status/edit', [UserStatusController::class, 'edit'])->name('users.status.edit')->middleware('can:user_manage_user_status');
-Route::put('/user/{user}/status', [UserStatusController::class, 'update'])->name('users.status.update')->middleware('can:user_manage_user_status');
+Route::get('/user/{user}/status/edit', [UserStatusController::class, 'edit'])->name('users.status.edit')->middleware('can:user_edit_user_status');
+Route::put('/user/{user}/status', [UserStatusController::class, 'update'])->name('users.status.update')->middleware('can:user_edit_user_status');
 
 Route::put('/user/{user}/super_user', [UserStatusController::class, 'super_user'])->name('users.super_user.update')->middleware('can:is_owner_user');
 Route::put('/user/{user}/protected_user', [UserStatusController::class, 'protected_user'])->name('users.protected_user.update')->middleware('can:is_owner_user');
@@ -40,7 +38,7 @@ Route::delete('/user/{user}/accommodation/{userAccommodation}', [UserAccommodati
 Route::post('/user/{user}/da', [UserDisciplinaryActionController::class, 'store'])->name('users.da.store')->middleware('can:user_manage_user_disciplinary_actions');
 Route::delete('/user/{user}/da/{disciplinaryAction}', [UserDisciplinaryActionController::class, 'destroy'])->name('users.da.destroy')->middleware('can:user_manage_user_disciplinary_actions');
 
-Route::put('/user/{user}/community_rank', [UserCommunityRankController::class, 'update'])->name('users.community_rank.update')->middleware('can:user_manage_user_status');
+Route::put('/user/{user}/community_rank', [UserCommunityRankController::class, 'update'])->name('users.community_rank.update')->middleware('can:user_edit_user_status');
 
 Route::resource('users', UserController::class)->middleware('can:user_access');
 
@@ -58,7 +56,6 @@ Route::middleware(['can:penal_code_manage'])->name('penalcode.')->prefix('penalc
     Route::resource('code', PenalCodeController::class)->except('show')->middleware('can:penal_code_manage');
 });
 
-
 Route::get('settings/general', [SettingsController::class, 'general'])->name('settings.general')->middleware('can:cad_settings');
 Route::get('settings/roleplay', [SettingsController::class, 'roleplay'])->name('settings.roleplay')->middleware('can:cad_settings');
 Route::get('settings/application', [SettingsController::class, 'application'])->name('settings.application')->middleware('can:cad_settings');
@@ -67,7 +64,6 @@ Route::get('settings/api_key', [SettingsController::class, 'api_key'])->name('se
 Route::get('settings/generate_api_key', [SettingsController::class, 'generate_api_key'])->name('settings.generate_api_key')->middleware('can:is_owner_user');
 Route::get('settings/discord_roles', [SettingsController::class, 'discord_roles'])->name('settings.discord_roles')->middleware('can:cad_settings');
 Route::get('settings/cad', [SettingsController::class, 'cad'])->name('settings.cad')->middleware('can:cad_settings');
-
 
 Route::post('settings', [SettingsController::class, 'update'])->name('settings.update')->middleware('can:cad_settings');
 Route::post('settings/update_discord', [SettingsController::class, 'update_discord'])->name('settings.update_discord')->middleware('can:cad_settings');

@@ -69,7 +69,7 @@
             @endcan
             <hr>
 
-            @can('report_manage')
+            @can('reports_manage')
                 <li class="relative px-6 py-3">
                     <a class="flex items-center @if (request()->is('supervisor/reports/*') || request()->is('supervisor/reports')) !text-base !text-purple-500 @endif"
                         href="{{ route('supervisor.reports.index') }}">
