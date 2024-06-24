@@ -32,11 +32,12 @@ class RoleController extends Controller
         if (get_setting('use_discord_roles')) {
             $response =
                 Http::accept('application/json')
-                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
-                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+                    ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                    ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/roles');
 
             $discord_roles = json_decode($response->body());
         }
+
         return view('admin.roles.create', compact('admin_permissions', 'staff_permissions', 'supervisor_permissions', 'courthouse_permissions', 'discord_roles'));
     }
 
@@ -47,6 +48,12 @@ class RoleController extends Controller
             'permissions' => 'required|array',
             'discord_role_id' => 'numeric|nullable',
         ]);
+
+        if (! isset($validated['discord_role_id'])) {
+            $validated['discord_role_id'] = null;
+        }
+
+        dd($validated);
 
         $role = Role::create(['title' => $validated['title'], 'discord_role_id' => $validated['discord_role_id']]);
         $role->permissions()->sync($validated['permissions']);
@@ -67,7 +74,7 @@ class RoleController extends Controller
                 ],
                 [
                     'name' => 'Created by',
-                    'value' => auth()->user()->id . ' (' . auth()->user()->preferred_name . ')',
+                    'value' => auth()->user()->id.' ('.auth()->user()->preferred_name.')',
                 ],
                 [
                     'name' => 'Created at',
@@ -93,8 +100,8 @@ class RoleController extends Controller
         if (get_setting('use_discord_roles')) {
             $response =
                 Http::accept('application/json')
-                ->withHeaders(['Authorization' => config('app.discord_bot_token')])
-                ->get('https://discord.com/api/guilds/' . get_setting('discord_guild_id') . '/roles');
+                    ->withHeaders(['Authorization' => config('app.discord_bot_token')])
+                    ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/roles');
 
             $discord_roles = json_decode($response->body());
         }
@@ -116,7 +123,7 @@ class RoleController extends Controller
 
         DiscordNotification::send(
             'audit_log',
-            'Role ' . $role->title . ' has been updated.',
+            'Role '.$role->title.' has been updated.',
             '',
             15548997,
             [
@@ -130,7 +137,7 @@ class RoleController extends Controller
                 ],
                 [
                     'name' => 'Updated by',
-                    'value' => auth()->user()->id . ' (' . auth()->user()->preferred_name . ')',
+                    'value' => auth()->user()->id.' ('.auth()->user()->preferred_name.')',
                 ],
                 [
                     'name' => 'Updated at',
@@ -149,7 +156,7 @@ class RoleController extends Controller
 
         DiscordNotification::send(
             'audit_log',
-            'Role ' . $role->title . ' has been deleted.',
+            'Role '.$role->title.' has been deleted.',
             '',
             15548997,
             [
@@ -163,7 +170,7 @@ class RoleController extends Controller
                 ],
                 [
                     'name' => 'Deleted by',
-                    'value' => auth()->user()->id . ' (' . auth()->user()->preferred_name . ')',
+                    'value' => auth()->user()->id.' ('.auth()->user()->preferred_name.')',
                 ],
                 [
                     'name' => 'deleted at',
